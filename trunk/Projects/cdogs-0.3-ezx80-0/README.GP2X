@@ -1,0 +1,63 @@
+C-Dogs version 0.3
+==================
+
+This is a port of C-Dogs SDL (see http://members.optusnet.com.au/~lmartinking/hacks/cdogs/) which in turn is a port of the DOS game C-Dogs (see http://www.orcsoftware.com/~ronny/C-Dogs.html).
+
+The player character is an elite soldier, taking on mission after mission
+to defeat evil in any form. That is, you kill it or blow it up.
+
+Controls
+========
+
+In Menus
+
+Joystick   - Select/Change option
+A          - Select
+B          - Delete
+Start      - Quit
+
+In Game:
+
+Joystick   - Move
+A          - Fire
+B          - When still, switch weapon. When moving - run
+Y          - Show Map
+
+Button can be redefined to a limited extent - see controls menu.
+
+Notes
+=====
+
+There is no music, this applies to the original port too.
+
+Installation
+============
+
+To build type:
+
+cd src
+make
+make install
+
+The game and data will be in the dist directory
+
+Changes
+=======
+
+Version 0.3
+
+Fix loading of campaigns from file - path was wrong in mainmenu.c
+
+Version 0.2
+
+Added volume control and made display full screen
+
+Version 0.1 
+
+Initial release
+
+Contact:
+========
+
+drparker@freenet.co.uk
+
