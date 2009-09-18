@@ -1,0 +1,690 @@
+
+Hexen II: Hammer of Thyrion 1.4.3
+---------------------------------
+
+
+1. Installation
+
+  1.1 Getting Started
+  1.2 Software Requirements
+  1.3 Running the Game
+  1.4 Sound and Midi
+  1.5 Networking/Multiplayer
+  1.6 Game Saves and Configuration files
+  1.7 Fullscreen/Windowed modes and mouse
+
+2. Known Problems
+
+  2.1 Sound Problems
+  2.2 Lines on Screen
+  2.3 Fluxbox
+
+3. General Info
+
+  3.1 Mods
+  3.2 Game Console
+  3.3 Hardware Acceleration
+  3.4 Links
+  3.5 Thanks
+  3.6 Contact
+
+4. Appendix
+
+----------------------------------------------------------------
+
+
+
+1. INSTALLATION
+---------------
+
+
+1.1 Getting Started
+-------------------
+
+Hexen II source, and the Hammer of Thyrion source port, are free
+but the game itself is not: You must have an original copy of the
+game released by Raven Software and Activision. If you don't, then
+download the demo version. The rest of this document assumes that
+you own the retail version of the game.
+
+Hexen II requires its game data to be updated to version 1.11 .
+There are two ways to do this:
+
+a. Using the installer:
+   The installer will get the files from your original cdroms
+   (the windows discs released by Raven and Activision back in
+   1997), apply the latest patches, and install the binaries
+   for you. The first option on the installer is mandatory and
+   installs the original hexen2 game.
+
+   The second option on the installer will allow you to install
+   the Mission Pack "Portal of Praevus", should you have it.
+   All you need to do is choosing the Praevus support check-box
+   and readying your cdrom.
+
+   Third option on the installer is HexenWorld Multiplayer
+   support. No cdrom is necessary for this option.
+
+   Here are the names of the binaries to be installed:
+
+	hexen2	-  Hexen II (software rendering)
+	glhexen2 - Hexen II (opengl rendering)
+	h2ded	-  Hexen II Dedicated server
+	hwcl	-  HexenWorld Client (software rendering)
+	glhwcl	-  HexenWorld Client (opengl rendering)
+	hwsv	-  HexenWorld Server
+	hwmaster-  HexenWorld Master Server
+
+b. Manual install/update of data files:
+   Download the base binary tarball (e.g., hexen2-1.4.3.i586.tgz)
+   and extract it. Copy the two files pak0.pak and pak1.pak from
+   your cdrom into the "data1" directory in your own installation.
+   Run the command " chmod 644 data1/pak* "  to fix their permis-
+   sions. The pak filenames should be lower-cased, if not already.
+   To patch the data files, type ./update_xdelta.sh (this update
+   script and its requirements are included in the binary package).
+   Confirm the result by checking with the following md5sums:
+
+   c9675191e75dd25a3b9ed81ee7e05eff  data1/pak0.pak
+   c2ac5b0640773eed9ebe1cda2eca2ad0  data1/pak1.pak
+
+   As an alternative, the game launcher has the integrated ability
+   of patching those pak files. Just press the button and it'll be
+   done.
+
+   If you have the mission pack (Portal of Praevus), copy the file
+   pak3.pak from your cdrom into the "portals" directory in your
+   own installation. Run the command " chmod 644 portals/pak* "
+   to fix its permissions. No additional patching is necessary
+   for the mission pack. Here is the md5sum of pak3.pak, just in
+   case:
+
+   77ae298dd0dcd16ab12f4a68067ff2c3  portals/pak3.pak
+
+   If you want to install HexenWorld, download the HexenWorld
+   binary package (e.g., hexenworld-1.4.3.i586.tgz) and extract
+   it in the same directory you extracted the base HoT tarball.
+   No additional patching is necessary for hexenworld.
+
+
+1.2 Software Requirements
+-------------------------
+
+   SDL (min.: 1.2.4)	  : Simple DirectMedia Layer libraries.
+			    1.2.7 and newer highly recommended.
+			    If run on systems with SDL < 1.2.6,
+			    anti-aliasing support will be auto-
+			    matically disabled.
+
+   SDL_mixer (min.: 1.2.4): Required for midi support (should
+			    be compiled with timidity+ support)
+			    1.2.5 and newer highly recommended.
+
+   ALSA (min.: 0.9.8)	  : Advanced Linux Sound Architecture
+			    libraries and kernel modules.
+			    Necessary, if you use alsa-sound.
+			    1.0.7 (or newer) recommended.
+
+   GLIBC		  : If you compile your own binaries
+			    any glibc >= 2.1 should be fine.
+			    If you are using our linux binary
+			    tarballs, you need glibc >= 2.3.
+			    As for FreeBSD, version >= 5.3 is
+			    required.
+
+   To compile your own binaries, you'll need a standard unix build
+   environment. See the file COMPILE for details.
+
+
+1.3 Running the Game:
+----------------------
+
+There are two ways to start Hammer of Thyrion. The simplest is
+the game launcher, which can be accessed from your start
+menu or by typing "hexen2" on the command line. Choose your
+options and press "Launch Hexen2".
+
+If you don't have the launcher installed, or are more
+comfortable with a command line, you can run the game from an X
+terminal window.  "cd" into the installation directory and run
+any of the game binaries mentioned above. The game starts in
+windowed mode by default and without mission pack support. Use the
+"-f" switch to start in fullscreen and "-portals" or "-h2mp"
+to run Portals of Praevus.
+
+Important command-line switches:
+
+ -portals | -h2mp	Activate the mission pack support: Necessary for
+			playing the Portal of Praevus mission pack.
+ -f | -fullscreen	Run the game fullscreen (can also be set from the menu)
+ -w | -window		Run the game windowed (can also be set from the menu)
+ -g | -gllibrary	Select 3D rendering library
+ -width   N		Select screen size (can also be set from the menu)
+ -height  N		Optional, Must be used with -width (can also be set
+			from the menu)
+ -bpp  N		Color depth for GL fullscreen mode
+ -conwidth  N		Enables a bigger hud display and readable fonts
+			at high resolutions. Valid conwidth values are
+			values equal or less than the screen width above:
+			Smaller the number, bigger the text. 640 is the
+			sanest. Can also be adjusted from the menu.
+ -nomouse		Disables mouse usage in game
+ -heapsize  N		Heapsize (memory to allocate, in KB)
+ -fsaa N		Enable N sample anti-aliasing (N: 0,2,4) (can also be
+			set from the menu)
+ -sync | -vsync		Enable syncing with monitor refresh (GL, Nvidia)
+ -lm_4			Set lightmap format to GL_RGBA, which is actually
+			the default format. RGBA lightmaps are required for
+			colored lights. Can also be set from the menu.
+ -lm_1			Set lightmap format to GL_LUMINANCE. (this was the
+			old format that hexen2 originally used and it is
+			a little faster than RGBA lightmaps). Can also be
+			set from the menu.
+ -paltex		Enable 8 bit (palettized) textures: saves video
+			memory on old low-memory 3D accelerators if the
+			proper opengl extension is supported. (can also be
+			set from the menu)
+ -nomtex		Disable multitexture detection/usage
+ -3dfxgamma		Special gamma support for old Voodoo1/2/Rush
+ -sndoss		Use OSS for audio (default)
+ -sndalsa		Use ALSA for audio
+ -sndsdl		Use SDL for audio
+ -sndbsd		Use sunaudio (default for for openbsd and netbsd)
+ -ossdev		OSS Audio device to use (default: /dev/dsp)
+ -alsadev		ALSA Audio device to use (default: hw:0,0 )
+ -sndspeed N		Sampling rate of sound playback (eg 22050,44100)
+ -cddev			CD Audio device to use (default:
+				/dev/cdrom for linux, /dev/acd0 for BSD)
+ -nocdaudio		Disable cdrom music
+ -nomidi		Disable MIDI music
+ -s | -nosound		Run the game without sound
+ -nolan			Disable networking (incompatible with -listen)
+ -listen  N		Enable multiplayer with maximum N players
+ -protocol N		Run the server using protocol version N, instead of
+			the default. Valid values: 18 (old), 19 (default).
+ -condebug | -debuglog	Logs the console output.
+ -devlog		Enable full logging even when not in developer mode
+ -v | -version		Display the game version
+ -h | -help		Display short help message
+
+If you wish to brighten the display, simply use the game's menu
+entry. In the unlikely case that it doesn't work for you, you can
+use the "xgamma" utility: Here is the script I use for xgamma:
+
+    cd /usr/local/games/hexen2
+    xgamma -q -gamma 1.3;       # brighten the display
+    ./glhexen2 -width 800 -height 600 -f -heapsize 48000
+	    			# default heapsize is 32768
+    xgamma -q -gamma 1;         # restore old brightness
+
+3dfx Voodoo1 and Voodoo2 users can employ the -3dfxgamma command line
+switch to activate native 3dfx gamma controls.
+
+
+1.4 Sound and Midi
+------------------
+
+Hexen II has some great sound effects, with the option of CD or
+Midi background music. Unfortunately it didn't originally support
+all sound cards. To fix this, it now includes a choice of three
+sound drivers:
+
+a. OSS sound code
+-----------------
+This is the default sound driver for Linux and FreeBSD. It uses OSS
+(Open Sound System) kernel modules. It is compatible with most of
+the Linux distributions but it is known not to work for a few people.
+If you use the game launcher, select the OSS option from the sound
+menu. If you use command line, "-sndoss" tells the game engine to use
+OSS, but it isn't necessary (it is the default). If OSS doesn't work
+for you, then please try the other options below.
+
+
+b. ALSA sound code
+------------------
+This driver is for Linux and is based on the new ALSA (Advanced Linux
+Sound Architecture) 1.0.x libraries. It can be used with new Linux
+distributions such as Mandrake 10.x, Fedora Core 2/3, Debian-unstable
+and the like. It works best with higher sampling rates. If you use the
+game launcher, select the ALSA option from the sound menu. If you use
+command line, then start the game with "-sndalsa" option. For example:
+
+  ./glhexen2 -sndalsa -sndspeed 44100
+
+
+c. SDL sound code
+-----------------
+This third option isolates you from many compatibility issues and
+should be usable on most Linux distributions.  If you use the
+launcher, select the SDL option from the sound menu.  If you use
+command line, then start the game with "-sndsdl" argument.
+
+  ./glhexen2 -sndsdl [other possible arguments]
+
+
+d. BSD/SUN sound code
+---------------------
+The sunaudio driver is the default sound driver for our experimental
+OpenBSD and NetBSD support. If you use the game launcher, select the
+BSD option from the sound menu. If you use command line, "-sndbsd"
+tells the game engine to use sunaudio, but it isn't necessary (it is
+the default). If sunaudio doesn't work for you, then please try the
+SDL driver.
+
+If you can't get sound working, the "-nosound" option will disable
+it. Send a bug report on the project page.
+
+
+1.4.1 Midi support
+------------------
+
+On linux / unix, the midi background music requires 1.2.4 or a newer
+version of SDL_mixer, preferably version 1.2.5 or later.  Currently,
+it will not work in combination with the SDL sound option (-sndsdl).
+
+If compiling SDL_mixer yourself, the default location for the timidity
+data files (complete set of GUS patches) is "/usr/local/lib/timidity".
+If you already have these files installed elsewhere, you will have
+to symlink to this directory. For example:
+
+    ln -s /usr/share/timidity /usr/local/lib/timidity
+
+As an alternative, you can edit "SDL_mixer-1.2.x/timidity/config.h"
+before compiling SDL_mixer, to point to your timidity data files.
+
+
+1.5 Networking / Multiplayer
+----------------------------
+
+Since version 1.4.2 (engine version 1.19), Hammer of Thyrion binaries
+are fully compatible Raven's Windows Hexen II-1.11 binaries.  When run
+as a client, it can connect to Raven-1.11 servers and can play just
+fine.  It can playback the demos created with 1.11 version, as well.
+On the other hand, if a 1.11 client wants to connect to a H.o.T. server,
+the server must be started with "-protocol 18" command line argument.
+Remember that the original cdrom versions (1.03) are not supported at
+all: Network compatibility is only valid with the updated 1.11 version.
+Mission pack is, of course, fully network-compatible across platforms.
+As for the other Hexen II ports such as UQE, Pa3PyX, NewHexen, JSHexen,
+Hammer of Thyrion is compatible with them, too.
+
+
+1.6 Game Saves and Configuration files
+--------------------------------------
+
+Your game saves and configuration files are stored in a folder
+named  .hexen2 in your home folder:  ~/.hexen2   For the demo
+version, it's ~/.hexen2demo instead.
+
+Saves/configs for Hexen2 are stored under ~/.hexen2/data1
+For the Mission Pack, they are stored under ~/.hexen2/portals
+
+
+1.7 Fullscreen/Windowed modes and mouse
+---------------------------------------
+
+While playing the game, you can switch between fullscreen and
+windowed modes by pressing ALT + Enter combination. Alternatively,
+you can use the relevant menu option. The last setting will be
+saved to the config and will be remembered by the game.
+
+You can also change the resolution from the menu system. Again,
+the last setting will be saved to the config and will be remembered
+by the game.
+
+The menu option "Use Mouse" enables/disables mouse usage on the
+fly. While in windowed mode, disabling the mouse ungrabs the mouse
+pointer, so that you can easily use your desktop. You can also
+ungrab/regrab the mouse pointer by pressing the  CTRL + G  key
+combination whenever you want.
+
+----------------------------------------------------------------
+
+
+
+2. KNOWN PROBLEMS
+-----------------
+
+
+2.1 Sound Problems
+------------------
+
+First, we recommend using high sampling rates. This can be done either
+by a command line argument like "-sndspeed 44100" or "-sndspeed 48000",
+or by using the game launcher. ALSA is the driver of choice - the OSS
+driver may not work with all cards, and with SDL you have no midi.
+
+If you have problems making sound to work correctly, using the arts
+sound server may help you:    artsd & ; artsdsp -m glhexen2 -sndoss
+You may notice some lag in sound but if all fails this may be a good
+enough workaround.
+
+We have reports that some i8x0 sound chips not working correctly with
+hexen2, and this is overcome either by using alsa driver of hexen2 at
+48000 sampling rate, or by the arts workaround mentioned above.
+
+The ALSA driver may complain about a non-power-of-two buffer size and
+unsatisfactory sound may result.  The following was once reported for
+an onboard VIA82xx audiocard:
+
+	ALSA: Using device: default
+	ALSA: 14867 bytes buffer with mmap interleaved access
+	ALSA: WARNING: non-power of 2 buffer size. sound may be
+	unsatisfactory. Recommend using either the plughw or hw
+	devices or adjusting dmix to have a power of 2 buf size
+	ALSA Audio initialized (16 bit, stereo, 44100 Hz)
+
+You may resolve this by using a .asoundrc like the following,
+
+	pcm.alsa_fixh2 {
+		type dmix
+		ipc_key 2048
+		slave {
+			pcm "hw:0"
+			rate 48000
+			period_time 0
+			period_size 1024
+			buffer_size 16384
+			channels 4
+		}
+	}
+
+and starting uhexen2 with (notice the -sndalsa -alsadev alsa_fixh2
+parameters; tested and documented by Davide Cendron):
+
+	$ glhexen2 -sndalsa -alsadev alsa_fixh2 -sndspeed 48000
+
+
+2.2 Lines on Screen
+-------------------
+
+A common problem, especially with 3dfx cards, is flickering lines
+across the screen caused by a GL tweak. To fix this, bring down
+the console with the '~' key and enter 'gl_ztrick 0'.
+With fresh installations of HoT-1.2.3 and later, this option is
+disabled by default.
+
+
+2.3 Fluxbox
+-----------
+
+Though it's a great window manager, older versions of fluxbox have
+issues with some games in fullscreen mode. If this is the case,
+hit "ALT + Enter" twice to switch into windowed mode and then back
+into fullscreen mode.
+
+----------------------------------------------------------------
+
+
+3. GENERAL INFO
+---------------
+
+
+3.1 Mods
+--------
+
+Running a Hexen II mod is the same as running a Quake mod: You need
+to specify its directory name after a -game argument on the command
+line. For example, in order to run Fortress of Four Doors:
+
+    ./glhexen2 -game fo4d
+
+If you want to run your mod with mission pack support enabled, use
+a command line with -portals argument included. For example:
+
+    ./glhexen2 -portals -game fo4d
+
+Fortress of Four Doors is one of the few large mods for Hexen II. It
+has a confusing level near the middle, but is otherwise great. Look
+around the web for the file fo4d.zip or fo4d.tgz .
+
+Also, make sure to check out the botmatch mod "hcbots" available
+at our project page.
+
+And then, there is the somewhat incomplete Project Peanut: Developed
+by Shanjaq, Project Peanut introduces RPG elements, such as a massive
+array of spells, in a very interesting way. Its homepage is at:
+http://www.geocities.com/shanjaq/index.html
+
+
+3.2 Game Console
+----------------
+
+Games based on the Quake engine have an in game console - toggled by
+the '~' key or by the Shift-Escape key combination - from which
+variables can be changed.  Some of these affect performance, others
+enable features. A brief list follows but for more info see:
+http://www.planetquake.com/console/
+
+variable	valid values
+--------	------------
+
+_snd_mixahead	0.1-0.9	: 0.1 = less latency,
+			  0.9 = better performance
+
+gl_multitexture	0 or 1	: Disable/enable multitexturing on the fly.
+			  0 is default. Faster performance if the
+			  hardware supports it. Also adjustable from
+			  the menu.
+
+gl_texturemode		: GL_NEAREST	(Point sample, least quality)
+			  GL_LINEAR	(Bilinear, no mipmaps)
+			  GL_NEAREST_MIPMAP_NEAREST
+			  GL_NEAREST_MIPMAP_LINEAR
+			  GL_LINEAR_MIPMAP_NEAREST (Bilinear: default)
+			  GL_LINEAR_MIPMAP_LINEAR (Trilinear: best, slower)
+			  Also adjustable from the menu. Bilinear is
+			  recommended. If you don't have an ancient
+			  graphics card, you should have no trouble
+			  running with the trilinear filtering.
+
+gl_constretch	0 or 1	: Disable/enable console background eye candy.
+
+gl_ztrick	0 or 1	: 3% performance tweak (some cards unsupported)
+
+gl_picmip	0, 1, 2	: 0 is default. 1 and 2 scale down the textures
+			  (low quality), but the help screens and some
+			  small fonts become unreadable and ugly. Keep
+			  it as 0.
+
+gl_playermip		: similar to gl_picmip, but for player skins.
+
+snow_active	0 - 255	: 0 =  none,
+			  1 =  normal
+			  Amount designated by the map and higher acts as
+			  a multiplier.
+
+
+3.2.1 Software renderer options
+-------------------------------
+
+sbtrans		0, 1, 2	: HUD (status bar) transparency. 0: none (solid),
+			  1: slightly transparent, 2: very transparent.
+			  0 is default.
+
+dmtrans		0, 1, 2	: Same as the sbtrans above, but used for the
+			  small deathmatch overlay in multiplayer.
+
+
+3.2.2 Other OpenGL options
+-------------------------------
+
+gl_coloredlight	 0, 1, 2: Static colored lights. 0 is the white light that
+			  hexen2 traditionally uses. Mode 1 is colored
+			  lighting. Mode 2 is experimental which combines
+			  white and colored lighting (if available), and
+			  sometimes can give better results then just
+			  colored lighting, and is also slightly brighter.
+			  0 is the default. Can also be adjusted from the
+			  menu system. Changing this option requires the
+			  level to be reloaded. Colored lighting requires
+			  RGBA lightmaps which is also adjustable from the
+			  menu system.
+
+gl_colored_dynamic_lights 0 or 1:
+			  Disable/enable colored dynamic lights. 0 is the
+			  default. Also adjustable from the menu.
+
+gl_extra_dynamic_lights   0 or 1:
+			  Disable/enable extra dynamic lights. 0 is the
+			  default. Also adjustable from the menu.
+
+gl_stencilshadow  0 or 1: Disable/enable stencil buffered shadows on the
+			  fly. Default is 0.  Adjustable from the menu.
+
+gl_purge_maptex	  0 or 1: Purge opengl textures upon map change. Textures
+			  won't keep accumulating from map to map but the
+			  levels will load slower. Default is 1. Adjustable
+			  from the menu.
+
+
+3.2.3 Nvidia tweaks
+-------------------------------
+
+These are only valid for supported hardware (Geforce and better)
+with Nvidia's proprietary video drivers installed.
+
+The -sync or -vsync command line switch forces GL redraws to sync
+with the monitor refresh for a more stable image. This is equivalent
+to setting the environment variable __GL_SYNC_TO_VBLANK to 1.
+
+You can also override our -fsaa switch if you set Nvidia specific
+environment variable __GL_FSAA_MODE to an appropriate value.  The
+details for this can usually be found in Nvidia's readme file
+(/usr/share/doc/NVIDIA_GLX-1.0/README).  Briefly: Geforce 1 and 2
+use mode 3 or 4, others 1, 2, 4 or 5.
+
+
+
+3.3 Hardware Acceleration
+-------------------------
+
+Setting up hardware OpenGL acceleration under Linux used to be
+a big deal in the past. Modern distros do this automatically
+now.
+
+Nvidia's drivers for all of their modern video cards are not
+open source, and because of this many distributions do not
+include them. If your Nvidia card is running slowly, this is
+probably the cause, you should visit Nvidia.com to download the
+linux installer. In my experience these drivers are great, but
+not all versions work 100% with all cards. If you have a
+misbehaving Nvidia video card, try a different driver version.
+
+Linux kernel 2.6.8 / Nvidia driver version 6111 /TnT card and
+possibly other cards and kernels have issues with the GL game.
+Upgrade to NVIDIA-Linux-x86-1.0-7167 to fix these problems.
+If you don't want to change your nvidia driver and the game seems
+to halt, try using the alt-enter key combination to switch to
+windowed mode and redraw the screen. This behavior is the same
+for glquake.
+
+3dfx Voodoo1, Voodoo2 and Voodoo Rush are no longer hardware
+accelerated under XFree-4.x and X.org releases.  You need Glide,
+and Mesa compiled against Glide.  For some more detailed info,
+consult the document README.3dfx.
+
+
+3.4 Links
+---------
+
+    Hammer of Thyrion
+	Home page		: http://uhexen2.sourceforge.net/
+	Project page		: http://sourceforge.net/projects/uhexen2/
+	Work-in-progress	: http://uhexen2.sourceforge.net/devel/
+	CVS Repository		: http://uhexen2.cvs.sourceforge.net/uhexen2/
+	MorphOS port		: http://www.binaryriot.org/users/kiero/
+				  http://aminet.net/package/game/shoot/GLHexen2
+	GP2X port		: http://www.gp32x.com/board/index.php?showtopic=40562
+				  http://www.dcemu.co.uk/vbulletin/showthread.php?p=2148019592
+	PalmOS port		: http://www.metaviewsoft.de/
+
+    Hammer of Thyrion Packages / builds
+	FreshPorts for FreeBSD	:
+		main package	: http://www.freshports.org/games/uhexen2/
+		extra package	: http://www.freshports.org/games/uhexen2-extras/
+	SuSE RPM packages	: http://packman.links2linux.de/package/hexen2/
+	Arch Linux packages	: http://aur.archlinux.org/packages.php?do_Details=1&ID=12618
+	Gentoo ebuilds		:
+		the main ebuild	: http://bugs.gentoo.org/show_bug.cgi?id=105780
+		for demo data	: http://bugs.gentoo.org/show_bug.cgi?id=139262
+		for extra data	: http://bugs.gentoo.org/show_bug.cgi?id=139278
+		the cvs version	: http://bugs.gentoo.org/show_bug.cgi?id=181824
+	Gentoo Sunrise overlay	: http://overlays.gentoo.org/svn/proj/sunrise/reviewed/games-fps/
+	Nokia N770/800/810 build: http://www.internettablettalk.com/forums/showthread.php?p=134552
+
+    Other Hexen II ports
+	Hexen II PSP port	: http://jurajstyk.host.sk/
+	Korax's UQE Hexen II	: http://www.quake-engine.com/
+
+    Older, currently inactive Hexen II ports
+	Anvil of Thyrion	: http://aot.linuxgames.com/
+	Hexen II Mac port	: http://macglquake.sourceforge.net/
+	Hexen II Dreamcast	: http://dcquake.sourceforge.net/
+	JSHexen II		: http://jurajstyk.host.sk/
+	Pa3PyX's Hexen II	: http://pa3pyx.dnsalias.org/
+	NewHexen		: http://newhexen.raven-games.com/
+
+    Other web links
+	Official Hexen II FAQ	: http://www.raven-games.com/hex2faq/
+	Hexen2-Linux Game Tome	: http://happypenguin.org/show?Hammer%20of%20Thyrion
+	Hexen2-Linux Gamer Guide: http://linux.strangegamer.com/index.php?title=HeXen_II
+	Linux Quake How-To	: http://tldp.org/HOWTO/Quake-HOWTO.html
+	id Software		: http://www.idsoftware.com/
+	Raven Software		: http://www.ravensoft.com/
+	SDL homepage		: http://www.libsdl.org/
+	ALSA homepage		: http://www.alsa-project.org/
+	Lowercase Utility	: http://filerenameutils.sourceforge.net/
+
+
+3.5 Thanks
+----------
+
+Thanks to ID Software, Raven Games and Activision for a great
+game and for supporting open source software. Also thanks to
+Dan Olson and Clément Bourdarias for the initial Linux port
+(AoT) and to Sourceforge.net for hosting HoT.
+Mega thanks to all the unheralded Doom/Quake/Hexen modders.
+
+
+3.6 Contact
+-----------
+
+Ozkan Sezer      <sezero@users.sourceforge.net>
+Steven Atkinson  <stevenaaus@users.sourceforge.net>
+Levent Yavas     <leventy@users.sourceforge.net>
+
+
+
+---------------------------------
+APPENDIX  A.  Some Legacy Options
+---------------------------------
+
+If, while running around, the screen occasionally twitches up
+and down, then you must disable lookspring by typing
+"lookspring 0" in the game console, or by editing your
+config.cfg file in $HOME/.hexen2/data1/config.cfg.
+
+Lookspring, lookstrafe and keyboard look (+klook) are legacy
+options for systems without a mouse which we actually didn't
+kill for historical reasons. They are pretty much of no use
+today, and we recommend disabling them if they are not already.
+
+These options and key bindings are removed from the menu system
+as of Hammer of Thyrion 1.3.0.  For reference, here are what
+they are meant to do, as written in the old manuals:
+
+  lookspring:	0 or 1. Returns your view immediately to straight
+		ahead when you release the look up / down key.
+		Otherwise, you must move forward for a step or
+		two before your view snaps back.
+  lookstrafe:	0 or 1. If you are using the look up / down key,
+		then this option causes you to sidestep instead
+		of turn when you try to move left or right.
+  keyboard look: If +klook is bound to a key, press that key to
+		use your movement keys to look up or down.
+  mouse look:	If +mlook is bound to a key, press that key to
+		allow your mouse to look up or down (by sliding
+		it forward and back), and to remain looking up
+		or down even if you move forward.
+

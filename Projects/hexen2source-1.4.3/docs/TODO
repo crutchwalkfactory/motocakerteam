@@ -1,0 +1,45 @@
+Hexen II: Hammer of Thyrion
+
+TODO:
+---------------------------
+
+- Add a pak-patch application for Mac OS X.
+- Revise the launcher GUI.
+- Add joystick support through sdl
+- Re-visit the mouse grab code and clean it up.
+- Do a clean-up of the opengl system
+- Add multisampling support to win32
+- Make the fov command actually work in opengl.
+- Maybe add support for several image formats (jpeg, png, etc)
+- Maybe add model interpolation stuff?
+- Software renderer: maybe add 16 bit support (r_pixbytes = 2,
+  and even 4 for 32 bit)? The current code is largely missing
+  translucency pieces and the d_8to16 and d_8to24 translation
+  tables.
+- Add a direct draw video driver, like the one in quake2, for
+  mgl-free win64 software renderer support
+- HexenWorld: Spectator mode (chasecam) isn't as it should be,
+  compare with the quakeworld code and fix.
+- MorphOS: the port isn't touched since 1.4.0-prerelease times,
+  make sure it still works out of the box.
+- Maybe do other ports? (Amiga, etc?)
+- Add sequencer (mpu-401) support for midi (alsa / oss)
+- MIDI-background music: re-write with proper decoder library
+  usage (eg. wildmidi/timidity for software-midi, ogg-vorbis
+  for ogg, etc., like in quake3); reserve one of the available
+  channels for this purpose. a lot of work, but that will free
+  us from the SDL_mixer dependancy on linux/unix (and from the
+  quicktime dependancy on OSX): opening the sound device twice
+  is not a good thing. and we won't be needing any crap such as
+  fmod or other habaloo for windows external music.
+- DOS: Implement MIDI music playback.
+- DOS: Implement loading progress bars.
+- Add pthread support to the utilities and revise the current
+  windows threads mess there. the alpha ifdefs need cleaning.
+- utils/jsh2colour: clean-up the huge mess and improve a bit.
+- utils/maputils: improvements on the light tool?
+- utils/texutils: add some more texture tools (pcx2wal, etc.)
+- More unification of hexen2 and hexenworld trees
+- Reduce the number of lines in BUGS ;)
+- Re-visit the extra patches, fix and merge (e.g.: fog, etc.)
+
