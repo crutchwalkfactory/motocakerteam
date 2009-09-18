@@ -1,0 +1,59 @@
+Hi,
+this is the description what values can be found in the Config File
+and what they do. Also the syntax of the config file is described.
+That mean you not longer need to look in the source to find what can be
+configured. 
+
+
+
+Syntax:
+
+<LINE>       ::= <ASSIGNMENT>?<SPACE>+<COMMENT>
+<ASSIGNMENT> ::= <KEY><SPACE>=<SPACE><VALUE>
+<KEY>        ::= (!isspace())+
+<SPACE>      ::= (isspace())*
+<COMMENT     ::=  [^\n\r]*
+<VALUE>      ::= <NONWHITE>|<ESC_STRING>
+<NONWHITE>   ::= (!isspace())+
+
+
+
+the recognized <KEY> values are:
+
+DUMP_PATH	= "This value tell the program on witch patch the captured picture shpould be stored"
+DUMP_MODE	= "0-2 Tells what target image format shall be used (jpeg,png,bmp)"
+DUMP_QUALITY	= "The quality of compressed jpeg's"
+DUMP_SPEED	= How many Pictures per second (0 mean fastest)
+DUMP_COUTN	= How many Pictures ( start with programm start ) if activate by GUI count = 100k
+
+
+DEVICE		= "This is the device /dev/v4l/video1 that is used for input"
+V4L_FPS		= "Frames per Second Range: 4-30"
+V4L_HEIGHT	= "The captured image heigh"
+V4_WIDTH	= "The captured image width"
+
+FONT[1-3]	= "Here can the font of the gui changed (only true type fonts"
+DEBUG		= 0 or 1 at the moment for lot of debug (and timming) information.
+
+FILTER_INVERT
+FILTER_NOISE	= This values take 0 or 1 if the filter is default activaded
+FILTER_RANGE
+FILTER_*	= set Mode for filter * (* ist the plugin name) 0=Off 1..N=depending on the module
+
+FTP_HOST	= If ftp upload shall be used then you need to enter this four field's
+FTP_USER	 
+FTP_PASS
+FTP_FILE
+FTP_TEMP	= I recomend to use this too, this define an temporary name on the server side.
+		  So the during the upload time the target file is not invalid and after completing
+		  the Upload temp is renamed to the real file.
+
+FILTER_USER 	=  User definable chaining forumal of filter (under develop)
+			"SRC=AND(SRC,A0=TRASH(A0=ABSDIFF(SRC,CAP),20))"
+
+LOGO_PATH       = The path to a logo image to by blitted at LOGO_POS
+LOGO_POS        = 0 = Not blitted, 1 = Upper Left, 2 = Upper Right,
+		3 = Lower Right, 4 = Lower Left, 5 = Center
+
+Author of this File: Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+Logo path documentation by: Raphael Assenat <raphael.assenat@vl.videotron.ca>

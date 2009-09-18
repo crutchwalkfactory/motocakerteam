@@ -1,0 +1,38 @@
+Whats new in 0.4.5
+- Edge(highpass) and blur filter(lowpass)
+- Added documentation and license 
+- More MMX filters and C optimisation.
+- User definable filters via parser
+- Powered by logo function. 
+- Timming and Debug switchable per Hotkey
+- Ftp Upload support
+- Bugfixes
+- Documentation
+- more optimization in c filters
+- safe checking int filter (image->len multiple of 4)
+- Grayscale added to Gui
+
+
+Now, go ahead. Compile it and have fun.
+Simply type make
+
+License:
+SDLcam is released under the terms of the GNU GENERAL PUBLIC LICENSE Version 2.
+Please read Documentation/gpl.txt for more information.
+
+Thanks and credits:
+
+Thanks to Thomas Lussnig <thomas.lussnig@bewegungsmelder.de>, who has
+made many contributions to the current source code, like the blue box
+filter, MMX, optimisations, the New interface, Jpeg and png support :)
+
+
+SDL is required. Get it at http://www.libsdl.org
+SDL_image is also required. Get it at the same place as SDL.
+SDL_ttf is required. Get it at the same place as SDL.
+libxml2 is required. Get it at http://xmlsoft.org/
+
+If you want mpeg dump, get libfame at http://fame.sourceforge.net/
+
+
+And for future releases of SDLcam, go to: http://raph.darktech.org/SDLcam/
