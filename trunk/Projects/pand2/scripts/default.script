@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$serverid" != "" ] && [ "$ip" != "" ]  
+    then
+	echo "CLIENTIP" $ip
+        echo "GATEWAY" $serverid
+fi
+

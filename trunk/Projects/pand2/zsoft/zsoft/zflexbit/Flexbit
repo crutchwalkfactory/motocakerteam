@@ -1,0 +1,154 @@
+#!/bin/sh
+#######################
+#   Linuxmod          #
+#   LinXtend          #
+#######################
+
+if [ "$LX_ENV" != "true" ]
+then
+	. /ezxlocal/LinXtend/etc/initenv
+fi
+
+SLINEA=`showNumPicker 0 16 0`
+
+cp $EZX_LOCAL_APP_WRITE_PATH/setup/ezx_flexbit.cfg "$DIRNAME"/Temp
+let VALOR=`sed -n -e '/^'$SLINEA' = /p' $DIRNAME/Temp | sed s'/'$SLINEA' = //g'`
+rm $DIRNAME/Temp
+
+
+CUADROS="";
+
+CUADROS="$("$DIRNAME"/zflexbit $VALOR $SLINEA)"
+
+#showNotify "" ".$VALOR. .$SLINEA." 1 2
+#showNotify "" "$CUADROS" 1 4
+let GUARDAR=0;
+MULTISEL=$(showMultiSelect "Seleccione una Opcion:" "zFlexbit"$CUADROS)
+MSRES=$?
+if [ $MSRES -eq 0 ]
+then
+	GUARDAR=0;
+else
+
+	for MULTISEL in $MULTISEL
+	do
+	case "${MULTISEL}" in
+	"001")
+		let GUARDAR=$GUARDAR+1;
+	;;
+	"002")
+		let GUARDAR=$GUARDAR+2;
+	;;
+	"003")
+		let GUARDAR=$GUARDAR+4;
+	;;
+	"004")
+		let GUARDAR=$GUARDAR+8;
+	;;
+	"005")
+		let GUARDAR=$GUARDAR+16;
+	;;
+	"006")
+		let GUARDAR=$GUARDAR+32;
+	;;
+	"007")
+		let GUARDAR=$GUARDAR+64;
+	;;
+	"008")
+		let GUARDAR=$GUARDAR+128;
+	;;
+	"009")
+		let GUARDAR=$GUARDAR+256;
+	;;
+	"010")
+		let GUARDAR=$GUARDAR+512;
+	;;
+	"011")
+		let GUARDAR=$GUARDAR+1024;
+	;;
+	"012")
+		let GUARDAR=$GUARDAR+2048;
+	;;
+	"013")
+		let GUARDAR=$GUARDAR+4096;
+	;;
+	"014")
+		let GUARDAR=$GUARDAR+8192;
+	;;
+	"015")
+		let GUARDAR=$GUARDAR+16384;
+	;;
+	"016")
+		let GUARDAR=$GUARDAR+32768;
+	;;
+	"017")
+		let GUARDAR=$GUARDAR+65536;
+	;;
+	"018")
+		let GUARDAR=$GUARDAR+131072;
+	;;
+	"019")
+		let GUARDAR=$GUARDAR+262144;
+	;;
+	"020")
+		let GUARDAR=$GUARDAR+524288;
+	;;
+	"021")
+		let GUARDAR=$GUARDAR+1048576;
+	;;
+	"022")
+		let GUARDAR=$GUARDAR+2097152;
+	;;
+	"023")
+		let GUARDAR=$GUARDAR+4194304;
+	;;
+	"024")
+		let GUARDAR=$GUARDAR+8388608;
+	;;
+	"025")
+		let GUARDAR=$GUARDAR+16777216;
+	;;
+	"026")
+		let GUARDAR=$GUARDAR+33554432;
+	;;
+	"027")
+		let GUARDAR=$GUARDAR+67108864;
+	;;
+	"028")
+		let GUARDAR=$GUARDAR+134217728;
+	;;
+	"029")
+		let GUARDAR=$GUARDAR+268435456;
+	;;
+	"030")
+		let GUARDAR=$GUARDAR+536870912;
+	;;
+	"031")
+		let GUARDAR=$GUARDAR+1073741824;
+	;;
+	"032")
+		let GUARDAR=$GUARDAR+2147483648;
+	;;
+	esac
+	done
+
+
+showQ "Advertencia" "Desea continuar? se realizará un backup automatico de su ultimo flexbit." 1
+respuesta=$?
+if [ $respuesta = "1" ]; then
+# CODIGO SI EL USUARIO ELIGE "SI"
+showNotify "Operación" "Los cambios en el flexbit están siendo guardados." 1 2
+cp $EZX_LOCAL_APP_WRITE_PATH/setup/ezx_flexbit.cfg "$DIRNAME"/ezx_flexbit.cfg
+
+setconfig $EZX_LOCAL_APP_WRITE_PATH/setup/ezx_flexbit.cfg $SLINEA $GUARDAR
+	  $EZX_NATIVE_APP_PATH/phone/vibrateprocess
+else
+# CODIGO SI EL USUARIO ELIGE "NO"
+showNotify "Operación" "Cancelando modificacion en Flexbit." 1 2
+fi
+
+
+
+fi
+
+

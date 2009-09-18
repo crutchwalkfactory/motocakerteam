@@ -1,0 +1,250 @@
+#!/bin/sh
+#######################
+#   Linuxmod          #
+#   LinXtend          #
+#######################
+if [ "$LX_ENV" != "true" ]
+then
+	. /ezxlocal/LinXtend/etc/initenv
+fi
+
+export DIRN=`busybox dirname "$0"`
+export QTDIR=/usr/lib/ezx
+
+zz="zPand 0.2 Extreme Jujuy
+by SaTaN javieruro@gmail.com
+www.modmymoto.com
+Credits:  ivan -pand arm port-
+bluez team - mymoto spanish stuff
+David Härdeman ample-arm port by me
+mplayerhq team- port by ru friend
+alicia mi medio melon.
+All is GNU-GPL see Copying file"
+
+checkpand()
+{
+if $DIRN/pand -l | grep bnep | grep -v grep
+     then
+    	$DIRN/pand -K
+fi
+
+if telinit ps x | grep pand | grep -v grep 
+    then 
+	killall pand
+fi 
+}
+pandslave()
+{
+showProgress "$DIRN/pand --search --service GN --autozap --nodetach" "Modo GN" "Buscando Server Bnep."
+$DIRN/pand -l > $DIRN/bnepquest
+if ! telinit cat $DIRN/bnepquest | grep bnep0 | grep -v grep 
+    then
+		telinit rm -f $DIRN/myfile
+		showProgress "$DIRN/pand --search --service NAP --autozap --nodetach" "Modo NAP" "Buscando Server Bnep."
+	    $DIRN/pand -l > $DIRN/bnepquest
+	    if ! telinit cat $DIRN/bnepquest | grep bnep0 | grep -v grep 
+		    then
+			showNotify "Server NO encontrado" "Revise Config Server" sleep 3
+        		pandstatus=1
+		    fi
+    else
+	showNotify "Server ok" "Enlace Bnep Establecido" sleep 3
+	pandstatus=0
+fi  
+}
+getip()
+{
+showProgress "telinit udhcpc -n -i bnep0 -s $DIRN/default.script > $DIRN/ipfile" "Cliente DHCP" "Buscando ip.espere.."  
+    if ! telinit cat $DIRN/ipfile | grep "No leas" | grep -v grep 
+	then
+	    myip=`telinit cat $DIRN/ipfile | grep 'CLIENTIP' | awk '{ print $2}'`
+        mygateway=`telinit cat $DIRN/ipfile | grep 'GATEWAY' | awk '{ print $2}'`
+	    showNotify "IP OBTENIDO" "$myip" sleep 2
+	    rednet=0
+	else
+	    showNotify "Server DHCP no encontrado" "Revise su confguracion" sleep 3 
+	    rednet=1	  
+    fi
+}
+setinet()
+{
+telinit ifconfig bnep0 $myip
+telinit route add default gw $mygateway 
+/bin/dnsmasq -q -h -p 53 -i lo -R --server=$mygateway --server=200.45.191.35
+}
+testinet()
+{
+if ! telinit ping -c 3 www.linux.com | grep icmp_seq=1 | grep -v grep 
+    then
+	nice -n -20 $DIRN/mplayer http://208.122.59.30:7038 &> /dev/null </dev/null &
+	showmessagedlg "Radio en Vivo" "Escucha musica ??" 1
+	res=$?
+	if [ $res -eq 1 ] 
+	    then
+			telinit killall mplayer
+			showNotify "Conexion Realizada" "Internet ON" sleep 2
+	    	redinet=0
+			showNotify "ATENCION" "Revise su Firewall ICMP o DNS off" sleep 2 
+	    	telinit echo "CONECTADO" > $DIRN/myfile
+		else
+			telinit killall mplayer
+			showNotify "Reinicie Tel" "Revise Configuracion de Server" sleep 2
+			redinet=1
+	fi
+    else
+	showNotify "Ping to www.linux.com" "Coneccion OK" sleep 3
+	telinit echo "CONECTADO" > $DIRN/myfile
+	redinet=0
+fi
+}
+pandmaster()
+{
+$DIRN/pand --listen --role NAP --master --autozap
+showProgress "sleep 10" "Servicio On" "Esperando Conexiones"
+$DIRN/pand -l > $DIRN/pingfile
+if telinit cat $DIRN/pingfile | grep bnep0 | grep -v grep 
+    then
+	showNotify "Server up" "Bnep Conectado" sleep 2
+	pandstatus=0
+	telinit mkdir /mmc/mmca1/yourmoto
+	if [ -f /mmc/mmca1/yourmoto/*.mp3 ]
+	    then
+		showNotify "Activando" "Music Server.." sleep 2
+		$DIRN/ample -p 1234 -c 1 -t -n /mmc/mmca1/yourmoto &
+	    else 
+		showNotify "Sin Musica" "Directorio yourmoto vacio" sleep 2
+		showmessagedlg "Revisar" "Copie sus archivos al directorio yourmoto en la u-sd" 2
+	fi
+    else
+	showNotify "Server Off" "Cliente no se encuentra" sleep 2
+	checkpand
+	pandstatus=1
+fi	
+}
+choseserver()
+{
+Sel1=1
+if [  $pandstatus -eq 0  ]
+    then
+	until  [  $Sel1 -eq 0  ];do
+	    showRadio "RadioNET" "Seleccione Server" "di.fm 80's" "di.fm Dance" "di.fm TopHits" "Remote z6/v8" "Mis Radios" "Parar Radio" "Salir" 
+		Sel1=$?
+	        case $Sel1 in
+			1) telinit killall mplayer
+			   nice -n -20 $DIRN/mplayer -af volume=-20 http://208.122.59.30:7038 &> /dev/null </dev/null &;;
+	    	2) telinit killall mplayer
+	    	   nice -n -20 $DIRN/mplayer -af volume=-20 http://208.122.59.30:7010 &> /dev/null </dev/null &;;  
+			3) telinit killall mplayer
+			   nice -n -20 $DIRN/mplayer -af volume=-20 http://208.122.59.30:7046 &> /dev/null </dev/null &;;
+        	4) showNotify "Conectando..." "A server remoto" sleep 2
+			   telinit killall mplayer
+			   nice -n -20 $DIRN/mplayer -af volume=-20 http://192.168.16.4:1234 &> /dev/null </dev/null &;;
+		5) telinit killall mplayer
+		   plsfile=`showFilePicker`
+		   nice -n -20 $DIRN/mplayer -af volume=-20 -playlist $plsfile &> /dev/null </dev/null &;;
+		6) telinit killall mplayer;;
+	    	7) Sel1=0;;
+	       esac    
+     done
+else 
+    showNotify "Red Off" "No esta conectado por Bnep" sleep 2
+fi
+}
+btoff()
+{
+showProgress "/bin/sh /etc/initservices/services/bluetooth stop" "Apagando Bluetooth" "Apagando Bluetooth"
+telinit killall bluetooth
+showNotify "Recomendacion" "Reinicie su Telefono" sleep 2
+}
+
+
+#main
+#Chekeo de Bluetooth y Modulo
+if [ ! -f /tmp/BT.on ]
+    then
+	showProgress "/bin/sh /etc/initservices/services/bluetooth start" "Activando" "Bluetooth"
+	# /usr/SYSqtapp/bluetooth/bluetooth &
+	showNotify "Bluetooth" "Activado" sleep 5
+fi
+
+if ! lsmod | grep bnep | grep -v grep
+    then
+	showProgress "insmod /lib/modules/2.6.10_dev/kernel/net/bluetooth/bnep/bnep.ko | sleep 2" "Cargando" "modulos"
+		insmod $DIRN/alt_mxc_pp.ko
+		## insmod $DIRN/ptrace2.ko
+	    if ! lsmod | grep bnep | grep -v grep
+		then
+		    showNotify "Modulo No Existente" "Actualice Firmware" sleep 5
+		    exit
+	    fi
+fi
+Sel=1
+rednet=1
+redinet=1
+radio=1
+pandstatus=1
+if telinit cat $DIRN/myfile | grep CONECTADO 
+   	then
+		pandstatus=0
+		redinet=0
+		rednet=0
+fi
+until  [  $Sel -eq 6 ];do
+    showRadio "Bluetooth NET" "Seleccione Opcion" "Conectar a Red" "My Moto Server" "Your Moto" "Mplayer Radio Live" "Ocultar" "Reiniciar Todo"
+    Sel=$?
+	if [ $Sel -eq 1 ] || [ $Sel -eq 2 ] || [ $Sel -eq 3 ]
+		then
+		if telinit cat $DIRN/myfile | grep CONECTADO 
+	       	then
+	       		showNotify "EXISTE UNA CONECCION!" "MENU RESTRINGIDO" sleep 3
+		   		Sel=7
+		fi
+	fi	   			 
+	case $Sel in
+	    1) checkpand
+	       pandslave    
+	       if [ $pandstatus -eq 0 ]
+	    		then
+	    			getip 
+						if [  $rednet -eq 0 ]
+							then
+								setinet
+								testinet
+						fi
+	       fi
+	       ;;
+	    2) checkpand
+	       pandmaster
+	       ;;
+	    3) checkpand
+	       pandslave
+	       if [ $pandstatus -eq 0 ]
+	    	    then
+	    		      radio=0
+	       			  choseserver
+	       	fi
+	       ;;
+        4) choseserver
+	       ;;
+	5) if [  $redinet -eq 0 ] || [  $rednet -eq 0 ]
+				then
+	       			telinit echo "CONECTADO" > $DIRN/myfile
+	       			Sel=6
+	       		fi
+	       ;;
+	6) checkpand
+	   showNotify "Saliendo" "Limpiando Sistema..."
+	   telinit killall udhcpc
+	   telinit killall dnsmasq
+	   telinit killall mplayer
+	   telinit killall ample
+	   telinit rm -f $DIRN/myfile
+	   telinit rm -f $DIRN/bnepquest
+	   telinit rm -f $DIRN/ipfile
+	   #btoff
+	   Sel=6
+	   showmessagedlg "zPand 0.2" "$zz" 2
+	   Sel=6;;
+	 esac    
+done
+exit

@@ -1,0 +1,39 @@
+AMPLE TODO list:
+
+* Playlists
+	I didn't think of it first but if Ample could give you a playlist the
+	client can mix together his/her own mix like they want it. 
+	This would be in .m3u-format. High prio ;-)
+
+* Signal-controllable:
+	To allow you to skip tracks etc by sending the right signal to 
+	Ample from a shell.
+
+* Custom song titles
+	Like XMMS can be configured what to show
+	
+* HTML files should show dirs as well as files
+	Right now Ample only displays files, this needs some
+	reworking of the dirscan code though.
+
+* Some more advanced HTTP request stuff
+	Work has started, "Content-Length" now works,
+	but "Range" would be nice to have as well.
+	See http://bugs.xmms.org/show_bug.cgi?id=311 for inspiration
+
+* HTTP Authentication (base64.[ch] is one step towards this)
+	To allow password protection so that clients
+	would have to connect with
+	http://username:password@servername:port/
+	
+* Plugins for XMMS/WinAmp
+	For instance:
+	To make them send status of the "Random" button.
+	To make skip forward and skip backward actually work.
+
+* Many clients, same stream
+	Has been requested by some people, probably far into the future though
+
+* Recoding files to common bitrate "on the fly"
+	Shouldn't be too hard (popen()) but some hairy details to 
+	figure out first

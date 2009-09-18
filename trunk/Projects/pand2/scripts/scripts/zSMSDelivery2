@@ -1,0 +1,34 @@
+#!/bin/sh
+#######################
+#   Linuxmod          #
+#   LinXtend          #
+#######################
+if [ "$LX_ENV" != "true" ]
+then
+	. /ezxlocal/LinXtend/etc/initenv
+fi
+
+export DIRNAME=`busybox dirname "$0"`
+export QTDIR=/usr/lib/ezx
+
+showRadio "SMS Fast" "Que Pingo queres hacer!:" "Mandar Mensaje" 
+RADIORES=$?
+if [ $RADIORES -eq 1 ]
+then
+	BBBB=`showTextEntry 0 "Ingrese numero" "Ingresa el numero de telefono"`
+ 	if [ $? != 0 ] && [ $BBBB != "" ] 
+		then
+		AAAA=`showTextEntry 2 "Ingrese el texto" "Escriba su mensaje de texto"`
+		if [ $? != 0 ] && [ "$AAAA" != "" ] 
+		then
+			showMsg "Mensaje" "Confirma" 1 ||
+			   {
+				  	showNotify "" "Mensaje creado" 
+					./sendsms $BBBB $AAAA
+					showNotify "" "Mensaje enviado"
+			   }  
+		fi	
+	fi	
+fi
+done
+exit

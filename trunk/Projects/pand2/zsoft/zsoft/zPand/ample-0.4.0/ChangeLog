@@ -1,0 +1,108 @@
+AMPLE ChangeLog:
+
+2001-12-16 03:07 - David Härdeman <david@2gen.com> - Version 0.4.0
+
+	* Yes, I bumped the number to 0.4.0
+	  (that's because I plan to do like many other projects and have a 
+	   devel version that has an odd minor version and a stable version
+	   with an even minor version)
+	* Make ID3v2 code understand versions 2.2.0 -> 2.4.0 
+	  (all currently existing versions)
+	* Reformat HTML output somewhat
+	* Fix search-and-replace error in libwrap code
+	* Made servername a config option
+	* Renamed -r to -n (NON-recursive)
+	* Changed the DEF_LOGFILE 
+	  (it pointed to ample.conf instead of ample.log)
+	* Much work on autoconf stuff, should work much better now
+	* Some more testing on other architectures
+	  (I've compiled it on everything from Tru64 to Linux to *BSD)
+	
+2001-12-08 20:54 - David Härdeman <david@2gen.com> - Version 0.3.0pre1
+
+	* Tested (and verified) with mpg123, XMMS, Windows Media Player 
+	  and WinAmp
+	  (which included resolving a bug with song titles which some 
+	   people have reported)
+	* This is hopefully the last test release prior to 0.3.0
+	* Change generated HTML so that it links to the files
+	* Added -r/--norecursive option to avoid the recursive search 
+	  for MP3 files
+	* Some fixes which should help Windows Media Player and MPG123
+	* Fixed so that it supports "single mode" where a specific MP3 
+	  file is requested
+	  (instead of an entire dir of MP3's)
+	* Add autoconf checks for socklen_t
+	  (which should check for socklen_t == size_t as well but I'm too lazy)
+	* Makes dirscan code use mp3entry directly in it's sorting array 
+	  (should give a small performance boost in indexing large MP3 dirs)
+	* Remove all fopen/fclose madness, everything is trough streams now
+	* Added "Content-Length" header in single MP3 mode
+	  (so that WinAmp and Media Player can give "progress bars")
+	
+2001-11-26 22:33 - David Härdeman <david@2gen.com> - Version 0.2.9
+	
+	* This will be a test release due to the amount of new features
+	* In total these changes should close almost all TODO items
+	  (except the last three items)
+	* rearranged some files
+	* made ample less "chatty"
+	* speeded up all the ID3vx parsing code
+	* added ID3v2 parsing support
+	* removed buggy ID3v2 tagging support (now "pure" ShoutCast mode)
+	* inetd support, "automatically" selects daemon or non daemon mode
+	* Some basic config file support, see ample.conf.example for ideas
+	* Made debug level a config option
+	* Ample now daemonizes itself
+	* Ample now logs via syslog 
+	  (or /var/log/ample if no syslog headers are found)
+	* Fixed an error which broke index.html support
+	* Added libwrap (tcpd) support
+	  (./configure --with-libwrap to use)
+	* Made number of clients a run-time option
+	  (ample -c NUMBER)
+
+2001-11-12 17:05 - David Härdeman <david@2gen.com> - Version 0.2.1
+
+	* Lots of work on reading/understanding ID3v1/ID3v2 tags 
+	  (ID3v2 currently incomplete)
+	* Support sending song titles 
+	  (using either ID3v2 or ShoutCast metadata)
+	* Lots of cleanups
+	* Compiles with -Wall -pedantic without warnings
+	* Strips "not wanted" ID3vX tags 
+	  (which could case unsync and skipping in the sound)
+	
+2001-10-02 22:44 - David Härdeman <david@2gen.com> - Version 0.2.0
+
+	* make install target
+	* Some index.html capabilities
+	  (try connecting to http://server:port/index.html)
+	* Security fix (doesn't care about ../ in paths)
+
+2001-08-09 08:59 - David Härdeman <david@2gen.com> - Version 0.1.1
+
+	* Compile fix for Alpha
+	* Add this, and some other, docs
+
+
+2001-08-07 07:14 - David Härdeman <david@2gen.com> - Version 0.1.0
+
+	* implemented fork, which means > 1 client supported 
+	  (if you change the #define at the start of ample.c) 
+	* implemented sorting of files, start with -o to have them sorted 
+	* code cleanups
+
+
+2001-07-30 14:45 - David Härdeman <david@2gen.com> - Version 0.0.2
+
+	* Start using autoconf
+	* Portability fixes/cleanups
+
+	
+2001-07-30 00:00 - David Härdeman <david@2gen.com> - Version 0.0.1
+
+	* Just the most basic functionality
+	* Select a directory at startup
+	* Only one client
+	* The connected client would get all files randomized

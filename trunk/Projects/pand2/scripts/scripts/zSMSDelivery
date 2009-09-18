@@ -1,0 +1,92 @@
+#!/bin/sh
+#######################
+#   Linuxmod          #
+#   LinXtend          #
+#######################
+if [ "$LX_ENV" != "true" ]
+then
+	. /ezxlocal/LinXtend/etc/initenv
+fi
+
+export DIRNAME=`busybox dirname "$0"`
+export QTDIR=/usr/lib/ezx
+
+retardo=0
+
+ab="zSMSDelivery 0.1
+by c_ro87
+cristian_ro87@hotmail.com
+www.modmymoto.com
+Creditos:
+segnini75 sendsms
+CepiPerez zTimer"
+
+
+while :
+do
+
+showRadio "zSMSDelivery" "Seleccione una opcion:" "Seleccionar retardo" "Crear mensaje" "Acerca de"
+RADIORES=$?
+if [ $RADIORES -eq 0 ]
+then
+	exit
+elif [ $RADIORES -eq 1 ]
+then
+	showRadio "zSMSDelivery" "Seleccione el tiempo:" "2 minutos" "15 minutos" "30 minutos" "45 minutos" "1 hora" "2 horas" "3 horas"
+	TIEMPO=$?
+	if [ $TIEMPO != 0 ]
+	then
+		if [ $TIEMPO -eq 1 ]
+		then
+			retardo=120
+		elif [ $TIEMPO -eq 2 ]
+		then
+			retardo=900
+		elif [ $TIEMPO -eq 3 ]
+		then
+			retardo=1800
+		elif [ $TIEMPO -eq 4 ]
+		then
+			retardo=2700
+		elif [ $TIEMPO -eq 5 ]
+		then
+			retardo=3600
+		elif [ $TIEMPO -eq 6 ]
+		then
+			retardo=7200
+		elif [ $TIEMPO -eq 7 ]
+		then
+			retardo=10800
+		fi
+		showMsg "Retardo" "Confirma" 1 ||
+			   {
+				  	showNotify "" "Mensaje enviado" 
+			   } 
+                sleep $retardo
+                ./sendsms $BBBB $AAAA                
+
+	fi
+
+elif [ $RADIORES -eq 2 ]
+then
+BBBB=`showTextEntry 0 "Ingrese numero" "Ingrese el numero de telefono completo con codigo de operadora"`
+ if [ $? != 0 ] && [ $BBBB != "" ] 
+	then
+		AAAA=`showTextEntry 2 "Ingrese el texto" "Escriba su mensaje de texto"`
+		if [ $? != 0 ] && [ "$AAAA" != "" ] 
+		then
+			showMsg "Mensaje" "Confirma" 1 ||
+			   {
+				  	showNotify "" "Mensaje creado" 
+			   }  
+		fi	
+fi
+		
+elif [ $RADIORES -eq 3 ]
+then
+	showMsg "zSMSDelivery" "$ab" 2
+fi
+
+done
+exit
+

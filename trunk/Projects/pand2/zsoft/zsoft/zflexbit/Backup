@@ -1,0 +1,22 @@
+#!/bin/sh
+#######################
+#   Linuxmod          #
+#   LinXtend          #
+#######################
+if [ "$LX_ENV" != "true" ]
+then
+	. /ezxlocal/LinXtend/etc/initenv
+fi
+
+
+showQ "Backup" "Desea continuar? remplazará su flexbit con el último backup." 1
+respuesta=$?
+if [ $respuesta = "1" ]; then
+# CODIGO SI EL USUARIO ELIGE "SI"
+showNotify "Operación" "Restaurando flexbit." 1 2
+cp "$DIRNAME"/ezx_flexbit.cfg $EZX_LOCAL_APP_WRITE_PATH/setup/ezx_flexbit.cfg 
+
+else
+# CODIGO SI EL USUARIO ELIGE "NO"
+showNotify "Operación" "Cancelando la restauración del backup."1 2
+fi

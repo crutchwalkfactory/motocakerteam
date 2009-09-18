@@ -1,0 +1,80 @@
+AMPLE README:
+
+1. License
+----------
+
+See COPYING in the same dir as this file
+
+
+2. Installation
+---------------
+
+./configure
+make
+make install
+
+This should compile and move the binary to a suitable dir (/usr/local/bin).
+Create a config file (see ample.conf.example for all available options) and
+move it to a suitable dir (/usr/local/etc).
+
+Then start the server with:
+<dir>/ample
+or (if you put the config file in a different place):
+<dir>/ample -f/usr/local/somewhere/ample.conf
+for example:
+/usr/local/bin/ample -f/usr/local/somewhere/ample.conf
+
+This will start AMPLE, and make it a background process.
+
+Alternatively if you want to use AMPLE trough inetd, add a line like this:
+<port> "stream" "tcp" "nowait" <user> <path to ample> <executable name and cmd line options>
+for example:
+1234 stream tcp nowait david /home/david/cvs/ample/src/ample ample
+
+
+3. Options
+----------
+
+  -p, --port=NUMBER           which port to listen to, default 1234
+  -o, --order                 play MP3 files in alphabetical order
+  -c, --clients=NUMBER        how many clients are allowed to be connected
+                              default 5
+  -n, --norecursive           don't index MP3 files in subdirs of the given dir
+  -d, --conffile=FILENAME     alternative file to read for config options
+  -h, --help                  display this help and exit
+  -d, --debug[=NUMBER]        debug messages will be printed
+                              higher number means more detail
+  -t, --trace                 no forking, no backgrounding
+                              helpful when debugging
+  -v, --version               output version information and exit
+
+
+4. Notes
+--------
+
+AMPLE chdir()'s to the dir given by the user, then recursively finds all
+relevant files in the dir or subdirs.
+
+For security reasons it doesn't follow symlinks and only files ending
+in .mp3 will be sent (so don't rename any funny files to something.mp3).
+
+You can connect with a web browser to an URL ending with index.html and (if it exists) Ample will generate a listing of available files.
+
+All default paths (for log files, config files, etc) can be set using command line options to the "configure" script.
+
+For clients that support it, AMPLE now sends ShoutCast-type metadata (songtitles that is), this is tested and should work on (at least) XMMS and WinAmp.
+To enable ShoutCast-type metadata in XMMS, make sure the following setting is checked:
+Options->Preferences->MPEG Layer 1/2/3 Player->Configure->Streaming->Enable SHOUT/Icecast streaming
+If not, you will only see something like http://localhost:1234 in the song title window.
+
+
+5. Bugs
+-------
+
+Quite a few probably, too radical changes right now.
+
+
+6. Other
+--------
+
+For other info, see http://ample.sf.net/
