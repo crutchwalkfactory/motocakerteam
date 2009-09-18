@@ -1,0 +1,29 @@
+# An example of a Ample config file
+#
+# All options supported are included
+#
+# Boolean values can be given as (case insensitive)
+# yes,true,no,false
+
+# Port number to use
+port = 1234
+
+# Should files be ordered?
+order = true
+
+# Amount of simultaneous clients allowed
+clients = 5
+
+# Path to logfile if syslog isn't used
+logfile = /var/log/ample
+
+# Path to MP3 files
+mp3path = /home/mp3
+
+# Should that path be recursively scanned?
+recursive = true
+
+# Name of the server (displayed to clients in HTML and MetaData)
+servername = Ample
+
+# The end

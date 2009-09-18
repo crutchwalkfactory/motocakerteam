@@ -1,0 +1,35 @@
+primero los pand acordarse
+
+en el telefono
+activar bluetooth
+insmod /lib/modules/210/kernel etc etc
+pand --listen --role NAP --master --autozap
+ifconfig bnep0 up (en linext)
+ifconfig bnep0 192.168.16.3
+
+en la maquina
+ifconfig benp0 192.168.16.10 netmask 255.255.255.0
+pand -c 00:1F:7E:3A:65:43 --service NAP --autozap
+pand -c 00:11:67:55:90:6E  --service NAP --autozap
+
+
+64.233.161.104
+
+
+script bluetooh en el telefono
+
+Encender bluetooth
+pand -c 00:11:67:55:90:6E  --service NAP --autozap --devup -u levantarip
+
+	levatarip
+	ifconfig bnep0 192.168.16.3
+
+en la maquina
+modprobe bnep
+pand --listen --role NAP --master --autozap --devup -u levantarip
+
+	levatarip
+	ifconfig bnep0 192.168.16.4 netmask 255.255.255.0
+
+ 
+

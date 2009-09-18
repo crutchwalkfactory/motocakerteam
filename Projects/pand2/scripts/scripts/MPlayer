@@ -1,0 +1,7 @@
+#! /bin/ash
+
+export LANG=ru_RU.cp1251
+export LC_CTYPE=ru_RU.cp1251
+export HOME=/mmc/mmca1
+
+/mmc/mmca1/bin/z6mplayer > /mmc/mmca1/zlog 2>&1

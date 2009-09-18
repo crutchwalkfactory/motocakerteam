@@ -1,0 +1,51 @@
+Buenas y santas a todos:
+
+Esto es la edicion zPand 0.2.
+Extreme beast jujuy coya edition.
+
+Que es zPand?
+
+PAN significa area personal de red, es decir que mediante protocolo tcp/ip montado sobre bluetooth, nos
+podemos conectar a otros dispositivos para realizar diferentes tareas o bien disfrutas de otras.
+En este caso zPand se conecta bien a un PC, access point bluetooth/wifi, para acceder a internet o tambien
+otro telefono linux como ser el z6 o el v8 compatibles armeabi/ezx.
+
+Que puedo hacer?
+
+El funcionamiento es sencillo se ha mejorado mucho de su version anterior entre otras podemos
+distingir:
+
+0) Activacion de bluetooth de forma automagica.
+1) Conectarse a puntos pan automaticamente, con busquedas de servers tipo GN y NAP
+2) Obtener ip de un router o pc y dns para navegar en internet.
+3) Ser servidor de musica es decir compartirla con otro telefono o dispositivo sin transferirla.
+es exactamente como radio en vivo.
+4) Conectarse a servidores de radio en vivo o bien otro dispositivo o telefono.
+5) Bajar y reproducir listas de radio en vivo tipo pls o asf con mplayer.
+
+Cuales son sus requerimientos?
+
+1) Pen Bluetooth preferentemente norma 2.0 minimo 1.2 si es de mejor alcance mejor.
+2) Tener instaladas las versiones de
+	LinuxMod
+	Linuxmod RC1
+	Linuxmod RC2
+	Firmware 44r (no indispensable zpand veriifica modulos)
+3) En windows tener instalado bluesoleil version 5.0 no menor/ si es otro soft asegurarse de crear un adaptador
+de red bluetooth.
+4) En Linux tener instaladas las opciones bluez, bluemon.y firestarter
+5) Tener instaladas operamini 4.1 minimo para navegacion (no se usa el que viene en el telefono)
+6) Opcional algun cliente de mensajeria tipo nimbuzz (R) que funcione por sockets.
+
+Ahora pasamos a la configuracion en Windows.
+
+Insertamos nuestro pen bluetooth, instalamos sus drivers, o bien en las mayoria de los casos vienen
+con el software, es decir instalamos bluesoleil.
+Verificamos que nuestro software bluetooth nos haya creado un nuevo dispositivo de red, se puede llamar
+bluetooth pan adapter.si no esta buscar, de instalar ese adaptador de red en la web de ivt - bluesoleil.
+En la barra de tareas debe aparecer un icono del simbolo de bluetooth, 
+
+
+
+
+

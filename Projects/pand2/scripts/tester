@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#showmessagedlg "Radio en ViVo" "Escucha Musica o sonido?" 1
+#ops=$?
+#echo $ops
+# myip=`cat telinit | grep "Lease of"`
+if [ -f /mmc/mmca1/*.mp2 ]
+	then 
+	    echo "si"
+fi

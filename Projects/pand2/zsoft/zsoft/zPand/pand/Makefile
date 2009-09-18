@@ -1,0 +1,55 @@
+#####
+#
+# Pand custom makefile
+#
+# @author:	Ivan A-R <ivan@alferov.name>
+# @site:	https://ezx.darktech.org
+# @revision:	$Id$
+# @date:	$Date$
+# @updateby:	$Author$
+#
+# vim: sw=8:ts=8:si:noexpandtab
+#
+
+TOOLPREFIX:=	/arm-eabi
+QTDIR	:=	$(TOOLPREFIX)/lib/qt-2.3.8
+EZXDIR	:=	$(TOOLPREFIX)/lib/ezx-z6
+
+VERSION =	VERSION="\"99.0\""
+
+CC	=	$(TOOLPREFIX)/bin/arm-linux-gnueabi-gcc
+CXX	=	$(TOOLPREFIX)/bin/arm-linux-gnueabi-g++
+LD	=	$(TOOLPREFIX)/bin/arm-linux-gnueabi-g++
+CFLAGS	=	-pipe -Wall -W -O2 -DNO_DEBUG -D$(VERSION) $(INCPATH)
+CXXFLAGS=	-pipe -DQWS -fno-exceptions -fno-rtti -Wall -W -O2 -DNO_DEBUG $(INCPATH)
+INCPATH	=	-I. -I./include -I$(QTDIR)/include -I$(EZXDIR)/include
+LDFLAGS	=	-D$(VERSION) -s
+LDLIBS	=	-L$(QTDIR)/lib -L$(EZXDIR)/lib -L$(TOOLPREFIX)/lib -L$(EZXDIR)/lib/ezx/lib -lm -lbluetooth -lqte-mt -lezxpm -lezxappbase -lezxtapi-xscale-r -llog_util -llighting
+MOC	=	$(QTDIR)/bin/moc
+RM=rm -f
+MV=mv
+
+STRIP	=	$(TOOLPREFIX)/bin/arm-linux-gnueabi-strip
+
+UPLOAD_PATH = /mmc/mmca1/.pol/bin/
+
+TARGETS = pand
+SRC = main.c bnep.c sdp.c
+
+OBJ = $(SRC:.c=.o)
+
+all: $(TARGETS)
+
+pand: $(OBJ)
+	$(LD) $(LDFLAGS) $(LDLIBS) -o $@ $^
+
+.c.o:
+
+install: all
+	@echo Install ncftp package, connect phone to computer
+	ncftpput -u root -p "" 192.168.16.2 $(UPLOAD_PATH) $(TARGETS)
+
+clean:
+	$(RM) $(TARGETS)
+	$(RM) *.o
+

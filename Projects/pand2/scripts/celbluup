@@ -1,0 +1,5 @@
+insmod /lib/modules/2.6.10_dev/kernel/net/bluetooth/bnep/bnep.ko
+/mmc/mmca1/pand --listen --role NAP --master --autozap --nodetach & 
+sleep 8
+ifconfig bnep0 up
+ifconfig bnep0 192.168.16.3

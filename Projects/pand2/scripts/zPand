@@ -1,0 +1,45 @@
+#!/bin/sh
+#######################
+#   Linuxmod          #
+#   LinXtend          #
+#######################
+if [ "$LX_ENV" != "true" ]
+then
+	. /ezxlocal/LinXtend/etc/initenv
+fi
+
+export DRNAME=`busybox dirname "$0"`
+export QTDIR=/usr/lib/ezx
+
+zz="zPand 0.1
+by SaTaN javieruro@gmail.com
+www.modmymoto.com
+Creditos:  ivan pand port
+bluez core team mymoto spanish stuff
+to alicia mi medio melon.
+modifique  y compile pand para que  
+levante bnep0 por defecto en 192.168.16.3"
+
+if ps ax | grep 'mbtsrv -n' | grep -v grep
+then 
+    if ifconfig | grep bnep0 | grep -v grep
+	then	
+		showmessagedlg "interfaz bnep ok" "ifup ok" 2
+	else		    
+	    ./pand -K
+	    telinit killall pand
+	    insmod /lib/modules/2.6.10_dev/kernel/net/bluetooth/bnep/bnep.ko
+	    if telinit lsmod | grep bnep | grep -v grep
+		then
+		    ./pand --listen --role NAP --master --autozap 
+		    showmessagedlg "Pand" "Demonio levantado" 2
+		    showmessagedlg "zPand 0.1" "$zz" 2		
+		else
+		    showmessagedlg "Update firmware?" "no se encuentra modulo bnep" 2	    
+	    fi
+    fi
+else 
+    showmessagedlg "BT off" "Active Bluetooth, si persiste despues de varios intentos reincie sistema por favor, y active bt" 2
+    telinit killall pand
+fi
+exit

@@ -1,0 +1,2 @@
+route add default gw iiippp
+/bin/dnsmasq -q -h -p 53 -i lo -R --server=192.168.16.4 --server=200.45.191.35

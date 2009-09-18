@@ -1,0 +1,7 @@
+[Desktop Entry]
+BigIcon = zPand_usr.png
+Directory = zPand2
+Exec = zpand2
+AniIcon = zPand_usr.png
+Name = zPand
+Version = 0.2

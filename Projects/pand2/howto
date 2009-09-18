@@ -1,0 +1,195 @@
+Buenas y santas a todos:
+
+Esto es la edicion zPand 0.2.
+Extreme beast jujuy coya edition.
+
+Antes de todo:-----LEER IMPORTANTE---- -----------------------------------------
+----->>Para no tener problemas de consumo, ya que el telefono por defecto siempre busca
+los perfiles de red de la empresa de celular que tengan, deben hacer respaldo
+y / o borrar los mismos,creando un perfil de red falso, 
+en el menu -PROGRAMACION-CONEXIONES-CONEXIONES DE DATOS-
+Nombre del perfil "cualquier", proxy "127.0.0.1" puerto "80" Dominio "127.0.0.1"
+Apn GPRS "127." lo demas blanco, politica de calidad de servicio "Datos"
+Tiempo de espera GPRS "Desactivado"
+------Los perfiles se encuentan en /ezxlocal/download/appwrite/NetProfile
+------pueden ingresas por ftp o telnet y copiarlos a la micro sd
+	QUEDAN AVISADOS SIN RESPOSABILIDA DE MI PERSONA. PUNTO!
+-----------------------------------------------------------------------------------
+
+Que es zPand?
+
+PAN significa area personal de red, es decir que mediante protocolo tcp/ip montado sobre bluetooth, nos
+podemos conectar a otros dispositivos para realizar diferentes tareas de red.
+En este caso zPand se conecta bien a un PC, access point bluetooth/wifi, para acceder a internet o tambien
+otro telefono linux como ser el z6 o el v8 compatibles armeabi/ezx.
+
+Que puedo hacer?
+
+El funcionamiento es sencillo se ha mejorado mucho de su version anterior entre otras podemos
+distingir:
+
+0) Activacion de bluetooth de forma automagica.
+1) Conectarse a puntos pan automaticamente, con busquedas de servers tipo GN y NAP
+2) Obtener ip de un router o pc y dns para navegar en internet con pen bluetooth.
+3) Ser servidor de musica es decir compartirla con otro telefono o dispositivo sin transferirla.
+es exactamente como radio en vivo.
+4) Conectarse a servidores de radio en vivo o bien otro dispositivo o telefono.
+5) Bajar y reproducir listas de radio en vivo tipo pls o asf con mplayer.
+7) Los servicios de ftp y httpd estan activados.
+
+Cuales son sus requerimientos?
+
+1) Pen Bluetooth preferentemente norma 2.0 minimo 1.2 si es de mejor alcance mejor.
+2) Tener instaladas las versiones de
+	LinuxMod
+	Linuxmod RC1
+	Linuxmod RC2
+	Firmware 44r (no indispensable zpand veriifica modulos)
+3) En windows tener instalado bluesoleil version 5.0 no menor/ si es otro soft asegurarse de crear un adaptador
+de red bluetooth.
+4) En Linux tener instaladas las opciones bluez, bluemon.y firestarter
+5) Tener instaladas operamini 4.1 minimo para navegacion (no se usa el que viene en el telefono)
+6) Opcional algun cliente de mensajeria tipo nimbuzz (R) que funcione por sockets.
+
+Ahora pasamos a la configuracion en Windows.(posteo imagenes abajo)
+Para el acceso a internet hacemos:
+
+Insertamos nuestro pen bluetooth, instalamos sus drivers, o bien en las mayoria de los casos vienen
+con el software, es decir instalamos bluesoleil.
+Verificamos que nuestro software bluetooth nos haya creado un nuevo dispositivo de red, se puede llamar
+bluetooth pan adapter.si no esta buscar, de instalar ese adaptador de red en la web de ivt - bluesoleil.
+En la barra de tareas debe aparecer un icono del simbolo de bluetooth, hacemos clic y abrimos como vista
+clasica, alli vamos al icono de red que figura en el lado izq de la ventanta, click derecho propiedades
+y se nos habre una ventana donde en la primera solapa destildamos secure conection para q no pida pin
+de contraseÒa cada vez q nos conectamos, y en la otra solapa -opciones- sacamos server dhcp.
+
+En conexiones de red click derecho propiedades en adaptador pan, vamos a-> opciones avanzadas ->configuracion
+de nuevo opciones avanzadas elegimos el adaptador bluetooth click en configuraciones y tildamos las opciones
+dhcp dns y opciones de icmp de eco las dos primeras. 
+Esto es engorroso, es en caso de que tengan algun antivirus jodido, o el firewall levantado.
+
+En Conexiones de red nuevamente ubicamos el adptador de red del cual tomamos internet, generalmente es una placa de 
+red, click derecho propiedades y nos vamos a opciones avanzadas, alli toldamos la opcion compartir internet
+y elegimos que red tomara esas conexiones como lan o red domestica, en nuestro caso es el adaptador pan bluetooth
+lo elegimos.
+Con eso ya estariamos reinciamos la pc.
+
+Configuracion Linux
+
+Sea cualfuere nuestra distro, yo uso ubuntu, deberemos tener instalados paketes como
+bluez, firestart () (opcional), bluemon y el modulo bnep disponible
+
+insertamos el pen bluetooth, es posible que algunos applets de kde o gnome nos notifiquen y habran ciertos
+utilitarios, revisen paara que no les pida clave de intercambio, es para no chekear siempre, si sucede
+no hay problema tanto el telefono como el utilitario se van pedir claves mutuamente
+
+cargamos el modulo
+
+insmod bnep
+
+iniciamos pand en modo GN (server AP)
+
+/pand --listen --role GN --master --autozap --nodetach 
+
+configuramos la interfaz, podemos hacer un scritp a partir de aqui para cuando veamos conexion bnep
+ejecutamos esto
+
+ifconfig bnep0 192.168.0.1 netmask 255.255.255.0
+dhcpd3
+iptables -A FORWARD -i eth0 -o bnep0 -s 192.168.0.0/24 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A POSTROUTING -t nat -j MASQUERADE 
+sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+
+se configura asi la interfaz con ese ip, antes de levantar el server dhcp,nos detenemos, necesitamos
+tener configurado el server dhcp por lo cual vamos a /etc/dhcp3/dhcp.conf
+y buscamos y configuramos la red a asignar, en este caso seria asi
+dejan esta lineas sin numeral, es para una configuracion base gateway 192.168.0.1
+el ip 10.0.0.2 es el router o modem adsl es opcional, lo ponen de ser posible.
+
+subnet 192.168.0.0 netmask 255.255.255.0 {
+  range 192.168.0.2 192.168.0.10;
+  option routers 192.168.0.1, 10.0.0.2;
+}
+despues emitimos las reglas iptables para compartir internet, las reglas es largo de explicar
+pero limitemonos en saber que, eth0 es la que toma internet, y bnep0 es nuestro gateway bluetooth pan.
+no olvidar de hacer un script para mayor comodidad
+
+Ejecutamos zPand y nos encontramos con lo siguiente
+
+opcion-Conectar a red, seleccionando esta opcion zpand busca redes tcp/ip bluetooth tipo GN, si existe se conecta
+mediante un cliente interno dhcp en el telefono, la PC/R/AP le asigna un ip el cual nos muestra, a continuacion
+se establecen internamente en el telefono el ruteo, si sale ping a www.linux.com ok es porque nuestra conexion
+es buena y podemos comenzar a usar opera o mail o programas con acceso a internet.
+En caso que no salga este cartel zpand hace una prueba de musica de radio en vivo si escuchan algo estan conectados
+pero por numero de ip, de modo que la configuracion en el pc/router/o AP debe tener un error porque no resuelve por
+DNS, salimos de zpand y revisamos los pasos anteriores de compartir internet.
+
+opcion-my moto server, esta opcion indica que nuestro telefono sera servidor de radio en vivo por lo cual
+otro telefono o dispositivo puede conectarse y escuchar mediante zpand la musica del server.
+El server levanta por defecto una interfaz en momento de conexion numero 192.168.16.3
+Deben tener en la memoria externa un directorio llamado -yourmoto- donde pueden poner los mp3 a compartir, sino
+lo tienen zpand lo crea por ustedes y despues le ponen los mp3 que deseen.
+
+opcion-Yourmoto-, esta opcion zpand actua como cliente de un server por lo cual busca el mismo y se conecta,
+de alli automaticamente si todo va bien, zpand los pasa a un menu donde existen opciones de radio, pero solo podran
+usar conexion remota a otro server o telefono, porque el modo es local, el ip asignado aqui es 192.168.16.4.
+
+En opciones Mplayer radio live habre un menu donde hay varias radios para escuchar de di.fm o bien pueden bajar 
+alguna con extension tipo pls o asf la ponen en la memoria externa y seleccionan -Mis radios- donde eligen donde bajaron
+los .pls anteriormente mencionados.Este menu solo funciona si estan conectados a internet por obvias razones.
+
+La opcion ocultar, minimiza por asi decirlo zpand para que podamos seguir trabajando con nuestro telefono, 
+podemos navegar con opera mini 4.1 o mensajeria tambien.Nota: si estan escuchando radio live es posible
+que no puedan recibir llamadas al mismo tiempo o se corte la radio no asi la conexion a internet, en mi
+caso se para en ocasiones mplayer contesto la llamada y sigue reproduciendo.Esto
+no pasa si estamos navegando o tenemos algun cliente de mensajeria o mail andando, solamente sucede
+cuando escuchan musica porque el motor es mplayer.
+
+La opcion Reinciar todo es para limpiar todas la configuraciones realizadas por zpand si nos queremos
+desconectar, yo recomiendo reinciar el telefono igualmente.
+
+Bueno les dejo el mpkg, los jar de opera y nimbuzz con un par de imagenes de configuracion,para mayor entendimiento.
+Los archivos estan todos en un zip.
+
+El sofware usado para que esto funcione es GNU*GPL y se ajusta a su licencia tanto como el script de zpand.
+
+Agradecimientos:
+
+porsupuesto www.modmymoto.com en espa√±ol.
+ivan de dartech quien porto el codigo de pan hacia arm-eabi, el cual yo modifique y compile para ips fijos.
+El team de Bluez, por realizar las herramientas bluetooth las cuales aprovechamos todos, entre esas pan.
+David Hardeman el creador de ample, un server rtp rtsp de audio, yo lo porte a la plataforma arm-eabi.
+Al team mplayerhq por el desarrollo impresionante y dar posibildades a nuestro tel.
+A ella, Alicia, por bancar.
+
+
+
+Que puede haber para la proxima?
+
+menu con deteccion de red y direcciones bluetooth
+soporte de music server para varios clientes.
+sms via /lan/wan/web.(aunque lo pueden hacer con opera)
+servicio voip.
+mplayer background tv online.
+busquedas de redes wifi, con un pen wifi/via usb????!
+
+-Veremos-
+
+
+SaTaN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

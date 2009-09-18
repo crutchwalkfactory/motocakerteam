@@ -1,0 +1,27 @@
+#!/bin/sh
+#######################
+#   Linuxmod          #
+#   LinXtend          #
+#######################
+if [ "$LX_ENV" != "true" ]
+then
+	. /ezxlocal/LinXtend/etc/initenv
+fi
+export DIRNAME=`busybox dirname "$0"`
+
+showRadio "zFlexbit" "Seleccione una opcion:" "Flexbit" "Restaurar Backup" "Acerca de";
+RADIORES=$?
+if [ $RADIORES -eq 0 ]
+then
+	exit
+elif [ $RADIORES -eq 1 ]
+then
+	exec "$DIRNAME"/Flexbit
+elif [ $RADIORES -eq 2 ]
+then
+	exec "$DIRNAME"/Backup
+elif [ $RADIORES -eq 3 ]
+then
+	showNotify "Acerca de" "Jesús Segnini segnini75@hotmail.com www.modmymoto.com" 1 2
+
+fi
