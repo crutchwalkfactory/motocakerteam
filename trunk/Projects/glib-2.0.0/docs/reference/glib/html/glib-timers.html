@@ -1,0 +1,879 @@
+<HTML
+><HEAD
+><TITLE
+>Timers</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Automatic String Completion"
+HREF="glib-automatic-string-completion.html"><LINK
+REL="NEXT"
+TITLE="Spawning Processes"
+HREF="glib-spawning-processes.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-automatic-string-completion.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-spawning-processes.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-TIMERS"
+>Timers</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN21437"
+></A
+><H2
+>Name</H2
+>Timers&nbsp;--&nbsp;keep track of elapsed time.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN21440"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>;
+<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>*     <A
+HREF="glib-timers.html#G-TIMER-NEW"
+>g_timer_new</A
+>                     (void);
+void        <A
+HREF="glib-timers.html#G-TIMER-START"
+>g_timer_start</A
+>                   (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);
+void        <A
+HREF="glib-timers.html#G-TIMER-STOP"
+>g_timer_stop</A
+>                    (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);
+<A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     <A
+HREF="glib-timers.html#G-TIMER-ELAPSED"
+>g_timer_elapsed</A
+>                 (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer,
+                                             <A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> *microseconds);
+void        <A
+HREF="glib-timers.html#G-TIMER-RESET"
+>g_timer_reset</A
+>                   (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);
+void        <A
+HREF="glib-timers.html#G-TIMER-DESTROY"
+>g_timer_destroy</A
+>                 (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN21458"
+></A
+><H2
+>Description</H2
+><P
+><A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> records a start time, and counts microseconds elapsed since that time.
+This is done somewhat differently on different platforms, and can be tricky to
+get exactly right, so <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> provides a portable/convenient interface.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN21463"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21465"
+></A
+><H3
+><A
+NAME="GTIMER"
+></A
+>struct GTimer</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GTimer;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Opaque datatype that records a start time. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21470"
+></A
+><H3
+><A
+NAME="G-TIMER-NEW"
+></A
+>g_timer_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>*     g_timer_new                     (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new timer, and starts timing (i.e. <A
+HREF="glib-timers.html#G-TIMER-START"
+>g_timer_start</A
+>() is implicitly
+called for you).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21477"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a new <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21487"
+></A
+><H3
+><A
+NAME="G-TIMER-START"
+></A
+>g_timer_start ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_timer_start                   (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Marks a start time, so that future calls to <A
+HREF="glib-timers.html#G-TIMER-ELAPSED"
+>g_timer_elapsed</A
+>() will report the
+time since <A
+HREF="glib-timers.html#G-TIMER-START"
+>g_timer_start</A
+>() was called. <A
+HREF="glib-timers.html#G-TIMER-NEW"
+>g_timer_new</A
+>() automatically marks the
+start time, so no need to call <A
+HREF="glib-timers.html#G-TIMER-START"
+>g_timer_start</A
+>() immediately after creating the
+timer.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21497"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>timer</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21507"
+></A
+><H3
+><A
+NAME="G-TIMER-STOP"
+></A
+>g_timer_stop ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_timer_stop                    (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Marks an end time, so calls to <A
+HREF="glib-timers.html#G-TIMER-ELAPSED"
+>g_timer_elapsed</A
+>() will return the difference
+between this end time and the start time.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21514"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>timer</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21524"
+></A
+><H3
+><A
+NAME="G-TIMER-ELAPSED"
+></A
+>g_timer_elapsed ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     g_timer_elapsed                 (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer,
+                                             <A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> *microseconds);</PRE
+></TD
+></TR
+></TABLE
+><P
+>If <TT
+CLASS="PARAMETER"
+><I
+>timer</I
+></TT
+> has been started but not stopped, obtains the time since the timer was
+started. If <TT
+CLASS="PARAMETER"
+><I
+>timer</I
+></TT
+> has been stopped, obtains the elapsed time between the time
+it was started and the time it was stopped. The return value is the number of
+seconds elapsed, and the <TT
+CLASS="PARAMETER"
+><I
+>microseconds</I
+></TT
+> argument allows you to get the number of
+microseconds.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21535"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>timer</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>microseconds</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>return location for microseconds elapsed, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>seconds elapsed.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21554"
+></A
+><H3
+><A
+NAME="G-TIMER-RESET"
+></A
+>g_timer_reset ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_timer_reset                   (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function is useless; it's fine to call <A
+HREF="glib-timers.html#G-TIMER-START"
+>g_timer_start</A
+>() on an
+already-started timer to reset the start time, so <A
+HREF="glib-timers.html#G-TIMER-RESET"
+>g_timer_reset</A
+>() serves no
+purpose.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21562"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>timer</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21572"
+></A
+><H3
+><A
+NAME="G-TIMER-DESTROY"
+></A
+>g_timer_destroy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_timer_destroy                 (<A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> *timer);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Destroys a timer, freeing associated resources.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21578"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>timer</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-timers.html#GTIMER"
+>GTimer</A
+> to destroy.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-automatic-string-completion.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-spawning-processes.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Automatic String Completion</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Spawning Processes</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

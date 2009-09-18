@@ -1,0 +1,1970 @@
+<HTML
+><HEAD
+><TITLE
+>Thread Pools</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Core Application Support"
+HREF="glib-core.html"><LINK
+REL="PREVIOUS"
+TITLE="Threads"
+HREF="glib-threads.html"><LINK
+REL="NEXT"
+TITLE="Asynchronous Queues"
+HREF="glib-asynchronous-queues.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-threads.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-core.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-asynchronous-queues.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-THREAD-POOLS"
+>Thread Pools</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN6783"
+></A
+><H2
+>Name</H2
+>Thread Pools&nbsp;--&nbsp;pools of threads to execute work concurrently.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN6786"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+>;
+<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+>* <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-NEW"
+>g_thread_pool_new</A
+>              (<A
+HREF="glib-doubly-linked-lists.html#GFUNC"
+>GFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> max_threads,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> exclusive,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+void        <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-PUSH"
+>g_thread_pool_push</A
+>              (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+void        <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-SET-MAX-THREADS"
+>g_thread_pool_set_max_threads</A
+>   (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> max_threads,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-MAX-THREADS"
+>g_thread_pool_get_max_threads</A
+>   (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool);
+<A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-NUM-THREADS"
+>g_thread_pool_get_num_threads</A
+>   (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool);
+<A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-UNPROCESSED"
+>g_thread_pool_unprocessed</A
+>       (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool);
+void        <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-FREE"
+>g_thread_pool_free</A
+>              (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> immediate,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> wait);
+void        <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-SET-MAX-UNUSED-THREADS"
+>g_thread_pool_set_max_unused_threads</A
+>
+                                            (<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> max_threads);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-MAX-UNUSED-THREADS"
+>g_thread_pool_get_max_unused_threads</A
+>
+                                            (void);
+<A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-NUM-UNUSED-THREADS"
+>g_thread_pool_get_num_unused_threads</A
+>
+                                            (void);
+void        <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-STOP-UNUSED-THREADS"
+>g_thread_pool_stop_unused_threads</A
+>
+                                            (void);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN6825"
+></A
+><H2
+>Description</H2
+><P
+>Sometimes you wish to asyncronously fork out the execution of work and
+continue working in your own thread. If that will happen often, the
+overhead of starting and destroying a thread each time might be to
+high. In such cases reusing already started threads seems like a good
+idea. And it indeed is, but implementing this can be tedious and
+error-prone.</P
+><P
+>Therefore GLib provides thread pools for your convenience. An added
+advantage is, that the threads can be shared between the different
+subsystems of your program, when they are using GLib.</P
+><P
+>To create a new thread pool, you use <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-NEW"
+>g_thread_pool_new</A
+>(). It is
+destroyed by <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-FREE"
+>g_thread_pool_free</A
+>().</P
+><P
+>If you want to execute a certain task within a thread pool, you call
+<A
+HREF="glib-thread-pools.html#G-THREAD-POOL-PUSH"
+>g_thread_pool_push</A
+>().</P
+><P
+>To get the current number of running threads you call
+<A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-NUM-THREADS"
+>g_thread_pool_get_num_threads</A
+>(). To get the number of still
+unprocessed tasks you call <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-UNPROCESSED"
+>g_thread_pool_unprocessed</A
+>(). To control the
+maximal number of threads for a thread pool, you use
+<A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-MAX-THREADS"
+>g_thread_pool_get_max_threads</A
+>() and <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-SET-MAX-THREADS"
+>g_thread_pool_set_max_threads</A
+>().</P
+><P
+>Finally you can control the number of unused threads, that are kept
+alive by GLib for future use. The current number can be fetched with
+<A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-NUM-UNUSED-THREADS"
+>g_thread_pool_get_num_unused_threads</A
+>(). The maximal number can be
+controlled by <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-GET-MAX-UNUSED-THREADS"
+>g_thread_pool_get_max_unused_threads</A
+>() and
+<A
+HREF="glib-thread-pools.html#G-THREAD-POOL-SET-MAX-UNUSED-THREADS"
+>g_thread_pool_set_max_unused_threads</A
+>(). All currently unused threads
+can be stopped by calling <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-STOP-UNUSED-THREADS"
+>g_thread_pool_stop_unused_threads</A
+>().</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN6844"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN6846"
+></A
+><H3
+><A
+NAME="GTHREADPOOL"
+></A
+>struct GThreadPool</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GThreadPool
+{
+  GFunc func;
+  gpointer user_data;
+  gboolean exclusive;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> struct represents a thread pool. It has six public
+read-only members, but the underlying struct is bigger, so you must not copy
+this struct.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN6852"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-doubly-linked-lists.html#GFUNC"
+>GFunc</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>func</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to execute in the threads of this pool</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>user_data</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the user data for the threads of this pool</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>exclusive</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>are all threads exclusive to this pool&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN6872"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-NEW"
+></A
+>g_thread_pool_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+>* g_thread_pool_new              (<A
+HREF="glib-doubly-linked-lists.html#GFUNC"
+>GFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> max_threads,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> exclusive,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function creates a new thread pool.</P
+><P
+>Whenever you call <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-PUSH"
+>g_thread_pool_push</A
+>(), either a new thread is
+created or an unused one is reused. At most <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> threads
+are running concurrently for this thread pool. <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> = -1
+allows unlimited threads to be created for this thread pool. The
+newly created or reused thread now executes the function <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> with
+the two arguments. The first one is the parameter to
+<A
+HREF="glib-thread-pools.html#G-THREAD-POOL-PUSH"
+>g_thread_pool_push</A
+>() and the second one is <TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>.</P
+><P
+>The parameter <TT
+CLASS="PARAMETER"
+><I
+>exclusive</I
+></TT
+> determines, whether the thread pool owns
+all threads exclusive or whether the threads are shared
+globally. If <TT
+CLASS="PARAMETER"
+><I
+>exclusive</I
+></TT
+> is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> threads are started
+immediately and they will run exclusively for this thread pool until
+it is destroyed by <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-FREE"
+>g_thread_pool_free</A
+>(). If <TT
+CLASS="PARAMETER"
+><I
+>exclusive</I
+></TT
+> is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>,
+threads are created, when needed and shared between all
+non-exclusive thread pools. This implies that <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> may not
+be -1 for exclusive thread pools.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> can be <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore errors, or non-<TT
+CLASS="LITERAL"
+>NULL</TT
+> to report
+errors. An error can only occur when <TT
+CLASS="PARAMETER"
+><I
+>exclusive</I
+></TT
+> is set to <TT
+CLASS="LITERAL"
+>TRUE</TT
+> and
+not all <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> threads could be created.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN6907"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a function to execute in the threads of the new thread pool</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data that is handed over to <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> every time it 
+  is called</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximal number of threads to execute concurrently in 
+  the new thread pool, -1 means no limit</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>exclusive</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> should this thread pool be exclusive?</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for error</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the new <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN6938"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-PUSH"
+></A
+>g_thread_pool_push ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_thread_pool_push              (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Inserts <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> into the list of tasks to be executed by <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>. When
+the number of currently running threads is lower than the maximal
+allowed number of threads, a new thread is started (or reused) with
+the properties given to <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-NEW"
+>g_thread_pool_new</A
+>(). Otherwise <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> stays
+in the queue until a thread in this pool finishes its previous task
+and processes <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>. </P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> can be <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore errors, or non-<TT
+CLASS="LITERAL"
+>NULL</TT
+> to report
+errors. An error can only occur when a new thread couldn't be
+created. In that case <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> is simply appended to the queue of work
+to do.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN6957"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a new task for <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for error</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN6976"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-SET-MAX-THREADS"
+></A
+>g_thread_pool_set_max_threads ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_thread_pool_set_max_threads   (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> max_threads,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Sets the maximal allowed number of threads for <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>. A value of -1
+means, that the maximal number of threads is unlimited.</P
+><P
+>Setting <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> to 0 means stopping all work for <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>. It is
+effectively frozen until <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> is set to a non-zero value
+again.</P
+><P
+>A thread is never terminated while calling <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>, as supplied by
+<A
+HREF="glib-thread-pools.html#G-THREAD-POOL-NEW"
+>g_thread_pool_new</A
+>(). Instead the maximal number of threads only
+has effect for the allocation of new threads in <A
+HREF="glib-thread-pools.html#G-THREAD-POOL-PUSH"
+>g_thread_pool_push</A
+>(). 
+A new thread is allocated, whenever the number of currently
+running threads in <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+> is smaller than the maximal number.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> can be <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore errors, or non-<TT
+CLASS="LITERAL"
+>NULL</TT
+> to report
+errors. An error can only occur when a new thread couldn't be
+created.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN6999"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a new maximal number of threads for <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for error</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7018"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-GET-MAX-THREADS"
+></A
+>g_thread_pool_get_max_threads ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_thread_pool_get_max_threads   (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the maximal number of threads for <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7027"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximal number of threads</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7041"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-GET-NUM-THREADS"
+></A
+>g_thread_pool_get_num_threads ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       g_thread_pool_get_num_threads   (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the number of threads currently running in <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7050"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of threads currently running</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7064"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-UNPROCESSED"
+></A
+>g_thread_pool_unprocessed ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       g_thread_pool_unprocessed       (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the number of tasks still unprocessed in <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7073"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of unprocessed tasks</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7087"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-FREE"
+></A
+>g_thread_pool_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_thread_pool_free              (<A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+> *pool,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> immediate,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> wait);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Frees all resources allocated for <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>.</P
+><P
+>If <TT
+CLASS="PARAMETER"
+><I
+>immediate</I
+></TT
+> is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>, no new task is processed for
+<TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>. Otherwise <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+> is not freed before the last task is
+processed. Note however, that no thread of this pool is
+interrupted, while processing a task. Instead at least all still
+running threads can finish their tasks before the <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+> is freed.</P
+><P
+>If <TT
+CLASS="PARAMETER"
+><I
+>wait</I
+></TT
+> is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>, the functions does not return before all tasks
+to be processed (dependent on <TT
+CLASS="PARAMETER"
+><I
+>immediate</I
+></TT
+>, whether all or only the
+currently running) are ready. Otherwise the function returns immediately.</P
+><P
+>After calling this function <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+> must not be used anymore.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7109"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-thread-pools.html#GTHREADPOOL"
+>GThreadPool</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>immediate</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> should <TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+> shut down immediately?</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>wait</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> should the function wait for all tasks to be finished?</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7128"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-SET-MAX-UNUSED-THREADS"
+></A
+>g_thread_pool_set_max_unused_threads ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_thread_pool_set_max_unused_threads
+                                            (<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> max_threads);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Sets the maximal number of unused threads to <TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+>. If
+<TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+> is -1, no limit is imposed on the number of unused
+threads.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7137"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>max_threads</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> maximal number of unused threads</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7146"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-GET-MAX-UNUSED-THREADS"
+></A
+>g_thread_pool_get_max_unused_threads ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_thread_pool_get_max_unused_threads
+                                            (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the maximal allowed number of unused threads.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7153"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximal number of unused threads</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7162"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-GET-NUM-UNUSED-THREADS"
+></A
+>g_thread_pool_get_num_unused_threads ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       g_thread_pool_get_num_unused_threads
+                                            (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the number of currently unused threads.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7169"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of currently unused threads</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7178"
+></A
+><H3
+><A
+NAME="G-THREAD-POOL-STOP-UNUSED-THREADS"
+></A
+>g_thread_pool_stop_unused_threads ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_thread_pool_stop_unused_threads
+                                            (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Stops all currently unused threads. This does not change the
+maximal number of unused threads. This function can be used to
+regularly stop all unused threads e.g. from <A
+HREF="glib-the-main-event-loop.html#G-TIMEOUT-ADD"
+>g_timeout_add</A
+>().</P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN7185"
+></A
+><H2
+>See Also</H2
+><P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+HREF="glib-threads.html#GTHREAD"
+>GThread</A
+></DT
+><DD
+><P
+>GLib thread system.</P
+></DD
+></DL
+></DIV
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-threads.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-core.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-asynchronous-queues.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Threads</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Asynchronous Queues</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

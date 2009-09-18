@@ -1,0 +1,7819 @@
+<HTML
+><HEAD
+><TITLE
+>Signals</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GObject Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="API Reference"
+HREF="r28.html"><LINK
+REL="PREVIOUS"
+TITLE="GParamSpec"
+HREF="gobject-gparamspec.html"><LINK
+REL="NEXT"
+TITLE="Closures"
+HREF="gobject-closures.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GObject Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-gparamspec.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-closures.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GOBJECT-SIGNALS"
+>Signals</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN10194"
+></A
+><H2
+>Name</H2
+>Signals&nbsp;--&nbsp;Signals provide a means for customization of object behaviour and are used
+as general purpose notification mechanism.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN10197"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;gobject.h&gt;
+
+
+struct      <A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+>;
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    (<A
+HREF="gobject-signals.html#GSIGNALACCUMULATOR"
+>*GSignalAccumulator</A
+>)           (<A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+> *ihint,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_accu,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *handler_return,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+typedef     <A
+HREF="gobject-signals.html#GSIGNALCMARSHALLER"
+>GSignalCMarshaller</A
+>;
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    (<A
+HREF="gobject-signals.html#GSIGNALEMISSIONHOOK"
+>*GSignalEmissionHook</A
+>)          (<A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+> *ihint,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_param_values,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *param_values,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+enum        <A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+>;
+enum        <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+>;
+struct      <A
+HREF="gobject-signals.html#GSIGNALQUERY"
+>GSignalQuery</A
+>;
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-TYPE-STATIC-SCOPE-CAPS"
+>G_SIGNAL_TYPE_STATIC_SCOPE</A
+>
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-MATCH-MASK-CAPS"
+>G_SIGNAL_MATCH_MASK</A
+>
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-FLAGS-MASK-CAPS"
+>G_SIGNAL_FLAGS_MASK</A
+>
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       <A
+HREF="gobject-signals.html#G-SIGNAL-NEW"
+>g_signal_new</A
+>                    (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> signal_flags,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> class_offset,
+                                             <A
+HREF="gobject-signals.html#GSIGNALACCUMULATOR"
+>GSignalAccumulator</A
+> accumulator,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> accu_data,
+                                             <A
+HREF="gobject-signals.html#GSIGNALCMARSHALLER"
+>GSignalCMarshaller</A
+> c_marshaller,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> return_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_params,
+                                             ...);
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       <A
+HREF="gobject-signals.html#G-SIGNAL-NEWV"
+>g_signal_newv</A
+>                   (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> signal_flags,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *class_closure,
+                                             <A
+HREF="gobject-signals.html#GSIGNALACCUMULATOR"
+>GSignalAccumulator</A
+> accumulator,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> accu_data,
+                                             <A
+HREF="gobject-signals.html#GSIGNALCMARSHALLER"
+>GSignalCMarshaller</A
+> c_marshaller,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> return_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_params,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> *param_types);
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       <A
+HREF="gobject-signals.html#G-SIGNAL-NEW-VALIST"
+>g_signal_new_valist</A
+>             (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> signal_flags,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *class_closure,
+                                             <A
+HREF="gobject-signals.html#GSIGNALACCUMULATOR"
+>GSignalAccumulator</A
+> accumulator,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> accu_data,
+                                             <A
+HREF="gobject-signals.html#GSIGNALCMARSHALLER"
+>GSignalCMarshaller</A
+> c_marshaller,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> return_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_params,
+                                             va_list args);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-QUERY"
+>g_signal_query</A
+>                  (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF="gobject-signals.html#GSIGNALQUERY"
+>GSignalQuery</A
+> *query);
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       <A
+HREF="gobject-signals.html#G-SIGNAL-LOOKUP"
+>g_signal_lookup</A
+>                 (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype);
+G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* <A
+HREF="gobject-signals.html#G-SIGNAL-NAME"
+>g_signal_name</A
+>         (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id);
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>*      <A
+HREF="gobject-signals.html#G-SIGNAL-LIST-IDS"
+>g_signal_list_ids</A
+>               (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *n_ids);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-EMIT"
+>g_signal_emit</A
+>                   (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             ...);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-EMIT-BY-NAME"
+>g_signal_emit_by_name</A
+>           (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             ...);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-EMITV"
+>g_signal_emitv</A
+>                  (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *instance_and_params,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-EMIT-VALIST"
+>g_signal_emit_valist</A
+>            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             va_list var_args);
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-CONNECT"
+>g_signal_connect</A
+>                (instance, detailed_signal, c_handler, data)
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-CONNECT-AFTER"
+>g_signal_connect_after</A
+>          (instance, detailed_signal, c_handler, data)
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-CONNECT-SWAPPED"
+>g_signal_connect_swapped</A
+>        (instance, detailed_signal, c_handler, data)
+<A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      <A
+HREF="gobject-signals.html#G-SIGNAL-CONNECT-OBJECT"
+>g_signal_connect_object</A
+>         (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> c_handler,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> gobject,
+                                             <A
+HREF="gobject-signals.html#GCONNECTFLAGS"
+>GConnectFlags</A
+> connect_flags);
+enum        <A
+HREF="gobject-signals.html#GCONNECTFLAGS"
+>GConnectFlags</A
+>;
+<A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      <A
+HREF="gobject-signals.html#G-SIGNAL-CONNECT-DATA"
+>g_signal_connect_data</A
+>           (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> c_handler,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> destroy_data,
+                                             <A
+HREF="gobject-signals.html#GCONNECTFLAGS"
+>GConnectFlags</A
+> connect_flags);
+<A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      <A
+HREF="gobject-signals.html#G-SIGNAL-CONNECT-CLOSURE"
+>g_signal_connect_closure</A
+>        (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> after);
+<A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      <A
+HREF="gobject-signals.html#G-SIGNAL-CONNECT-CLOSURE-BY-ID"
+>g_signal_connect_closure_by_id</A
+>  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> after);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-BLOCK"
+>g_signal_handler_block</A
+>          (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-UNBLOCK"
+>g_signal_handler_unblock</A
+>        (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-DISCONNECT"
+>g_signal_handler_disconnect</A
+>     (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);
+<A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-FIND"
+>g_signal_handler_find</A
+>           (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLERS-BLOCK-MATCHED"
+>g_signal_handlers_block_matched</A
+> (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLERS-UNBLOCK-MATCHED"
+>g_signal_handlers_unblock_matched</A
+>
+                                            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLERS-DISCONNECT-MATCHED"
+>g_signal_handlers_disconnect_matched</A
+>
+                                            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-IS-CONNECTED"
+>g_signal_handler_is_connected</A
+>   (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLERS-BLOCK-BY-FUNC"
+>g_signal_handlers_block_by_func</A
+> (instance, func, data)
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLERS-UNBLOCK-BY-FUNC"
+>g_signal_handlers_unblock_by_func</A
+>(instance, func, data)
+#define     <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLERS-DISCONNECT-BY-FUNC"
+>g_signal_handlers_disconnect_by_func</A
+>(instance, func, data)
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-signals.html#G-SIGNAL-HAS-HANDLER-PENDING"
+>g_signal_has_handler_pending</A
+>    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> may_be_blocked);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-STOP-EMISSION"
+>g_signal_stop_emission</A
+>          (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-STOP-EMISSION-BY-NAME"
+>g_signal_stop_emission_by_name</A
+>  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-OVERRIDE-CLASS-CLOSURE"
+>g_signal_override_class_closure</A
+> (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> instance_type,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *class_closure);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-CHAIN-FROM-OVERRIDDEN"
+>g_signal_chain_from_overridden</A
+>  (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *instance_and_params,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value);
+<A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      <A
+HREF="gobject-signals.html#G-SIGNAL-ADD-EMISSION-HOOK"
+>g_signal_add_emission_hook</A
+>      (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF="gobject-signals.html#GSIGNALEMISSIONHOOK"
+>GSignalEmissionHook</A
+> hook_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> hook_data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> data_destroy);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-REMOVE-EMISSION-HOOK"
+>g_signal_remove_emission_hook</A
+>   (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> hook_id);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-signals.html#G-SIGNAL-PARSE-NAME"
+>g_signal_parse_name</A
+>             (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *signal_id_p,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> *detail_p,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> force_detail_quark);
+<A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+>* <A
+HREF="gobject-signals.html#G-SIGNAL-GET-INVOCATION-HINT"
+>g_signal_get_invocation_hint</A
+>
+                                            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance);
+void        <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLERS-DESTROY"
+>g_signal_handlers_destroy</A
+>       (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance);
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-signals.html#G-SIGNAL-TYPE-CCLOSURE-NEW"
+>g_signal_type_cclosure_new</A
+>      (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> struct_offset);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN10414"
+></A
+><H2
+>Description</H2
+><P
+>The basic concept of the signal system is that of the <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>emission</I
+></SPAN
+>
+of a signal.
+Signals are introduced per-type and are identified through strings.
+Signals introduced for a parent type are available in derived types as well,
+so basically they are a per-type facility that is inherited.
+A signal emission mainly involves invocation of a certain set of callbacks in
+precisely defined manner. There are two main categories of such callbacks,
+per-object
+	<A
+NAME="AEN10418"
+HREF="#FTN.AEN10418"
+>[1]</A
+>
+ones and user provided ones.
+The per-object callbacks are most often referred to as "object method
+handler" or "default (signal) handler", while user provided callbacks are
+usually just called "signal handler".
+The object method handler is provided at signal creation time (this most
+frequently happens at the end of an object class' creation), while user
+provided handlers are frequently connected and disconnected to/from a certain
+signal on certain object instances.</P
+><P
+>A signal emission consists of five stages, unless prematurely stopped:
+<P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+></DT
+><DD
+><P
+>	1 - Invocation of the object method handler for <TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_FIRST</TT
+> signals
+  </P
+></DD
+><DT
+></DT
+><DD
+><P
+>	2 - Invocation of normal user-provided signal handlers (<SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>after</I
+></SPAN
+> flag <TT
+CLASS="LITERAL"
+>FALSE</TT
+>)
+  </P
+></DD
+><DT
+></DT
+><DD
+><P
+>	3 - Invocation of the object method handler for <TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_LAST</TT
+> signals
+  </P
+></DD
+><DT
+></DT
+><DD
+><P
+>	4 - Invocation of user provided signal handlers, connected with an <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>after</I
+></SPAN
+> flag of <TT
+CLASS="LITERAL"
+>TRUE</TT
+>
+  </P
+></DD
+><DT
+></DT
+><DD
+><P
+>	5 - Invocation of the object method handler for <TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_CLEANUP</TT
+> signals
+  </P
+></DD
+></DL
+></DIV
+>
+The user provided signal handlers are called in the order they were
+connected in.
+All handlers may prematurely stop a signal emission, and any number of
+handlers may be connected, disconnected, blocked or unblocked during
+a signal emission.
+There are certain criteria for skipping user handlers in stages 2 and 4
+of a signal emission.
+First, user handlers may be <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>blocked</I
+></SPAN
+>, blocked handlers are omitted
+during callback invocation, to return from the "blocked" state, a
+handler has to get unblocked exactly the same amount of times
+it has been blocked before.
+Second, upon emission of a <TT
+CLASS="LITERAL"
+>G_SIGNAL_DETAILED</TT
+> signal, an additional
+"detail" argument passed in to <A
+HREF="gobject-signals.html#G-SIGNAL-EMIT"
+>g_signal_emit</A
+>() has to match the detail
+argument of the signal handler currently subject to invocation.
+Specification of no detail argument for signal handlers (omission of the
+detail part of the signal specification upon connection) serves as a
+wildcard and matches any detail argument passed in to emission.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN10452"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10454"
+></A
+><H3
+><A
+NAME="GSIGNALINVOCATIONHINT"
+></A
+>struct GSignalInvocationHint</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GSignalInvocationHint
+{
+  guint		signal_id;
+  GQuark	detail;
+  GSignalFlags	run_type;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+> structure is used to pass on additional information
+to callbacks during a signal emission.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10460"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> <TT
+CLASS="STRUCTFIELD"
+><I
+>signal_id</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The signal id of the signal invoking the callback</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> <TT
+CLASS="STRUCTFIELD"
+><I
+>detail</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The detail passed on for this emission</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>run_type</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The stage the signal emission is currently in, this
+		field will contain one of <TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_FIRST</TT
+>,
+		<TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_LAST</TT
+> or <TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_CLEANUP</TT
+>.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10483"
+></A
+><H3
+><A
+NAME="GSIGNALACCUMULATOR"
+></A
+>GSignalAccumulator ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    (*GSignalAccumulator)           (<A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+> *ihint,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_accu,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *handler_return,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The signal accumulator is a special callback function that can be used
+to collect return values of the various callbacks that are called
+during a signal emission. The signal accumulator is specified at signal
+creation time, if it is left NULL, no accumulation of callback return
+values is performed. The return value of signal emissions is then the
+value returned by the last callback.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10493"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>ihint</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal invocation hint, see <A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_accu</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Accumulator to collect callback return values in, this
+		is the return value of the current signal emission.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>handler_return</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The accumulator function returns whether the signal emission
+		should be aborted. Returning <TT
+CLASS="LITERAL"
+>FALSE</TT
+> means to abort the
+		current emission and <TT
+CLASS="LITERAL"
+>TRUE</TT
+> is returned for continuation.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10521"
+></A
+><H3
+><A
+NAME="GSIGNALCMARSHALLER"
+></A
+>GSignalCMarshaller</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef GClosureMarshal			 GSignalCMarshaller;</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the signature of marshaller functions, required to marshall
+arrays of parameter values to signal emissions into C language callback
+invocations. It is merely an alias to <A
+HREF="gobject-closures.html#GCLOSUREMARSHAL"
+>GClosureMarshal</A
+> since the <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>
+mechanism takes over responsibility of actual function invocation for the
+signal system.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10528"
+></A
+><H3
+><A
+NAME="GSIGNALEMISSIONHOOK"
+></A
+>GSignalEmissionHook ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    (*GSignalEmissionHook)          (<A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+> *ihint,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_param_values,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *param_values,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10538"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>ihint</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_param_values</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>param_values</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10563"
+></A
+><H3
+><A
+NAME="GSIGNALFLAGS"
+></A
+>enum GSignalFlags</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_SIGNAL_RUN_FIRST	= 1 &lt;&lt; 0,
+  G_SIGNAL_RUN_LAST	= 1 &lt;&lt; 1,
+  G_SIGNAL_RUN_CLEANUP	= 1 &lt;&lt; 2,
+  G_SIGNAL_NO_RECURSE	= 1 &lt;&lt; 3,
+  G_SIGNAL_DETAILED	= 1 &lt;&lt; 4,
+  G_SIGNAL_ACTION	= 1 &lt;&lt; 5,
+  G_SIGNAL_NO_HOOKS	= 1 &lt;&lt; 6
+} GSignalFlags;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The signal flags are used to specify a signal's behaviour, the overall
+signal description outlines how especially the RUN flags control the
+stages of a signal emission.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10568"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_FIRST</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  Invoke the object method handler in the first emission stage.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_LAST</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   Invoke the object method handler in the third emission stage.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SIGNAL_RUN_CLEANUP</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Invoke the object method handler in the last emission stage.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SIGNAL_NO_RECURSE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> Signals being emitted for an object while currently being in
+                       emission for this very object will not be emitted recursively,
+                       but instead cause the first emission to be restarted.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SIGNAL_DETAILED</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   This signal supports "::detail" appendixes to the signal name
+                       upon handler connections and emissions.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SIGNAL_ACTION</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     Action signals are signals that may freely be emitted on alive
+                       objects from user code via <A
+HREF="gobject-signals.html#G-SIGNAL-EMIT"
+>g_signal_emit</A
+>() and friends, without
+                       the need of being embedded into extra code that performs pre or
+                       post emission adjustments on the object. They can also be thought
+                       of as by third-party code generically callable object methods.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SIGNAL_NO_HOOKS</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   No emissions hooks are supported for this signal.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10602"
+></A
+><H3
+><A
+NAME="GSIGNALMATCHTYPE"
+></A
+>enum GSignalMatchType</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_SIGNAL_MATCH_ID	   = 1 &lt;&lt; 0,
+  G_SIGNAL_MATCH_DETAIL	   = 1 &lt;&lt; 1,
+  G_SIGNAL_MATCH_CLOSURE   = 1 &lt;&lt; 2,
+  G_SIGNAL_MATCH_FUNC	   = 1 &lt;&lt; 3,
+  G_SIGNAL_MATCH_DATA	   = 1 &lt;&lt; 4,
+  G_SIGNAL_MATCH_UNBLOCKED = 1 &lt;&lt; 5
+} GSignalMatchType;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10607"
+></A
+><H3
+><A
+NAME="GSIGNALQUERY"
+></A
+>struct GSignalQuery</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GSignalQuery
+{
+  guint		signal_id;
+  const gchar  *signal_name;
+  GType		itype;
+  GSignalFlags	signal_flags;
+  GType		return_type; /* mangled with G_SIGNAL_TYPE_STATIC_SCOPE flag */
+  guint		n_params;
+  const GType  *param_types; /* mangled with G_SIGNAL_TYPE_STATIC_SCOPE flag */
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>A structure holding in-depth information for a specific signal. It is
+filled in by the <A
+HREF="gobject-signals.html#G-SIGNAL-QUERY"
+>g_signal_query</A
+>() function.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10613"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> <TT
+CLASS="STRUCTFIELD"
+><I
+>signal_id</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The signal id of the signal being queried, or 0 if the
+		signal to be queried was unknown.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *<TT
+CLASS="STRUCTFIELD"
+><I
+>signal_name</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The signal name.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>itype</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The interface/instance type that this signal can be emitted for.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>signal_flags</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The signal flags as passed in to <A
+HREF="gobject-signals.html#G-SIGNAL-NEW"
+>g_signal_new</A
+>().</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>return_type</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The return type for user callbacks.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> <TT
+CLASS="STRUCTFIELD"
+><I
+>n_params</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The number of parameters that user callbacks take.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>const <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>param_types</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The individual parameter types for user callbacks, note that the
+		effective callback signature is:
+<TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><TT
+CLASS="PARAMETER"
+><I
+>return_type</I
+></TT
+> callback (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>     data1,
+                      [param_types param_names,]
+                       <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>     data2);</PRE
+></TD
+></TR
+></TABLE
+>&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10660"
+></A
+><H3
+><A
+NAME="G-SIGNAL-TYPE-STATIC-SCOPE-CAPS"
+></A
+>G_SIGNAL_TYPE_STATIC_SCOPE</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_SIGNAL_TYPE_STATIC_SCOPE (G_TYPE_FLAG_RESERVED_ID_BIT)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10665"
+></A
+><H3
+><A
+NAME="G-SIGNAL-MATCH-MASK-CAPS"
+></A
+>G_SIGNAL_MATCH_MASK</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_SIGNAL_MATCH_MASK  0x3f</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10670"
+></A
+><H3
+><A
+NAME="G-SIGNAL-FLAGS-MASK-CAPS"
+></A
+>G_SIGNAL_FLAGS_MASK</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_SIGNAL_FLAGS_MASK  0x7f</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10675"
+></A
+><H3
+><A
+NAME="G-SIGNAL-NEW"
+></A
+>g_signal_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       g_signal_new                    (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> signal_flags,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> class_offset,
+                                             <A
+HREF="gobject-signals.html#GSIGNALACCUMULATOR"
+>GSignalAccumulator</A
+> accumulator,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> accu_data,
+                                             <A
+HREF="gobject-signals.html#GSIGNALCMARSHALLER"
+>GSignalCMarshaller</A
+> c_marshaller,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> return_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_params,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10690"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class_offset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>accumulator</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>accu_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_marshaller</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_params</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10739"
+></A
+><H3
+><A
+NAME="G-SIGNAL-NEWV"
+></A
+>g_signal_newv ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       g_signal_newv                   (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> signal_flags,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *class_closure,
+                                             <A
+HREF="gobject-signals.html#GSIGNALACCUMULATOR"
+>GSignalAccumulator</A
+> accumulator,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> accu_data,
+                                             <A
+HREF="gobject-signals.html#GSIGNALCMARSHALLER"
+>GSignalCMarshaller</A
+> c_marshaller,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> return_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_params,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> *param_types);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10755"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class_closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>accumulator</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>accu_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_marshaller</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_params</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>param_types</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10804"
+></A
+><H3
+><A
+NAME="G-SIGNAL-NEW-VALIST"
+></A
+>g_signal_new_valist ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       g_signal_new_valist             (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF="gobject-signals.html#GSIGNALFLAGS"
+>GSignalFlags</A
+> signal_flags,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *class_closure,
+                                             <A
+HREF="gobject-signals.html#GSIGNALACCUMULATOR"
+>GSignalAccumulator</A
+> accumulator,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> accu_data,
+                                             <A
+HREF="gobject-signals.html#GSIGNALCMARSHALLER"
+>GSignalCMarshaller</A
+> c_marshaller,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> return_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_params,
+                                             va_list args);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10819"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class_closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>accumulator</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>accu_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_marshaller</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_params</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>args</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10868"
+></A
+><H3
+><A
+NAME="G-SIGNAL-QUERY"
+></A
+>g_signal_query ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_query                  (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF="gobject-signals.html#GSIGNALQUERY"
+>GSignalQuery</A
+> *query);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Query the signal system for in-depth information about a
+specific signal. This function will fill in a user-provided
+structure to hold signal-specific information. If an invalid
+signal id is passed in, the <TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+> member of the <A
+HREF="gobject-signals.html#GSIGNALQUERY"
+>GSignalQuery</A
+>
+is 0. All members filled into the <A
+HREF="gobject-signals.html#GSIGNALQUERY"
+>GSignalQuery</A
+> structure should
+be considered constant and have to be left untouched.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10878"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The signal id of the signal to query information for.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>query</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	A user provided structure that is filled in with constant
+		values upon success.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10891"
+></A
+><H3
+><A
+NAME="G-SIGNAL-LOOKUP"
+></A
+>g_signal_lookup ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       g_signal_lookup                 (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10899"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10916"
+></A
+><H3
+><A
+NAME="G-SIGNAL-NAME"
+></A
+>g_signal_name ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* g_signal_name         (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10923"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10936"
+></A
+><H3
+><A
+NAME="G-SIGNAL-LIST-IDS"
+></A
+>g_signal_list_ids ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>*      g_signal_list_ids               (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *n_ids);</PRE
+></TD
+></TR
+></TABLE
+><P
+>List the signals by id, that a certain instance or interface type
+created. Further information about the signals can be acquired through
+<A
+HREF="gobject-signals.html#G-SIGNAL-QUERY"
+>g_signal_query</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10945"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Instance or interface type.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_ids</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Location to store the number of signal ids for <TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Newly allocated array of signal IDs.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10963"
+></A
+><H3
+><A
+NAME="G-SIGNAL-EMIT"
+></A
+>g_signal_emit ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_emit                   (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10971"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10992"
+></A
+><H3
+><A
+NAME="G-SIGNAL-EMIT-BY-NAME"
+></A
+>g_signal_emit_by_name ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_emit_by_name           (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10999"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11016"
+></A
+><H3
+><A
+NAME="G-SIGNAL-EMITV"
+></A
+>g_signal_emitv ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_emitv                  (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *instance_and_params,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11025"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance_and_params</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11046"
+></A
+><H3
+><A
+NAME="G-SIGNAL-EMIT-VALIST"
+></A
+>g_signal_emit_valist ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_emit_valist            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             va_list var_args);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11054"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>var_args</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11075"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CONNECT"
+></A
+>g_signal_connect()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_signal_connect(instance, detailed_signal, c_handler, data)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11080"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_handler</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11101"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CONNECT-AFTER"
+></A
+>g_signal_connect_after()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_signal_connect_after(instance, detailed_signal, c_handler, data)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11106"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_handler</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11127"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CONNECT-SWAPPED"
+></A
+>g_signal_connect_swapped()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_signal_connect_swapped(instance, detailed_signal, c_handler, data)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11132"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_handler</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11153"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CONNECT-OBJECT"
+></A
+>g_signal_connect_object ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      g_signal_connect_object         (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> c_handler,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> gobject,
+                                             <A
+HREF="gobject-signals.html#GCONNECTFLAGS"
+>GConnectFlags</A
+> connect_flags);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11164"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_handler</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>gobject</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>connect_flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11193"
+></A
+><H3
+><A
+NAME="GCONNECTFLAGS"
+></A
+>enum GConnectFlags</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_CONNECT_AFTER	= 1 &lt;&lt; 0,
+  G_CONNECT_SWAPPED	= 1 &lt;&lt; 1
+} GConnectFlags;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11198"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CONNECT-DATA"
+></A
+>g_signal_connect_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      g_signal_connect_data           (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> c_handler,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> destroy_data,
+                                             <A
+HREF="gobject-signals.html#GCONNECTFLAGS"
+>GConnectFlags</A
+> connect_flags);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11210"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c_handler</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>destroy_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>connect_flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11243"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CONNECT-CLOSURE"
+></A
+>g_signal_connect_closure ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      g_signal_connect_closure        (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> after);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11253"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>after</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11278"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CONNECT-CLOSURE-BY-ID"
+></A
+>g_signal_connect_closure_by_id ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      g_signal_connect_closure_by_id  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> after);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11289"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>after</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11318"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLER-BLOCK"
+></A
+>g_signal_handler_block ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_handler_block          (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+><A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-BLOCK"
+>g_signal_handler_block</A
+>() blocks a handler of an
+instance so it will not be called during any signal emissions
+unless it is unblocked again. Thus "blocking" a signal handler
+means to temporarily deactive it, a signal handler has to be
+unblocked exactly the same amount of times it has been blocked
+before to become active again.
+The <TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+> passed into <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-BLOCK"
+>g_signal_handler_block</A
+>() has
+to be a valid signal handler id, connected to a signal of
+<TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11329"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The instance to block the signal handler of.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Handler id of the handler to be blocked.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11342"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLER-UNBLOCK"
+></A
+>g_signal_handler_unblock ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_handler_unblock        (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+><A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-UNBLOCK"
+>g_signal_handler_unblock</A
+>() undoes the effect of a previous
+<A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-BLOCK"
+>g_signal_handler_block</A
+>() call. A blocked handler is skipped
+during signal emissions and will not be invoked, unblocking
+it (for exactly the amount of times it has been blocked before)
+reverts its "blocked" state, so the handler will be recognized
+by the signal system and is called upon future or currently
+ongoing signal emissions (since the order in which handlers are
+called during signal emissions is deterministic, whether the
+unblocked handler in question is called as part of a currently
+ongoing emission depends on how far that emission has proceeded
+yet).
+The <TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+> passed into <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-UNBLOCK"
+>g_signal_handler_unblock</A
+>() has
+to be a valid id of a signal handler that is connected to a
+signal of <TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+> and is currently blocked.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11354"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The instance to unblock the signal handler of.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Handler id of the handler to be unblocked.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11367"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLER-DISCONNECT"
+></A
+>g_signal_handler_disconnect ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_handler_disconnect     (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+><A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-DISCONNECT"
+>g_signal_handler_disconnect</A
+>() disconnects a handler from an
+instance so it will not be called during any future or currently
+ongoing emissions of the signal it has been connected to.
+The <TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+> becomes invalid and may be reused.
+The <TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+> passed into <A
+HREF="gobject-signals.html#G-SIGNAL-HANDLER-DISCONNECT"
+>g_signal_handler_disconnect</A
+>() has
+to be a valid signal handler id, connected to a signal of
+<TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11379"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The instance to remove the signal handler from.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Handler id of the handler to be disconnected.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11392"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLER-FIND"
+></A
+>g_signal_handler_find ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      g_signal_handler_find           (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Find the first signal handler that matches certain selection criteria.
+The criteria mask is passed as an OR-ed combination of <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+>
+flags, and the criteria values are passed as arguments.
+The match <TT
+CLASS="PARAMETER"
+><I
+>mask</I
+></TT
+> has to be non-0 for successful matches.
+If no handler was found, 0 is returned.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11407"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The instance owning the signal handler to be found.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>mask</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		Mask indicating which of <TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>,
+		<TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> and/or <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> the handler has to match.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal the handler has to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal detail the handler has to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The closure the handler will invoke.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The C closure callback of the handler (useless for non-C closures).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The closure data of the handler's closure.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	A valid non-0 signal handler id for a successful match.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11449"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLERS-BLOCK-MATCHED"
+></A
+>g_signal_handlers_block_matched ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       g_signal_handlers_block_matched (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function blocks all handlers on an instance that match a certain
+selection criteria. The criteria mask is passed as an OR-ed combination of
+<A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> flags, and the criteria values are passed as arguments.
+Passing at least one of the <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_CLOSURE</TT
+>, <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_FUNC</TT
+>
+or <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_DATA</TT
+> match flags is required for successful matches.
+If no handlers were found, 0 is returned, the number of blocked handlers
+otherwise.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11466"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The instance to block handlers from.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>mask</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		Mask indicating which of <TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>,
+		<TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> and/or <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> the handlers have to match.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal the handlers have to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal detail the handlers have to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The closure the handlers will invoke.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The C closure callback of the handlers (useless for non-C closures).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The closure data of the handlers' closures.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The amount of handlers that got blocked.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11508"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLERS-UNBLOCK-MATCHED"
+></A
+>g_signal_handlers_unblock_matched ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       g_signal_handlers_unblock_matched
+                                            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function unblocks all handlers on an instance that match a certain
+selection criteria. The criteria mask is passed as an OR-ed combination of
+<A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> flags, and the criteria values are passed as arguments.
+Passing at least one of the <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_CLOSURE</TT
+>, <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_FUNC</TT
+>
+or <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_DATA</TT
+> match flags is required for successful matches.
+If no handlers were found, 0 is returned, the number of unblocked handlers
+otherwise. The match criteria should not apply to any handlers that are
+not currently blocked.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11525"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The instance to unblock handlers from.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>mask</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		Mask indicating which of <TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>,
+		<TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> and/or <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> the handlers have to match.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal the handlers have to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal detail the handlers have to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The closure the handlers will invoke.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The C closure callback of the handlers (useless for non-C closures).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The closure data of the handlers' closures.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The amount of handlers that got unblocked.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11567"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLERS-DISCONNECT-MATCHED"
+></A
+>g_signal_handlers_disconnect_matched ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A>       g_signal_handlers_disconnect_matched
+                                            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> mask,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function disconnects all handlers on an instance that match a certain
+selection criteria. The criteria mask is passed as an OR-ed combination of
+<A
+HREF="gobject-signals.html#GSIGNALMATCHTYPE"
+>GSignalMatchType</A
+> flags, and the criteria values are passed as arguments.
+Passing at least one of the <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_CLOSURE</TT
+>, <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_FUNC</TT
+>
+or <TT
+CLASS="LITERAL"
+>G_SIGNAL_MATCH_DATA</TT
+> match flags is required for successful matches.
+If no handlers were found, 0 is returned, the number of disconnected handlers
+otherwise.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11584"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The instance to remove handlers from.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>mask</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		Mask indicating which of <TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>,
+		<TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> and/or <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> the handlers have to match.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal the handlers have to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Signal detail the handlers have to be connected to.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The closure the handlers will invoke.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The C closure callback of the handlers (useless for non-C closures).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The closure data of the handlers' closures.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	The amount of handlers that got disconnected.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11626"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLER-IS-CONNECTED"
+></A
+>g_signal_handler_is_connected ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_signal_handler_is_connected   (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> handler_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11634"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>handler_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11651"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLERS-BLOCK-BY-FUNC"
+></A
+>g_signal_handlers_block_by_func()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_signal_handlers_block_by_func(instance, func, data)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11656"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11673"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLERS-UNBLOCK-BY-FUNC"
+></A
+>g_signal_handlers_unblock_by_func()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_signal_handlers_unblock_by_func(instance, func, data)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11678"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11695"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLERS-DISCONNECT-BY-FUNC"
+></A
+>g_signal_handlers_disconnect_by_func()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_signal_handlers_disconnect_by_func(instance, func, data)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11700"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11717"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HAS-HANDLER-PENDING"
+></A
+>g_signal_has_handler_pending ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_signal_has_handler_pending    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> may_be_blocked);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11727"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>may_be_blocked</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11752"
+></A
+><H3
+><A
+NAME="G-SIGNAL-STOP-EMISSION"
+></A
+>g_signal_stop_emission ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_stop_emission          (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> detail);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11760"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11777"
+></A
+><H3
+><A
+NAME="G-SIGNAL-STOP-EMISSION-BY-NAME"
+></A
+>g_signal_stop_emission_by_name ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_stop_emission_by_name  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11784"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11797"
+></A
+><H3
+><A
+NAME="G-SIGNAL-OVERRIDE-CLASS-CLOSURE"
+></A
+>g_signal_override_class_closure ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_override_class_closure (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> instance_type,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *class_closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11805"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class_closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11822"
+></A
+><H3
+><A
+NAME="G-SIGNAL-CHAIN-FROM-OVERRIDDEN"
+></A
+>g_signal_chain_from_overridden ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_chain_from_overridden  (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *instance_and_params,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11829"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance_and_params</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11842"
+></A
+><H3
+><A
+NAME="G-SIGNAL-ADD-EMISSION-HOOK"
+></A
+>g_signal_add_emission_hook ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A>      g_signal_add_emission_hook      (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF="gobject-signals.html#GSIGNALEMISSIONHOOK"
+>GSignalEmissionHook</A
+> hook_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> hook_data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> data_destroy);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11853"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data_destroy</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11882"
+></A
+><H3
+><A
+NAME="G-SIGNAL-REMOVE-EMISSION-HOOK"
+></A
+>g_signal_remove_emission_hook ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_remove_emission_hook   (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> signal_id,
+                                             <A
+HREF=../glib/glib-basic-types.html#GULONG
+>gulong</A> hook_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11889"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11902"
+></A
+><H3
+><A
+NAME="G-SIGNAL-PARSE-NAME"
+></A
+>g_signal_parse_name ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_signal_parse_name             (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *detailed_signal,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *signal_id_p,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> *detail_p,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> force_detail_quark);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Internal function to parse a signal names into its <TT
+CLASS="PARAMETER"
+><I
+>signal_id</I
+></TT
+>
+and <TT
+CLASS="PARAMETER"
+><I
+>detail</I
+></TT
+> quark.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11915"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detailed_signal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	A string of the form "signal-name::detail".</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		The interface/instance type that introduced "signal-name".</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_id_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		Location to store the signal id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>detail_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		Location to stroe the detail quark.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>force_detail_quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	<TT
+CLASS="LITERAL"
+>TRUE</TT
+> forces creation of a GQuark for the detail.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		Whether the signal name could successfully be parsed and
+			<TT
+CLASS="PARAMETER"
+><I
+>signal_id_p</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>detail_p</I
+></TT
+> contain valid return values.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11947"
+></A
+><H3
+><A
+NAME="G-SIGNAL-GET-INVOCATION-HINT"
+></A
+>g_signal_get_invocation_hint ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-signals.html#GSIGNALINVOCATIONHINT"
+>GSignalInvocationHint</A
+>* g_signal_get_invocation_hint
+                                            (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11954"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11967"
+></A
+><H3
+><A
+NAME="G-SIGNAL-HANDLERS-DESTROY"
+></A
+>g_signal_handlers_destroy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_signal_handlers_destroy       (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> instance);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11973"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>instance</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN11982"
+></A
+><H3
+><A
+NAME="G-SIGNAL-TYPE-CCLOSURE-NEW"
+></A
+>g_signal_type_cclosure_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_signal_type_cclosure_new      (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> itype,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> struct_offset);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN11990"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>itype</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>struct_offset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><H2
+CLASS="FOOTNOTES"
+>Notes</H2
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN10418"
+HREF="gobject-signals.html#AEN10418"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Although signals can deal with any kind of instantiatable type,
+	i'm referring to those types as "object types" in the following, simply
+	because that is the context most users will encounter signals in.
+	</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-gparamspec.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-closures.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>GParamSpec</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Closures</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

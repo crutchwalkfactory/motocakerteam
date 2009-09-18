@@ -1,0 +1,383 @@
+<HTML
+><HEAD
+><TITLE
+>Running GLib Applications</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Overview"
+HREF="glib.html"><LINK
+REL="PREVIOUS"
+TITLE="Compiling GLib Applications"
+HREF="glib-compiling.html"><LINK
+REL="NEXT"
+TITLE="Changes from 1.0 to 2.0"
+HREF="glib-changes-2-0.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-compiling.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-changes-2-0.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-RUNNING"
+>Running GLib Applications</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN157"
+></A
+><H2
+>Name</H2
+>Running GLib Applications&nbsp;--&nbsp;How to run and debug your GLib application</DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN160"
+></A
+><H2
+>Running and debugging GLib Applications</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN162"
+></A
+><H3
+>Environment variables</H3
+><P
+> 
+GLib inspects a few of environment variables in addition to standard
+variables like <TT
+CLASS="ENVAR"
+>LANG</TT
+>, <TT
+CLASS="ENVAR"
+>PATH</TT
+> or <TT
+CLASS="ENVAR"
+>HOME</TT
+>. </P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><TT
+CLASS="ENVAR"
+>G_BROKEN_FILENAMES</TT
+>. </B
+>    If this environment variable is set, GLib assumes that filenames are in 
+    the locale encoding rather than in UTF-8.
+  </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><TT
+CLASS="ENVAR"
+>G_MESSAGES_PREFIXED</TT
+>. </B
+>    A list of log levels for which messages should be prefixed by the 
+    program name and PID of the application. The default is to prefix
+    everything except <TT
+CLASS="LITERAL"
+>G_LOG_LEVEL_MESSAGE</TT
+> and <TT
+CLASS="LITERAL"
+>G_LOG_LEVEL_INFO</TT
+>. 
+  </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><TT
+CLASS="ENVAR"
+>G_DEBUG</TT
+>. </B
+>    If GLib has been configured with <TT
+CLASS="OPTION"
+>--enable-debug=yes</TT
+>,
+    this variable can be set to a list of debug options, which cause GLib
+    to print out different types of debugging information.
+    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>fatal_warnings</DT
+><DD
+><P
+>Causes GLib to abort the program at the first call
+           to <A
+HREF="glib-message-logging.html#G-WARNING"
+>g_warning</A
+>(). This option is 
+           special in that it doesn't require GLib to be configured with 
+           debugging support.</P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN189"
+></A
+><H3
+>Traps and traces</H3
+><P
+>Some code portions contain trap variables that can be set during debugging 
+time if GLib has been configured with <TT
+CLASS="OPTION"
+>--enable-debug=yes</TT
+>. 
+Such traps lead to immediate code halts to examine the current program state 
+and backtrace.</P
+><P
+>Currently, the following trap variables exist:
+<TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>static volatile gulong g_trap_free_size;
+static volatile gulong g_trap_realloc_size;
+static volatile gulong g_trap_malloc_size;</PRE
+></TD
+></TR
+></TABLE
+>
+If set to a size &#62; 0, <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(), 
+<A
+HREF="glib-memory-allocation.html#G-REALLOC"
+>g_realloc</A
+>() and 
+<A
+HREF="glib-memory-allocation.html#G-MALLOC"
+>g_malloc</A
+>() will be intercepted if the size 
+matches the size of the corresponding memory block. This will only work with 
+<TT
+CLASS="LITERAL"
+>g_mem_set_vtable (glib_mem_profiler_table)</TT
+> upon startup 
+though, because memory profiling is required to match on the memory block sizes.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-compiling.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-changes-2-0.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Compiling GLib Applications</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Changes from 1.0 to 2.0</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

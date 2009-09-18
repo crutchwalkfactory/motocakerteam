@@ -1,0 +1,733 @@
+<HTML
+><HEAD
+><TITLE
+>Numerical Definitions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Fundamentals"
+HREF="glib-fundamentals.html"><LINK
+REL="PREVIOUS"
+TITLE="Byte Order Macros"
+HREF="glib-byte-order-macros.html"><LINK
+REL="NEXT"
+TITLE="Miscellaneous Macros"
+HREF="glib-miscellaneous-macros.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-byte-order-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-fundamentals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-miscellaneous-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-NUMERICAL-DEFINITIONS"
+>Numerical Definitions</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN2327"
+></A
+><H2
+>Name</H2
+>Numerical Definitions&nbsp;--&nbsp;mathematical constants, and floating point decomposition.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN2330"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+#define     <A
+HREF="glib-numerical-definitions.html#G-IEEE754-FLOAT-BIAS-CAPS"
+>G_IEEE754_FLOAT_BIAS</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-IEEE754-DOUBLE-BIAS-CAPS"
+>G_IEEE754_DOUBLE_BIAS</A
+>
+union       <A
+HREF="glib-numerical-definitions.html#GFLOATIEEE754"
+>GFloatIEEE754</A
+>;
+union       <A
+HREF="glib-numerical-definitions.html#GDOUBLEIEEE754"
+>GDoubleIEEE754</A
+>;
+
+
+#define     <A
+HREF="glib-numerical-definitions.html#G-E-CAPS"
+>G_E</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-LN2-CAPS"
+>G_LN2</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-LN10-CAPS"
+>G_LN10</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-PI-CAPS"
+>G_PI</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-PI-2-CAPS"
+>G_PI_2</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-PI-4-CAPS"
+>G_PI_4</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-SQRT2-CAPS"
+>G_SQRT2</A
+>
+#define     <A
+HREF="glib-numerical-definitions.html#G-LOG-2-BASE-10-CAPS"
+>G_LOG_2_BASE_10</A
+></PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2345"
+></A
+><H2
+>Description</H2
+><P
+>GLib offers mathematical constants such as <A
+HREF="glib-numerical-definitions.html#G-PI-CAPS"
+>G_PI</A
+> for the value of pi;
+many platforms have these in the C library, but some don't, the GLib
+versions always exist.</P
+><P
+>The <A
+HREF="glib-numerical-definitions.html#GFLOATIEEE754"
+>GFloatIEEE754</A
+> and <A
+HREF="glib-numerical-definitions.html#GDOUBLEIEEE754"
+>GDoubleIEEE754</A
+> unions are used to access the
+	sign, mantissa and exponent of IEEE floats and doubles. These
+	unions are defined as appropriate for a given platform. 
+ IEEE floats and doubles are supported (used for
+	storage) by at least Intel, PPC and Sparc, for reference: <A
+HREF="http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html"
+TARGET="_top"
+>http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html</A
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2353"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2355"
+></A
+><H3
+><A
+NAME="G-IEEE754-FLOAT-BIAS-CAPS"
+></A
+>G_IEEE754_FLOAT_BIAS</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_IEEE754_FLOAT_BIAS	(127)</PRE
+></TD
+></TR
+></TABLE
+><P
+>See <A
+HREF="http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html"
+TARGET="_top"
+>http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html</A
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2361"
+></A
+><H3
+><A
+NAME="G-IEEE754-DOUBLE-BIAS-CAPS"
+></A
+>G_IEEE754_DOUBLE_BIAS</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_IEEE754_DOUBLE_BIAS	(1023)</PRE
+></TD
+></TR
+></TABLE
+><P
+>See <A
+HREF="http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html"
+TARGET="_top"
+>http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html</A
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2367"
+></A
+><H3
+><A
+NAME="GFLOATIEEE754"
+></A
+>union GFloatIEEE754</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>union GFloatIEEE754
+{
+  gfloat v_float;
+  struct {
+    guint mantissa : 23;
+    guint biased_exponent : 8;
+    guint sign : 1;
+  } mpn;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <A
+HREF="glib-numerical-definitions.html#GFLOATIEEE754"
+>GFloatIEEE754</A
+> and <A
+HREF="glib-numerical-definitions.html#GDOUBLEIEEE754"
+>GDoubleIEEE754</A
+> unions are used to access the
+	sign, mantissa and exponent of IEEE floats and doubles. These
+	unions are defined as appropriate for a given platform. 
+ IEEE floats and doubles are supported (used for
+	storage) by at least Intel, PPC and Sparc, for reference: 
+<A
+HREF="http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html"
+TARGET="_top"
+>http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html</A
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2375"
+></A
+><H3
+><A
+NAME="GDOUBLEIEEE754"
+></A
+>union GDoubleIEEE754</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>union GDoubleIEEE754
+{
+  gdouble v_double;
+  struct {
+    guint mantissa_low : 32;
+    guint mantissa_high : 20;
+    guint biased_exponent : 11;
+    guint sign : 1;
+  } mpn;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <A
+HREF="glib-numerical-definitions.html#GFLOATIEEE754"
+>GFloatIEEE754</A
+> and <A
+HREF="glib-numerical-definitions.html#GDOUBLEIEEE754"
+>GDoubleIEEE754</A
+> unions are used to access the
+	sign, mantissa and exponent of IEEE floats and doubles. These
+	unions are defined as appropriate for a given platform. 
+ IEEE floats and doubles are supported (used for
+	storage) by at least Intel, PPC and Sparc, for reference: 
+<A
+HREF="http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html"
+TARGET="_top"
+>http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html</A
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2383"
+></A
+><H3
+><A
+NAME="G-E-CAPS"
+></A
+>G_E</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_E     2.7182818284590452354E0</PRE
+></TD
+></TR
+></TABLE
+><P
+>The base of natural logarithms.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2388"
+></A
+><H3
+><A
+NAME="G-LN2-CAPS"
+></A
+>G_LN2</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_LN2   6.9314718055994530942E-1</PRE
+></TD
+></TR
+></TABLE
+><P
+>The natural logarithm of 2.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2393"
+></A
+><H3
+><A
+NAME="G-LN10-CAPS"
+></A
+>G_LN10</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_LN10  2.3025850929940456840E0</PRE
+></TD
+></TR
+></TABLE
+><P
+>The natural logarithm of 10.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2398"
+></A
+><H3
+><A
+NAME="G-PI-CAPS"
+></A
+>G_PI</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PI    3.14159265358979323846E0</PRE
+></TD
+></TR
+></TABLE
+><P
+>The value of pi (ratio of circle's circumference to its diameter).</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2403"
+></A
+><H3
+><A
+NAME="G-PI-2-CAPS"
+></A
+>G_PI_2</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PI_2  1.57079632679489661923E0</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pi divided by 2.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2408"
+></A
+><H3
+><A
+NAME="G-PI-4-CAPS"
+></A
+>G_PI_4</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PI_4  0.78539816339744830962E0</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pi divided by 4.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2413"
+></A
+><H3
+><A
+NAME="G-SQRT2-CAPS"
+></A
+>G_SQRT2</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_SQRT2 1.4142135623730950488E0</PRE
+></TD
+></TR
+></TABLE
+><P
+>The square root of two.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2418"
+></A
+><H3
+><A
+NAME="G-LOG-2-BASE-10-CAPS"
+></A
+>G_LOG_2_BASE_10</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_LOG_2_BASE_10		(0.30102999566398119521)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Used for fooling around with float formats, see 
+<A
+HREF="http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html"
+TARGET="_top"
+>http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html</A
+></P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2424"
+></A
+><H2
+>See Also</H2
+><P
+><A
+HREF="http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html"
+TARGET="_top"
+>http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html</A
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-byte-order-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-fundamentals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-miscellaneous-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Byte Order Macros</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Miscellaneous Macros</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

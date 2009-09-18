@@ -1,0 +1,2280 @@
+<HTML
+><HEAD
+><TITLE
+>Asynchronous Queues</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Core Application Support"
+HREF="glib-core.html"><LINK
+REL="PREVIOUS"
+TITLE="Thread Pools"
+HREF="glib-thread-pools.html"><LINK
+REL="NEXT"
+TITLE="Dynamic Loading of Modules"
+HREF="glib-dynamic-loading-of-modules.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-thread-pools.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-core.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-dynamic-loading-of-modules.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-ASYNCHRONOUS-QUEUES"
+>Asynchronous Queues</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN7199"
+></A
+><H2
+>Name</H2
+>Asynchronous Queues&nbsp;--&nbsp;asynchronous communication between threads.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN7202"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>;
+<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>* <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-NEW"
+>g_async_queue_new</A
+>              (void);
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-REF"
+>g_async_queue_ref</A
+>               (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-UNREF"
+>g_async_queue_unref</A
+>             (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-PUSH"
+>g_async_queue_push</A
+>              (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-POP"
+>g_async_queue_pop</A
+>               (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-TRY-POP"
+>g_async_queue_try_pop</A
+>           (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-TIMED-POP"
+>g_async_queue_timed_pop</A
+>         (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-date-and-time-functions.html#GTIMEVAL"
+>GTimeVal</A
+> *end_time);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-LENGTH"
+>g_async_queue_length</A
+>            (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-LOCK"
+>g_async_queue_lock</A
+>              (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-UNLOCK"
+>g_async_queue_unlock</A
+>            (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-REF-UNLOCKED"
+>g_async_queue_ref_unlocked</A
+>      (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-UNREF-AND-UNLOCK"
+>g_async_queue_unref_and_unlock</A
+>  (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+void        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-PUSH-UNLOCKED"
+>g_async_queue_push_unlocked</A
+>     (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-POP-UNLOCKED"
+>g_async_queue_pop_unlocked</A
+>      (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-TRY-POP-UNLOCKED"
+>g_async_queue_try_pop_unlocked</A
+>  (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-TIMED-POP-UNLOCKED"
+>g_async_queue_timed_pop_unlocked</A
+>
+                                            (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-date-and-time-functions.html#GTIMEVAL"
+>GTimeVal</A
+> *end_time);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-LENGTH-UNLOCKED"
+>g_async_queue_length_unlocked</A
+>   (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN7252"
+></A
+><H2
+>Description</H2
+><P
+>Often you need to communicate between different threads. In general
+it's safer not to do this by shared memory, but by explicit message
+passing. These messages only make sense asynchronously for
+multi-threaded applications though, as a synchronous operation could as
+well be done in the same thread.</P
+><P
+>Asynchronous queues are an exception from most other GLib data
+structures, as they can be used simultaneously from multiple threads
+without explicit locking and they bring their own builtin reference
+counting. This is because the nature of an asynchronous queue is that
+it will always be used by at least 2 concurrent threads.</P
+><P
+>For using an asynchronous queue you first have to create one with
+<A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-NEW"
+>g_async_queue_new</A
+>(). A newly-created queue will get the reference
+count 1. Whenever another thread is creating a new reference of (that
+is, pointer to) the queue, it has to increase the reference count
+(using <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-REF"
+>g_async_queue_ref</A
+>()). Also, before removing this reference, the
+reference count has to be decreased (using
+<A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-UNREF"
+>g_async_queue_unref</A
+>()). After that the queue might no longer exist so
+you must not access it after that point.</P
+><P
+>A thread, which wants to send a message to that queue simply calls
+<A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-PUSH"
+>g_async_queue_push</A
+>() to push the message to the queue.</P
+><P
+>A thread, which is expecting messages from an asynchronous queue
+simply calls <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-POP"
+>g_async_queue_pop</A
+>() for that queue. If no message is
+available in the queue at that point, the thread is now put to sleep
+until a message arrives. The message will be removed from the queue
+and returned. The functions <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-TRY-POP"
+>g_async_queue_try_pop</A
+>() and
+<A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-TIMED-POP"
+>g_async_queue_timed_pop</A
+>() can be used to only check for the presence
+of messages or to only wait a certain time for messages respectively.</P
+><P
+>For almost every function there exist two variants, one that locks the
+queue and one that doesn't. That way you can hold the queue lock
+(acquire it with <A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-LOCK"
+>g_async_queue_lock</A
+>() and release it with
+<A
+HREF="glib-asynchronous-queues.html#G-ASYNC-QUEUE-UNLOCK"
+>g_async_queue_unlock</A
+>()) over multiple queue accessing
+instructions. This can be necessary to ensure the integrity of the
+queue, but should only be used when really necessary, as it can make
+your life harder if used unwisely. Normally you should only use the
+locking function variants (those without the suffix _unlocked)</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN7269"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7271"
+></A
+><H3
+><A
+NAME="GASYNCQUEUE"
+></A
+>struct GAsyncQueue</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GAsyncQueue;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> struct is an opaque data structure, which represents
+an asynchronous queue. It should only be accessed through the
+<TT
+CLASS="FUNCTION"
+>g_async_queue_*</TT
+> functions.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7278"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-NEW"
+></A
+>g_async_queue_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>* g_async_queue_new              (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new asynchronous queue with the initial reference count of 1.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7284"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the new <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7294"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-REF"
+></A
+>g_async_queue_ref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_ref               (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Increases the reference count of the asynchronous <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> by 1.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7301"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7311"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-UNREF"
+></A
+>g_async_queue_unref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_unref             (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Decreases the reference count of the asynchronous <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> by 1. If
+the reference count went to 0, the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> will be destroyed and the
+memory allocated will be freed. So you are not allowed to use the
+<TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> afterwards, as it might have disappeared.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7320"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7330"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-PUSH"
+></A
+>g_async_queue_push ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_push              (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pushes the <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> into the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> must not be <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7341"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> to push into the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7357"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-POP"
+></A
+>g_async_queue_pop ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_async_queue_pop               (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pops data from the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. This function blocks until data become
+available.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7365"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data from the queue.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7379"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-TRY-POP"
+></A
+>g_async_queue_try_pop ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_async_queue_try_pop           (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Tries to pop data from the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. If no data is available, <TT
+CLASS="LITERAL"
+>NULL</TT
+> is
+returned.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7388"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data from the queue or <TT
+CLASS="LITERAL"
+>NULL</TT
+>, when no data is
+available immediately.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7403"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-TIMED-POP"
+></A
+>g_async_queue_timed_pop ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_async_queue_timed_pop         (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-date-and-time-functions.html#GTIMEVAL"
+>GTimeVal</A
+> *end_time);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pops data from the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. If no data is received before <TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+>,
+<TT
+CLASS="LITERAL"
+>NULL</TT
+> is returned.</P
+><P
+>To easily calculate <TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+> a combination of <A
+HREF="glib-date-and-time-functions.html#G-GET-CURRENT-TIME"
+>g_get_current_time</A
+>()
+and <A
+HREF="glib-date-and-time-functions.html#G-TIME-VAL-ADD"
+>g_time_val_add</A
+>() can be used.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7418"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-date-and-time-functions.html#GTIMEVAL"
+>GTimeVal</A
+>, determining the final time.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data from the queue or <TT
+CLASS="LITERAL"
+>NULL</TT
+>, when no data is
+received before <TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7439"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-LENGTH"
+></A
+>g_async_queue_length ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_async_queue_length            (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the length of the queue, negative values mean waiting
+threads, positive values mean available entries in the
+<TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. Actually this function returns the number of data items in
+the queue minus the number of waiting threads. Thus a return value
+of 0 could mean 'n' entries in the queue and 'n' thread waiting.
+That can happen due to locking of the queue or due to
+scheduling.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7447"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the length of the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7462"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-LOCK"
+></A
+>g_async_queue_lock ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_lock              (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Acquires the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s lock. After that you can only call the
+<TT
+CLASS="FUNCTION"
+>g_async_queue_*_unlocked()</TT
+> function variants on that
+<TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. Otherwise it will deadlock.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7472"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7482"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-UNLOCK"
+></A
+>g_async_queue_unlock ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_unlock            (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Releases the queue's lock.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7488"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7498"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-REF-UNLOCKED"
+></A
+>g_async_queue_ref_unlocked ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_ref_unlocked      (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Increases the reference count of the asynchronous <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> by 1. This
+function must be called while holding the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s lock.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7506"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7516"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-UNREF-AND-UNLOCK"
+></A
+>g_async_queue_unref_and_unlock ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_unref_and_unlock  (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Decreases the reference count of the asynchronous <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> by 1 and
+releases the lock. This function must be called while holding the
+<TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s lock. If the reference count went to 0, the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> will be
+destroyed and the memory allocated will be freed. So you are not
+allowed to use the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+> afterwards, as it might have disappeared.
+The obvious asymmetry (it is not named
+g_async_queue_unref_unlocked()) is because the queue can't be
+unlocked after unreffing it, as it might already have disappeared.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7527"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7537"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-PUSH-UNLOCKED"
+></A
+>g_async_queue_push_unlocked ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_async_queue_push_unlocked     (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pushes the <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> into the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> must not be <TT
+CLASS="LITERAL"
+>NULL</TT
+>. This
+function must be called while holding the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s lock.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7549"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> to push into the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7565"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-POP-UNLOCKED"
+></A
+>g_async_queue_pop_unlocked ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_async_queue_pop_unlocked      (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pops data from the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. This function blocks until data become
+available. This function must be called while holding the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s
+lock.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7574"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data from the queue.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7588"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-TRY-POP-UNLOCKED"
+></A
+>g_async_queue_try_pop_unlocked ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_async_queue_try_pop_unlocked  (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Tries to pop data from the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. If no data is available, <TT
+CLASS="LITERAL"
+>NULL</TT
+> is
+returned. This function must be called while holding the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s
+lock.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7598"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data from the queue or <TT
+CLASS="LITERAL"
+>NULL</TT
+>, when no data is
+available immediately.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7613"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-TIMED-POP-UNLOCKED"
+></A
+>g_async_queue_timed_pop_unlocked ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_async_queue_timed_pop_unlocked
+                                            (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue,
+                                             <A
+HREF="glib-date-and-time-functions.html#GTIMEVAL"
+>GTimeVal</A
+> *end_time);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pops data from the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. If no data is received before <TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+>,
+<TT
+CLASS="LITERAL"
+>NULL</TT
+> is returned. This function must be called while holding the
+<TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s lock.</P
+><P
+>To easily calculate <TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+> a combination of <A
+HREF="glib-date-and-time-functions.html#G-GET-CURRENT-TIME"
+>g_get_current_time</A
+>()
+and <A
+HREF="glib-date-and-time-functions.html#G-TIME-VAL-ADD"
+>g_time_val_add</A
+>() can be used.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7629"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-date-and-time-functions.html#GTIMEVAL"
+>GTimeVal</A
+>, determining the final time.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data from the queue or <TT
+CLASS="LITERAL"
+>NULL</TT
+>, when no data is
+received before <TT
+CLASS="PARAMETER"
+><I
+>end_time</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN7650"
+></A
+><H3
+><A
+NAME="G-ASYNC-QUEUE-LENGTH-UNLOCKED"
+></A
+>g_async_queue_length_unlocked ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_async_queue_length_unlocked   (<A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the length of the queue, negative values mean waiting
+threads, positive values mean available entries in the
+<TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>. Actually this function returns the number of data items in
+the queue minus the number of waiting threads. Thus a return value
+of 0 could mean 'n' entries in the queue and 'n' thread waiting.
+That can happen due to locking of the queue or due to
+scheduling. This function must be called while holding the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>'s
+lock.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN7659"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-asynchronous-queues.html#GASYNCQUEUE"
+>GAsyncQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the length of the <TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-thread-pools.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-core.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-dynamic-loading-of-modules.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Thread Pools</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Dynamic Loading of Modules</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

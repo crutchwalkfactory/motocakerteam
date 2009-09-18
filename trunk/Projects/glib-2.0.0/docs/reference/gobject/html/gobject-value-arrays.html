@@ -1,0 +1,1763 @@
+<HTML
+><HEAD
+><TITLE
+>Value arrays</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GObject Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="API Reference"
+HREF="r28.html"><LINK
+REL="PREVIOUS"
+TITLE="Closures"
+HREF="gobject-closures.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GObject Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-closures.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+>&nbsp;</TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GOBJECT-VALUE-ARRAYS"
+>Value arrays</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN12771"
+></A
+><H2
+>Name</H2
+>Value arrays&nbsp;--&nbsp;A <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> is a container structure to maintain an array of <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> elements.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN12776"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;gobject.h&gt;
+
+
+struct      <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>;
+<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>*     <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-GET-NTH"
+>g_value_array_get_nth</A
+>           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> index);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-NEW"
+>g_value_array_new</A
+>              (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_prealloced);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-COPY"
+>g_value_array_copy</A
+>             (const <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array);
+void        <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-FREE"
+>g_value_array_free</A
+>              (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-APPEND"
+>g_value_array_append</A
+>           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-PREPEND"
+>g_value_array_prepend</A
+>          (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-INSERT"
+>g_value_array_insert</A
+>           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> index,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-REMOVE"
+>g_value_array_remove</A
+>           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> index);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-SORT"
+>g_value_array_sort</A
+>             (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-doubly-linked-lists.html#GCOMPAREFUNC
+>GCompareFunc</A> compare_func);
+<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* <A
+HREF="gobject-value-arrays.html#G-VALUE-ARRAY-SORT-WITH-DATA"
+>g_value_array_sort_with_data</A
+>   (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-doubly-linked-lists.html#GCOMPAREDATAFUNC
+>GCompareDataFunc</A> compare_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> user_data);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN12818"
+></A
+><H2
+>Description</H2
+><P
+>The prime purpose of a <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> is for it to be used as an object property
+that holds an array of values. A <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> wraps an array of <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> elements
+in order for it to be used as a boxed type through <TT
+CLASS="LITERAL"
+>G_TYPE_VALUE_ARRAY</TT
+>.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN12825"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12827"
+></A
+><H3
+><A
+NAME="GVALUEARRAY"
+></A
+>struct GValueArray</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GValueArray
+{
+  guint   n_values;
+  GValue *values;
+
+  /*&lt; private &gt;*/
+  guint   n_prealloced;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12832"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> <TT
+CLASS="STRUCTFIELD"
+><I
+>n_values</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    number of values contained in the array</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>values</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      array of values&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12847"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-GET-NTH"
+></A
+>g_value_array_get_nth ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>*     g_value_array_get_nth           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> index);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Return a pointer to the value at <TT
+CLASS="PARAMETER"
+><I
+>index</I
+></TT
+> containd in <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12857"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to get a value from</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>index</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      index of the value of interest</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    pointer to a value at <TT
+CLASS="PARAMETER"
+><I
+>index</I
+></TT
+> in <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12877"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-NEW"
+></A
+>g_value_array_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_new              (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_prealloced);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Allocate and initialize a new <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>, optionally preserve space
+for <TT
+CLASS="PARAMETER"
+><I
+>n_prealloced</I
+></TT
+> elements. New arrays always contain 0 elements,
+regardless of the value of <TT
+CLASS="PARAMETER"
+><I
+>n_prealloced</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12887"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_prealloced</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>number of values to preallocate space for</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     a newly allocated <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> with 0 values
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12901"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-COPY"
+></A
+>g_value_array_copy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_copy             (const <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Construct an exact copy of a <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> by duplicating all its
+contents.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12909"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to copy</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    Newly allocated copy of <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12924"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-FREE"
+></A
+>g_value_array_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_value_array_free              (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Free a <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> including its contents.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12931"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12940"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-APPEND"
+></A
+>g_value_array_append ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_append           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Insert a copy of <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> as last element of <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12950"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to add an element to</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> to copy into <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    the <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> passed in as <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12972"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-PREPEND"
+></A
+>g_value_array_prepend ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_prepend          (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Insert a copy of <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> as first element of <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12982"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to add an element to</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> to copy into <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    the <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> passed in as <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13004"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-INSERT"
+></A
+>g_value_array_insert ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_insert           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> index,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Insert a copy of <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> at specified position into <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13015"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to add an element to</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>index</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      insertion position, must be &#60;= value_array-&#62;n_values</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> to copy into <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    the <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> passed in as <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13041"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-REMOVE"
+></A
+>g_value_array_remove ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_remove           (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> index);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Remove the value at position <TT
+CLASS="PARAMETER"
+><I
+>index</I
+></TT
+> from <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13051"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to remove an element from</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>index</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      position of value to remove, must be &#60; value_array-&#62;n_values</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    the <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> passed in as <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13071"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-SORT"
+></A
+>g_value_array_sort ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_sort             (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-doubly-linked-lists.html#GCOMPAREFUNC
+>GCompareFunc</A> compare_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Sort <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+> using <TT
+CLASS="PARAMETER"
+><I
+>compare_func</I
+></TT
+> to compare the elements accoring to
+the semantics of <A
+HREF=../glib/glib-doubly-linked-lists.html#GCOMPAREFUNC
+>GCompareFunc</A>.</P
+><P
+>The current implementation uses Quick-Sort as sorting algorithm.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13083"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to sort</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>compare_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>function to compare elements</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     the <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> passed in as <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13103"
+></A
+><H3
+><A
+NAME="G-VALUE-ARRAY-SORT-WITH-DATA"
+></A
+>g_value_array_sort_with_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+>* g_value_array_sort_with_data   (<A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> *value_array,
+                                             <A
+HREF=../glib/glib-doubly-linked-lists.html#GCOMPAREDATAFUNC
+>GCompareDataFunc</A> compare_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> user_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Sort <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+> using <TT
+CLASS="PARAMETER"
+><I
+>compare_func</I
+></TT
+> to compare the elements accoring
+to the semantics of <A
+HREF=../glib/glib-doubly-linked-lists.html#GCOMPAREDATAFUNC
+>GCompareDataFunc</A>.</P
+><P
+>The current implementation uses Quick-Sort as sorting algorithm.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13116"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> to sort</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>compare_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> function to compare elements</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    extra data argument provided for <TT
+CLASS="PARAMETER"
+><I
+>compare_func</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      the <A
+HREF="gobject-value-arrays.html#GVALUEARRAY"
+>GValueArray</A
+> passed in as <TT
+CLASS="PARAMETER"
+><I
+>value_array</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN13141"
+></A
+><H2
+>See Also</H2
+><P
+><A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>, <A
+HREF="gobject-standard-parameter-and-value-types.html#GPARAMSPECVALUEARRAY"
+>GParamSpecValueArray</A
+>, <A
+HREF="gobject-standard-parameter-and-value-types.html#G-PARAM-SPEC-VALUE-ARRAY"
+>g_param_spec_value_array</A
+>()</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-closures.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Closures</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+>&nbsp;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

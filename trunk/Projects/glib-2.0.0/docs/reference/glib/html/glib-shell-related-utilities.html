@@ -1,0 +1,886 @@
+<HTML
+><HEAD
+><TITLE
+>Shell-related Utilities</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="File Utilities"
+HREF="glib-file-utilities.html"><LINK
+REL="NEXT"
+TITLE="Glob-style pattern matching"
+HREF="glib-glob-style-pattern-matching.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-file-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-glob-style-pattern-matching.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-SHELL-RELATED-UTILITIES"
+>Shell-related Utilities</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN22799"
+></A
+><H2
+>Name</H2
+>Shell-related Utilities&nbsp;--&nbsp;shell-like commandline handling.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN22802"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+enum        <A
+HREF="glib-shell-related-utilities.html#GSHELLERROR"
+>GShellError</A
+>;
+#define     <A
+HREF="glib-shell-related-utilities.html#G-SHELL-ERROR-CAPS"
+>G_SHELL_ERROR</A
+>
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-shell-related-utilities.html#G-SHELL-PARSE-ARGV"
+>g_shell_parse_argv</A
+>              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *command_line,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *argcp,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> ***argvp,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-shell-related-utilities.html#G-SHELL-QUOTE"
+>g_shell_quote</A
+>                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *unquoted_string);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-shell-related-utilities.html#G-SHELL-UNQUOTE"
+>g_shell_unquote</A
+>                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *quoted_string,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN22820"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN22823"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22825"
+></A
+><H3
+><A
+NAME="GSHELLERROR"
+></A
+>enum GShellError</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  /* mismatched or otherwise mangled quoting */
+  G_SHELL_ERROR_BAD_QUOTING,
+  /* string to be parsed was empty */
+  G_SHELL_ERROR_EMPTY_STRING,
+  G_SHELL_ERROR_FAILED
+} GShellError;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error codes returned by shell functions.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22830"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SHELL_ERROR_BAD_QUOTING</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Mismatched or otherwise mangled quoting.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SHELL_ERROR_EMPTY_STRING</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>String to be parsed was empty.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SHELL_ERROR_FAILED</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Some other error.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22847"
+></A
+><H3
+><A
+NAME="G-SHELL-ERROR-CAPS"
+></A
+>G_SHELL_ERROR</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_SHELL_ERROR g_shell_error_quark ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error domain for shell functions. Errors in this domain will
+be from the <A
+HREF="glib-shell-related-utilities.html#GSHELLERROR"
+>GShellError</A
+> enumeration. See <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> for information on
+error domains.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22854"
+></A
+><H3
+><A
+NAME="G-SHELL-PARSE-ARGV"
+></A
+>g_shell_parse_argv ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_shell_parse_argv              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *command_line,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *argcp,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> ***argvp,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Parses a command line into an argument vector, in much the same way
+the shell would, but without many of the expansions the shell would
+perform (variable expansion, globs, operators, filename expansion,
+etc. are not supported). The results are defined to be the same as
+those you would get from a UNIX98 /bin/sh, as long as the input
+contains none of the unsupported shell expansions. If the input
+does contain such expansions, they are passed through
+literally. Possible errors are those from the <A
+HREF="glib-shell-related-utilities.html#G-SHELL-ERROR-CAPS"
+>G_SHELL_ERROR</A
+>
+domain. Free the returned vector with <A
+HREF="glib-string-utility-functions.html#G-STRFREEV"
+>g_strfreev</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22867"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>command_line</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> command line to parse</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>argcp</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for number of args</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>argvp</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for array of args</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for error</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if error set</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22894"
+></A
+><H3
+><A
+NAME="G-SHELL-QUOTE"
+></A
+>g_shell_quote ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_shell_quote                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *unquoted_string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Quotes a string so that the shell (/bin/sh) will interpret the
+quoted string to mean <TT
+CLASS="PARAMETER"
+><I
+>unquoted_string</I
+></TT
+>. If you pass a filename to
+the shell, for example, you should first quote it with this
+function.  The return value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). The
+quoting style used is undefined (single or double quotes may be
+used).</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22904"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>unquoted_string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a literal string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> quoted string</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22917"
+></A
+><H3
+><A
+NAME="G-SHELL-UNQUOTE"
+></A
+>g_shell_unquote ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_shell_unquote                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *quoted_string,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Unquotes a string as the shell (/bin/sh) would. Only handles
+quotes; if a string contains file globs, arithmetic operators,
+variables, backticks, redirections, or other special-to-the-shell
+features, the result will be different from the result a real shell
+would produce (the variables, backticks, etc. will be passed
+through literally instead of being expanded). This function is
+guaranteed to succeed if applied to the result of
+<A
+HREF="glib-shell-related-utilities.html#G-SHELL-QUOTE"
+>g_shell_quote</A
+>(). If it fails, it returns <TT
+CLASS="LITERAL"
+>NULL</TT
+> and sets the
+error. The <TT
+CLASS="PARAMETER"
+><I
+>quoted_string</I
+></TT
+> need not actually contain quoted or
+escaped text; <A
+HREF="glib-shell-related-utilities.html#G-SHELL-UNQUOTE"
+>g_shell_unquote</A
+>() simply goes through the string and
+unquotes/unescapes anything that the shell would. Both single and
+double quotes are handled, as are escapes including escaped
+newlines. The return value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). Possible
+errors are in the <A
+HREF="glib-shell-related-utilities.html#G-SHELL-ERROR-CAPS"
+>G_SHELL_ERROR</A
+> domain.</P
+><P
+>Shell quoting rules are a bit strange. Single quotes preserve the
+literal string exactly. escape sequences are not allowed; not even
+\' - if you want a ' in the quoted text, you have to do something
+like 'foo'\''bar'.  Double quotes allow $, `, ", \, and newline to
+be escaped with backslash. Otherwise double quotes preserve things
+literally.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22933"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quoted_string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> shell-quoted string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> error return location or NULL</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> an unquoted string</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-file-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-glob-style-pattern-matching.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>File Utilities</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Glob-style pattern matching</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

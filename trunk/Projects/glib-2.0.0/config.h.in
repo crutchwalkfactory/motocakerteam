@@ -1,0 +1,424 @@
+/* config.h.in.  Generated from configure.in by autoheader.  */
+/* GLIB - Library of useful routines for C programming
+ * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+/* acconfig.h
+   This file is in the public domain.
+
+   Descriptive text for the C preprocessor macros that
+   the distributed Autoconf macros can define.
+   No software package will use all of them; autoheader copies the ones
+   your configure.in uses into your configuration header file templates.
+
+   The entries are in sort -df order: alphabetical, case insensitive,
+   ignoring punctuation (such as underscores).  Although this order
+   can split up related entries, it makes it easier to check whether
+   a given entry is in the file.
+
+   Leave the following blank line there!!  Autoheader needs it.  */
+
+
+/* Other stuff */
+
+/* #undef PACKAGE */
+/* #undef VERSION */
+
+
+/* Leave that blank line there!!  Autoheader needs it.
+   If you're adding to this file, keep in mind:
+   The entries are in sort -df order: alphabetical, case insensitive,
+   ignoring punctuation (such as underscores).  */
+
+#undef ENABLE_NLS
+#undef GETTEXT_PACKAGE
+#undef GLIB_LOCALE_DIR
+#undef HAVE_GETTEXT
+#undef HAVE_LC_MESSAGES
+#undef SANE_MALLOC_PROTOS
+#undef USE_LIBICONV_GNU
+#undef USE_LIBICONV_NATIVE
+
+/* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
+   systems. This function is required for `alloca.c' support on those systems.
+   */
+#undef CRAY_STACKSEG_END
+
+/* Define if using `alloca.c'. */
+#undef C_ALLOCA
+
+/* Whether to disable memory pools */
+#undef DISABLE_MEM_POOLS
+
+/* Whether to enable GC friendliness */
+#undef ENABLE_GC_FRIENDLY
+
+/* Define to the GLIB binary age */
+#undef GLIB_BINARY_AGE
+
+/* Byte contents of gmutex */
+#undef GLIB_BYTE_CONTENTS_GMUTEX
+
+/* Define to the GLIB interface age */
+#undef GLIB_INTERFACE_AGE
+
+/* Define to the GLIB major version */
+#undef GLIB_MAJOR_VERSION
+
+/* Define to the GLIB micro version */
+#undef GLIB_MICRO_VERSION
+
+/* Define to the GLIB minor version */
+#undef GLIB_MINOR_VERSION
+
+/* Size of gmutex */
+#undef GLIB_SIZEOF_GMUTEX
+
+/* Size of intmax_t */
+#undef GLIB_SIZEOF_INTMAX_T
+
+/* Size of ptrdiff_t */
+#undef GLIB_SIZEOF_PTRDIFF_T
+
+/* Size of size_t */
+#undef GLIB_SIZEOF_SIZE_T
+
+/* Size of system_thread */
+#undef GLIB_SIZEOF_SYSTEM_THREAD
+
+/* Whether glib was compiled with debugging enabled */
+#undef G_COMPILED_WITH_DEBUGGING
+
+/* Have inline keyword */
+#undef G_HAVE_INLINE
+
+/* Have __inline keyword */
+#undef G_HAVE___INLINE
+
+/* Have __inline__ keyword */
+#undef G_HAVE___INLINE__
+
+/* Source file containing theread implementation */
+#undef G_THREAD_SOURCE
+
+/* whether to use the PID niceness surrogate for thread priorities */
+#undef G_THREAD_USE_PID_SURROGATE
+
+/* A 'va_copy' style function */
+#undef G_VA_COPY
+
+/* 'va_lists' cannot be copies as values */
+#undef G_VA_COPY_AS_ARRAY
+
+/* Define if you have `alloca', as a function or macro. */
+#undef HAVE_ALLOCA
+
+/* Define if you have <alloca.h> and it should be used (not on Ultrix). */
+#undef HAVE_ALLOCA_H
+
+/* Define if you have the <argz.h> header file. */
+#undef HAVE_ARGZ_H
+
+/* Define if you have the `atexit' function. */
+#undef HAVE_ATEXIT
+
+/* Define if you have the `bind_textdomain_codeset' function. */
+#undef HAVE_BIND_TEXTDOMAIN_CODESET
+
+/* Define if you have a version of the vsnprintf function with semantics as
+   specified by the ISO C99 standard. */
+#undef HAVE_C99_VSNPRINTF
+
+/* Have nl_langinfo (CODESET) */
+#undef HAVE_CODESET
+
+/* Define if you have the `dcgettext' function. */
+#undef HAVE_DCGETTEXT
+
+/* Define if you have the <dirent.h> header file. */
+#undef HAVE_DIRENT_H
+
+/* Define if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define if you don't have `vprintf' but do have `_doprnt.' */
+#undef HAVE_DOPRNT
+
+/* Define if you have the <float.h> header file. */
+#undef HAVE_FLOAT_H
+
+/* Define if you have the `getcwd' function. */
+#undef HAVE_GETCWD
+
+/* Define if you have the `getpagesize' function. */
+#undef HAVE_GETPAGESIZE
+
+/* Define if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define if you have <langinfo.h> and nl_langinfo(CODESET). */
+#undef HAVE_LANGINFO_CODESET
+
+/* Define if you have the <langinfo.h> header file. */
+#undef HAVE_LANGINFO_H
+
+/* Define if your <locale.h> file defines LC_MESSAGES. */
+#undef HAVE_LC_MESSAGES
+
+/* Define if you have the <limits.h> header file. */
+#undef HAVE_LIMITS_H
+
+/* Define if you have the <locale.h> header file. */
+#undef HAVE_LOCALE_H
+
+/* Define if you have the `localtime_r' function. */
+#undef HAVE_LOCALTIME_R
+
+/* Define if you have the `lstat' function. */
+#undef HAVE_LSTAT
+
+/* Define if you have the <malloc.h> header file. */
+#undef HAVE_MALLOC_H
+
+/* Define if you have the `memmove' function. */
+#undef HAVE_MEMMOVE
+
+/* Define if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define if you have the `mkstemp' function. */
+#undef HAVE_MKSTEMP
+
+/* Define if you have a working `mmap' system call. */
+#undef HAVE_MMAP
+
+/* Define if you have the `munmap' function. */
+#undef HAVE_MUNMAP
+
+/* Define if you have the `nanosleep' function. */
+#undef HAVE_NANOSLEEP
+
+/* Define if you have the `nl_langinfo' function. */
+#undef HAVE_NL_LANGINFO
+
+/* Define if you have the <nl_types.h> header file. */
+#undef HAVE_NL_TYPES_H
+
+/* Have non-POSIX function getpwuid_r */
+#undef HAVE_NONPOSIX_GETPWUID_R
+
+/* Define if you have the `on_exit' function. */
+#undef HAVE_ON_EXIT
+
+/* Define if you have the `poll' function. */
+#undef HAVE_POLL
+
+/* Have POSIX function getpwuid_r */
+#undef HAVE_POSIX_GETPWUID_R
+
+/* Have function pthread_attr_setstacksize */
+#undef HAVE_PTHREAD_ATTR_SETSTACKSIZE
+
+/* Define if you have the `putenv' function. */
+#undef HAVE_PUTENV
+
+/* Define if you have the <pwd.h> header file. */
+#undef HAVE_PWD_H
+
+/* Define if you have the <sched.h> header file. */
+#undef HAVE_SCHED_H
+
+/* Define if you have the `setenv' function. */
+#undef HAVE_SETENV
+
+/* Define if you have the `setlocale' function. */
+#undef HAVE_SETLOCALE
+
+/* Define if you have the <stddef.h> header file. */
+#undef HAVE_STDDEF_H
+
+/* Define if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define if you have the `stpcpy' function. */
+#undef HAVE_STPCPY
+
+/* Define if you have the `strcasecmp' function. */
+#undef HAVE_STRCASECMP
+
+/* Define if you have the `strchr' function. */
+#undef HAVE_STRCHR
+
+/* Define if you have the `strdup' function. */
+#undef HAVE_STRDUP
+
+/* Define if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
+/* Define if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Have functions strlcpy and strlcat */
+#undef HAVE_STRLCPY
+
+/* Define if you have the `strncasecmp' function. */
+#undef HAVE_STRNCASECMP
+
+/* Define if you have the `strsignal' function. */
+#undef HAVE_STRSIGNAL
+
+/* Define if you have the <sys/param.h> header file. */
+#undef HAVE_SYS_PARAM_H
+
+/* Define if you have the <sys/poll.h> header file. */
+#undef HAVE_SYS_POLL_H
+
+/* found fd_set in sys/select.h */
+#undef HAVE_SYS_SELECT_H
+
+/* Define if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define if you have the <sys/times.h> header file. */
+#undef HAVE_SYS_TIMES_H
+
+/* Define if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define if you have the `unsetenv' function. */
+#undef HAVE_UNSETENV
+
+/* Define if you have the <values.h> header file. */
+#undef HAVE_VALUES_H
+
+/* Define if you have the `vasprintf' function. */
+#undef HAVE_VASPRINTF
+
+/* Define if you have the `vprintf' function. */
+#undef HAVE_VPRINTF
+
+/* Define if you have the `vsnprintf' function. */
+#undef HAVE_VSNPRINTF
+
+/* Have a working bcopy */
+#undef HAVE_WORKING_BCOPY
+
+/* Define if you have the `__argz_count' function. */
+#undef HAVE___ARGZ_COUNT
+
+/* Define if you have the `__argz_next' function. */
+#undef HAVE___ARGZ_NEXT
+
+/* Define if you have the `__argz_stringify' function. */
+#undef HAVE___ARGZ_STRINGIFY
+
+/* didn't find fd_set */
+#undef NO_FD_SET
+
+/* global 'sys_errlist' not found */
+#undef NO_SYS_ERRLIST
+
+/* global 'sys_siglist' not found */
+#undef NO_SYS_SIGLIST
+
+/* global 'sys_siglist' not declared */
+#undef NO_SYS_SIGLIST_DECL
+
+/* Name of package */
+#undef PACKAGE
+
+/* Maximum POSIX RT priority */
+#undef POSIX_MAX_PRIORITY
+
+/* Minimum POSIX RT priority */
+#undef POSIX_MIN_PRIORITY
+
+/* The POSIX RT yield function */
+#undef POSIX_YIELD_FUNC
+
+/* whether realloc (NULL,) works */
+#undef REALLOC_0_WORKS
+
+/* The size of a `char', as computed by sizeof. */
+#undef SIZEOF_CHAR
+
+/* The size of a `int', as computed by sizeof. */
+#undef SIZEOF_INT
+
+/* The size of a `long', as computed by sizeof. */
+#undef SIZEOF_LONG
+
+/* The size of a `long long', as computed by sizeof. */
+#undef SIZEOF_LONG_LONG
+
+/* The size of a `short', as computed by sizeof. */
+#undef SIZEOF_SHORT
+
+/* The size of a `void *', as computed by sizeof. */
+#undef SIZEOF_VOID_P
+
+/* The size of a `__int64', as computed by sizeof. */
+#undef SIZEOF___INT64
+
+/* If using the C implementation of alloca, define if you know the
+   direction of stack growth for your system; otherwise it will be
+   automatically deduced at run-time.
+        STACK_DIRECTION > 0 => grows toward higher addresses
+        STACK_DIRECTION < 0 => grows toward lower addresses
+        STACK_DIRECTION = 0 => direction of growth unknown */
+#undef STACK_DIRECTION
+
+/* Define if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define if your processor stores words with the most significant byte first
+   (like Motorola and SPARC, unlike Intel and VAX). */
+#undef WORDS_BIGENDIAN
+
+/* Number of bits in a file offset, on hosts where this is settable. */
+#undef _FILE_OFFSET_BITS
+
+/* Define for large files, on AIX-style hosts. */
+#undef _LARGE_FILES
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define as `__inline' if that's what the C compiler calls it, or to nothing
+   if it is not supported. */
+#undef inline
+
+/* Define to `long' if <sys/types.h> does not define. */
+#undef off_t
+
+/* Define to `unsigned' if <sys/types.h> does not define. */
+#undef size_t

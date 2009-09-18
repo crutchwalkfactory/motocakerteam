@@ -1,0 +1,2884 @@
+<HTML
+><HEAD
+><TITLE
+>Balanced Binary Trees</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Data Types"
+HREF="glib-data-types.html"><LINK
+REL="PREVIOUS"
+TITLE="Byte Arrays"
+HREF="glib-byte-arrays.html"><LINK
+REL="NEXT"
+TITLE="N-ary Trees"
+HREF="glib-n-ary-trees.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-byte-arrays.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-data-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-n-ary-trees.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-BALANCED-BINARY-TREES"
+>Balanced Binary Trees</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN30194"
+></A
+><H2
+>Name</H2
+>Balanced Binary Trees&nbsp;--&nbsp;a sorted collection of key/value pairs optimized for searching
+and traversing in order.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN30197"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>;
+<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>*      <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW"
+>g_tree_new</A
+>                      (<A
+HREF="glib-doubly-linked-lists.html#GCOMPAREFUNC"
+>GCompareFunc</A
+> key_compare_func);
+<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>*      <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW-WITH-DATA"
+>g_tree_new_with_data</A
+>            (<A
+HREF="glib-doubly-linked-lists.html#GCOMPAREDATAFUNC"
+>GCompareDataFunc</A
+> key_compare_func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key_compare_data);
+<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>*      <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW-FULL"
+>g_tree_new_full</A
+>                 (<A
+HREF="glib-doubly-linked-lists.html#GCOMPAREDATAFUNC"
+>GCompareDataFunc</A
+> key_compare_func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key_compare_data,
+                                             <A
+HREF="glib-datasets.html#GDESTROYNOTIFY"
+>GDestroyNotify</A
+> key_destroy_func,
+                                             <A
+HREF="glib-datasets.html#GDESTROYNOTIFY"
+>GDestroyNotify</A
+> value_destroy_func);
+void        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-INSERT"
+>g_tree_insert</A
+>                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value);
+void        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-REPLACE"
+>g_tree_replace</A
+>                  (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NNODES"
+>g_tree_nnodes</A
+>                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-HEIGHT"
+>g_tree_height</A
+>                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-balanced-binary-trees.html#G-TREE-LOOKUP"
+>g_tree_lookup</A
+>                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> key);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-balanced-binary-trees.html#G-TREE-LOOKUP-EXTENDED"
+>g_tree_lookup_extended</A
+>          (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> lookup_key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> *orig_key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> *value);
+void        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-FOREACH"
+>g_tree_foreach</A
+>                  (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSEFUNC"
+>GTraverseFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);
+void        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-TRAVERSE"
+>g_tree_traverse</A
+>                 (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSEFUNC"
+>GTraverseFunc</A
+> traverse_func,
+                                             <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSETYPE"
+>GTraverseType</A
+> traverse_type,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (<A
+HREF="glib-balanced-binary-trees.html#GTRAVERSEFUNC"
+>*GTraverseFunc</A
+>)                (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+enum        <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSETYPE"
+>GTraverseType</A
+>;
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-balanced-binary-trees.html#G-TREE-SEARCH"
+>g_tree_search</A
+>                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-doubly-linked-lists.html#GCOMPAREFUNC"
+>GCompareFunc</A
+> search_func,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> user_data);
+void        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-REMOVE"
+>g_tree_remove</A
+>                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> key);
+void        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-STEAL"
+>g_tree_steal</A
+>                    (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> key);
+void        <A
+HREF="glib-balanced-binary-trees.html#G-TREE-DESTROY"
+>g_tree_destroy</A
+>                  (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN30266"
+></A
+><H2
+>Description</H2
+><P
+>The <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> structure and its associated functions provide a sorted collection
+of key/value pairs optimized for searching and traversing in order.</P
+><P
+>To create a new <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW"
+>g_tree_new</A
+>().</P
+><P
+>To insert a key/value pair into a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-INSERT"
+>g_tree_insert</A
+>().</P
+><P
+>To lookup the value corresponding to a given key, use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-LOOKUP"
+>g_tree_lookup</A
+>() and
+<A
+HREF="glib-balanced-binary-trees.html#G-TREE-LOOKUP-EXTENDED"
+>g_tree_lookup_extended</A
+>().</P
+><P
+>To find out the number of nodes in a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NNODES"
+>g_tree_nnodes</A
+>().
+To get the height of a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-HEIGHT"
+>g_tree_height</A
+>().</P
+><P
+>To traverse a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, calling a function for each node visited in the
+traversal, use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-FOREACH"
+>g_tree_foreach</A
+>().</P
+><P
+>To remove a key/value pair use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-REMOVE"
+>g_tree_remove</A
+>().</P
+><P
+>To destroy a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-DESTROY"
+>g_tree_destroy</A
+>().</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN30292"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30294"
+></A
+><H3
+><A
+NAME="GTREE"
+></A
+>struct GTree</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GTree;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <SPAN
+CLASS="STRUCTNAME"
+>GTree</SPAN
+> struct is an opaque data structure representing a
+<A
+HREF="glib-balanced-binary-trees.html"
+>Balanced Binary Tree</A
+>.
+It should be accessed only by using the following functions.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30301"
+></A
+><H3
+><A
+NAME="G-TREE-NEW"
+></A
+>g_tree_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>*      g_tree_new                      (<A
+HREF="glib-doubly-linked-lists.html#GCOMPAREFUNC"
+>GCompareFunc</A
+> key_compare_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30310"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key_compare_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the function used to order the nodes in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.
+  It should return values similar to the standard 
+  <TT
+CLASS="FUNCTION"
+>strcmp()</TT
+> function -
+  0 if the two arguments are equal, a negative value if the first argument 
+  comes before the second, or a positive value if the first argument comes 
+  after the second.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a new <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30327"
+></A
+><H3
+><A
+NAME="G-TREE-NEW-WITH-DATA"
+></A
+>g_tree_new_with_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>*      g_tree_new_with_data            (<A
+HREF="glib-doubly-linked-lists.html#GCOMPAREDATAFUNC"
+>GCompareDataFunc</A
+> key_compare_func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key_compare_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> with a comparison function that accepts user data.
+See <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW"
+>g_tree_new</A
+>() for more details.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30338"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key_compare_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="FUNCTION"
+>qsort()</TT
+>-style comparison function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key_compare_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data to pass to comparison function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a new <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30358"
+></A
+><H3
+><A
+NAME="G-TREE-NEW-FULL"
+></A
+>g_tree_new_full ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>*      g_tree_new_full                 (<A
+HREF="glib-doubly-linked-lists.html#GCOMPAREDATAFUNC"
+>GCompareDataFunc</A
+> key_compare_func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key_compare_data,
+                                             <A
+HREF="glib-datasets.html#GDESTROYNOTIFY"
+>GDestroyNotify</A
+> key_destroy_func,
+                                             <A
+HREF="glib-datasets.html#GDESTROYNOTIFY"
+>GDestroyNotify</A
+> value_destroy_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> like <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW"
+>g_tree_new</A
+>() and allows to specify functions 
+to free the memory allocated for the key and value that get called when 
+removing the entry from the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30372"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key_compare_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="FUNCTION"
+>qsort()</TT
+>-style comparison function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key_compare_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> data to pass to comparison function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key_destroy_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a function to free the memory allocated for the key 
+  used when removing the entry from the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if you don't
+  want to supply such a function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value_destroy_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a function to free the memory allocated for the 
+  value used when removing the entry from the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if you 
+  don't want to supply such a function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a new <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30404"
+></A
+><H3
+><A
+NAME="G-TREE-INSERT"
+></A
+>g_tree_insert ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_tree_insert                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Inserts a key/value pair into a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>. If the given key already exists 
+in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> its corresponding value is set to the new value. If you 
+supplied a value_destroy_func when creating the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, the old value is 
+freed using that function. If you supplied a <TT
+CLASS="PARAMETER"
+><I
+>key_destroy_func</I
+></TT
+> when 
+creating the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, the passed key is freed using that function.</P
+><P
+>The tree is automatically 'balanced' as new key/value pairs are added,
+so that the distance from the root to every leaf is as small as possible.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30419"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>Gtree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the key to insert.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the value corresponding to the key.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30437"
+></A
+><H3
+><A
+NAME="G-TREE-REPLACE"
+></A
+>g_tree_replace ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_tree_replace                  (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Inserts a new key and value into a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> similar to <A
+HREF="glib-balanced-binary-trees.html#G-TREE-INSERT"
+>g_tree_insert</A
+>(). 
+The difference is that if the key already exists in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, it gets 
+replaced by the new key. If you supplied a <TT
+CLASS="PARAMETER"
+><I
+>value_destroy_func</I
+></TT
+> when 
+creating the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, the old value is freed using that function. If you 
+supplied a <TT
+CLASS="PARAMETER"
+><I
+>key_destroy_func</I
+></TT
+> when creating the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, the old key is 
+freed using that function. </P
+><P
+>The tree is automatically 'balanced' as new key/value pairs are added,
+so that the distance from the root to every leaf is as small as possible.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30454"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>Gtree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the key to insert.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the value corresponding to the key.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30472"
+></A
+><H3
+><A
+NAME="G-TREE-NNODES"
+></A
+>g_tree_nnodes ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_tree_nnodes                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the number of nodes in a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30481"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of nodes in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30496"
+></A
+><H3
+><A
+NAME="G-TREE-HEIGHT"
+></A
+>g_tree_height ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_tree_height                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the height of a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</P
+><P
+>If the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> contains no nodes, the height is 0.
+If the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> contains only one root node the height is 1.
+If the root node has children the height is 2, etc.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30508"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the height of the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30523"
+></A
+><H3
+><A
+NAME="G-TREE-LOOKUP"
+></A
+>g_tree_lookup ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_tree_lookup                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> key);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the value corresponding to the given key. Since a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> is 
+automatically balanced as key/value pairs are added, key lookup is very 
+fast.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30533"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the key to look up.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the value corresponding to the key.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30551"
+></A
+><H3
+><A
+NAME="G-TREE-LOOKUP-EXTENDED"
+></A
+>g_tree_lookup_extended ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_tree_lookup_extended          (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> lookup_key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> *orig_key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Looks up a key in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>, returning the original key and the
+associated value and a <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> which is <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the key was found. This 
+is useful if you need to free the memory allocated for the original key, 
+for example before calling <A
+HREF="glib-balanced-binary-trees.html#G-TREE-REMOVE"
+>g_tree_remove</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30565"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>lookup_key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the key to look up.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>orig_key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> returns the original key.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> returns the value associated with the key.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the key was found in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30593"
+></A
+><H3
+><A
+NAME="G-TREE-FOREACH"
+></A
+>g_tree_foreach ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_tree_foreach                  (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSEFUNC"
+>GTraverseFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Calls the given function for each of the key/value pairs in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.
+The function is passed the key and value of each pair, and the given
+<TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> parameter. The tree is traversed in sorted order.</P
+><P
+>The tree may not be modified while iterating over it (you can't 
+add/remove items). To remove all items matching a predicate, you need 
+to add each item to a list in your <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSEFUNC"
+>GTraverseFunc</A
+> as you walk over 
+the tree, then walk the list and remove each item.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30606"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the function to call for each node visited. If this function
+  returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+>, the traversal is stopped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data to pass to the function.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30625"
+></A
+><H3
+><A
+NAME="G-TREE-TRAVERSE"
+></A
+>g_tree_traverse ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_tree_traverse                 (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSEFUNC"
+>GTraverseFunc</A
+> traverse_func,
+                                             <A
+HREF="glib-balanced-binary-trees.html#GTRAVERSETYPE"
+>GTraverseType</A
+> traverse_type,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Warning</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+><TT
+CLASS="LITERAL"
+>g_tree_traverse</TT
+> is deprecated and should not be used in newly-written code.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Calls the given function for each node in the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>. This function is
+deprecated, since the order of a balanced tree is somewhat arbitrary.
+If you just want to visit all nodes in sorted order, use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-FOREACH"
+>g_tree_foreach</A
+>() 
+instead. If you really need to visit nodes in a different order, consider
+using an <A
+HREF="glib-n-ary-trees.html"
+>N-ary Tree</A
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30641"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>traverse_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the function to call for each node visited. If this 
+  function returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+>, the traversal is stopped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>traverse_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the order in which nodes are visited, one of <TT
+CLASS="LITERAL"
+>G_IN_ORDER</TT
+>,
+  <TT
+CLASS="LITERAL"
+>G_PRE_ORDER</TT
+> and <TT
+CLASS="LITERAL"
+>G_POST_ORDER</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data to pass to the function.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30667"
+></A
+><H3
+><A
+NAME="GTRAVERSEFUNC"
+></A
+>GTraverseFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (*GTraverseFunc)                (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> key,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Specifies the type of function passed to <A
+HREF="glib-balanced-binary-trees.html#G-TREE-TRAVERSE"
+>g_tree_traverse</A
+>().
+It is passed the key and value of each node, together with
+the <TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+> parameter passed to <A
+HREF="glib-balanced-binary-trees.html#G-TREE-TRAVERSE"
+>g_tree_traverse</A
+>().
+If the function returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+>, the traversal is stopped.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30680"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a key of a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> node.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the value corresponding to the key.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>user data passed to <A
+HREF="glib-balanced-binary-trees.html#G-TREE-TRAVERSE"
+>g_tree_traverse</A
+>().</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> to stop the traversal.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30704"
+></A
+><H3
+><A
+NAME="GTRAVERSETYPE"
+></A
+>enum GTraverseType</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_IN_ORDER,
+  G_PRE_ORDER,
+  G_POST_ORDER,
+  G_LEVEL_ORDER
+} GTraverseType;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Specifies the type of traveral performed by <A
+HREF="glib-balanced-binary-trees.html#G-TREE-TRAVERSE"
+>g_tree_traverse</A
+>(),
+<A
+HREF="glib-n-ary-trees.html#G-NODE-TRAVERSE"
+>g_node_traverse</A
+>() and <A
+HREF="glib-n-ary-trees.html#G-NODE-FIND"
+>g_node_find</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30712"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_IN_ORDER</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>vists a node's left child first, then the node itself, then its
+  right child. This is the one to use if you want the output sorted according
+  to the compare function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_PRE_ORDER</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>visits a node, then its children.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_POST_ORDER</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>visits the node's children, then the node itself.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_LEVEL_ORDER</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>is not implemented for
+  <A
+HREF="glib-balanced-binary-trees.html"
+>Balanced Binary Trees</A
+>.
+  For <A
+HREF="glib-n-ary-trees.html"
+>N-ary Trees</A
+>, it vists the root
+  node first, then its children, then its grandchildren, and so on. Note that
+  this is less efficient than the other orders.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30735"
+></A
+><H3
+><A
+NAME="G-TREE-SEARCH"
+></A
+>g_tree_search ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_tree_search                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-doubly-linked-lists.html#GCOMPAREFUNC"
+>GCompareFunc</A
+> search_func,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> user_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Searches a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> using an alternative form of the comparison function.</P
+><P
+>This function is not as useful as it sounds.
+It allows you to use a different function for performing the lookup of
+a key. However, since the tree is ordered according to the <TT
+CLASS="PARAMETER"
+><I
+>key_compare_func</I
+></TT
+>
+function passed to <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW"
+>g_tree_new</A
+>(), the function you pass to <A
+HREF="glib-balanced-binary-trees.html#G-TREE-SEARCH"
+>g_tree_search</A
+>() 
+must return exactly the same value as would be returned by the comparison 
+function, for each pair of tree nodes, or the search will not work.</P
+><P
+>To search for a specific value, you can use <A
+HREF="glib-balanced-binary-trees.html#G-TREE-FOREACH"
+>g_tree_foreach</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30752"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>search_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the comparison function used to search the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>. </TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the data passed as the second argument to the <TT
+CLASS="PARAMETER"
+><I
+>search_func</I
+></TT
+> 
+function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the value corresponding to the found key, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the key 
+is not found.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30777"
+></A
+><H3
+><A
+NAME="G-TREE-REMOVE"
+></A
+>g_tree_remove ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_tree_remove                   (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> key);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes a key/value pair from a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</P
+><P
+>If the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> was created using <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW-FULL"
+>g_tree_new_full</A
+>(), the key and value 
+are freed using the supplied destroy functions, otherwise you have to 
+make sure that any dynamically allocated values are freed yourself.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30789"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>Gtree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the key to remove.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30803"
+></A
+><H3
+><A
+NAME="G-TREE-STEAL"
+></A
+>g_tree_steal ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_tree_steal                    (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree,
+                                             <A
+HREF="glib-basic-types.html#GCONSTPOINTER"
+>gconstpointer</A
+> key);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes a key and its associated value from a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> without calling 
+the key and value destroy functions.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30812"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>Gtree</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the key to remove.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN30826"
+></A
+><H3
+><A
+NAME="G-TREE-DESTROY"
+></A
+>g_tree_destroy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_tree_destroy                  (<A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Destroys the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>. If keys and/or values are dynamically allocated, you 
+should either free them first or create the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+> using <A
+HREF="glib-balanced-binary-trees.html#G-TREE-NEW-FULL"
+>g_tree_new_full</A
+>().
+In the latter case the destroy functions you supplied will be called on 
+all keys and values before destroying the <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN30837"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>tree</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-balanced-binary-trees.html#GTREE"
+>GTree</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-byte-arrays.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-data-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-n-ary-trees.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Byte Arrays</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>N-ary Trees</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,796 @@
+<HTML
+><HEAD
+><TITLE
+>Trash Stacks</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Data Types"
+HREF="glib-data-types.html"><LINK
+REL="PREVIOUS"
+TITLE="Double-ended Queues"
+HREF="glib-double-ended-queues.html"><LINK
+REL="NEXT"
+TITLE="Hash Tables"
+HREF="glib-hash-tables.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-double-ended-queues.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-data-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-hash-tables.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-TRASH-STACKS"
+>Trash Stacks</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN26667"
+></A
+><H2
+>Name</H2
+>Trash Stacks&nbsp;--&nbsp;maintain a stack of unused allocated memory chunks.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN26670"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>;
+void        <A
+HREF="glib-trash-stacks.html#G-TRASH-STACK-PUSH"
+>g_trash_stack_push</A
+>              (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data_p);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-trash-stacks.html#G-TRASH-STACK-POP"
+>g_trash_stack_pop</A
+>               (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-trash-stacks.html#G-TRASH-STACK-PEEK"
+>g_trash_stack_peek</A
+>              (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p);
+<A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       <A
+HREF="glib-trash-stacks.html#G-TRASH-STACK-HEIGHT"
+>g_trash_stack_height</A
+>            (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN26686"
+></A
+><H2
+>Description</H2
+><P
+>A <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> is an efficient way to keep a stack of unused allocated
+memory chunks. Each memory chunk is required to be large enough to hold
+a <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>. This allows the stack to be maintained without any space
+overhead, since the stack pointers can be stored inside the memory chunks.</P
+><P
+>There is no function to create a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>. A <TT
+CLASS="LITERAL"
+>NULL</TT
+> <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>* 
+is a perfectly valid empty stack.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN26695"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26697"
+></A
+><H3
+><A
+NAME="GTRASHSTACK"
+></A
+>struct GTrashStack</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GTrashStack
+{
+  GTrashStack *next;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>Each piece of memory that is pushed onto the stack
+is cast to a <SPAN
+CLASS="STRUCTNAME"
+>GTrashStack*</SPAN
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26703"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>next</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>pointer to the previous element of the stack,
+gets stored in the first <TT
+CLASS="LITERAL"
+>sizeof (gpointer)</TT
+>
+bytes of the element.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26714"
+></A
+><H3
+><A
+NAME="G-TRASH-STACK-PUSH"
+></A
+>g_trash_stack_push ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_trash_stack_push              (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data_p);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pushes a piece of memory onto a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26722"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>stack_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a pointer to a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the piece of memory to push on the stack.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26736"
+></A
+><H3
+><A
+NAME="G-TRASH-STACK-POP"
+></A
+>g_trash_stack_pop ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_trash_stack_pop               (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Pops a piece of memory off a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26744"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>stack_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a pointer to a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the element at the top of the stack.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26758"
+></A
+><H3
+><A
+NAME="G-TRASH-STACK-PEEK"
+></A
+>g_trash_stack_peek ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_trash_stack_peek              (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the element at the top of a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26766"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>stack_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a pointer to a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the element at the top of the stack.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26780"
+></A
+><H3
+><A
+NAME="G-TRASH-STACK-HEIGHT"
+></A
+>g_trash_stack_height ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       g_trash_stack_height            (<A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+> **stack_p);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the height of a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26788"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>stack_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a pointer to a <A
+HREF="glib-trash-stacks.html#GTRASHSTACK"
+>GTrashStack</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the height of the stack.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-double-ended-queues.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-data-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-hash-tables.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Double-ended Queues</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Hash Tables</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

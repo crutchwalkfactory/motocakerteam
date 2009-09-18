@@ -1,0 +1,4596 @@
+<HTML
+><HEAD
+><TITLE
+>GParamSpec</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GObject Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="API Reference"
+HREF="r28.html"><LINK
+REL="PREVIOUS"
+TITLE="Varargs Value Collection"
+HREF="gobject-varargs-value-collection.html"><LINK
+REL="NEXT"
+TITLE="Signals"
+HREF="gobject-signals.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GObject Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-varargs-value-collection.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-signals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GOBJECT-GPARAMSPEC"
+>GParamSpec</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN9161"
+></A
+><H2
+>Name</H2
+>GParamSpec&nbsp;--&nbsp;Meta data object for parameter specifications.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN9164"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;gobject.h&gt;
+
+
+#define     <A
+HREF="gobject-gparamspec.html#G-TYPE-IS-PARAM-CAPS"
+>G_TYPE_IS_PARAM</A
+>                 (type)
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-CAPS"
+>G_PARAM_SPEC</A
+>                    (pspec)
+#define     <A
+HREF="gobject-gparamspec.html#G-IS-PARAM-SPEC-CAPS"
+>G_IS_PARAM_SPEC</A
+>                 (pspec)
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-CLASS-CAPS"
+>G_PARAM_SPEC_CLASS</A
+>              (pclass)
+#define     <A
+HREF="gobject-gparamspec.html#G-IS-PARAM-SPEC-CLASS-CAPS"
+>G_IS_PARAM_SPEC_CLASS</A
+>           (pclass)
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-GET-CLASS-CAPS"
+>G_PARAM_SPEC_GET_CLASS</A
+>          (pspec)
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-TYPE-CAPS"
+>G_PARAM_SPEC_TYPE</A
+>               (pspec)
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-TYPE-NAME-CAPS"
+>G_PARAM_SPEC_TYPE_NAME</A
+>          (pspec)
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-VALUE-TYPE-CAPS"
+>G_PARAM_SPEC_VALUE_TYPE</A
+>         (pspec)
+struct      <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>;
+struct      <A
+HREF="gobject-gparamspec.html#GPARAMSPECCLASS"
+>GParamSpecClass</A
+>;
+enum        <A
+HREF="gobject-gparamspec.html#GPARAMFLAGS"
+>GParamFlags</A
+>;
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-READWRITE-CAPS"
+>G_PARAM_READWRITE</A
+>
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-MASK-CAPS"
+>G_PARAM_MASK</A
+>
+#define     <A
+HREF="gobject-gparamspec.html#G-PARAM-USER-SHIFT-CAPS"
+>G_PARAM_USER_SHIFT</A
+>
+<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>* <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-REF"
+>g_param_spec_ref</A
+>                (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+void        <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-UNREF"
+>g_param_spec_unref</A
+>              (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+void        <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-SINK"
+>g_param_spec_sink</A
+>               (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+void        <A
+HREF="gobject-gparamspec.html#G-PARAM-VALUE-SET-DEFAULT"
+>g_param_value_set_default</A
+>       (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-gparamspec.html#G-PARAM-VALUE-DEFAULTS"
+>g_param_value_defaults</A
+>          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-gparamspec.html#G-PARAM-VALUE-VALIDATE"
+>g_param_value_validate</A
+>          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-gparamspec.html#G-PARAM-VALUE-CONVERT"
+>g_param_value_convert</A
+>           (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> strict_validation);
+<A
+HREF=../glib/glib-basic-types.html#GINT
+>gint</A>        <A
+HREF="gobject-gparamspec.html#G-PARAM-VALUES-CMP"
+>g_param_values_cmp</A
+>              (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value1,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value2);
+G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-GET-NAME"
+>g_param_spec_get_name</A
+> (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-GET-NICK"
+>g_param_spec_get_nick</A
+> (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-GET-BLURB"
+>g_param_spec_get_blurb</A
+>
+                                            (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-GET-QDATA"
+>g_param_spec_get_qdata</A
+>          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);
+void        <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-SET-QDATA"
+>g_param_spec_set_qdata</A
+>          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+void        <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-SET-QDATA-FULL"
+>g_param_spec_set_qdata_full</A
+>     (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> destroy);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-STEAL-QDATA"
+>g_param_spec_steal_qdata</A
+>        (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-INTERNAL"
+>g_param_spec_internal</A
+>           (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> param_type,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *nick,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *blurb,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMFLAGS"
+>GParamFlags</A
+> flags);
+struct      <A
+HREF="gobject-gparamspec.html#GPARAMSPECTYPEINFO"
+>GParamSpecTypeInfo</A
+>;
+<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+>       <A
+HREF="gobject-gparamspec.html#G-PARAM-TYPE-REGISTER-STATIC"
+>g_param_type_register_static</A
+>    (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             const <A
+HREF="gobject-gparamspec.html#GPARAMSPECTYPEINFO"
+>GParamSpecTypeInfo</A
+> *pspec_info);
+struct      <A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+>;
+<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+>* <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-POOL-NEW"
+>g_param_spec_pool_new</A
+>       (<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> type_prefixing);
+void        <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-POOL-INSERT"
+>g_param_spec_pool_insert</A
+>        (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type);
+void        <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-POOL-REMOVE"
+>g_param_spec_pool_remove</A
+>        (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>* <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-POOL-LOOKUP"
+>g_param_spec_pool_lookup</A
+>        (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *param_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> walk_ancestors);
+<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>** <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-POOL-LIST"
+>g_param_spec_pool_list</A
+>         (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *n_pspecs_p);
+<A
+HREF=../glib/glib-doubly-linked-lists.html#GLIST
+>GList</A>*      <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-POOL-LIST-OWNED"
+>g_param_spec_pool_list_owned</A
+>    (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN9275"
+></A
+><H2
+>Description</H2
+><P
+><A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> is an object structure that encapsulates the meta data
+required to specify parameters, such as e.g. <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> properties.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN9280"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9282"
+></A
+><H3
+><A
+NAME="G-TYPE-IS-PARAM-CAPS"
+></A
+>G_TYPE_IS_PARAM()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_TYPE_IS_PARAM(type)		(G_TYPE_FUNDAMENTAL (type) == G_TYPE_PARAM)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns whether <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+> "is a" <TT
+CLASS="LITERAL"
+>G_TYPE_PARAM</TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9289"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> ID
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9299"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-CAPS"
+></A
+>G_PARAM_SPEC()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PARAM_SPEC(pspec)		(G_TYPE_CHECK_INSTANCE_CAST ((pspec), G_TYPE_PARAM, GParamSpec))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Cast a derived <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> object (e.g. of type <A
+HREF="gobject-standard-parameter-and-value-types.html#GPARAMSPECINT"
+>GParamSpecInt</A
+>) into
+a <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> object.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9307"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9317"
+></A
+><H3
+><A
+NAME="G-IS-PARAM-SPEC-CAPS"
+></A
+>G_IS_PARAM_SPEC()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_IS_PARAM_SPEC(pspec)		(G_TYPE_CHECK_INSTANCE_TYPE ((pspec), G_TYPE_PARAM))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Check whether <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+> "is a" valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> structure of type <TT
+CLASS="LITERAL"
+>G_TYPE_PARAM</TT
+>
+or derived.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9325"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9335"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-CLASS-CAPS"
+></A
+>G_PARAM_SPEC_CLASS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PARAM_SPEC_CLASS(pclass)      (G_TYPE_CHECK_CLASS_CAST ((pclass), G_TYPE_PARAM, GParamSpecClass))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Cast a derived <A
+HREF="gobject-gparamspec.html#GPARAMSPECCLASS"
+>GParamSpecClass</A
+> structure into a <A
+HREF="gobject-gparamspec.html#GPARAMSPECCLASS"
+>GParamSpecClass</A
+> structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9342"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pclass</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPECCLASS"
+>GParamSpecClass</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9352"
+></A
+><H3
+><A
+NAME="G-IS-PARAM-SPEC-CLASS-CAPS"
+></A
+>G_IS_PARAM_SPEC_CLASS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_IS_PARAM_SPEC_CLASS(pclass)   (G_TYPE_CHECK_CLASS_TYPE ((pclass), G_TYPE_PARAM))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Check whether <TT
+CLASS="PARAMETER"
+><I
+>pclass</I
+></TT
+> "is a" valid <A
+HREF="gobject-gparamspec.html#GPARAMSPECCLASS"
+>GParamSpecClass</A
+> structure of type <TT
+CLASS="LITERAL"
+>G_TYPE_PARAM</TT
+>
+or derived.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9360"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pclass</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="gobject-gparamspec.html#GPARAMSPECCLASS"
+>GParamSpecClass</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9370"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-GET-CLASS-CAPS"
+></A
+>G_PARAM_SPEC_GET_CLASS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PARAM_SPEC_GET_CLASS(pspec)	(G_TYPE_INSTANCE_GET_CLASS ((pspec), G_TYPE_PARAM, GParamSpecClass))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Retrieve the <A
+HREF="gobject-gparamspec.html#GPARAMSPECCLASS"
+>GParamSpecClass</A
+> of a <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9377"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9387"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-TYPE-CAPS"
+></A
+>G_PARAM_SPEC_TYPE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PARAM_SPEC_TYPE(pspec)	(G_TYPE_FROM_INSTANCE (pspec))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Retrive the <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> of this <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9394"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9404"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-TYPE-NAME-CAPS"
+></A
+>G_PARAM_SPEC_TYPE_NAME()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_PARAM_SPEC_TYPE_NAME(pspec)	(g_type_name (G_PARAM_SPEC_TYPE (pspec)))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Retrive the <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> name of this <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9411"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9421"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-VALUE-TYPE-CAPS"
+></A
+>G_PARAM_SPEC_VALUE_TYPE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_PARAM_SPEC_VALUE_TYPE(pspec)	(G_PARAM_SPEC (pspec)-&gt;value_type)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Retrive the <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> to intiialize a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> for this parameter.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9428"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9438"
+></A
+><H3
+><A
+NAME="GPARAMSPEC"
+></A
+>struct GParamSpec</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GParamSpec
+{
+  GTypeInstance  g_type_instance;
+
+  gchar         *name;
+  GParamFlags    flags;
+  GType		 value_type;
+  GType		 owner_type;	/* class using this property */
+
+  /*&lt; private &gt;*/
+  gchar         *_nick;
+  gchar         *_blurb;
+  GData		*qdata;
+  guint          ref_count;
+  guint		 param_id;	/* sort-criteria */
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9443"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-gtype.html#GTYPEINSTANCE"
+>GTypeInstance</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>g_type_instance</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>private <A
+HREF="gobject-gtype.html#GTYPEINSTANCE"
+>GTypeInstance</A
+> portion</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *<TT
+CLASS="STRUCTFIELD"
+><I
+>name</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           name of this parameter</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-gparamspec.html#GPARAMFLAGS"
+>GParamFlags</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>flags</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>          <A
+HREF="gobject-gparamspec.html#GPARAMFLAGS"
+>GParamFlags</A
+> flags for this parameter</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>value_type</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     the <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> type for this parameter</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>owner_type</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> type that uses (introduces) this paremeter&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9477"
+></A
+><H3
+><A
+NAME="GPARAMSPECCLASS"
+></A
+>struct GParamSpecClass</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GParamSpecClass;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9482"
+></A
+><H3
+><A
+NAME="GPARAMFLAGS"
+></A
+>enum GParamFlags</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_PARAM_READABLE            = 1 &lt;&lt; 0,
+  G_PARAM_WRITABLE            = 1 &lt;&lt; 1,
+  G_PARAM_CONSTRUCT	      = 1 &lt;&lt; 2,
+  G_PARAM_CONSTRUCT_ONLY      = 1 &lt;&lt; 3,
+  G_PARAM_LAX_VALIDATION      = 1 &lt;&lt; 4,
+  G_PARAM_PRIVATE	      = 1 &lt;&lt; 5
+} GParamFlags;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Through the <A
+HREF="gobject-gparamspec.html#GPARAMFLAGS"
+>GParamFlags</A
+> flag values, certain aspects of parameters
+can be configured.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9488"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_PARAM_READABLE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      the parameter is readable</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_PARAM_WRITABLE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>      the parameter is writable</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_PARAM_CONSTRUCT</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     the parameter will be set upon object construction</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_PARAM_CONSTRUCT_ONLY</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the parameter will only be set upon object construction</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_PARAM_LAX_VALIDATION</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>upon parameter conversion (see <A
+HREF="gobject-gparamspec.html#G-PARAM-VALUE-CONVERT"
+>g_param_value_convert</A
+>())
+                         strict validation is not required</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_PARAM_PRIVATE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9518"
+></A
+><H3
+><A
+NAME="G-PARAM-READWRITE-CAPS"
+></A
+>G_PARAM_READWRITE</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_PARAM_READWRITE	(G_PARAM_READABLE | G_PARAM_WRITABLE)</PRE
+></TD
+></TR
+></TABLE
+><P
+><A
+HREF="gobject-gparamspec.html#GPARAMFLAGS"
+>GParamFlags</A
+> value alias for <TT
+CLASS="LITERAL"
+>G_PARAM_READABLE</TT
+> | <TT
+CLASS="LITERAL"
+>G_PARAM_WRITABLE</TT
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9526"
+></A
+><H3
+><A
+NAME="G-PARAM-MASK-CAPS"
+></A
+>G_PARAM_MASK</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_PARAM_MASK		(0x000000ff)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Mask containing the bits of <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>.flags which are reserved for GLib.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9532"
+></A
+><H3
+><A
+NAME="G-PARAM-USER-SHIFT-CAPS"
+></A
+>G_PARAM_USER_SHIFT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_PARAM_USER_SHIFT	(8)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Minimum shift count to be used for user defined flags, to be stored in
+<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>.flags.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9538"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-REF"
+></A
+>g_param_spec_ref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>* g_param_spec_ref                (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Increment the reference count of <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9546"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> that was passed into this function
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9561"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-UNREF"
+></A
+>g_param_spec_unref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_param_spec_unref              (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Decrement the reference count of a <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9568"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9578"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-SINK"
+></A
+>g_param_spec_sink ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_param_spec_sink               (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The initial reference count of a newly created <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> is 1,
+eventhough no one has explicitely called <A
+HREF="gobject-gparamspec.html#G-PARAM-SPEC-REF"
+>g_param_spec_ref</A
+>() on it yet.
+So the einital reference count is flagged as "floating", untill someone
+calls: g_param_spec_ref (<TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>); g_param_spec_sink (<TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>);
+in sequence on it, taking over the initial reference count (thus
+ending up with a <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+> that has a reference count of 1 still, but is
+not flagged "floating" anymore).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9589"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9599"
+></A
+><H3
+><A
+NAME="G-PARAM-VALUE-SET-DEFAULT"
+></A
+>g_param_value_set_default ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_param_value_set_default       (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Set <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> to its default value as specified in <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9608"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of correct type for <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9624"
+></A
+><H3
+><A
+NAME="G-PARAM-VALUE-DEFAULTS"
+></A
+>g_param_value_defaults ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_param_value_defaults          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Check whether <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> contains the default value as specified in <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9634"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of correct type for <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>whether <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> contains the canonical defualt for this <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9656"
+></A
+><H3
+><A
+NAME="G-PARAM-VALUE-VALIDATE"
+></A
+>g_param_value_validate ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_param_value_validate          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Ensure that the contents of <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> comply with the specifications
+set out by <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>. For example, a <A
+HREF="gobject-standard-parameter-and-value-types.html#GPARAMSPECINT"
+>GParamSpecInt</A
+> might require
+that integers stored in <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> may not be smaller than -42 and not be
+greater than +42. If <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> contains an integer outside of this range,
+it is modified accordingly, so the resulting value will fit into the
+range -42 .. +42.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9669"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of correct type for <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>whether modifying <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> was necessary to ensure validity
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9690"
+></A
+><H3
+><A
+NAME="G-PARAM-VALUE-CONVERT"
+></A
+>g_param_value_convert ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_param_value_convert           (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> strict_validation);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function transforms <TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+> into <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+> if possible,
+and then validates <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+>, in order for it to conform to
+<TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.
+If <TT
+CLASS="PARAMETER"
+><I
+>strict_validation</I
+></TT
+> is <TT
+CLASS="LITERAL"
+>TRUE</TT
+> this function will only suceed if
+the transformed <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+> complied to <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+> without modifications.
+
+See also <A
+HREF="gobject-generic-values.html#G-VALUE-TYPE-TRANSFORMABLE"
+>g_value_type_transformable</A
+>(), <A
+HREF="gobject-generic-values.html#G-VALUE-TRANSFORM"
+>g_value_transform</A
+>() and
+<A
+HREF="gobject-gparamspec.html#G-PARAM-VALUE-VALIDATE"
+>g_param_value_validate</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9711"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>            a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>        souce <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>       destination <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of correct type for <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>strict_validation</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>$TRUE requires <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+> to conform to <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+> without modifications</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>          <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if transformation and validation were successfull,
+                    <TT
+CLASS="LITERAL"
+>FALSE</TT
+> otherwise and <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+> is left untouched.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9745"
+></A
+><H3
+><A
+NAME="G-PARAM-VALUES-CMP"
+></A
+>g_param_values_cmp ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GINT
+>gint</A>        g_param_values_cmp              (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value1,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value2);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Compare <TT
+CLASS="PARAMETER"
+><I
+>value1</I
+></TT
+> with <TT
+CLASS="PARAMETER"
+><I
+>value2</I
+></TT
+> according to <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>, and return -1, 0 or +1,
+if <TT
+CLASS="PARAMETER"
+><I
+>value1</I
+></TT
+> is found to be less than, equal to or greater than <TT
+CLASS="PARAMETER"
+><I
+>value2</I
+></TT
+>, respectively.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9759"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  a valid <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value1</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of correct type for <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value2</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of correct type for <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>-1, 0 or +1, for a less than, equal to or greater than result
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9785"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-GET-NAME"
+></A
+>g_param_spec_get_name ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* g_param_spec_get_name (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9792"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9805"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-GET-NICK"
+></A
+>g_param_spec_get_nick ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* g_param_spec_get_nick (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9812"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9825"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-GET-BLURB"
+></A
+>g_param_spec_get_blurb ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>G_CONST_RETURN <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>* g_param_spec_get_blurb
+                                            (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9832"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9845"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-GET-QDATA"
+></A
+>g_param_spec_get_qdata ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_param_spec_get_qdata          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9853"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9870"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-SET-QDATA"
+></A
+>g_param_spec_set_qdata ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_param_spec_set_qdata          (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9878"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9895"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-SET-QDATA-FULL"
+></A
+>g_param_spec_set_qdata_full ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_param_spec_set_qdata_full     (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> destroy);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9904"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>destroy</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9925"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-STEAL-QDATA"
+></A
+>g_param_spec_steal_qdata ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_param_spec_steal_qdata        (<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9933"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9950"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-INTERNAL"
+></A
+>g_param_spec_internal ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_param_spec_internal           (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> param_type,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *nick,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *blurb,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMFLAGS"
+>GParamFlags</A
+> flags);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN9961"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>param_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>nick</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>blurb</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9990"
+></A
+><H3
+><A
+NAME="GPARAMSPECTYPEINFO"
+></A
+>struct GParamSpecTypeInfo</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GParamSpecTypeInfo
+{
+  /* type system portion */
+  guint16         instance_size;                               /* obligatory */
+  guint16         n_preallocs;                                 /* optional */
+  void		(*instance_init)	(GParamSpec   *pspec); /* optional */
+
+  /* class portion */
+  GType           value_type;				       /* obligatory */
+  void          (*finalize)             (GParamSpec   *pspec); /* optional */
+  void          (*value_set_default)    (GParamSpec   *pspec,  /* recommended */
+					 GValue       *value);
+  gboolean      (*value_validate)       (GParamSpec   *pspec,  /* optional */
+					 GValue       *value);
+  gint          (*values_cmp)           (GParamSpec   *pspec,  /* recommended */
+					 const GValue *value1,
+					 const GValue *value2);
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN9995"
+></A
+><H3
+><A
+NAME="G-PARAM-TYPE-REGISTER-STATIC"
+></A
+>g_param_type_register_static ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+>       g_param_type_register_static    (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             const <A
+HREF="gobject-gparamspec.html#GPARAMSPECTYPEINFO"
+>GParamSpecTypeInfo</A
+> *pspec_info);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10003"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec_info</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10020"
+></A
+><H3
+><A
+NAME="GPARAMSPECPOOL"
+></A
+>struct GParamSpecPool</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GParamSpecPool;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10025"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-POOL-NEW"
+></A
+>g_param_spec_pool_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+>* g_param_spec_pool_new       (<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> type_prefixing);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10032"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>type_prefixing</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10045"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-POOL-INSERT"
+></A
+>g_param_spec_pool_insert ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_param_spec_pool_insert        (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10053"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>owner_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10070"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-POOL-REMOVE"
+></A
+>g_param_spec_pool_remove ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_param_spec_pool_remove        (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10077"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10090"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-POOL-LOOKUP"
+></A
+>g_param_spec_pool_lookup ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>* g_param_spec_pool_lookup        (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *param_name,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A> walk_ancestors);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10100"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>param_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>owner_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>walk_ancestors</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10125"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-POOL-LIST"
+></A
+>g_param_spec_pool_list ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>** g_param_spec_pool_list         (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *n_pspecs_p);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10134"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>owner_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_pspecs_p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN10155"
+></A
+><H3
+><A
+NAME="G-PARAM-SPEC-POOL-LIST-OWNED"
+></A
+>g_param_spec_pool_list_owned ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-doubly-linked-lists.html#GLIST
+>GList</A>*      g_param_spec_pool_list_owned    (<A
+HREF="gobject-gparamspec.html#GPARAMSPECPOOL"
+>GParamSpecPool</A
+> *pool,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> owner_type);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN10163"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pool</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>owner_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN10180"
+></A
+><H2
+>See Also</H2
+><P
+><A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CLASS-INSTALL-PROPERTY"
+>g_object_class_install_property</A
+>(), <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET"
+>g_object_set</A
+>(), <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET"
+>g_object_get</A
+>(),
+<A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-PROPERTY"
+>g_object_set_property</A
+>(), <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-PROPERTY"
+>g_object_get_property</A
+>(), <A
+HREF="gobject-generic-values.html#G-VALUE-REGISTER-TRANSFORM-FUNC"
+>g_value_register_transform_func</A
+>()</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-varargs-value-collection.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-signals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Varargs Value Collection</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Signals</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

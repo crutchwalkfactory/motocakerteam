@@ -1,0 +1,2425 @@
+<HTML
+><HEAD
+><TITLE
+>Generic Values</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GObject Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="API Reference"
+HREF="r28.html"><LINK
+REL="PREVIOUS"
+TITLE="GBoxed"
+HREF="gobject-boxed-types.html"><LINK
+REL="NEXT"
+TITLE="Parameters and Values"
+HREF="gobject-standard-parameter-and-value-types.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GObject Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-boxed-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-standard-parameter-and-value-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GOBJECT-GENERIC-VALUES"
+>Generic Values</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN4651"
+></A
+><H2
+>Name</H2
+>Generic Values&nbsp;--&nbsp;A polymorphic type that can hold values of any other type.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN4654"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;gobject.h&gt;
+
+
+#define     <A
+HREF="gobject-generic-values.html#G-VALUE-HOLDS-CAPS"
+>G_VALUE_HOLDS</A
+>                   (value,type)
+#define     <A
+HREF="gobject-generic-values.html#G-VALUE-TYPE-CAPS"
+>G_VALUE_TYPE</A
+>                    (value)
+#define     <A
+HREF="gobject-generic-values.html#G-VALUE-TYPE-NAME-CAPS"
+>G_VALUE_TYPE_NAME</A
+>               (value)
+#define     <A
+HREF="gobject-generic-values.html#G-TYPE-IS-VALUE-CAPS"
+>G_TYPE_IS_VALUE</A
+>                 (type)
+#define     <A
+HREF="gobject-generic-values.html#G-TYPE-IS-VALUE-ABSTRACT-CAPS"
+>G_TYPE_IS_VALUE_ABSTRACT</A
+>        (type)
+#define     <A
+HREF="gobject-generic-values.html#G-IS-VALUE-CAPS"
+>G_IS_VALUE</A
+>                      (value)
+struct      <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>;
+#define     <A
+HREF="gobject-generic-values.html#G-TYPE-VALUE-CAPS"
+>G_TYPE_VALUE</A
+>
+#define     <A
+HREF="gobject-generic-values.html#G-TYPE-VALUE-ARRAY-CAPS"
+>G_TYPE_VALUE_ARRAY</A
+>
+<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>*     <A
+HREF="gobject-generic-values.html#G-VALUE-INIT"
+>g_value_init</A
+>                    (<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> g_type);
+void        <A
+HREF="gobject-generic-values.html#G-VALUE-COPY"
+>g_value_copy</A
+>                    (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value);
+<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>*     <A
+HREF="gobject-generic-values.html#G-VALUE-RESET"
+>g_value_reset</A
+>                   (<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+void        <A
+HREF="gobject-generic-values.html#G-VALUE-UNSET"
+>g_value_unset</A
+>                   (<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-generic-values.html#G-VALUE-FITS-POINTER"
+>g_value_fits_pointer</A
+>            (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-generic-values.html#G-VALUE-PEEK-POINTER"
+>g_value_peek_pointer</A
+>            (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-generic-values.html#G-VALUE-TYPE-COMPATIBLE"
+>g_value_type_compatible</A
+>         (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> src_type,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> dest_type);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-generic-values.html#G-VALUE-TYPE-TRANSFORMABLE"
+>g_value_type_transformable</A
+>      (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> src_type,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> dest_type);
+<A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    <A
+HREF="gobject-generic-values.html#G-VALUE-TRANSFORM"
+>g_value_transform</A
+>               (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value);
+void        (<A
+HREF="gobject-generic-values.html#GVALUETRANSFORM"
+>*GValueTransform</A
+>)              (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value);
+void        <A
+HREF="gobject-generic-values.html#G-VALUE-REGISTER-TRANSFORM-FUNC"
+>g_value_register_transform_func</A
+> (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> src_type,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> dest_type,
+                                             <A
+HREF="gobject-generic-values.html#GVALUETRANSFORM"
+>GValueTransform</A
+> transform_func);
+<A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>*      <A
+HREF="gobject-generic-values.html#G-STRDUP-VALUE-CONTENTS"
+>g_strdup_value_contents</A
+>         (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN4706"
+></A
+><H2
+>Description</H2
+><P
+>The <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure is basically a variable container that consists
+of a type identifier and a specific value of that type.
+The type identifier within a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure always determines the
+type of the associated value.
+To create a undefined <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure, simply create a zero-filled
+<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure. To initialize the <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>, use the <A
+HREF="gobject-generic-values.html#G-VALUE-INIT"
+>g_value_init</A
+>()
+function. A <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> cannot be used until it is initialized.
+The basic type operations (such as freeing and copying) are determined
+by the <A
+HREF="gobject-gtype.html#GTYPEVALUETABLE"
+>GTypeValueTable</A
+> associated with the type ID stored in the <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>.
+Other <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> operations (such as converting values between types) are
+provided by this interface.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN4719"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4721"
+></A
+><H3
+><A
+NAME="G-VALUE-HOLDS-CAPS"
+></A
+>G_VALUE_HOLDS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_VALUE_HOLDS(value,type)	(G_TYPE_CHECK_VALUE_TYPE ((value), (type)))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <A
+HREF=../glib/glib-standard-macros.html#TRUE-CAPS
+>TRUE</A> if <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> holds (or contains) a value of <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>.
+This macro will also check for <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> != <A
+HREF=../glib/glib-standard-macros.html#NULL-CAPS
+>NULL</A> and issue a
+warning if the check fails.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4731"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4744"
+></A
+><H3
+><A
+NAME="G-VALUE-TYPE-CAPS"
+></A
+>G_VALUE_TYPE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_VALUE_TYPE(value)		(((GValue*) (value))-&gt;g_type)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the type identifier of <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4750"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>A <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4760"
+></A
+><H3
+><A
+NAME="G-VALUE-TYPE-NAME-CAPS"
+></A
+>G_VALUE_TYPE_NAME()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_VALUE_TYPE_NAME(value)	(g_type_name (G_VALUE_TYPE (value)))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the type name of <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4766"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>A <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4776"
+></A
+><H3
+><A
+NAME="G-TYPE-IS-VALUE-CAPS"
+></A
+>G_TYPE_IS_VALUE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_TYPE_IS_VALUE(type)		(g_type_check_is_value_type (type))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Return whether the passed in type ID can be used for <A
+HREF="gobject-generic-values.html#G-VALUE-INIT"
+>g_value_init</A
+>().
+That is, this macro checks whether this type provides an implementation
+of the <A
+HREF="gobject-gtype.html#GTYPEVALUETABLE"
+>GTypeValueTable</A
+> functions required for a type to create a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4784"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	  A <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> value.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Whether <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+> is suitable as a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> type.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4800"
+></A
+><H3
+><A
+NAME="G-TYPE-IS-VALUE-ABSTRACT-CAPS"
+></A
+>G_TYPE_IS_VALUE_ABSTRACT()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_TYPE_IS_VALUE_ABSTRACT(type)          (g_type_test_flags ((type), G_TYPE_FLAG_VALUE_ABSTRACT))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4805"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4814"
+></A
+><H3
+><A
+NAME="G-IS-VALUE-CAPS"
+></A
+>G_IS_VALUE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_IS_VALUE(value)		(G_TYPE_CHECK_VALUE (value))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <A
+HREF=../glib/glib-standard-macros.html#TRUE-CAPS
+>TRUE</A> if <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> is a valid and initialized <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4822"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>A <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4832"
+></A
+><H3
+><A
+NAME="GVALUE"
+></A
+>struct GValue</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GValue
+{
+  /*&lt; private &gt;*/
+  GType		g_type;
+
+  /* public for GTypeValueTable methods */
+  union {
+    gint	v_int;
+    guint	v_uint;
+    glong	v_long;
+    gulong	v_ulong;
+    gint64      v_int64;
+    guint64     v_uint64;
+    gfloat	v_float;
+    gdouble	v_double;
+    gpointer	v_pointer;
+  } data[2];
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>An opaque structure used to hold different types of values.
+The data within the structure has protected scope: it is accessible only
+to functions within a <A
+HREF="gobject-gtype.html#GTYPEVALUETABLE"
+>GTypeValueTable</A
+> structure, or implementations of
+the g_value_*() API. That is, code portions which implement new fundamental
+types.
+<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> users can not make any assumptions about how data is stored
+within the 2 element <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>.data[] union, and the g_type member should
+only be accessed through the <A
+HREF="gobject-generic-values.html#G-VALUE-TYPE-CAPS"
+>G_VALUE_TYPE</A
+>() macro.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4841"
+></A
+><H3
+><A
+NAME="G-TYPE-VALUE-CAPS"
+></A
+>G_TYPE_VALUE</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_TYPE_VALUE		(g_value_get_type ())</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the type ID of the "GValue" type which is a boxed type,
+used to pass around pointers to GValues.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4846"
+></A
+><H3
+><A
+NAME="G-TYPE-VALUE-ARRAY-CAPS"
+></A
+>G_TYPE_VALUE_ARRAY</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_TYPE_VALUE_ARRAY	(g_value_array_get_type ())</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the type ID of the "GValueArray" type which is a boxed type,
+used to pass around pointers to GValueArrays.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4851"
+></A
+><H3
+><A
+NAME="G-VALUE-INIT"
+></A
+>g_value_init ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>*     g_value_init                    (<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> g_type);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Initializes <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> with the default value of <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4861"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		A zero-filled (uninitialized) <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>g_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	Type the <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> should hold values of.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4880"
+></A
+><H3
+><A
+NAME="G-VALUE-COPY"
+></A
+>g_value_copy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_value_copy                    (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Copies the value of <TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+> into <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4889"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	An initialized <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	An initialized <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure of the same type as <TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4905"
+></A
+><H3
+><A
+NAME="G-VALUE-RESET"
+></A
+>g_value_reset ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>*     g_value_reset                   (<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Clears the current value in <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> and resets it to the default value
+(as if the value had just been initialized).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4913"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	An initialized <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4927"
+></A
+><H3
+><A
+NAME="G-VALUE-UNSET"
+></A
+>g_value_unset ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_value_unset                   (<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Clears the current value in <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> and "unsets" the type,
+this releases all resources associated with this GValue.
+An unset value is the same as an uninitialized (zero-filled)
+<A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4935"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	An initialized <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4945"
+></A
+><H3
+><A
+NAME="G-VALUE-FITS-POINTER"
+></A
+>g_value_fits_pointer ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_value_fits_pointer            (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines if <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> will fit inside the size of a pointer value.
+This is an internal function introduced mainly for C marshallers.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4953"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		An initialized <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	<A
+HREF=../glib/glib-standard-macros.html#TRUE-CAPS
+>TRUE</A> if <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> will fit inside a pointer value.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4969"
+></A
+><H3
+><A
+NAME="G-VALUE-PEEK-POINTER"
+></A
+>g_value_peek_pointer ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_value_peek_pointer            (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Return the value contents as pointer. This function asserts that
+<A
+HREF="gobject-generic-values.html#G-VALUE-FITS-POINTER"
+>g_value_fits_pointer</A
+>() returned <A
+HREF=../glib/glib-standard-macros.html#TRUE-CAPS
+>TRUE</A> for the passed in value.
+This is an internal function introduced mainly for C marshallers.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4978"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>		An initialized <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> structure.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>	<A
+HREF=../glib/glib-standard-macros.html#TRUE-CAPS
+>TRUE</A> if <TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+> will fit inside a pointer value.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4994"
+></A
+><H3
+><A
+NAME="G-VALUE-TYPE-COMPATIBLE"
+></A
+>g_value_type_compatible ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_value_type_compatible         (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> src_type,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> dest_type);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns whether a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of type <TT
+CLASS="PARAMETER"
+><I
+>src_type</I
+></TT
+> can be copied into
+a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> of type <TT
+CLASS="PARAMETER"
+><I
+>dest_type</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN5006"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> source type to be copied.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>destination type for copying.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <A
+HREF="gobject-generic-values.html#G-VALUE-COPY"
+>g_value_copy</A
+>() is possible with <TT
+CLASS="PARAMETER"
+><I
+>src_type</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>dest_type</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN5027"
+></A
+><H3
+><A
+NAME="G-VALUE-TYPE-TRANSFORMABLE"
+></A
+>g_value_type_transformable ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_value_type_transformable      (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> src_type,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> dest_type);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Check whether <A
+HREF="gobject-generic-values.html#G-VALUE-TRANSFORM"
+>g_value_transform</A
+>() is able to transform values
+of type <TT
+CLASS="PARAMETER"
+><I
+>src_type</I
+></TT
+> into values of type <TT
+CLASS="PARAMETER"
+><I
+>dest_type</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN5038"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> Source type.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Target type.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the transformation is possible, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> otherwise.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN5057"
+></A
+><H3
+><A
+NAME="G-VALUE-TRANSFORM"
+></A
+>g_value_transform ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GBOOLEAN
+>gboolean</A>    g_value_transform               (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Tries to cast the contents of <TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+> into a type apropriate
+to store in <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+>, e.g. to transform a <TT
+CLASS="LITERAL"
+>G_TYPE_INT</TT
+> value
+into a <TT
+CLASS="LITERAL"
+>G_TYPE_FLOAT</TT
+> value. Performing transformations between
+value types might incour precision lossage. Especially
+transformations into strings might reveal seemingly arbitrary
+results and shouldn't be relied upon for production code (such
+as rcfile value or object property serialization).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN5069"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> Source value.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Target value.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   Whether a transformation rule was found and could be applied.
+             Upon failing transformations, <TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+> is left untouched.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN5087"
+></A
+><H3
+><A
+NAME="GVALUETRANSFORM"
+></A
+>GValueTransform ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GValueTransform)              (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *src_value,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *dest_value);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN5094"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN5107"
+></A
+><H3
+><A
+NAME="G-VALUE-REGISTER-TRANSFORM-FUNC"
+></A
+>g_value_register_transform_func ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_value_register_transform_func (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> src_type,
+                                             <A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> dest_type,
+                                             <A
+HREF="gobject-generic-values.html#GVALUETRANSFORM"
+>GValueTransform</A
+> transform_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN5115"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>transform_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN5132"
+></A
+><H3
+><A
+NAME="G-STRDUP-VALUE-CONTENTS"
+></A
+>g_strdup_value_contents ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A>*      g_strdup_value_contents         (const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Return a newly allocated string, which describes the contents of a <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+>.
+The main purpose of this function is to describe <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> contents for debugging
+output, the way in which the contents are described may change between different
+GLib versions.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN5141"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> which contents are to be described.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Newly allocated string.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN5155"
+></A
+><H2
+>See Also</H2
+><P
+>The fundamental types which all support <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> operations and thus
+can be used as a type initializer for <A
+HREF="gobject-generic-values.html#G-VALUE-INIT"
+>g_value_init</A
+>() are defined by
+a separate interface.  See the Standard Values API for details.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-boxed-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-standard-parameter-and-value-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>GBoxed</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Parameters and Values</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

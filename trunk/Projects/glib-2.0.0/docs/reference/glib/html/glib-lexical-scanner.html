@@ -1,0 +1,4739 @@
+<HTML
+><HEAD
+><TITLE
+>Lexical Scanner</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Miscellaneous Utility Functions"
+HREF="glib-miscellaneous-utility-functions.html"><LINK
+REL="NEXT"
+TITLE="Automatic String Completion"
+HREF="glib-automatic-string-completion.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-miscellaneous-utility-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-automatic-string-completion.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-LEXICAL-SCANNER"
+>Lexical Scanner</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN20087"
+></A
+><H2
+>Name</H2
+>Lexical Scanner&nbsp;--&nbsp;a general purpose lexical scanner.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN20090"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>;
+<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>*   <A
+HREF="glib-lexical-scanner.html#G-SCANNER-NEW"
+>g_scanner_new</A
+>                   (const <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+> *config_templ);
+struct      <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+>;
+
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-INPUT-FILE"
+>g_scanner_input_file</A
+>            (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> input_fd);
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SYNC-FILE-OFFSET"
+>g_scanner_sync_file_offset</A
+>      (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-INPUT-TEXT"
+>g_scanner_input_text</A
+>            (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const	<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *text,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> text_len);
+<A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+>  <A
+HREF="glib-lexical-scanner.html#G-SCANNER-PEEK-NEXT-TOKEN"
+>g_scanner_peek_next_token</A
+>       (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+<A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+>  <A
+HREF="glib-lexical-scanner.html#G-SCANNER-GET-NEXT-TOKEN"
+>g_scanner_get_next_token</A
+>        (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+
+<A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       <A
+HREF="glib-lexical-scanner.html#G-SCANNER-CUR-LINE"
+>g_scanner_cur_line</A
+>              (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+<A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       <A
+HREF="glib-lexical-scanner.html#G-SCANNER-CUR-POSITION"
+>g_scanner_cur_position</A
+>          (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+<A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+>  <A
+HREF="glib-lexical-scanner.html#G-SCANNER-CUR-TOKEN"
+>g_scanner_cur_token</A
+>             (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+<A
+HREF="glib-lexical-scanner.html#GTOKENVALUE"
+>GTokenValue</A
+> <A
+HREF="glib-lexical-scanner.html#G-SCANNER-CUR-VALUE"
+>g_scanner_cur_value</A
+>             (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-lexical-scanner.html#G-SCANNER-EOF"
+>g_scanner_eof</A
+>                   (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+
+<A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SET-SCOPE"
+>g_scanner_set_scope</A
+>             (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id);
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SCOPE-ADD-SYMBOL"
+>g_scanner_scope_add_symbol</A
+>      (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value);
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SCOPE-FOREACH-SYMBOL"
+>g_scanner_scope_foreach_symbol</A
+>  (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             <A
+HREF="glib-hash-tables.html#GHFUNC"
+>GHFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SCOPE-LOOKUP-SYMBOL"
+>g_scanner_scope_lookup_symbol</A
+>   (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol);
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SCOPE-REMOVE-SYMBOL"
+>g_scanner_scope_remove_symbol</A
+>   (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol);
+
+#define     <A
+HREF="glib-lexical-scanner.html#G-SCANNER-FREEZE-SYMBOL-TABLE"
+>g_scanner_freeze_symbol_table</A
+>   (scanner)
+#define     <A
+HREF="glib-lexical-scanner.html#G-SCANNER-THAW-SYMBOL-TABLE"
+>g_scanner_thaw_symbol_table</A
+>     (scanner)
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-lexical-scanner.html#G-SCANNER-LOOKUP-SYMBOL"
+>g_scanner_lookup_symbol</A
+>         (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol);
+
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-WARN"
+>g_scanner_warn</A
+>                  (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *format,
+                                             ...);
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-ERROR"
+>g_scanner_error</A
+>                 (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *format,
+                                             ...);
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-UNEXP-TOKEN"
+>g_scanner_unexp_token</A
+>           (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+> expected_token,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *identifier_spec,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol_spec,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol_name,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *message,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> is_error);
+void        (<A
+HREF="glib-lexical-scanner.html#GSCANNERMSGFUNC"
+>*GScannerMsgFunc</A
+>)              (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *message,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> error);
+
+void        <A
+HREF="glib-lexical-scanner.html#G-SCANNER-DESTROY"
+>g_scanner_destroy</A
+>               (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);
+
+enum        <A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+>;
+union       <A
+HREF="glib-lexical-scanner.html#GTOKENVALUE"
+>GTokenValue</A
+>;
+enum        <A
+HREF="glib-lexical-scanner.html#GERRORTYPE"
+>GErrorType</A
+>;
+#define     <A
+HREF="glib-lexical-scanner.html#G-CSET-A-2-Z"
+>G_CSET_a_2_z</A
+>
+#define     <A
+HREF="glib-lexical-scanner.html#G-CSET-A-2-Z-CAPS"
+>G_CSET_A_2_Z</A
+>
+#define     <A
+HREF="glib-lexical-scanner.html#G-CSET-DIGITS-CAPS"
+>G_CSET_DIGITS</A
+>
+#define     <A
+HREF="glib-lexical-scanner.html#G-CSET-LATINC-CAPS"
+>G_CSET_LATINC</A
+>
+#define     <A
+HREF="glib-lexical-scanner.html#G-CSET-LATINS-CAPS"
+>G_CSET_LATINS</A
+>
+
+#define     <A
+HREF="glib-lexical-scanner.html#G-SCANNER-ADD-SYMBOL"
+>g_scanner_add_symbol</A
+>            ( scanner, symbol, value )
+#define     <A
+HREF="glib-lexical-scanner.html#G-SCANNER-REMOVE-SYMBOL"
+>g_scanner_remove_symbol</A
+>         ( scanner, symbol )
+#define     <A
+HREF="glib-lexical-scanner.html#G-SCANNER-FOREACH-SYMBOL"
+>g_scanner_foreach_symbol</A
+>        ( scanner, func, data )</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20188"
+></A
+><H2
+>Description</H2
+><P
+>The <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> and its associated functions provide a general purpose
+lexical scanner.</P
+><P
+>FIXME: really needs an example and more detail, but I don't completely
+understand it myself. Look at gtkrc.c for some code using the scanner.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20193"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20195"
+></A
+><H3
+><A
+NAME="GSCANNER"
+></A
+>struct GScanner</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GScanner
+{
+  /* unused fields */
+  gpointer		user_data;
+  guint			max_parse_errors;
+  
+  /* g_scanner_error() increments this field */
+  guint			parse_errors;
+  
+  /* name of input stream, featured by the default message handler */
+  const gchar		*input_name;
+  
+  /* quarked data */
+  GData			*qdata;
+  
+  /* link into the scanner configuration */
+  GScannerConfig	*config;
+  
+  /* fields filled in after g_scanner_get_next_token() */
+  GTokenType		token;
+  GTokenValue		value;
+  guint			line;
+  guint			position;
+  
+  /* fields filled in after g_scanner_peek_next_token() */
+  GTokenType		next_token;
+  GTokenValue		next_value;
+  guint			next_line;
+  guint			next_position;
+  
+  /* to be considered private */
+  GHashTable		*symbol_table;
+  gint			input_fd;
+  const gchar		*text;
+  const gchar		*text_end;
+  gchar			*buffer;
+  guint			scope_id;
+  
+  /* handler function for _warn and _error */
+  GScannerMsgFunc	msg_handler;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>The data structure representing a lexical scanner.</P
+><P
+>You should set <TT
+CLASS="STRUCTFIELD"
+><I
+>input_name</I
+></TT
+> after creating 
+the scanner, since it is used by the default message handler when 
+displaying warnings and errors. If you are scanning a file, the file 
+name would be a good choice.</P
+><P
+>The <TT
+CLASS="STRUCTFIELD"
+><I
+>user_data</I
+></TT
+> and
+<TT
+CLASS="STRUCTFIELD"
+><I
+>derived_data</I
+></TT
+> fields are not used.
+If you need to associate extra data with the scanner you can place them here.</P
+><P
+>If you want to use your own message handler you can set the
+<TT
+CLASS="STRUCTFIELD"
+><I
+>msg_handler</I
+></TT
+> field. The type of the message
+handler function is declared by <A
+HREF="glib-lexical-scanner.html#GSCANNERMSGFUNC"
+>GScannerMsgFunc</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20208"
+></A
+><H3
+><A
+NAME="G-SCANNER-NEW"
+></A
+>g_scanner_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>*   g_scanner_new                   (const <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+> *config_templ);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.
+The <TT
+CLASS="PARAMETER"
+><I
+>config_templ</I
+></TT
+> structure specifies the initial settings of the scanner,
+which are copied into the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>config</I
+></TT
+> field.
+If you pass <TT
+CLASS="LITERAL"
+>NULL</TT
+> then the default settings are used.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20220"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>config_templ</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the initial scanner settings.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the new <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20234"
+></A
+><H3
+><A
+NAME="GSCANNERCONFIG"
+></A
+>struct GScannerConfig</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GScannerConfig
+{
+  /* Character sets
+   */
+  gchar		*cset_skip_characters;		/* default: " \t\n" */
+  gchar		*cset_identifier_first;
+  gchar		*cset_identifier_nth;
+  gchar		*cpair_comment_single;		/* default: "#\n" */
+  
+  /* Should symbol lookup work case sensitive?
+   */
+  guint		case_sensitive : 1;
+  
+  /* Boolean values to be adjusted "on the fly"
+   * to configure scanning behaviour.
+   */
+  guint		skip_comment_multi : 1;		/* C like comment */
+  guint		skip_comment_single : 1;	/* single line comment */
+  guint		scan_comment_multi : 1;		/* scan multi line comments? */
+  guint		scan_identifier : 1;
+  guint		scan_identifier_1char : 1;
+  guint		scan_identifier_NULL : 1;
+  guint		scan_symbols : 1;
+  guint		scan_binary : 1;
+  guint		scan_octal : 1;
+  guint		scan_float : 1;
+  guint		scan_hex : 1;			/* `0x0ff0' */
+  guint		scan_hex_dollar : 1;		/* `$0ff0' */
+  guint		scan_string_sq : 1;		/* string: 'anything' */
+  guint		scan_string_dq : 1;		/* string: "\\-escapes!\n" */
+  guint		numbers_2_int : 1;		/* bin, octal, hex =&gt; int */
+  guint		int_2_float : 1;		/* int =&gt; G_TOKEN_FLOAT? */
+  guint		identifier_2_string : 1;
+  guint		char_2_token : 1;		/* return G_TOKEN_CHAR? */
+  guint		symbol_2_token : 1;
+  guint		scope_0_fallback : 1;		/* try scope 0 on lookups? */
+  guint		padding_dummy;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>Specifies the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> settings.</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>cset_skip_characters</I
+></TT
+> specifies which characters
+should be skipped by the scanner (the default is the whitespace characters:
+space, tab, carriage-return and line-feed).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>cset_identifier_first</I
+></TT
+> specifies the characters
+which can start identifiers (the default is <A
+HREF="glib-lexical-scanner.html#G-CSET-A-2-Z"
+>G_CSET_a_2_z</A
+>, "_", and 
+<A
+HREF="glib-lexical-scanner.html#G-CSET-A-2-Z-CAPS"
+>G_CSET_A_2_Z</A
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>cset_identifier_nth</I
+></TT
+> specifies the characters
+which can be used in identifiers, after the first character (the default 
+is <A
+HREF="glib-lexical-scanner.html#G-CSET-A-2-Z"
+>G_CSET_a_2_z</A
+>, "_0123456789", <A
+HREF="glib-lexical-scanner.html#G-CSET-A-2-Z-CAPS"
+>G_CSET_A_2_Z</A
+>, <A
+HREF="glib-lexical-scanner.html#G-CSET-LATINS-CAPS"
+>G_CSET_LATINS</A
+>,
+<A
+HREF="glib-lexical-scanner.html#G-CSET-LATINC-CAPS"
+>G_CSET_LATINC</A
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>cpair_comment_single</I
+></TT
+> specifies the characters
+at the start and end of single-line comments. The default is "#\n" which
+means that single-line comments start with a '#' and continue until a '\n'
+(end of line).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>case_sensitive</I
+></TT
+> specifies if symbols are
+case sensitive (the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>skip_comment_multi</I
+></TT
+> specifies if multi-line
+comments are skipped and not returned as tokens (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>skip_comment_single</I
+></TT
+> specifies if single-line
+comments are skipped and not returned as tokens (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_comment_multi</I
+></TT
+> specifies if multi-line
+comments are recognized (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_identifier</I
+></TT
+> specifies if identifiers
+are recognized (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_identifier_1char</I
+></TT
+> specifies if single-character
+identifiers are recognized (the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_identifier_NULL</I
+></TT
+> specifies if 
+<TT
+CLASS="LITERAL"
+>NULL</TT
+> is reported as G_TOKEN_IDENTIFIER_NULL.
+(the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_symbols</I
+></TT
+> specifies if symbols are
+recognized (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_binary</I
+></TT
+> specifies if binary numbers
+are recognized (the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_octal</I
+></TT
+> specifies if octal numbers
+are recognized (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_float</I
+></TT
+> specifies if floating point numbers
+are recognized (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_hex</I
+></TT
+> specifies if hexadecimal numbers
+are recognized (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_hex_dollar</I
+></TT
+> specifies if '$' is recognized
+as a prefix for hexadecimal numbers (the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_string_sq</I
+></TT
+> specifies if strings can be
+enclosed in single quotes (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scan_string_dq</I
+></TT
+> specifies if strings can be
+enclosed in double quotes (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>numbers_2_int</I
+></TT
+> specifies if binary, octal and
+hexadecimal numbers are reported as G_TOKEN_INT (the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>int_2_float</I
+></TT
+> specifies if all numbers are 
+reported as G_TOKEN_FLOAT (the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>identifier_2_string</I
+></TT
+> specifies if identifiers
+are reported as strings (the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>char_2_token</I
+></TT
+> specifies if characters
+are reported by setting <TT
+CLASS="LITERAL"
+>token = ch</TT
+> or as G_TOKEN_CHAR 
+(the default is <TT
+CLASS="LITERAL"
+>TRUE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>symbol_2_token</I
+></TT
+> specifies if symbols 
+are reported by setting <TT
+CLASS="LITERAL"
+>token = v_symbol</TT
+> or as
+G_TOKEN_SYMBOL (the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+><P
+><TT
+CLASS="STRUCTFIELD"
+><I
+>scope_0_fallback</I
+></TT
+> specifies if a symbol 
+is searched for in the default scope in addition to the current scope
+(the default is <TT
+CLASS="LITERAL"
+>FALSE</TT
+>).</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20325"
+></A
+><H3
+><A
+NAME="G-SCANNER-INPUT-FILE"
+></A
+>g_scanner_input_file ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_input_file            (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> input_fd);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Prepares to scan a file.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20332"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>input_fd</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a file descriptor.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20346"
+></A
+><H3
+><A
+NAME="G-SCANNER-SYNC-FILE-OFFSET"
+></A
+>g_scanner_sync_file_offset ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_sync_file_offset      (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Rewinds the filedescriptor to the current buffer position and blows 
+the file read ahead buffer. This is useful for third party uses of
+the scanners filedescriptor, which hooks onto the current scanning 
+position.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20352"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20362"
+></A
+><H3
+><A
+NAME="G-SCANNER-INPUT-TEXT"
+></A
+>g_scanner_input_text ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_input_text            (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const	<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *text,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> text_len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Prepares to scan a text buffer.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20370"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>text</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the text buffer to scan.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>text_len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the length of the text buffer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20388"
+></A
+><H3
+><A
+NAME="G-SCANNER-PEEK-NEXT-TOKEN"
+></A
+>g_scanner_peek_next_token ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+>  g_scanner_peek_next_token       (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the next token, without removing it from the input stream.
+The token data is placed in the
+<TT
+CLASS="STRUCTFIELD"
+><I
+>next_token</I
+></TT
+>,
+<TT
+CLASS="STRUCTFIELD"
+><I
+>next_value</I
+></TT
+>,
+<TT
+CLASS="STRUCTFIELD"
+><I
+>next_line</I
+></TT
+>, and
+<TT
+CLASS="STRUCTFIELD"
+><I
+>next_position</I
+></TT
+> fields of the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20400"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the type of the token.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20414"
+></A
+><H3
+><A
+NAME="G-SCANNER-GET-NEXT-TOKEN"
+></A
+>g_scanner_get_next_token ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+>  g_scanner_get_next_token        (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the next token, removing it from the input stream.
+The token data is placed in the
+<TT
+CLASS="STRUCTFIELD"
+><I
+>token</I
+></TT
+>,
+<TT
+CLASS="STRUCTFIELD"
+><I
+>value</I
+></TT
+>,
+<TT
+CLASS="STRUCTFIELD"
+><I
+>line</I
+></TT
+>, and
+<TT
+CLASS="STRUCTFIELD"
+><I
+>position</I
+></TT
+> fields of the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20426"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the type of the token.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20440"
+></A
+><H3
+><A
+NAME="G-SCANNER-CUR-LINE"
+></A
+>g_scanner_cur_line ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       g_scanner_cur_line              (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the current line in the input stream (counting from 1).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20447"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the current line.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20461"
+></A
+><H3
+><A
+NAME="G-SCANNER-CUR-POSITION"
+></A
+>g_scanner_cur_position ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       g_scanner_cur_position          (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the current position in the current line (counting from 0).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20468"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the current position on the line.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20482"
+></A
+><H3
+><A
+NAME="G-SCANNER-CUR-TOKEN"
+></A
+>g_scanner_cur_token ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+>  g_scanner_cur_token             (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the current token type.
+This is simply the <TT
+CLASS="STRUCTFIELD"
+><I
+>token</I
+></TT
+> field in the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>
+structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20491"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the current token type.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20505"
+></A
+><H3
+><A
+NAME="G-SCANNER-CUR-VALUE"
+></A
+>g_scanner_cur_value ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-lexical-scanner.html#GTOKENVALUE"
+>GTokenValue</A
+> g_scanner_cur_value             (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Gets the current token value.
+This is simply the <TT
+CLASS="STRUCTFIELD"
+><I
+>value</I
+></TT
+> field in the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>
+structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20514"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the current token value.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20528"
+></A
+><H3
+><A
+NAME="G-SCANNER-EOF"
+></A
+>g_scanner_eof ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_scanner_eof                   (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the scanner has reached the end of the file or text buffer.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20536"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the scanner has reached the end of the file or text buffer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20551"
+></A
+><H3
+><A
+NAME="G-SCANNER-SET-SCOPE"
+></A
+>g_scanner_set_scope ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+>       g_scanner_set_scope             (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Sets the current scope.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20559"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scope_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the new scope id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the old scope id.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20577"
+></A
+><H3
+><A
+NAME="G-SCANNER-SCOPE-ADD-SYMBOL"
+></A
+>g_scanner_scope_add_symbol ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_scope_add_symbol      (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Adds a symbol to the given scope.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20586"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scope_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the scope id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the symbol to add.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the value of the symbol.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20608"
+></A
+><H3
+><A
+NAME="G-SCANNER-SCOPE-FOREACH-SYMBOL"
+></A
+>g_scanner_scope_foreach_symbol ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_scope_foreach_symbol  (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             <A
+HREF="glib-hash-tables.html#GHFUNC"
+>GHFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Calls the given function for each of the symbol/value pairs in the 
+given scope of the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>. The function is passed the symbol and 
+value of each pair, and the given <TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+> parameter.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20619"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scope_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the scope id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to call for each symbol/value pair.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>user data to pass to the function.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20641"
+></A
+><H3
+><A
+NAME="G-SCANNER-SCOPE-LOOKUP-SYMBOL"
+></A
+>g_scanner_scope_lookup_symbol ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_scanner_scope_lookup_symbol   (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Looks up a symbol in a scope and return its value. If the
+symbol is not bound in the scope, <TT
+CLASS="LITERAL"
+>NULL</TT
+> is returned.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20651"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scope_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the scope id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the symbol to look up.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the value of <TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+> in the given scope, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>
+if <TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+> is not bound in the given scope.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20676"
+></A
+><H3
+><A
+NAME="G-SCANNER-SCOPE-REMOVE-SYMBOL"
+></A
+>g_scanner_scope_remove_symbol ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_scope_remove_symbol   (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> scope_id,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes a symbol from a scope.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20684"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scope_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the scope id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the symbol to remove.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20702"
+></A
+><H3
+><A
+NAME="G-SCANNER-FREEZE-SYMBOL-TABLE"
+></A
+>g_scanner_freeze_symbol_table()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_scanner_freeze_symbol_table(scanner)</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Warning</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+><TT
+CLASS="LITERAL"
+>g_scanner_freeze_symbol_table</TT
+> is deprecated and should not be used in newly-written code.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>This function is deprecated and will be removed in the next major
+release of GLib. It does nothing.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20710"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20720"
+></A
+><H3
+><A
+NAME="G-SCANNER-THAW-SYMBOL-TABLE"
+></A
+>g_scanner_thaw_symbol_table()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_scanner_thaw_symbol_table(scanner)</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Warning</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+><TT
+CLASS="LITERAL"
+>g_scanner_thaw_symbol_table</TT
+> is deprecated and should not be used in newly-written code.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>This function is deprecated and will be removed in the next major
+release of GLib. It does nothing.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20728"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20738"
+></A
+><H3
+><A
+NAME="G-SCANNER-LOOKUP-SYMBOL"
+></A
+>g_scanner_lookup_symbol ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_scanner_lookup_symbol         (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Looks up a symbol in the current scope and return its value. If the
+symbol is not bound in the current scope, <TT
+CLASS="LITERAL"
+>NULL</TT
+> is returned.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20747"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the symbol to look up.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the value of <TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+> in the current scope, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>
+if <TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+> is not bound in the current scope.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20768"
+></A
+><H3
+><A
+NAME="G-SCANNER-WARN"
+></A
+>g_scanner_warn ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_warn                  (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *format,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Outputs a warning message, via the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> message handler.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20776"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>format</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the message format. See the <TT
+CLASS="FUNCTION"
+>printf()</TT
+>
+documentation.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the parameters to insert into the format string.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20795"
+></A
+><H3
+><A
+NAME="G-SCANNER-ERROR"
+></A
+>g_scanner_error ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_error                 (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *format,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Outputs an error message, via the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> message handler.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20803"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>format</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the message format. See the <TT
+CLASS="FUNCTION"
+>printf()</TT
+>
+documentation.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the parameters to insert into the format string.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20822"
+></A
+><H3
+><A
+NAME="G-SCANNER-UNEXP-TOKEN"
+></A
+>g_scanner_unexp_token ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_unexp_token           (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-lexical-scanner.html#GTOKENTYPE"
+>GTokenType</A
+> expected_token,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *identifier_spec,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol_spec,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *symbol_name,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *message,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> is_error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Outputs a message resulting from an unexpected token in the input stream.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20834"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>expected_token</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the expected token.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>identifier_spec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a string describing the expected type of identifier,
+  or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to use the default "identifier" string. This is used if
+  <TT
+CLASS="PARAMETER"
+><I
+>expected_token</I
+></TT
+> is G_TOKEN_IDENTIFIER or G_TOKEN_IDENTIFIER_NULL.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol_spec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a string describing the expected type of symbol,
+  or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to use the default "symbol" string. This is used if
+  <TT
+CLASS="PARAMETER"
+><I
+>expected_token</I
+></TT
+> is G_TOKEN_SYMBOL.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the name of the expected symbol. This is used if 
+  <TT
+CLASS="PARAMETER"
+><I
+>expected_token</I
+></TT
+> is G_TOKEN_SYMBOL.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>message</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a message string to output at the end of the warning/error, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>is_error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>if <TT
+CLASS="LITERAL"
+>TRUE</TT
+> it is output as an error. If <TT
+CLASS="LITERAL"
+>FALSE</TT
+> it is output as a
+warning.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20880"
+></A
+><H3
+><A
+NAME="GSCANNERMSGFUNC"
+></A
+>GScannerMsgFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GScannerMsgFunc)              (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *message,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Specifies the type of the message handler function.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20888"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>message</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the message.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the message signals an error, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if it 
+  signals a warning.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20908"
+></A
+><H3
+><A
+NAME="G-SCANNER-DESTROY"
+></A
+>g_scanner_destroy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_scanner_destroy               (<A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+> *scanner);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Frees all memory used by the <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20915"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20925"
+></A
+><H3
+><A
+NAME="GTOKENTYPE"
+></A
+>enum GTokenType</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_TOKEN_EOF			=   0,
+  
+  G_TOKEN_LEFT_PAREN		= '(',
+  G_TOKEN_RIGHT_PAREN		= ')',
+  G_TOKEN_LEFT_CURLY		= '{',
+  G_TOKEN_RIGHT_CURLY		= '}',
+  G_TOKEN_LEFT_BRACE		= '[',
+  G_TOKEN_RIGHT_BRACE		= ']',
+  G_TOKEN_EQUAL_SIGN		= '=',
+  G_TOKEN_COMMA			= ',',
+  
+  G_TOKEN_NONE			= 256,
+  
+  G_TOKEN_ERROR,
+  
+  G_TOKEN_CHAR,
+  G_TOKEN_BINARY,
+  G_TOKEN_OCTAL,
+  G_TOKEN_INT,
+  G_TOKEN_HEX,
+  G_TOKEN_FLOAT,
+  G_TOKEN_STRING,
+  
+  G_TOKEN_SYMBOL,
+  G_TOKEN_IDENTIFIER,
+  G_TOKEN_IDENTIFIER_NULL,
+  
+  G_TOKEN_COMMENT_SINGLE,
+  G_TOKEN_COMMENT_MULTI,
+  G_TOKEN_LAST
+} GTokenType;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The possible types of token returned from each <A
+HREF="glib-lexical-scanner.html#G-SCANNER-GET-NEXT-TOKEN"
+>g_scanner_get_next_token</A
+>() call.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20931"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_TOKEN_EOF</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the end of the file.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_TOKEN_LEFT_PAREN</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a '(' character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_TOKEN_LEFT_CURLY</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a '{' character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_TOKEN_RIGHT_CURLY</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a '}' character.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20952"
+></A
+><H3
+><A
+NAME="GTOKENVALUE"
+></A
+>union GTokenValue</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>union GTokenValue
+{
+  gpointer	v_symbol;
+  gchar		*v_identifier;
+  gulong	v_binary;
+  gulong	v_octal;
+  gulong	v_int;
+  gdouble	v_float;
+  gulong	v_hex;
+  gchar		*v_string;
+  gchar		*v_comment;
+  guchar	v_char;
+  guint		v_error;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>A union holding the value of the token.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20957"
+></A
+><H3
+><A
+NAME="GERRORTYPE"
+></A
+>enum GErrorType</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_ERR_UNKNOWN,
+  G_ERR_UNEXP_EOF,
+  G_ERR_UNEXP_EOF_IN_STRING,
+  G_ERR_UNEXP_EOF_IN_COMMENT,
+  G_ERR_NON_DIGIT_IN_CONST,
+  G_ERR_DIGIT_RADIX,
+  G_ERR_FLOAT_RADIX,
+  G_ERR_FLOAT_MALFORMED
+} GErrorType;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The possible errors, used in the <TT
+CLASS="STRUCTFIELD"
+><I
+>v_error</I
+></TT
+> field
+of <A
+HREF="glib-lexical-scanner.html#GTOKENVALUE"
+>GTokenValue</A
+>, when the token is a G_TOKEN_ERROR.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN20965"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_UNKNOWN</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>unknown error.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_UNEXP_EOF</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>unexpected end of file.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_UNEXP_EOF_IN_STRING</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>unterminated string constant.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_UNEXP_EOF_IN_COMMENT</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>unterminated comment.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_NON_DIGIT_IN_CONST</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>non-digit character in a number.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_DIGIT_RADIX</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>digit beyond radix in a number.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_FLOAT_RADIX</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>non-decimal floating point number.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_ERR_FLOAT_MALFORMED</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>malformed floating point number.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21002"
+></A
+><H3
+><A
+NAME="G-CSET-A-2-Z"
+></A
+>G_CSET_a_2_z</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_CSET_a_2_z	"abcdefghijklmnopqrstuvwxyz"</PRE
+></TD
+></TR
+></TABLE
+><P
+>The set of lowercase ASCII alphabet characters.
+Used for specifying valid identifier characters in <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21008"
+></A
+><H3
+><A
+NAME="G-CSET-A-2-Z-CAPS"
+></A
+>G_CSET_A_2_Z</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_CSET_A_2_Z	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</PRE
+></TD
+></TR
+></TABLE
+><P
+>The set of uppercase ASCII alphabet characters.
+Used for specifying valid identifier characters in <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21014"
+></A
+><H3
+><A
+NAME="G-CSET-DIGITS-CAPS"
+></A
+>G_CSET_DIGITS</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_CSET_DIGITS	"0123456789"</PRE
+></TD
+></TR
+></TABLE
+><P
+>The set of digits.
+Used for specifying valid identifier characters in <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21020"
+></A
+><H3
+><A
+NAME="G-CSET-LATINC-CAPS"
+></A
+>G_CSET_LATINC</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_CSET_LATINC</PRE
+></TD
+></TR
+></TABLE
+><P
+>The set of uppercase ISO 8859-1 alphabet characters which are 
+not ASCII characters. 
+Used for specifying valid identifier characters in <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21026"
+></A
+><H3
+><A
+NAME="G-CSET-LATINS-CAPS"
+></A
+>G_CSET_LATINS</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_CSET_LATINS</PRE
+></TD
+></TR
+></TABLE
+><P
+>The set of lowercase ISO 8859-1 alphabet characters which are 
+not ASCII characters. 
+Used for specifying valid identifier characters in <A
+HREF="glib-lexical-scanner.html#GSCANNERCONFIG"
+>GScannerConfig</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21032"
+></A
+><H3
+><A
+NAME="G-SCANNER-ADD-SYMBOL"
+></A
+>g_scanner_add_symbol()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_scanner_add_symbol( scanner, symbol, value )</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Warning</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+><TT
+CLASS="LITERAL"
+>g_scanner_add_symbol</TT
+> is deprecated and should not be used in newly-written code.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Adds a symbol to the default scope.
+Deprecated in favour of <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SCOPE-ADD-SYMBOL"
+>g_scanner_scope_add_symbol</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21041"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the symbol to add.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the value of the symbol.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21059"
+></A
+><H3
+><A
+NAME="G-SCANNER-REMOVE-SYMBOL"
+></A
+>g_scanner_remove_symbol()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_scanner_remove_symbol( scanner, symbol )</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Warning</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+><TT
+CLASS="LITERAL"
+>g_scanner_remove_symbol</TT
+> is deprecated and should not be used in newly-written code.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Removes a symbol from the default scope.
+Deprecated in favour of <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SCOPE-REMOVE-SYMBOL"
+>g_scanner_scope_remove_symbol</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21068"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>symbol</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the symbol to remove.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21082"
+></A
+><H3
+><A
+NAME="G-SCANNER-FOREACH-SYMBOL"
+></A
+>g_scanner_foreach_symbol()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_scanner_foreach_symbol( scanner, func, data )</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Warning</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+><TT
+CLASS="LITERAL"
+>g_scanner_foreach_symbol</TT
+> is deprecated and should not be used in newly-written code.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Calls a function for each symbol in the default scope.
+Deprecated in favour of <A
+HREF="glib-lexical-scanner.html#G-SCANNER-SCOPE-FOREACH-SYMBOL"
+>g_scanner_scope_foreach_symbol</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21091"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>scanner</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-lexical-scanner.html#GSCANNER"
+>GScanner</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to call with each symbol.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>data to pass to the function.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-miscellaneous-utility-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-automatic-string-completion.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Miscellaneous Utility Functions</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Automatic String Completion</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

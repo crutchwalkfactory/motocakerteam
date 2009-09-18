@@ -1,0 +1,1198 @@
+<HTML
+><HEAD
+><TITLE
+>Glob-style pattern matching</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Shell-related Utilities"
+HREF="glib-shell-related-utilities.html"><LINK
+REL="NEXT"
+TITLE="Simple XML Subset Parser"
+HREF="glib-simple-xml-subset-parser.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-shell-related-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-simple-xml-subset-parser.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-GLOB-STYLE-PATTERN-MATCHING"
+>Glob-style pattern matching</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN22955"
+></A
+><H2
+>Name</H2
+>Glob-style pattern matching&nbsp;--&nbsp;matches strings against patterns containing '*' (wildcard) and '?' (joker).</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN22958"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>;
+<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>* <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-SPEC-NEW"
+>g_pattern_spec_new</A
+>            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *pattern);
+void        <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-SPEC-FREE"
+>g_pattern_spec_free</A
+>             (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-SPEC-EQUAL"
+>g_pattern_spec_equal</A
+>            (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec1,
+                                             <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec2);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH"
+>g_pattern_match</A
+>                 (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> string_length,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string_reversed);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH-STRING"
+>g_pattern_match_string</A
+>          (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH-SIMPLE"
+>g_pattern_match_simple</A
+>          (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *pattern,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN22985"
+></A
+><H2
+>Description</H2
+><P
+>The <TT
+CLASS="FUNCTION"
+>g_pattern_match*</TT
+> functions match a string 
+against a pattern containing '*' and '?' wildcards with similar semantics 
+as the standard <TT
+CLASS="FUNCTION"
+>glob()</TT
+> function: '*' matches an
+arbitrary, possibly empty, string, '?' matches an arbitrary character.</P
+><P
+>Note that in contrast to <TT
+CLASS="FUNCTION"
+>glob()</TT
+>, the '/' character
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>can</I
+></SPAN
+> be matched by the wildcards, there are no
+'[...]' character ranges and '*' and '?' can <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+>
+be escaped to include them literally in a pattern. </P
+><P
+>When multiple strings must be matched against the same pattern, it
+is better to compile the pattern to a <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> using 
+<A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-SPEC-NEW"
+>g_pattern_spec_new</A
+>() and use <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH-STRING"
+>g_pattern_match_string</A
+>() instead of 
+<A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH-SIMPLE"
+>g_pattern_match_simple</A
+>().  This avoids the overhead of repeated 
+pattern compilation.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN23001"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23003"
+></A
+><H3
+><A
+NAME="GPATTERNSPEC"
+></A
+>struct GPatternSpec</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GPatternSpec;</PRE
+></TD
+></TR
+></TABLE
+><P
+>A <SPAN
+CLASS="STRUCTNAME"
+>GPatternSpec</SPAN
+> is the 'compiled' form of a pattern.
+This structure is opaque and its fields cannot be accessed directly.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23009"
+></A
+><H3
+><A
+NAME="G-PATTERN-SPEC-NEW"
+></A
+>g_pattern_spec_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>* g_pattern_spec_new            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *pattern);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Compiles a pattern to a <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23017"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pattern</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a zero-terminated UTF-8 encoded string.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a newly-allocated <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23031"
+></A
+><H3
+><A
+NAME="G-PATTERN-SPEC-FREE"
+></A
+>g_pattern_spec_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_pattern_spec_free             (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Frees the memory allocated for the <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23038"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23048"
+></A
+><H3
+><A
+NAME="G-PATTERN-SPEC-EQUAL"
+></A
+>g_pattern_spec_equal ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_pattern_spec_equal            (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec1,
+                                             <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec2);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Compares two compiled pattern specs and returns whether they
+will match the same set of strings.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23056"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec1</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec2</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>another <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Whether the compiled patterns are equal.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23075"
+></A
+><H3
+><A
+NAME="G-PATTERN-MATCH"
+></A
+>g_pattern_match ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_pattern_match                 (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> string_length,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string_reversed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Matches a string against a compiled pattern. Passing the correct length of the
+string given is mandatory. The reversed string can be omitted by passing <TT
+CLASS="LITERAL"
+>NULL</TT
+>,
+this is more efficient if the reversed version of the string to be matched is
+not at hand, as <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH"
+>g_pattern_match</A
+>() will only construct it if the compiled pattern
+requires reverse matches.</P
+><P
+>Note that, if the user code will (possibly) match a string against a multitude 
+of patterns containing wildcards, chances are high that some patterns will 
+require a reversed string. In this case, it's more efficient to provide the 
+reversed string to avoid multiple constructions thereof in the various calls to
+<A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH"
+>g_pattern_match</A
+>().</P
+><P
+>Note also that the reverse of a UTF-8 encoded string can in general 
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+> be obtained by <TT
+CLASS="FUNCTION"
+><A
+HREF="glib-string-utility-functions.html#G-STRREVERSE"
+>g_strreverse</A
+>()</TT
+>.
+This works only if the string doesn't contain any multibyte characters.
+Glib doesn't currently offer a function to reverse UTF-8 encoded strings.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23093"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>string_length</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the length of <TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the UTF-8 encoded string to match.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>string_reversed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the reverse of <TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+> or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+> matches <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23125"
+></A
+><H3
+><A
+NAME="G-PATTERN-MATCH-STRING"
+></A
+>g_pattern_match_string ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_pattern_match_string          (<A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+> *pspec,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Matches a string against a compiled pattern. If the string is to
+be matched against more than one pattern, consider using
+<A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH"
+>g_pattern_match</A
+>() instead while supplying the reversed string.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23134"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-glob-style-pattern-matching.html#GPATTERNSPEC"
+>GPatternSpec</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the UTF-8 encoded string to match.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+> matches <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23155"
+></A
+><H3
+><A
+NAME="G-PATTERN-MATCH-SIMPLE"
+></A
+>g_pattern_match_simple ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_pattern_match_simple          (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *pattern,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Matches a string against a pattern given as a string.
+If this function is to be called in a loop, it's more efficient to compile
+the pattern once with <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-SPEC-NEW"
+>g_pattern_spec_new</A
+>() and call <A
+HREF="glib-glob-style-pattern-matching.html#G-PATTERN-MATCH-STRING"
+>g_pattern_match_string</A
+>()
+repetively.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23165"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pattern</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the UTF-8 encoded pattern.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the UTF-8 encoded string to match.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+> matches <TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-shell-related-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-simple-xml-subset-parser.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Shell-related Utilities</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Simple XML Subset Parser</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

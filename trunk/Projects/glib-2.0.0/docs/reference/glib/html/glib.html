@@ -1,0 +1,292 @@
+<HTML
+><HEAD
+><TITLE
+>GLib Overview</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="NEXT"
+TITLE="Compiling the GLib package"
+HREF="glib-building.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&nbsp;</B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-building.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="GLIB"
+>GLib Overview</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="glib-building.html"
+>Compiling the GLib package</A
+>&nbsp;--&nbsp;How to compile GLib itself</DT
+><DT
+><A
+HREF="glib-compiling.html"
+>Compiling GLib Applications</A
+>&nbsp;--&nbsp;How to compile your GLib application</DT
+><DT
+><A
+HREF="glib-running.html"
+>Running GLib Applications</A
+>&nbsp;--&nbsp;How to run and debug your GLib application</DT
+><DT
+><A
+HREF="glib-changes-2-0.html"
+>Changes from 1.0 to 2.0</A
+>&nbsp;--&nbsp;Incompatible changes made between version 1.0 and version 2.0</DT
+><DT
+><A
+HREF="glib-resources.html"
+>Mailing lists and bug reports</A
+>&nbsp;--&nbsp;Getting help with GLib</DT
+></DL
+></DIV
+><P
+>GLib is a general-purpose utility library, which provides many useful data 
+types, macros, type conversions, string utilities, file utilities, a main 
+loop abstraction, and so on. It works on many UNIX-like platforms, Windows,
+OS/2 and BeOS. GLib is released under the GNU Library General Public License 
+(GNU LGPL). 
+    </P
+><P
+>GLib depends on the following: 
+<P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="FUNCTION"
+>iconv()</TT
+></DT
+><DD
+><P
+>In order to implement conversions between character sets,
+GLib requires an implementation of the standard <TT
+CLASS="FUNCTION"
+>iconv()</TT
+> 
+routine. Most modern systems will have a suitable implementation, however
+many older systems lack an <TT
+CLASS="FUNCTION"
+>iconv()</TT
+> implementation. On 
+such systems, you must install the 
+<A
+HREF="http://clisp.cons.org/~haible/packages-libiconv.html"
+TARGET="_top"
+>libiconv</A
+> library.</P
+></DD
+><DT
+>a thread implementation</DT
+><DD
+><P
+>The thread support in GLib can be based upon several native thread 
+implementations, e.g. POSIX threads, DCE threads or Solaris threads.</P
+></DD
+></DL
+></DIV
+>    
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&nbsp;</B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-building.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>GLib Reference Manual</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Compiling the GLib package</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
