@@ -1,0 +1,47 @@
+This is version 1.0.0 of clone2fs, a program that copies an ext2/ext3
+file system to another volume or an image file. In case the destination
+is a volume, it must provide enough space to hold the entire file
+system. If the source is larger than the destination, you can use
+resize2fs from the e2fsprogs package to shrink it before copying.
+
+Unlike dd, clone2fs does not copy the whole volume but only blocks that
+are actually in use. Therefore, it is usually faster. It's also faster
+than dump/restore, tar or similar backup software because it accesses
+the source and destination volumes sequentially most of the time.
+
+Note that clone2fs allows you to clone a mounted file system without
+warning, even if it's writable. In the latter case, you have to run
+e2fsck on the resulting image in order to make it consistent. Since
+copying takes a while, changes made while clone2fs is working may or
+may not appear in the clone. If you need an exact clone, umount the
+source file system, or remount it in read-only mode.
+
+If the destination is a disk partition, unused blocks will be left
+as-is unless you ask clone2fs to zero-fill them (by means of the -Z
+option). If the destination is a file, clone2fs will use lseek()
+to skip unused blocks. This has the same effect as -Z but requires
+less space if the target fs supports sparse files. When writing to a
+pipe or another device that doesn't support seeking, clone2fs pretends
+that -Z is set and fills unused blocks with NUL bytes.
+
+Clone2fs always copies the boot sector (block #0) of the source file
+system unmodified, even if it contains only NUL bytes. That does not
+mean that you'll be able to boot from a cloned volume, however. Boot
+sectors usually contain absolute references to specific disk sectors
+(e.g. GRUB's boot sector points to the installed stage2 binary).
+If a volume's position on disk is changed, these references become
+invalid. Clone2fs does not (and will not) provide a way to correct
+them. In order to make a cloned volume bootable again, you should mount
+it somewhere, chroot into it and re-install the boot loader. This is
+also the only way if the boot sector resides in the MBR - and much
+safer than modifying the boot sector directly.
+
+Usage: clone2fs [option...] (device|image)
+Options:
+  -h          display this help
+  -o output   write image to <output>; "-" means stdout
+  -O output   write image to <output> even if that already exists
+  -q          be less verbose
+  -V          show program version and exit
+  -Z          zero-fill unused blocks
+
