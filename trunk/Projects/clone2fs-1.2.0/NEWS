@@ -1,0 +1,32 @@
+Changes in clone2fs 1.2.0:
+
+	* Changed license to GPL.
+
+Changes in clone2fs 1.1.0:
+
+	* `clone2fs -s' writes a compact image; `clone2fs -r' restores it.
+	  `clone2fs -r' will read from standard input if you specify `-'
+	  as the source. Thus, you can clone a volume across the network
+	  with e.g.
+
+	  	clone2fs -o - -q -s /dev/source | \
+	  		ssh target clone2fs -O /dev/destination -r -
+
+	  Note the use of `-q' to quieten the first invocation. Of
+	  course you could also hush the second one, or both.
+
+	  Use of ssh's built-in compression is NOT recommended. Even
+	  `gzip -1' slows down the transfer considerably. If your
+	  network is too slow to go without compression, consider
+	  Markus Oberhumer's `lzop' (www.lzop.org).
+
+	* With the `-I' option, clone2fs will ignore read errors. This
+	  may be useful if your disk contains bad sectors (besides those
+	  already in the bad blocks list).
+
+	* If the source volume is mounted and writable, clone2fs will
+	  now warn you that the resulting image may be inconsistent.
+
+	* When the destination volume is mounted (writable or not),
+	  clone2fs will refuse to continue.
+
