@@ -1,0 +1,66 @@
+chvalid.lo chvalid.o: chvalid.c libxml.h config.h \
+  ./include/libxml/xmlversion.h ./include/libxml/xmlexports.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdio.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/types.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wordsize.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/typesizes.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/libio.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/_G_config.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/wchar.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wchar.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gconv.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stdarg.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio_lim.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sys_errlist.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio.h \
+  ./include/libxml/chvalid.h ./include/libxml/xmlstring.h
+
+libxml.h:
+
+config.h:
+
+./include/libxml/xmlversion.h:
+
+./include/libxml/xmlexports.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdio.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/types.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wordsize.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/typesizes.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/libio.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/_G_config.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/wchar.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wchar.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gconv.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stdarg.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio_lim.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sys_errlist.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio.h:
+
+./include/libxml/chvalid.h:
+
+./include/libxml/xmlstring.h:
