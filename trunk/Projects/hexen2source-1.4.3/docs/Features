@@ -1,0 +1,64 @@
+Hexen II: Hammer of Thyrion
+
+Features:
+---------------------------
+
+* Support for Hexen II, Hexen II demo, Portal of Praevus mission pack
+  and HexenWorld.
+
+* Cross-platform code: Tested on Linux, FreeBSD, OpenBSD, Mac OS X and
+  Windows. Also reported to build and run fine on QNX and Nokia N770,
+  N800 and N810. Other unices should also work. Even DOS is supported
+  for nostalgic purposes. There are seperate ports to MorphOS, PalmOS
+  and GP2X.
+
+* Tested on 32 bit and 64 bit platforms.
+
+* In-game resolution changing for both opengl and software renderers.
+  Instant fullscreen/windowed toggling on X11 (unix).
+
+* OpenGL enhancements including multitexturing, glow effects, working
+  brightness control, text and hud size changing on the fly, translucent
+  console background, console background stretching, colored lights and
+  support for external lit files, fixes for texture cache and model mesh
+  cache mismatches.
+
+* Fully network-compatible with Raven's 1.11 windows version as well as
+  with other Hexen II ports. Can load and play games saved with Raven's
+  1.11 windows version.
+
+* The same binary handles both original hexen2 and the mission pack.
+
+* The same hexen2 binary transparently handles both v1.11 (hexen2) and
+  v1.12 (mission pack) style progs.dat files.
+
+* Fullscreen intermissions and help dialogs.
+
+* MouseWheel support.
+
+* Improvements and fixes to the HexenC game code.
+
+* Improved sound support: A selection of three different sound drivers
+  (ALSA, OSS and SDL) for Linux. FreeBSD is supported with OSS and SDL,
+  OpenBSD and NetBSD are experimentally supported with sunaudio and SDL.
+
+* Working music volume controls and on the fly selection of CD or MIDI
+  music.
+
+* Full user directories support under unix: all users have their own
+  configuration files and game saves.
+
+* Improved console functionality (inline editing and tab completion),
+  and a maplist command.
+
+* Ability to delete saved games from within the game.
+
+* Several hexen2 utilities (hcc: the hexenc compiler, and other mapping
+  tools) are maintained and are being kept up to date.
+
+* Several hexenworld utilities (hwmaster: hexenworld master server,
+  hwmquery: tool for querying hw master servers, hwrcon and hwterm: rcon
+  tools) are maintained and are being kept up to date.
+
+* Many bug fixes, security fixes and other improvements.
+

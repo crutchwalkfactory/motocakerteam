@@ -1,0 +1,9 @@
+
+progs.dat compiler/decompiler for Hexen2 by Eric Hobbs.
+Read the author's dcc.txt file for usage/details.
+
+Probably only interesting due to its decompiler facility.
+Oh, and there may be a few mods out there which can only
+be compiled by dhcc, such as the HexenC code of Project
+Peanut.  I put this here mostly for reference.
+
