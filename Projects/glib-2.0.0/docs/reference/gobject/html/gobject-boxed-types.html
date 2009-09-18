@@ -1,0 +1,996 @@
+<HTML
+><HEAD
+><TITLE
+>GBoxed</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GObject Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="API Reference"
+HREF="r28.html"><LINK
+REL="PREVIOUS"
+TITLE="Enums and Flags"
+HREF="gobject-enumeration-and-flag-types.html"><LINK
+REL="NEXT"
+TITLE="Generic Values"
+HREF="gobject-generic-values.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GObject Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-enumeration-and-flag-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-generic-values.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GOBJECT-BOXED-TYPES"
+>GBoxed</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN4464"
+></A
+><H2
+>Name</H2
+>GBoxed&nbsp;--&nbsp;Mechanism to wrap opaque C structures registered by the type system.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN4467"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;gobject.h&gt;
+
+
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    (<A
+HREF="gobject-boxed-types.html#GBOXEDCOPYFUNC"
+>*GBoxedCopyFunc</A
+>)               (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> boxed);
+void        (<A
+HREF="gobject-boxed-types.html#GBOXEDFREEFUNC"
+>*GBoxedFreeFunc</A
+>)               (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> boxed);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-boxed-types.html#G-BOXED-COPY"
+>g_boxed_copy</A
+>                    (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> boxed_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GCONSTPOINTER
+>gconstpointer</A> src_boxed);
+void        <A
+HREF="gobject-boxed-types.html#G-BOXED-FREE"
+>g_boxed_free</A
+>                    (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> boxed_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> boxed);
+<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+>       <A
+HREF="gobject-boxed-types.html#G-BOXED-TYPE-REGISTER-STATIC"
+>g_boxed_type_register_static</A
+>    (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             <A
+HREF="gobject-boxed-types.html#GBOXEDCOPYFUNC"
+>GBoxedCopyFunc</A
+> boxed_copy,
+                                             <A
+HREF="gobject-boxed-types.html#GBOXEDFREEFUNC"
+>GBoxedFreeFunc</A
+> boxed_free);
+<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+>       <A
+HREF="gobject-boxed-types.html#G-POINTER-TYPE-REGISTER-STATIC"
+>g_pointer_type_register_static</A
+>  (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name);
+
+#define     <A
+HREF="gobject-boxed-types.html#G-TYPE-GSTRING-CAPS"
+>G_TYPE_GSTRING</A
+>
+&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN4491"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN4494"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4496"
+></A
+><H3
+><A
+NAME="GBOXEDCOPYFUNC"
+></A
+>GBoxedCopyFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    (*GBoxedCopyFunc)               (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> boxed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function is provided by the user and should produce a copy of the passed
+in boxed structure.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4503"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>boxed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  The boxed structure to be copied.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The newly created copy of the boxed structure.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4516"
+></A
+><H3
+><A
+NAME="GBOXEDFREEFUNC"
+></A
+>GBoxedFreeFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GBoxedFreeFunc)               (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> boxed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function is provided by the user and should free the boxed
+structure passed.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4522"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>boxed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The boxed structure to be freed.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4531"
+></A
+><H3
+><A
+NAME="G-BOXED-COPY"
+></A
+>g_boxed_copy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_boxed_copy                    (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> boxed_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GCONSTPOINTER
+>gconstpointer</A> src_boxed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Provide a copy of a boxed structure <TT
+CLASS="PARAMETER"
+><I
+>src_boxed</I
+></TT
+> which is of type <TT
+CLASS="PARAMETER"
+><I
+>boxed_type</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4541"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>boxed_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The type of <TT
+CLASS="PARAMETER"
+><I
+>src_boxed</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src_boxed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The boxed structure to be copied.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   The newly created copy of the boxed structure.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4559"
+></A
+><H3
+><A
+NAME="G-BOXED-FREE"
+></A
+>g_boxed_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_boxed_free                    (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> boxed_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> boxed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Free the boxed structure <TT
+CLASS="PARAMETER"
+><I
+>boxed</I
+></TT
+> which is of type <TT
+CLASS="PARAMETER"
+><I
+>boxed_type</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4568"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>boxed_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The type of <TT
+CLASS="PARAMETER"
+><I
+>boxed</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>boxed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     The boxed structure to be freed.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4582"
+></A
+><H3
+><A
+NAME="G-BOXED-TYPE-REGISTER-STATIC"
+></A
+>g_boxed_type_register_static ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+>       g_boxed_type_register_static    (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name,
+                                             <A
+HREF="gobject-boxed-types.html#GBOXEDCOPYFUNC"
+>GBoxedCopyFunc</A
+> boxed_copy,
+                                             <A
+HREF="gobject-boxed-types.html#GBOXEDFREEFUNC"
+>GBoxedFreeFunc</A
+> boxed_free);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function creates a new <TT
+CLASS="LITERAL"
+>G_TYPE_BOXED</TT
+> derived type id for a new
+boxed type with name <TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>. Boxed type handling functions have to be
+provided to copy and free opaque boxed structures of this type.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4593"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Name of the new boxed type.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>boxed_copy</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Boxed structure copy function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>boxed_free</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Boxed structure free function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>New <TT
+CLASS="LITERAL"
+>G_TYPE_BOXED</TT
+> derived type id for <TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4616"
+></A
+><H3
+><A
+NAME="G-POINTER-TYPE-REGISTER-STATIC"
+></A
+>g_pointer_type_register_static ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+>       g_pointer_type_register_static  (const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *name);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN4623"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN4636"
+></A
+><H3
+><A
+NAME="G-TYPE-GSTRING-CAPS"
+></A
+>G_TYPE_GSTRING</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_TYPE_GSTRING		(g_gstring_get_type ())</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN4641"
+></A
+><H2
+>See Also</H2
+><P
+><A
+HREF="gobject-standard-parameter-and-value-types.html#GPARAMSPECBOXED"
+>GParamSpecBoxed</A
+>, <A
+HREF="gobject-standard-parameter-and-value-types.html#G-PARAM-SPEC-BOXED"
+>g_param_spec_boxed</A
+>()</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-enumeration-and-flag-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-generic-values.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Enums and Flags</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Generic Values</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

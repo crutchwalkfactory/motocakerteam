@@ -1,0 +1,2876 @@
+<HTML
+><HEAD
+><TITLE
+>Spawning Processes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Timers"
+HREF="glib-timers.html"><LINK
+REL="NEXT"
+TITLE="File Utilities"
+HREF="glib-file-utilities.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-timers.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-file-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-SPAWNING-PROCESSES"
+>Spawning Processes</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN21593"
+></A
+><H2
+>Name</H2
+>Spawning Processes&nbsp;--&nbsp;process launching with <TT
+CLASS="FUNCTION"
+>fork()</TT
+>/<TT
+CLASS="FUNCTION"
+>exec()</TT
+>.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN21600"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+enum        <A
+HREF="glib-spawning-processes.html#GSPAWNERROR"
+>GSpawnError</A
+>;
+#define     <A
+HREF="glib-spawning-processes.html#G-SPAWN-ERROR-CAPS"
+>G_SPAWN_ERROR</A
+>
+enum        <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+>;
+void        (<A
+HREF="glib-spawning-processes.html#GSPAWNCHILDSETUPFUNC"
+>*GSpawnChildSetupFunc</A
+>)         (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>        (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *working_directory,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **argv,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **envp,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+> flags,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNCHILDSETUPFUNC"
+>GSpawnChildSetupFunc</A
+> child_setup,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *child_pid,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *standard_input,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *standard_output,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *standard_error,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *working_directory,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **argv,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **envp,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+> flags,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNCHILDSETUPFUNC"
+>GSpawnChildSetupFunc</A
+> child_setup,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *child_pid,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>                    (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *working_directory,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **argv,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **envp,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+> flags,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNCHILDSETUPFUNC"
+>GSpawnChildSetupFunc</A
+> child_setup,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_output,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_error,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *exit_status,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-spawning-processes.html#G-SPAWN-COMMAND-LINE-ASYNC"
+>g_spawn_command_line_async</A
+>      (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *command_line,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-spawning-processes.html#G-SPAWN-COMMAND-LINE-SYNC"
+>g_spawn_command_line_sync</A
+>       (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *command_line,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_output,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_error,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *exit_status,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN21654"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN21657"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21659"
+></A
+><H3
+><A
+NAME="GSPAWNERROR"
+></A
+>enum GSpawnError</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_SPAWN_ERROR_FORK,   /* fork failed due to lack of memory */
+  G_SPAWN_ERROR_READ,   /* read or select on pipes failed */
+  G_SPAWN_ERROR_CHDIR,  /* changing to working dir failed */
+  G_SPAWN_ERROR_ACCES,  /* execv() returned EACCES */
+  G_SPAWN_ERROR_PERM,   /* execv() returned EPERM */
+  G_SPAWN_ERROR_2BIG,   /* execv() returned E2BIG */
+  G_SPAWN_ERROR_NOEXEC, /* execv() returned ENOEXEC */
+  G_SPAWN_ERROR_NAMETOOLONG, /* ""  "" ENAMETOOLONG */
+  G_SPAWN_ERROR_NOENT,       /* ""  "" ENOENT */
+  G_SPAWN_ERROR_NOMEM,       /* ""  "" ENOMEM */
+  G_SPAWN_ERROR_NOTDIR,      /* ""  "" ENOTDIR */
+  G_SPAWN_ERROR_LOOP,        /* ""  "" ELOOP   */
+  G_SPAWN_ERROR_TXTBUSY,     /* ""  "" ETXTBUSY */
+  G_SPAWN_ERROR_IO,          /* ""  "" EIO */
+  G_SPAWN_ERROR_NFILE,       /* ""  "" ENFILE */
+  G_SPAWN_ERROR_MFILE,       /* ""  "" EMFLE */
+  G_SPAWN_ERROR_INVAL,       /* ""  "" EINVAL */
+  G_SPAWN_ERROR_ISDIR,       /* ""  "" EISDIR */
+  G_SPAWN_ERROR_LIBBAD,      /* ""  "" ELIBBAD */
+  G_SPAWN_ERROR_FAILED       /* other fatal failure, error-&gt;message
+                              * should explain
+                              */
+} GSpawnError;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error codes returned by spawning processes.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21664"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_FORK</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Fork failed due to lack of memory.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_READ</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Read or select on pipes failed.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_CHDIR</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Changing to working directory failed.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_ACCES</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>EACCES</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_PERM</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>EPERM</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_2BIG</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>E2BIG</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_NOEXEC</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ENOEXEC</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_NAMETOOLONG</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ENAMETOOLONG</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_NOENT</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ENOENT</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_NOMEM</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ENOMEM</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_NOTDIR</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ENOTDIR</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_LOOP</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ELOOP</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_TXTBUSY</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ETXTBUSY</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_IO</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>EIO</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_NFILE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ENFILE</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_MFILE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>EMFILE</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_INVAL</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>EINVAL</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_ISDIR</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>EISDIR</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_LIBBAD</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="FUNCTION"
+>execv()</TT
+> returned <TT
+CLASS="LITERAL"
+>ELIBBAD</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_ERROR_FAILED</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Some other fatal failure, <TT
+CLASS="LITERAL"
+>error-&gt;message</TT
+> should explain.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21798"
+></A
+><H3
+><A
+NAME="G-SPAWN-ERROR-CAPS"
+></A
+>G_SPAWN_ERROR</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_SPAWN_ERROR g_spawn_error_quark ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error domain for spawning processes. Errors in this domain will
+be from the <A
+HREF="glib-spawning-processes.html#GSPAWNERROR"
+>GSpawnError</A
+> enumeration. See <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> for information on
+error domains.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21805"
+></A
+><H3
+><A
+NAME="GSPAWNFLAGS"
+></A
+>enum GSpawnFlags</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_SPAWN_LEAVE_DESCRIPTORS_OPEN = 1 &lt;&lt; 0,
+  G_SPAWN_DO_NOT_REAP_CHILD      = 1 &lt;&lt; 1,
+  /* look for argv[0] in the path i.e. use execvp() */
+  G_SPAWN_SEARCH_PATH            = 1 &lt;&lt; 2,
+  /* Dump output to /dev/null */
+  G_SPAWN_STDOUT_TO_DEV_NULL     = 1 &lt;&lt; 3,
+  G_SPAWN_STDERR_TO_DEV_NULL     = 1 &lt;&lt; 4,
+  G_SPAWN_CHILD_INHERITS_STDIN   = 1 &lt;&lt; 5,
+  G_SPAWN_FILE_AND_ARGV_ZERO     = 1 &lt;&lt; 6
+} GSpawnFlags;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Flags passed to <A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>(), <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>() and <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21813"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_LEAVE_DESCRIPTORS_OPEN</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the parent's open file descriptors will be 
+ inherited by the child; otherwise all descriptors except stdin/stdout/stderr 
+ will be closed before calling <TT
+CLASS="FUNCTION"
+>exec()</TT
+> in the child.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_DO_NOT_REAP_CHILD</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the child will not be automatically reaped; you 
+  must call <TT
+CLASS="FUNCTION"
+>waitpid()</TT
+> or handle <TT
+CLASS="LITERAL"
+>SIGCHLD</TT
+> 
+  yourself, or the child will become a zombie.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_SEARCH_PATH</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>argv[0]</TT
+> need not be an absolute path, 
+  it will be looked for in the user's <TT
+CLASS="ENVAR"
+>PATH</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_STDOUT_TO_DEV_NULL</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the child's standad output will be discarded, 
+  instead of going to the same location as the parent's standard output.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_STDERR_TO_DEV_NULL</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the child's standard error will be discarded.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_CHILD_INHERITS_STDIN</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the child will inherit the parent's standard 
+  input (by default, the child's standard input is attached to 
+  <TT
+CLASS="FILENAME"
+>/dev/null</TT
+>).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_SPAWN_FILE_AND_ARGV_ZERO</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the first element of <TT
+CLASS="LITERAL"
+>argv</TT
+> is 
+  the file to execute, while the remaining elements are the actual argument 
+  vector to pass to the file. Normally <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>() uses 
+  <TT
+CLASS="LITERAL"
+>argv[0]</TT
+> as the file to execute, and passes all of 
+  <TT
+CLASS="LITERAL"
+>argv</TT
+> to the child.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21858"
+></A
+><H3
+><A
+NAME="GSPAWNCHILDSETUPFUNC"
+></A
+>GSpawnChildSetupFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GSpawnChildSetupFunc)         (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Specifies the type of the setup function passed to <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>(),
+<A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>() and <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>(). It is called in the 
+child after GLib has performed all the setup it plans to perform 
+but before calling <TT
+CLASS="FUNCTION"
+>exec()</TT
+>. Obviously, actions 
+taken in this function will only affect the child, not the parent.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21869"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>user data to pass to the function.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN21878"
+></A
+><H3
+><A
+NAME="G-SPAWN-ASYNC-WITH-PIPES"
+></A
+>g_spawn_async_with_pipes ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_spawn_async_with_pipes        (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *working_directory,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **argv,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **envp,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+> flags,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNCHILDSETUPFUNC"
+>GSpawnChildSetupFunc</A
+> child_setup,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *child_pid,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *standard_input,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *standard_output,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *standard_error,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Executes a child program asynchronously (your program will not
+block waiting for the child to exit). The child program is
+specified by the only argument that must be provided, <TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+>. <TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+>
+should be a <TT
+CLASS="LITERAL"
+>NULL</TT
+>-terminated array of strings, to be passed as the
+argument vector for the child. The first string in <TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+> is of
+course the name of the program to execute. By default, the name of
+the program must be a full path; the <TT
+CLASS="ENVAR"
+>PATH</TT
+> shell variable 
+will only be searched if you pass the <TT
+CLASS="LITERAL"
+>G_SPAWN_SEARCH_PATH</TT
+> flag.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>envp</I
+></TT
+> is a <TT
+CLASS="LITERAL"
+>NULL</TT
+>-terminated array of strings, where each string
+has the form <TT
+CLASS="LITERAL"
+>KEY=VALUE</TT
+>. This will become
+the child's environment. If <TT
+CLASS="PARAMETER"
+><I
+>envp</I
+></TT
+> is <TT
+CLASS="LITERAL"
+>NULL</TT
+>, the child inherits its
+parent's environment.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+> should be the bitwise OR of any flags you want to affect the
+function's behavior. The <TT
+CLASS="LITERAL"
+>G_SPAWN_DO_NOT_REAP_CHILD</TT
+> means that the
+child will not be automatically reaped; you must call 
+<TT
+CLASS="FUNCTION"
+>waitpid()</TT
+> or handle <TT
+CLASS="LITERAL"
+>SIGCHLD</TT
+> yourself, or the 
+child will become a zombie.
+<TT
+CLASS="LITERAL"
+>G_SPAWN_LEAVE_DESCRIPTORS_OPEN</TT
+> means that the parent's open file
+descriptors will be inherited by the child; otherwise all
+descriptors except stdin/stdout/stderr will be closed before
+calling <TT
+CLASS="FUNCTION"
+>exec()</TT
+> in the child. <TT
+CLASS="LITERAL"
+>G_SPAWN_SEARCH_PATH</TT
+> 
+means that <TT
+CLASS="LITERAL"
+>argv[0]</TT
+> need not be an absolute path, it
+will be looked for in the user's <TT
+CLASS="ENVAR"
+>PATH</TT
+>. 
+<TT
+CLASS="LITERAL"
+>G_SPAWN_STDOUT_TO_DEV_NULL</TT
+> means that the child's standad output will 
+be discarded, instead of going to the same location as the parent's 
+standard output.
+<TT
+CLASS="LITERAL"
+>G_SPAWN_STDERR_TO_DEV_NULL</TT
+> means that the child's standard error
+will be discarded. <TT
+CLASS="LITERAL"
+>G_SPAWN_CHILD_INHERITS_STDIN</TT
+> means that
+the child will inherit the parent's standard input (by default,
+the child's standard input is attached to /dev/null).
+<TT
+CLASS="LITERAL"
+>G_SPAWN_FILE_AND_ARGV_ZERO</TT
+> means that the first element of <TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+> is
+the file to execute, while the remaining elements are the
+actual argument vector to pass to the file. Normally
+<A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>() uses <TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+>[0] as the file to execute, and
+passes all of <TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+> to the child.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+> are a function and user data to be
+called in the child after GLib has performed all the setup it plans
+to perform (including creating pipes, closing file descriptors,
+etc.) but before calling <TT
+CLASS="FUNCTION"
+>exec()</TT
+>. That is, 
+<TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+> is called just before calling <TT
+CLASS="FUNCTION"
+>exec()</TT
+> 
+in the child. Obviously actions taken in this function will only affect 
+the child, not the parent. </P
+><P
+>If non-<TT
+CLASS="LITERAL"
+>NULL</TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>child_pid</I
+></TT
+> will be filled with the child's process
+ID. You can use the process ID to send signals to the child, or
+to <TT
+CLASS="FUNCTION"
+>waitpid()</TT
+> if you specified the 
+<TT
+CLASS="LITERAL"
+>G_SPAWN_DO_NOT_REAP_CHILD</TT
+> flag.</P
+><P
+>If non-<TT
+CLASS="LITERAL"
+>NULL</TT
+>, the <TT
+CLASS="PARAMETER"
+><I
+>standard_input</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>standard_output</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>standard_error</I
+></TT
+>
+locations will be filled with file descriptors for writing to the child's
+standard input or reading from its standard output or standard error.
+The caller of <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>() must close these file descriptors
+when they are no longer in use. If these parameters are <TT
+CLASS="LITERAL"
+>NULL</TT
+>, the
+corresponding pipe won't be created.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> can be <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore errors, or non-<TT
+CLASS="LITERAL"
+>NULL</TT
+> to report errors.
+If an error is set, the function returns <TT
+CLASS="LITERAL"
+>FALSE</TT
+>. Errors
+are reported even if they occur in the child (for example if the
+executable in <TT
+CLASS="LITERAL"
+>argv[0]</TT
+> is not found). Typically
+the <TT
+CLASS="LITERAL"
+>message</TT
+> field of returned errors should be displayed
+to users. Possible errors are those from the <A
+HREF="glib-spawning-processes.html#G-SPAWN-ERROR-CAPS"
+>G_SPAWN_ERROR</A
+> domain.</P
+><P
+>If an error occurs, <TT
+CLASS="PARAMETER"
+><I
+>child_pid</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>standard_input</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>standard_output</I
+></TT
+>,
+and <TT
+CLASS="PARAMETER"
+><I
+>standard_error</I
+></TT
+> will not be filled with valid values.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN21962"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>working_directory</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's current working directory, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to inherit parent's</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's argument vector</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>envp</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's environment, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to inherit parent's</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> flags from <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> function to run in the child just before <TT
+CLASS="FUNCTION"
+>exec()</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data for <TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>child_pid</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for child process ID, or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>standard_input</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for file descriptor to write to child's stdin, or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>standard_output</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for file descriptor to read child's stdout, or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>standard_error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for file descriptor to read child's stderr, or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for error</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if an error was set</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22027"
+></A
+><H3
+><A
+NAME="G-SPAWN-ASYNC"
+></A
+>g_spawn_async ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_spawn_async                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *working_directory,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **argv,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **envp,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+> flags,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNCHILDSETUPFUNC"
+>GSpawnChildSetupFunc</A
+> child_setup,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *child_pid,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>See <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>() for a full description; this function
+simply calls the <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>() without any pipes.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22044"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>working_directory</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's current working directory, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to inherit parent's</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's argument vector</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>envp</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's environment, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to inherit parent's</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> flags from <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> function to run in the child just before <TT
+CLASS="FUNCTION"
+>exec()</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data for <TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>child_pid</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for child process ID, or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for error</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if error is set</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22094"
+></A
+><H3
+><A
+NAME="G-SPAWN-SYNC"
+></A
+>g_spawn_sync ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_spawn_sync                    (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *working_directory,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **argv,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **envp,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+> flags,
+                                             <A
+HREF="glib-spawning-processes.html#GSPAWNCHILDSETUPFUNC"
+>GSpawnChildSetupFunc</A
+> child_setup,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_output,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_error,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *exit_status,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Executes a child synchronously (waits for the child to exit before returning).
+All output from the child is stored in <TT
+CLASS="PARAMETER"
+><I
+>standard_output</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>standard_error</I
+></TT
+>,
+if those parameters are non-<TT
+CLASS="LITERAL"
+>NULL</TT
+>. If <TT
+CLASS="PARAMETER"
+><I
+>exit_status</I
+></TT
+> is non-<TT
+CLASS="LITERAL"
+>NULL</TT
+>, the exit 
+status of the child is stored there as it would be returned by 
+<TT
+CLASS="FUNCTION"
+>waitpid()</TT
+>; standard UNIX macros such as 
+<TT
+CLASS="FUNCTION"
+>WIFEXITED()</TT
+> and <TT
+CLASS="FUNCTION"
+>WEXITSTATUS()</TT
+> 
+must be used to evaluate the exit status. If an error occurs, no data is 
+returned in <TT
+CLASS="PARAMETER"
+><I
+>standard_output</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>standard_error</I
+></TT
+>, or <TT
+CLASS="PARAMETER"
+><I
+>exit_status</I
+></TT
+>.</P
+><P
+>This function calls <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC-WITH-PIPES"
+>g_spawn_async_with_pipes</A
+>() internally; see that function
+for full details on the other parameters.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22127"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>working_directory</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's current working directory, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to inherit parent's</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>argv</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's argument vector</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>envp</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child's environment, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to inherit parent's</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> flags from <A
+HREF="glib-spawning-processes.html#GSPAWNFLAGS"
+>GSpawnFlags</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> function to run in the child just before <TT
+CLASS="FUNCTION"
+>exec()</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data for <TT
+CLASS="PARAMETER"
+><I
+>child_setup</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>standard_output</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for child output </TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>standard_error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for child error messages</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>exit_status</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> child exit status, as returned by <TT
+CLASS="FUNCTION"
+>waitpid()</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for error</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if an error was set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22186"
+></A
+><H3
+><A
+NAME="G-SPAWN-COMMAND-LINE-ASYNC"
+></A
+>g_spawn_command_line_async ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_spawn_command_line_async      (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *command_line,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>A simple version of <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>() that parses a command line with
+<A
+HREF="glib-shell-related-utilities.html#G-SHELL-PARSE-ARGV"
+>g_shell_parse_argv</A
+>() and passes it to <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>(). Runs a
+command line in the background. Unlike <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>(), the
+<TT
+CLASS="LITERAL"
+>G_SPAWN_SEARCH_PATH</TT
+> flag is enabled, other flags are not. Note
+that <TT
+CLASS="LITERAL"
+>G_SPAWN_SEARCH_PATH</TT
+> can have security implications, so
+consider using <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>() directly if appropriate. Possible
+errors are those from <A
+HREF="glib-shell-related-utilities.html#G-SHELL-PARSE-ARGV"
+>g_shell_parse_argv</A
+>() and <A
+HREF="glib-spawning-processes.html#G-SPAWN-ASYNC"
+>g_spawn_async</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22204"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>command_line</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a command line</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for errors</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if error is set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN22223"
+></A
+><H3
+><A
+NAME="G-SPAWN-COMMAND-LINE-SYNC"
+></A
+>g_spawn_command_line_sync ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_spawn_command_line_sync       (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *command_line,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_output,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **standard_error,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *exit_status,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>A simple version of <A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>() with little-used parameters
+removed, taking a command line instead of an argument vector.  See
+<A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>() for full details. <TT
+CLASS="PARAMETER"
+><I
+>command_line</I
+></TT
+> will be parsed by
+<A
+HREF="glib-shell-related-utilities.html#G-SHELL-PARSE-ARGV"
+>g_shell_parse_argv</A
+>(). Unlike <A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>(), the <TT
+CLASS="LITERAL"
+>G_SPAWN_SEARCH_PATH</TT
+> flag
+is enabled. Note that <TT
+CLASS="LITERAL"
+>G_SPAWN_SEARCH_PATH</TT
+> can have security
+implications, so consider using <A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>() directly if
+appropriate. Possible errors are those from <A
+HREF="glib-spawning-processes.html#G-SPAWN-SYNC"
+>g_spawn_sync</A
+>() and those
+from <A
+HREF="glib-shell-related-utilities.html#G-SHELL-PARSE-ARGV"
+>g_shell_parse_argv</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN22245"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>command_line</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a command line </TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>standard_output</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for child output</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>standard_error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for child errors</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>exit_status</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for child exit status</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for errors</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if an error was set</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-timers.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-file-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Timers</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>File Utilities</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

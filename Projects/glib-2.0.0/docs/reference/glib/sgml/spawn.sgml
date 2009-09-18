@@ -1,0 +1,630 @@
+<refentry id="glib-Spawning-Processes">
+<refmeta>
+<refentrytitle>Spawning Processes</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GLIB Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Spawning Processes</refname><refpurpose>process launching with <function><link linkend="fork">fork</link>()</function>/<function><link linkend="exec">exec</link>()</function>.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+<synopsis>
+
+#include &lt;glib.h&gt;
+
+
+enum        <link linkend="GSpawnError">GSpawnError</link>;
+#define     <link linkend="G-SPAWN-ERROR-CAPS">G_SPAWN_ERROR</link>
+enum        <link linkend="GSpawnFlags">GSpawnFlags</link>;
+void        (<link linkend="GSpawnChildSetupFunc">*GSpawnChildSetupFunc</link>)         (<link linkend="gpointer">gpointer</link> user_data);
+<link linkend="gboolean">gboolean</link>    <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>        (const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GSpawnFlags">GSpawnFlags</link> flags,
+                                             <link linkend="GSpawnChildSetupFunc">GSpawnChildSetupFunc</link> child_setup,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gint">gint</link> *child_pid,
+                                             <link linkend="gint">gint</link> *standard_input,
+                                             <link linkend="gint">gint</link> *standard_output,
+                                             <link linkend="gint">gint</link> *standard_error,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="g-spawn-async">g_spawn_async</link>                   (const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GSpawnFlags">GSpawnFlags</link> flags,
+                                             <link linkend="GSpawnChildSetupFunc">GSpawnChildSetupFunc</link> child_setup,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gint">gint</link> *child_pid,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="g-spawn-sync">g_spawn_sync</link>                    (const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GSpawnFlags">GSpawnFlags</link> flags,
+                                             <link linkend="GSpawnChildSetupFunc">GSpawnChildSetupFunc</link> child_setup,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gchar">gchar</link> **standard_output,
+                                             <link linkend="gchar">gchar</link> **standard_error,
+                                             <link linkend="gint">gint</link> *exit_status,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="g-spawn-command-line-async">g_spawn_command_line_async</link>      (const <link linkend="gchar">gchar</link> *command_line,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="g-spawn-command-line-sync">g_spawn_command_line_sync</link>       (const <link linkend="gchar">gchar</link> *command_line,
+                                             <link linkend="gchar">gchar</link> **standard_output,
+                                             <link linkend="gchar">gchar</link> **standard_error,
+                                             <link linkend="gint">gint</link> *exit_status,
+                                             <link linkend="GError">GError</link> **error);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GSpawnError">enum GSpawnError</title>
+<programlisting>typedef enum
+{
+  G_SPAWN_ERROR_FORK,   /* fork failed due to lack of memory */
+  G_SPAWN_ERROR_READ,   /* read or select on pipes failed */
+  G_SPAWN_ERROR_CHDIR,  /* changing to working dir failed */
+  G_SPAWN_ERROR_ACCES,  /* execv() returned EACCES */
+  G_SPAWN_ERROR_PERM,   /* execv() returned EPERM */
+  G_SPAWN_ERROR_2BIG,   /* execv() returned E2BIG */
+  G_SPAWN_ERROR_NOEXEC, /* execv() returned ENOEXEC */
+  G_SPAWN_ERROR_NAMETOOLONG, /* ""  "" ENAMETOOLONG */
+  G_SPAWN_ERROR_NOENT,       /* ""  "" ENOENT */
+  G_SPAWN_ERROR_NOMEM,       /* ""  "" ENOMEM */
+  G_SPAWN_ERROR_NOTDIR,      /* ""  "" ENOTDIR */
+  G_SPAWN_ERROR_LOOP,        /* ""  "" ELOOP   */
+  G_SPAWN_ERROR_TXTBUSY,     /* ""  "" ETXTBUSY */
+  G_SPAWN_ERROR_IO,          /* ""  "" EIO */
+  G_SPAWN_ERROR_NFILE,       /* ""  "" ENFILE */
+  G_SPAWN_ERROR_MFILE,       /* ""  "" EMFLE */
+  G_SPAWN_ERROR_INVAL,       /* ""  "" EINVAL */
+  G_SPAWN_ERROR_ISDIR,       /* ""  "" EISDIR */
+  G_SPAWN_ERROR_LIBBAD,      /* ""  "" ELIBBAD */
+  G_SPAWN_ERROR_FAILED       /* other fatal failure, error-&gt;message
+                              * should explain
+                              */
+} GSpawnError;
+</programlisting>
+<para>
+Error codes returned by spawning processes.
+</para><informaltable pgwide="1" frame="none" role="enum">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row>
+<entry><literal>G_SPAWN_ERROR_FORK</literal></entry>
+<entry>Fork failed due to lack of memory.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_READ</literal></entry>
+<entry>Read or select on pipes failed.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_CHDIR</literal></entry>
+<entry>Changing to working directory failed.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_ACCES</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>EACCES</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_PERM</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>EPERM</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_2BIG</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>E2BIG</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_NOEXEC</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ENOEXEC</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_NAMETOOLONG</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ENAMETOOLONG</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_NOENT</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ENOENT</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_NOMEM</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ENOMEM</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_NOTDIR</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ENOTDIR</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_LOOP</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ELOOP</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_TXTBUSY</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ETXTBUSY</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_IO</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>EIO</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_NFILE</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ENFILE</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_MFILE</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>EMFILE</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_INVAL</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>EINVAL</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_ISDIR</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>EISDIR</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_LIBBAD</literal></entry>
+<entry><function><link linkend="execv">execv</link>()</function> returned <literal>ELIBBAD</literal>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_ERROR_FAILED</literal></entry>
+<entry>Some other fatal failure, <literal>error-&gt;message</literal> should explain.
+
+</entry>
+</row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="G-SPAWN-ERROR-CAPS">G_SPAWN_ERROR</title>
+<programlisting>#define G_SPAWN_ERROR g_spawn_error_quark ()
+</programlisting>
+<para>
+Error domain for spawning processes. Errors in this domain will
+be from the <link linkend="GSpawnError">GSpawnError</link> enumeration. See <link linkend="GError">GError</link> for information on
+error domains.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GSpawnFlags">enum GSpawnFlags</title>
+<programlisting>typedef enum
+{
+  G_SPAWN_LEAVE_DESCRIPTORS_OPEN = 1 &lt;&lt; 0,
+  G_SPAWN_DO_NOT_REAP_CHILD      = 1 &lt;&lt; 1,
+  /* look for argv[0] in the path i.e. use execvp() */
+  G_SPAWN_SEARCH_PATH            = 1 &lt;&lt; 2,
+  /* Dump output to /dev/null */
+  G_SPAWN_STDOUT_TO_DEV_NULL     = 1 &lt;&lt; 3,
+  G_SPAWN_STDERR_TO_DEV_NULL     = 1 &lt;&lt; 4,
+  G_SPAWN_CHILD_INHERITS_STDIN   = 1 &lt;&lt; 5,
+  G_SPAWN_FILE_AND_ARGV_ZERO     = 1 &lt;&lt; 6
+} GSpawnFlags;
+</programlisting>
+<para>
+Flags passed to <link linkend="g-spawn-sync">g_spawn_sync</link>(), <link linkend="g-spawn-async">g_spawn_async</link>() and <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>().
+</para><informaltable pgwide="1" frame="none" role="enum">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row>
+<entry><literal>G_SPAWN_LEAVE_DESCRIPTORS_OPEN</literal></entry>
+<entry>the parent's open file descriptors will be 
+ inherited by the child; otherwise all descriptors except stdin/stdout/stderr 
+ will be closed before calling <function><link linkend="exec">exec</link>()</function> in the child.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_DO_NOT_REAP_CHILD</literal></entry>
+<entry>the child will not be automatically reaped; you 
+  must call <function><link linkend="waitpid">waitpid</link>()</function> or handle <literal>SIGCHLD</literal> 
+  yourself, or the child will become a zombie.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_SEARCH_PATH</literal></entry>
+<entry><literal>argv[0]</literal> need not be an absolute path, 
+  it will be looked for in the user's <envar>PATH</envar>.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_STDOUT_TO_DEV_NULL</literal></entry>
+<entry>the child's standad output will be discarded, 
+  instead of going to the same location as the parent's standard output.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_STDERR_TO_DEV_NULL</literal></entry>
+<entry>the child's standard error will be discarded.
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_CHILD_INHERITS_STDIN</literal></entry>
+<entry>the child will inherit the parent's standard 
+  input (by default, the child's standard input is attached to 
+  <filename>/dev/null</filename>).
+</entry>
+</row>
+<row>
+<entry><literal>G_SPAWN_FILE_AND_ARGV_ZERO</literal></entry>
+<entry>the first element of <literal>argv</literal> is 
+  the file to execute, while the remaining elements are the actual argument 
+  vector to pass to the file. Normally <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>() uses 
+  <literal>argv[0]</literal> as the file to execute, and passes all of 
+  <literal>argv</literal> to the child.
+
+</entry>
+</row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="GSpawnChildSetupFunc">GSpawnChildSetupFunc ()</title>
+<programlisting>void        (*GSpawnChildSetupFunc)         (<link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Specifies the type of the setup function passed to <link linkend="g-spawn-async">g_spawn_async</link>(),
+<link linkend="g-spawn-sync">g_spawn_sync</link>() and <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>(). It is called in the 
+child after GLib has performed all the setup it plans to perform 
+but before calling <function><link linkend="exec">exec</link>()</function>. Obviously, actions 
+taken in this function will only affect the child, not the parent.
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>user_data</parameter>&nbsp;:</entry>
+<entry>user data to pass to the function.
+
+
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-spawn-async-with-pipes">g_spawn_async_with_pipes ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    g_spawn_async_with_pipes        (const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GSpawnFlags">GSpawnFlags</link> flags,
+                                             <link linkend="GSpawnChildSetupFunc">GSpawnChildSetupFunc</link> child_setup,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gint">gint</link> *child_pid,
+                                             <link linkend="gint">gint</link> *standard_input,
+                                             <link linkend="gint">gint</link> *standard_output,
+                                             <link linkend="gint">gint</link> *standard_error,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Executes a child program asynchronously (your program will not
+block waiting for the child to exit). The child program is
+specified by the only argument that must be provided, <parameter>argv</parameter>. <parameter>argv</parameter>
+should be a <literal>NULL</literal>-terminated array of strings, to be passed as the
+argument vector for the child. The first string in <parameter>argv</parameter> is of
+course the name of the program to execute. By default, the name of
+the program must be a full path; the <envar>PATH</envar> shell variable 
+will only be searched if you pass the <literal>G_SPAWN_SEARCH_PATH</literal> flag.
+</para>
+<para>
+<parameter>envp</parameter> is a <literal>NULL</literal>-terminated array of strings, where each string
+has the form <literal>KEY=VALUE</literal>. This will become
+the child's environment. If <parameter>envp</parameter> is <literal>NULL</literal>, the child inherits its
+parent's environment.
+</para>
+<para>
+<parameter>flags</parameter> should be the bitwise OR of any flags you want to affect the
+function's behavior. The <literal>G_SPAWN_DO_NOT_REAP_CHILD</literal> means that the
+child will not be automatically reaped; you must call 
+<function><link linkend="waitpid">waitpid</link>()</function> or handle <literal>SIGCHLD</literal> yourself, or the 
+child will become a zombie.
+<literal>G_SPAWN_LEAVE_DESCRIPTORS_OPEN</literal> means that the parent's open file
+descriptors will be inherited by the child; otherwise all
+descriptors except stdin/stdout/stderr will be closed before
+calling <function><link linkend="exec">exec</link>()</function> in the child. <literal>G_SPAWN_SEARCH_PATH</literal> 
+means that <literal>argv[0]</literal> need not be an absolute path, it
+will be looked for in the user's <envar>PATH</envar>. 
+<literal>G_SPAWN_STDOUT_TO_DEV_NULL</literal> means that the child's standad output will 
+be discarded, instead of going to the same location as the parent's 
+standard output.
+<literal>G_SPAWN_STDERR_TO_DEV_NULL</literal> means that the child's standard error
+will be discarded. <literal>G_SPAWN_CHILD_INHERITS_STDIN</literal> means that
+the child will inherit the parent's standard input (by default,
+the child's standard input is attached to /dev/null).
+<literal>G_SPAWN_FILE_AND_ARGV_ZERO</literal> means that the first element of <parameter>argv</parameter> is
+the file to execute, while the remaining elements are the
+actual argument vector to pass to the file. Normally
+<link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>() uses <parameter>argv</parameter>[0] as the file to execute, and
+passes all of <parameter>argv</parameter> to the child.
+</para>
+<para>
+<parameter>child_setup</parameter> and <parameter>user_data</parameter> are a function and user data to be
+called in the child after GLib has performed all the setup it plans
+to perform (including creating pipes, closing file descriptors,
+etc.) but before calling <function><link linkend="exec">exec</link>()</function>. That is, 
+<parameter>child_setup</parameter> is called just before calling <function><link linkend="exec">exec</link>()</function> 
+in the child. Obviously actions taken in this function will only affect 
+the child, not the parent. 
+</para>
+<para>
+If non-<literal>NULL</literal>, <parameter>child_pid</parameter> will be filled with the child's process
+ID. You can use the process ID to send signals to the child, or
+to <function><link linkend="waitpid">waitpid</link>()</function> if you specified the 
+<literal>G_SPAWN_DO_NOT_REAP_CHILD</literal> flag.
+</para>
+<para>
+If non-<literal>NULL</literal>, the <parameter>standard_input</parameter>, <parameter>standard_output</parameter>, <parameter>standard_error</parameter>
+locations will be filled with file descriptors for writing to the child's
+standard input or reading from its standard output or standard error.
+The caller of <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>() must close these file descriptors
+when they are no longer in use. If these parameters are <literal>NULL</literal>, the
+corresponding pipe won't be created.
+</para>
+<para>
+<parameter>error</parameter> can be <literal>NULL</literal> to ignore errors, or non-<literal>NULL</literal> to report errors.
+If an error is set, the function returns <literal>FALSE</literal>. Errors
+are reported even if they occur in the child (for example if the
+executable in <literal>argv[0]</literal> is not found). Typically
+the <literal>message</literal> field of returned errors should be displayed
+to users. Possible errors are those from the <link linkend="G-SPAWN-ERROR-CAPS">G_SPAWN_ERROR</link> domain.
+</para>
+<para>
+If an error occurs, <parameter>child_pid</parameter>, <parameter>standard_input</parameter>, <parameter>standard_output</parameter>,
+and <parameter>standard_error</parameter> will not be filled with valid values.</para>
+<para>
+
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>working_directory</parameter>&nbsp;:</entry>
+<entry> child's current working directory, or <literal>NULL</literal> to inherit parent's
+</entry></row>
+<row><entry align="right"><parameter>argv</parameter>&nbsp;:</entry>
+<entry> child's argument vector
+</entry></row>
+<row><entry align="right"><parameter>envp</parameter>&nbsp;:</entry>
+<entry> child's environment, or <literal>NULL</literal> to inherit parent's
+</entry></row>
+<row><entry align="right"><parameter>flags</parameter>&nbsp;:</entry>
+<entry> flags from <link linkend="GSpawnFlags">GSpawnFlags</link>
+</entry></row>
+<row><entry align="right"><parameter>child_setup</parameter>&nbsp;:</entry>
+<entry> function to run in the child just before <function><link linkend="exec">exec</link>()</function>
+</entry></row>
+<row><entry align="right"><parameter>user_data</parameter>&nbsp;:</entry>
+<entry> user data for <parameter>child_setup</parameter>
+</entry></row>
+<row><entry align="right"><parameter>child_pid</parameter>&nbsp;:</entry>
+<entry> return location for child process ID, or <literal>NULL</literal>
+</entry></row>
+<row><entry align="right"><parameter>standard_input</parameter>&nbsp;:</entry>
+<entry> return location for file descriptor to write to child's stdin, or <literal>NULL</literal>
+</entry></row>
+<row><entry align="right"><parameter>standard_output</parameter>&nbsp;:</entry>
+<entry> return location for file descriptor to read child's stdout, or <literal>NULL</literal>
+</entry></row>
+<row><entry align="right"><parameter>standard_error</parameter>&nbsp;:</entry>
+<entry> return location for file descriptor to read child's stderr, or <literal>NULL</literal>
+</entry></row>
+<row><entry align="right"><parameter>error</parameter>&nbsp;:</entry>
+<entry> return location for error
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry> <literal>TRUE</literal> on success, <literal>FALSE</literal> if an error was set
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-spawn-async">g_spawn_async ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    g_spawn_async                   (const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GSpawnFlags">GSpawnFlags</link> flags,
+                                             <link linkend="GSpawnChildSetupFunc">GSpawnChildSetupFunc</link> child_setup,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gint">gint</link> *child_pid,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+See <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>() for a full description; this function
+simply calls the <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>() without any pipes.</para>
+<para>
+
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>working_directory</parameter>&nbsp;:</entry>
+<entry> child's current working directory, or <literal>NULL</literal> to inherit parent's
+</entry></row>
+<row><entry align="right"><parameter>argv</parameter>&nbsp;:</entry>
+<entry> child's argument vector
+</entry></row>
+<row><entry align="right"><parameter>envp</parameter>&nbsp;:</entry>
+<entry> child's environment, or <literal>NULL</literal> to inherit parent's
+</entry></row>
+<row><entry align="right"><parameter>flags</parameter>&nbsp;:</entry>
+<entry> flags from <link linkend="GSpawnFlags">GSpawnFlags</link>
+</entry></row>
+<row><entry align="right"><parameter>child_setup</parameter>&nbsp;:</entry>
+<entry> function to run in the child just before <function><link linkend="exec">exec</link>()</function>
+</entry></row>
+<row><entry align="right"><parameter>user_data</parameter>&nbsp;:</entry>
+<entry> user data for <parameter>child_setup</parameter>
+</entry></row>
+<row><entry align="right"><parameter>child_pid</parameter>&nbsp;:</entry>
+<entry> return location for child process ID, or <literal>NULL</literal>
+</entry></row>
+<row><entry align="right"><parameter>error</parameter>&nbsp;:</entry>
+<entry> return location for error
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry> <literal>TRUE</literal> on success, <literal>FALSE</literal> if error is set
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-spawn-sync">g_spawn_sync ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    g_spawn_sync                    (const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GSpawnFlags">GSpawnFlags</link> flags,
+                                             <link linkend="GSpawnChildSetupFunc">GSpawnChildSetupFunc</link> child_setup,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gchar">gchar</link> **standard_output,
+                                             <link linkend="gchar">gchar</link> **standard_error,
+                                             <link linkend="gint">gint</link> *exit_status,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Executes a child synchronously (waits for the child to exit before returning).
+All output from the child is stored in <parameter>standard_output</parameter> and <parameter>standard_error</parameter>,
+if those parameters are non-<literal>NULL</literal>. If <parameter>exit_status</parameter> is non-<literal>NULL</literal>, the exit 
+status of the child is stored there as it would be returned by 
+<function><link linkend="waitpid">waitpid</link>()</function>; standard UNIX macros such as 
+<function><link linkend="WIFEXITED-CAPS">WIFEXITED</link>()</function> and <function><link linkend="WEXITSTATUS-CAPS">WEXITSTATUS</link>()</function> 
+must be used to evaluate the exit status. If an error occurs, no data is 
+returned in <parameter>standard_output</parameter>, <parameter>standard_error</parameter>, or <parameter>exit_status</parameter>.
+</para>
+<para>
+This function calls <link linkend="g-spawn-async-with-pipes">g_spawn_async_with_pipes</link>() internally; see that function
+for full details on the other parameters.</para>
+<para>
+
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>working_directory</parameter>&nbsp;:</entry>
+<entry> child's current working directory, or <literal>NULL</literal> to inherit parent's
+</entry></row>
+<row><entry align="right"><parameter>argv</parameter>&nbsp;:</entry>
+<entry> child's argument vector
+</entry></row>
+<row><entry align="right"><parameter>envp</parameter>&nbsp;:</entry>
+<entry> child's environment, or <literal>NULL</literal> to inherit parent's
+</entry></row>
+<row><entry align="right"><parameter>flags</parameter>&nbsp;:</entry>
+<entry> flags from <link linkend="GSpawnFlags">GSpawnFlags</link>
+</entry></row>
+<row><entry align="right"><parameter>child_setup</parameter>&nbsp;:</entry>
+<entry> function to run in the child just before <function><link linkend="exec">exec</link>()</function>
+</entry></row>
+<row><entry align="right"><parameter>user_data</parameter>&nbsp;:</entry>
+<entry> user data for <parameter>child_setup</parameter>
+</entry></row>
+<row><entry align="right"><parameter>standard_output</parameter>&nbsp;:</entry>
+<entry> return location for child output 
+</entry></row>
+<row><entry align="right"><parameter>standard_error</parameter>&nbsp;:</entry>
+<entry> return location for child error messages
+</entry></row>
+<row><entry align="right"><parameter>exit_status</parameter>&nbsp;:</entry>
+<entry> child exit status, as returned by <function><link linkend="waitpid">waitpid</link>()</function>
+</entry></row>
+<row><entry align="right"><parameter>error</parameter>&nbsp;:</entry>
+<entry> return location for error
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry> <literal>TRUE</literal> on success, <literal>FALSE</literal> if an error was set.
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-spawn-command-line-async">g_spawn_command_line_async ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    g_spawn_command_line_async      (const <link linkend="gchar">gchar</link> *command_line,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+A simple version of <link linkend="g-spawn-async">g_spawn_async</link>() that parses a command line with
+<link linkend="g-shell-parse-argv">g_shell_parse_argv</link>() and passes it to <link linkend="g-spawn-async">g_spawn_async</link>(). Runs a
+command line in the background. Unlike <link linkend="g-spawn-async">g_spawn_async</link>(), the
+<literal>G_SPAWN_SEARCH_PATH</literal> flag is enabled, other flags are not. Note
+that <literal>G_SPAWN_SEARCH_PATH</literal> can have security implications, so
+consider using <link linkend="g-spawn-async">g_spawn_async</link>() directly if appropriate. Possible
+errors are those from <link linkend="g-shell-parse-argv">g_shell_parse_argv</link>() and <link linkend="g-spawn-async">g_spawn_async</link>().</para>
+<para>
+
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>command_line</parameter>&nbsp;:</entry>
+<entry> a command line
+</entry></row>
+<row><entry align="right"><parameter>error</parameter>&nbsp;:</entry>
+<entry> return location for errors
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry> <literal>TRUE</literal> on success, <literal>FALSE</literal> if error is set.
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-spawn-command-line-sync">g_spawn_command_line_sync ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    g_spawn_command_line_sync       (const <link linkend="gchar">gchar</link> *command_line,
+                                             <link linkend="gchar">gchar</link> **standard_output,
+                                             <link linkend="gchar">gchar</link> **standard_error,
+                                             <link linkend="gint">gint</link> *exit_status,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+A simple version of <link linkend="g-spawn-sync">g_spawn_sync</link>() with little-used parameters
+removed, taking a command line instead of an argument vector.  See
+<link linkend="g-spawn-sync">g_spawn_sync</link>() for full details. <parameter>command_line</parameter> will be parsed by
+<link linkend="g-shell-parse-argv">g_shell_parse_argv</link>(). Unlike <link linkend="g-spawn-sync">g_spawn_sync</link>(), the <literal>G_SPAWN_SEARCH_PATH</literal> flag
+is enabled. Note that <literal>G_SPAWN_SEARCH_PATH</literal> can have security
+implications, so consider using <link linkend="g-spawn-sync">g_spawn_sync</link>() directly if
+appropriate. Possible errors are those from <link linkend="g-spawn-sync">g_spawn_sync</link>() and those
+from <link linkend="g-shell-parse-argv">g_shell_parse_argv</link>().</para>
+<para>
+
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>command_line</parameter>&nbsp;:</entry>
+<entry> a command line 
+</entry></row>
+<row><entry align="right"><parameter>standard_output</parameter>&nbsp;:</entry>
+<entry> return location for child output
+</entry></row>
+<row><entry align="right"><parameter>standard_error</parameter>&nbsp;:</entry>
+<entry> return location for child errors
+</entry></row>
+<row><entry align="right"><parameter>exit_status</parameter>&nbsp;:</entry>
+<entry> return location for child exit status
+</entry></row>
+<row><entry align="right"><parameter>error</parameter>&nbsp;:</entry>
+<entry> return location for errors
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry> <literal>TRUE</literal> on success, <literal>FALSE</literal> if an error was set
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

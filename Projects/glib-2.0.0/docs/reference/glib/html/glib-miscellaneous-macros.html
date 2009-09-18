@@ -1,0 +1,1658 @@
+<HTML
+><HEAD
+><TITLE
+>Miscellaneous Macros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Fundamentals"
+HREF="glib-fundamentals.html"><LINK
+REL="PREVIOUS"
+TITLE="Numerical Definitions"
+HREF="glib-numerical-definitions.html"><LINK
+REL="NEXT"
+TITLE="GLib Core Application Support"
+HREF="glib-core.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-numerical-definitions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-fundamentals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-core.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-MISCELLANEOUS-MACROS"
+>Miscellaneous Macros</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN2433"
+></A
+><H2
+>Name</H2
+>Miscellaneous Macros&nbsp;--&nbsp;specialized macros which are not used often.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN2436"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-INLINE-FUNC-CAPS"
+>G_INLINE_FUNC</A
+>
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-STMT-START-CAPS"
+>G_STMT_START</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-STMT-END-CAPS"
+>G_STMT_END</A
+>
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-BEGIN-DECLS-CAPS"
+>G_BEGIN_DECLS</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-END-DECLS-CAPS"
+>G_END_DECLS</A
+>
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-N-ELEMENTS-CAPS"
+>G_N_ELEMENTS</A
+>                    (arr)
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-VA-COPY-CAPS"
+>G_VA_COPY</A
+>
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-STRINGIFY-CAPS"
+>G_STRINGIFY</A
+>                     (macro_or_string)
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-EXTENSION-CAPS"
+>G_GNUC_EXTENSION</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-CONST-CAPS"
+>G_GNUC_CONST</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-NORETURN-CAPS"
+>G_GNUC_NORETURN</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-UNUSED-CAPS"
+>G_GNUC_UNUSED</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-PURE-CAPS"
+>G_GNUC_PURE</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-PRINTF-CAPS"
+>G_GNUC_PRINTF</A
+>                   ( format_idx, arg_idx )
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-SCANF-CAPS"
+>G_GNUC_SCANF</A
+>                    ( format_idx, arg_idx )
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-FORMAT-CAPS"
+>G_GNUC_FORMAT</A
+>                   ( arg_idx )
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-FUNCTION-CAPS"
+>G_GNUC_FUNCTION</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-PRETTY-FUNCTION-CAPS"
+>G_GNUC_PRETTY_FUNCTION</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GNUC-NO-INSTRUMENT-CAPS"
+>G_GNUC_NO_INSTRUMENT</A
+>
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-STRLOC-CAPS"
+>G_STRLOC</A
+>
+
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GINT16-FORMAT-CAPS"
+>G_GINT16_FORMAT</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GUINT16-FORMAT-CAPS"
+>G_GUINT16_FORMAT</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GINT32-FORMAT-CAPS"
+>G_GINT32_FORMAT</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GUINT32-FORMAT-CAPS"
+>G_GUINT32_FORMAT</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GINT64-FORMAT-CAPS"
+>G_GINT64_FORMAT</A
+>
+#define     <A
+HREF="glib-miscellaneous-macros.html#G-GUINT64-FORMAT-CAPS"
+>G_GUINT64_FORMAT</A
+>&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2465"
+></A
+><H2
+>Description</H2
+><P
+>These macros provide more specialized features which are not needed so often
+by application programmers.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2468"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2470"
+></A
+><H3
+><A
+NAME="G-INLINE-FUNC-CAPS"
+></A
+>G_INLINE_FUNC</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_INLINE_FUNC</PRE
+></TD
+></TR
+></TABLE
+><P
+>Used to declare inline functions. If inline functions are not supported on
+the particular platform, the macro evaluates to the empty string.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2475"
+></A
+><H3
+><A
+NAME="G-STMT-START-CAPS"
+></A
+>G_STMT_START</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_STMT_START</PRE
+></TD
+></TR
+></TABLE
+><P
+>Used within multi-statement macros so that they can be used in places where
+only one statement is expected by the compiler.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2480"
+></A
+><H3
+><A
+NAME="G-STMT-END-CAPS"
+></A
+>G_STMT_END</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_STMT_END</PRE
+></TD
+></TR
+></TABLE
+><P
+>Used within multi-statement macros so that they can be used in places where
+only one statement is expected by the compiler.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2485"
+></A
+><H3
+><A
+NAME="G-BEGIN-DECLS-CAPS"
+></A
+>G_BEGIN_DECLS</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_BEGIN_DECLS</PRE
+></TD
+></TR
+></TABLE
+><P
+>Used (along with <A
+HREF="glib-miscellaneous-macros.html#G-END-DECLS-CAPS"
+>G_END_DECLS</A
+>) to bracket header files. If the
+compiler in use is a C++ compiler, adds <TT
+CLASS="LITERAL"
+>extern "C"</TT
+> 
+around the header.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2492"
+></A
+><H3
+><A
+NAME="G-END-DECLS-CAPS"
+></A
+>G_END_DECLS</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_END_DECLS</PRE
+></TD
+></TR
+></TABLE
+><P
+>Used (along with <A
+HREF="glib-miscellaneous-macros.html#G-BEGIN-DECLS-CAPS"
+>G_BEGIN_DECLS</A
+>) to bracket header files. If the
+compiler in use is a C++ compiler, adds <TT
+CLASS="LITERAL"
+>extern "C"</TT
+> 
+around the header.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2499"
+></A
+><H3
+><A
+NAME="G-N-ELEMENTS-CAPS"
+></A
+>G_N_ELEMENTS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_N_ELEMENTS(arr)		(sizeof (arr) / sizeof ((arr)[0]))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines the number of elements in an array. The array must be
+declared so the compiler knows its size at compile-time; this 
+macro will not work on an array allocated on the heap, only static
+arrays or arrays on the stack.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2504"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>arr</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the array
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2513"
+></A
+><H3
+><A
+NAME="G-VA-COPY-CAPS"
+></A
+>G_VA_COPY</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_VA_COPY</PRE
+></TD
+></TR
+></TABLE
+><P
+>Portable way to copy <SPAN
+CLASS="TYPE"
+>va_list</SPAN
+> variables.</P
+><P
+>In order to use this function, you must include <TT
+CLASS="FILENAME"
+>string.h</TT
+> 
+yourself, because this macro may use <TT
+CLASS="FUNCTION"
+>memmove()</TT
+> and GLib 
+does not include <TT
+CLASS="FUNCTION"
+>string.h</TT
+> for you.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2524"
+></A
+><H3
+><A
+NAME="G-STRINGIFY-CAPS"
+></A
+>G_STRINGIFY()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_STRINGIFY(macro_or_string)	G_STRINGIFY_ARG (macro_or_string)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Accepts a macro or a string and converts it into a string.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2529"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>macro_or_string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a macro or a string.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2538"
+></A
+><H3
+><A
+NAME="G-GNUC-EXTENSION-CAPS"
+></A
+>G_GNUC_EXTENSION</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_EXTENSION</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to <TT
+CLASS="LITERAL"
+>__extension__</TT
+> when <B
+CLASS="COMMAND"
+>gcc</B
+> is 
+used as the compiler.
+This simply tells <B
+CLASS="COMMAND"
+>gcc</B
+> not to warn about the following non-standard code
+when compiling with the <TT
+CLASS="OPTION"
+>-pedantic</TT
+> option.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2547"
+></A
+><H3
+><A
+NAME="G-GNUC-CONST-CAPS"
+></A
+>G_GNUC_CONST</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_CONST</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>const</TT
+> function attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>.
+Declaring a function as const enables better optimization of the function.
+A const function doesn't examine any values except its parameters,
+and has no effects except its return value.
+See the GNU C documentation for details. </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>Note: </B
+>A function that has pointer arguments and examines the data pointed to 
+must <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+> be declared const. Likewise, a function that 
+calls a non-const function usually must not be const. It doesn't make sense 
+for a const function to return void.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2557"
+></A
+><H3
+><A
+NAME="G-GNUC-NORETURN-CAPS"
+></A
+>G_GNUC_NORETURN</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_NORETURN</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>noreturn</TT
+> function attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>.
+It is used for declaring functions which never return.
+It enables optimization of the function, and avoids possible compiler
+warnings. See the GNU C documentation for details. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2564"
+></A
+><H3
+><A
+NAME="G-GNUC-UNUSED-CAPS"
+></A
+>G_GNUC_UNUSED</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_UNUSED</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>unused</TT
+> function attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>.
+It is used for declaring functions which may never be used.
+It avoids possible compiler warnings. See the GNU C documentation for details. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2571"
+></A
+><H3
+><A
+NAME="G-GNUC-PURE-CAPS"
+></A
+>G_GNUC_PURE</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_PURE</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>pure</TT
+> function attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>.
+Declaring a function as pure enables better optimization of the function.
+A pure function has no effects except its return value and the return 
+value depends only on the parameters and/or global variables.
+See the GNU C documentation for details. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2578"
+></A
+><H3
+><A
+NAME="G-GNUC-PRINTF-CAPS"
+></A
+>G_GNUC_PRINTF()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_PRINTF( format_idx, arg_idx )</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>format</TT
+> function attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>.
+This is used for declaring functions which take a variable number of
+arguments, with the same syntax as <TT
+CLASS="FUNCTION"
+>printf()</TT
+>.
+It allows the compiler to type-check the arguments passed to the function.
+See the GNU C documentation for details. </P
+><DIV
+CLASS="INFORMALEXAMPLE"
+><A
+NAME="AEN2586"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#D8F8D8"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>gint g_snprintf (gchar  *string,
+                 gulong       n,
+                 gchar const *format,
+                 ...) G_GNUC_PRINTF (3, 4);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2588"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>format_idx</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the index of the argument corresponding to the format string.
+(The arguments are numbered from 1).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>arg_idx</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the index of the first of the format arguments.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2601"
+></A
+><H3
+><A
+NAME="G-GNUC-SCANF-CAPS"
+></A
+>G_GNUC_SCANF()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_SCANF( format_idx, arg_idx )</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>format</TT
+> function attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>.
+This is used for declaring functions which take a variable number of
+arguments, with the same syntax as <TT
+CLASS="FUNCTION"
+>scanf()</TT
+>.
+It allows the compiler to type-check the arguments passed to the function.
+See the GNU C documentation for details. </P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2610"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>format_idx</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the index of the argument corresponding to the format string.
+(The arguments are numbered from 1).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>arg_idx</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the index of the first of the format arguments.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2623"
+></A
+><H3
+><A
+NAME="G-GNUC-FORMAT-CAPS"
+></A
+>G_GNUC_FORMAT()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_FORMAT( arg_idx )</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>format_arg</TT
+> function attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>.
+This function attribute specifies that a function takes a format
+string for a <TT
+CLASS="FUNCTION"
+>printf()</TT
+>, <TT
+CLASS="FUNCTION"
+>scanf()</TT
+>, 
+<TT
+CLASS="FUNCTION"
+>strftime()</TT
+> or <TT
+CLASS="FUNCTION"
+>strfmon()</TT
+> style
+function and modifies it, so that the result can be passed to a 
+<TT
+CLASS="FUNCTION"
+>printf()</TT
+>, <TT
+CLASS="FUNCTION"
+>scanf()</TT
+>, 
+<TT
+CLASS="FUNCTION"
+>strftime()</TT
+> or <TT
+CLASS="FUNCTION"
+>strfmon()</TT
+> style 
+function (with the remaining arguments to the format function the same as 
+they would have been for the unmodified string). 
+See the GNU C documentation for details. </P
+><DIV
+CLASS="INFORMALEXAMPLE"
+><A
+NAME="AEN2644"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#D8F8D8"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>gchar *g_dgettext (gchar *domain_name, gchar *msgid) G_GNUC_FORMAT (2);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2646"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>arg_idx</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the index of the argument.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2655"
+></A
+><H3
+><A
+NAME="G-GNUC-FUNCTION-CAPS"
+></A
+>G_GNUC_FUNCTION</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_FUNCTION</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>__FUNCTION__</TT
+> variable if the 
+compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>, or "" if it isn't. The GNU C 
+<TT
+CLASS="LITERAL"
+>__FUNCTION__</TT
+> variable contains the name of the 
+current function. See the GNU C documentation for details. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2663"
+></A
+><H3
+><A
+NAME="G-GNUC-PRETTY-FUNCTION-CAPS"
+></A
+>G_GNUC_PRETTY_FUNCTION</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_PRETTY_FUNCTION</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>__PRETTY_FUNCTION__</TT
+> variable 
+if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>, or "" if it isn't.
+The GNU C <TT
+CLASS="LITERAL"
+>__PRETTY_FUNCTION__</TT
+> variable contains the 
+name of the current function. For a C program this is the same as the 
+<TT
+CLASS="LITERAL"
+>__FUNCTION__</TT
+> variable but for C++ it also includes 
+extra information such as the class and function prototype. See the 
+GNU C documentation for details. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2672"
+></A
+><H3
+><A
+NAME="G-GNUC-NO-INSTRUMENT-CAPS"
+></A
+>G_GNUC_NO_INSTRUMENT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_GNUC_NO_INSTRUMENT</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to the GNU C <TT
+CLASS="LITERAL"
+>no_instrument_function</TT
+> function 
+attribute if the compiler is <B
+CLASS="COMMAND"
+>gcc</B
+>. Functions with this 
+attribute will not be 
+instrumented for profiling, when the compiler is called with the
+<TT
+CLASS="OPTION"
+>-finstrument-functions</TT
+> option.
+See the GNU C documentation for details. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2680"
+></A
+><H3
+><A
+NAME="G-STRLOC-CAPS"
+></A
+>G_STRLOC</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_STRLOC</PRE
+></TD
+></TR
+></TABLE
+><P
+>Expands to a string identifying the current code position. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2685"
+></A
+><H3
+><A
+NAME="G-GINT16-FORMAT-CAPS"
+></A
+>G_GINT16_FORMAT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_GINT16_FORMAT "hi"</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the platform dependent conversion specifier for scanning and
+printing values of type <A
+HREF="glib-basic-types.html#GINT16"
+>gint16</A
+>. It is a string literal, but doesn't
+include the percent-sign, such that you can add precision and length
+modifiers between percent-sign and conversion specifier.</P
+><P
+><DIV
+CLASS="INFORMALEXAMPLE"
+><A
+NAME="AEN2692"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#D8F8D8"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>gint16 in;
+gint32 out;
+sscanf ("42", "%" G_GINT16_FORMAT, &amp;in)
+out = in * 1000;
+g_print ("%" G_GINT32_FORMAT, out);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2694"
+></A
+><H3
+><A
+NAME="G-GUINT16-FORMAT-CAPS"
+></A
+>G_GUINT16_FORMAT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_GUINT16_FORMAT "hu"</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the platform dependent conversion specifier for scanning and
+printing values of type <A
+HREF="glib-basic-types.html#GUINT16"
+>guint16</A
+>. See also <A
+HREF="glib-miscellaneous-macros.html#G-GINT16-FORMAT-CAPS"
+>G_GINT16_FORMAT</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2701"
+></A
+><H3
+><A
+NAME="G-GINT32-FORMAT-CAPS"
+></A
+>G_GINT32_FORMAT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_GINT32_FORMAT "i"</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the platform dependent conversion specifier for scanning and
+printing values of type <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+>. See also <A
+HREF="glib-miscellaneous-macros.html#G-GINT16-FORMAT-CAPS"
+>G_GINT16_FORMAT</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2708"
+></A
+><H3
+><A
+NAME="G-GUINT32-FORMAT-CAPS"
+></A
+>G_GUINT32_FORMAT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_GUINT32_FORMAT "u"</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the platform dependent conversion specifier for scanning and
+printing values of type <A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+>. See also <A
+HREF="glib-miscellaneous-macros.html#G-GINT16-FORMAT-CAPS"
+>G_GINT16_FORMAT</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2715"
+></A
+><H3
+><A
+NAME="G-GINT64-FORMAT-CAPS"
+></A
+>G_GINT64_FORMAT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_GINT64_FORMAT "lli"</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the platform dependent conversion specifier for scanning and
+printing values of type <A
+HREF="glib-basic-types.html#GINT64"
+>gint64</A
+>. See also <A
+HREF="glib-miscellaneous-macros.html#G-GINT16-FORMAT-CAPS"
+>G_GINT16_FORMAT</A
+>.</P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>Note: </B
+>Some platforms do not support scanning and printing 64 bit integers,
+even though the types are supported. On such platforms <A
+HREF="glib-miscellaneous-macros.html#G-GINT64-FORMAT-CAPS"
+>G_GINT64_FORMAT</A
+>
+is not defined.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2725"
+></A
+><H3
+><A
+NAME="G-GUINT64-FORMAT-CAPS"
+></A
+>G_GUINT64_FORMAT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_GUINT64_FORMAT "llu"</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the platform dependent conversion specifier for scanning and
+printing values of type <A
+HREF="glib-basic-types.html#GUINT64"
+>guint64</A
+>. See also <A
+HREF="glib-miscellaneous-macros.html#G-GINT16-FORMAT-CAPS"
+>G_GINT16_FORMAT</A
+>.</P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>Note: </B
+>Some platforms do not support scanning and printing 64 bit integers,
+even though the types are supported. On such platforms <A
+HREF="glib-miscellaneous-macros.html#G-GUINT64-FORMAT-CAPS"
+>G_GUINT64_FORMAT</A
+>
+is not defined.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-numerical-definitions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-fundamentals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-core.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Numerical Definitions</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>GLib Core Application Support</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

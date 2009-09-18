@@ -1,0 +1,3497 @@
+<HTML
+><HEAD
+><TITLE
+>Closures</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GObject Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="API Reference"
+HREF="r28.html"><LINK
+REL="PREVIOUS"
+TITLE="Signals"
+HREF="gobject-signals.html"><LINK
+REL="NEXT"
+TITLE="Value arrays"
+HREF="gobject-value-arrays.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GObject Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-signals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-value-arrays.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GOBJECT-CLOSURES"
+>Closures</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN12012"
+></A
+><H2
+>Name</H2
+>Closures&nbsp;--&nbsp;</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN12015"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;gobject.h&gt;
+
+
+#define     <A
+HREF="gobject-closures.html#G-CLOSURE-NEEDS-MARSHAL-CAPS"
+>G_CLOSURE_NEEDS_MARSHAL</A
+>         (closure)
+#define     <A
+HREF="gobject-closures.html#G-CLOSURE-N-NOTIFIERS-CAPS"
+>G_CLOSURE_N_NOTIFIERS</A
+>           (cl)
+#define     <A
+HREF="gobject-closures.html#G-CCLOSURE-SWAP-DATA-CAPS"
+>G_CCLOSURE_SWAP_DATA</A
+>            (cclosure)
+#define     <A
+HREF="gobject-closures.html#G-CALLBACK-CAPS"
+>G_CALLBACK</A
+>                      (f)
+void        (<A
+HREF="gobject-closures.html#GCALLBACK"
+>*GCallback</A
+>)                    (void);
+struct      <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>;
+#define     <A
+HREF="gobject-closures.html#G-TYPE-CLOSURE-CAPS"
+>G_TYPE_CLOSURE</A
+>
+struct      <A
+HREF="gobject-closures.html#GCCLOSURE"
+>GCClosure</A
+>;
+void        (<A
+HREF="gobject-closures.html#GCLOSUREMARSHAL"
+>*GClosureMarshal</A
+>)              (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_param_values,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *param_values,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> invocation_hint,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> marshal_data);
+void        (<A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>*GClosureNotify</A
+>)               (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);
+struct      <A
+HREF="gobject-closures.html#GCLOSURENOTIFYDATA"
+>GClosureNotifyData</A
+>;
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-closures.html#G-CCLOSURE-NEW"
+>g_cclosure_new</A
+>                  (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> user_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> destroy_data);
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-closures.html#G-CCLOSURE-NEW-SWAP"
+>g_cclosure_new_swap</A
+>             (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> user_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> destroy_data);
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-closures.html#G-CCLOSURE-NEW-OBJECT"
+>g_cclosure_new_object</A
+>           (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-closures.html#G-CCLOSURE-NEW-OBJECT-SWAP"
+>g_cclosure_new_object_swap</A
+>      (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-closures.html#G-CLOSURE-NEW-OBJECT"
+>g_closure_new_object</A
+>            (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> sizeof_closure,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-closures.html#G-CLOSURE-REF"
+>g_closure_ref</A
+>                   (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-SINK"
+>g_closure_sink</A
+>                  (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-UNREF"
+>g_closure_unref</A
+>                 (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-INVOKE"
+>g_closure_invoke</A
+>                (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_param_values,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *param_values,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> invocation_hint);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-INVALIDATE"
+>g_closure_invalidate</A
+>            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-ADD-FINALIZE-NOTIFIER"
+>g_closure_add_finalize_notifier</A
+> (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-ADD-INVALIDATE-NOTIFIER"
+>g_closure_add_invalidate_notifier</A
+>
+                                            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-REMOVE-FINALIZE-NOTIFIER"
+>g_closure_remove_finalize_notifier</A
+>
+                                            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-REMOVE-INVALIDATE-NOTIFIER"
+>g_closure_remove_invalidate_notifier</A
+>
+                                            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);
+<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   <A
+HREF="gobject-closures.html#G-CLOSURE-NEW-SIMPLE"
+>g_closure_new_simple</A
+>            (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> sizeof_closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-SET-MARSHAL"
+>g_closure_set_marshal</A
+>           (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF="gobject-closures.html#GCLOSUREMARSHAL"
+>GClosureMarshal</A
+> marshal);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-ADD-MARSHAL-GUARDS"
+>g_closure_add_marshal_guards</A
+>    (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> pre_marshal_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> pre_marshal_notify,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> post_marshal_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> post_marshal_notify);
+void        <A
+HREF="gobject-closures.html#G-CLOSURE-SET-META-MARSHAL"
+>g_closure_set_meta_marshal</A
+>      (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> marshal_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSUREMARSHAL"
+>GClosureMarshal</A
+> meta_marshal);
+void        <A
+HREF="gobject-closures.html#G-SOURCE-SET-CLOSURE"
+>g_source_set_closure</A
+>            (<A
+HREF=../glib/glib-the-main-event-loop.html#GSOURCE
+>GSource</A> *source,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);
+#define     <A
+HREF="gobject-closures.html#G-TYPE-IO-CHANNEL-CAPS"
+>G_TYPE_IO_CHANNEL</A
+>
+#define     <A
+HREF="gobject-closures.html#G-TYPE-IO-CONDITION-CAPS"
+>G_TYPE_IO_CONDITION</A
+>&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN12112"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN12115"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12117"
+></A
+><H3
+><A
+NAME="G-CLOSURE-NEEDS-MARSHAL-CAPS"
+></A
+>G_CLOSURE_NEEDS_MARSHAL()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_CLOSURE_NEEDS_MARSHAL(closure) (((GClosure*) (closure))-&gt;marshal == NULL)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12122"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12131"
+></A
+><H3
+><A
+NAME="G-CLOSURE-N-NOTIFIERS-CAPS"
+></A
+>G_CLOSURE_N_NOTIFIERS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_CLOSURE_N_NOTIFIERS(cl)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12136"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>cl</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12145"
+></A
+><H3
+><A
+NAME="G-CCLOSURE-SWAP-DATA-CAPS"
+></A
+>G_CCLOSURE_SWAP_DATA()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_CCLOSURE_SWAP_DATA(cclosure)	 (((GClosure*) (closure))-&gt;derivative_flag)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12150"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>cclosure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12159"
+></A
+><H3
+><A
+NAME="G-CALLBACK-CAPS"
+></A
+>G_CALLBACK()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_CALLBACK(f)			 ((GCallback) (f))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12164"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>f</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12173"
+></A
+><H3
+><A
+NAME="GCALLBACK"
+></A
+>GCallback ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GCallback)                    (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12178"
+></A
+><H3
+><A
+NAME="GCLOSURE"
+></A
+>struct GClosure</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GClosure
+{
+  /*&lt; private &gt;*/	guint	 ref_count : 15;
+  /*&lt; private &gt;*/	guint	 meta_marshal : 1;
+  /*&lt; private &gt;*/	guint	 n_guards : 1;
+  /*&lt; private &gt;*/	guint	 n_fnotifiers : 2;	/* finalization notifiers */
+  /*&lt; private &gt;*/	guint	 n_inotifiers : 8;	/* invalidation notifiers */
+  /*&lt; private &gt;*/	guint	 in_inotify : 1;
+  /*&lt; private &gt;*/	guint	 floating : 1;
+  /*&lt; protected &gt;*/	guint	 derivative_flag : 1;
+  /*&lt; public &gt;*/	guint	 in_marshal : 1;
+  /*&lt; public &gt;*/	guint	 is_invalid : 1;
+
+  /*&lt; private &gt;*/	void   (*marshal)  (GClosure       *closure,
+					    GValue /*out*/ *return_value,
+					    guint           n_param_values,
+					    const GValue   *param_values,
+					    gpointer        invocation_hint,
+					    gpointer	    marshal_data);
+  /*&lt; protected &gt;*/	gpointer data;
+
+  /*&lt; private &gt;*/	GClosureNotifyData *notifiers;
+
+  /* invariants/constrains:
+   * - -&gt;marshal and -&gt;data are _invalid_ as soon as -&gt;is_invalid==TRUE
+   * - invocation of all inotifiers occours prior to fnotifiers
+   * - order of inotifiers is random
+   *   inotifiers may _not_ free/invalidate parameter values (e.g. -&gt;data)
+   * - order of fnotifiers is random
+   * - each notifier may only be removed before or during its invocation
+   * - reference counting may only happen prior to fnotify invocation
+   *   (in that sense, fnotifiers are really finalization handlers)
+   */
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12183"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> <TT
+CLASS="STRUCTFIELD"
+><I
+>in_marshal</I
+></TT
+> : 1</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> <TT
+CLASS="STRUCTFIELD"
+><I
+>is_invalid</I
+></TT
+> : 1</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Indicates whether the closure has been invalidated by <A
+HREF="gobject-closures.html#G-CLOSURE-INVALIDATE"
+>g_closure_invalidate</A
+>()&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12199"
+></A
+><H3
+><A
+NAME="G-TYPE-CLOSURE-CAPS"
+></A
+>G_TYPE_CLOSURE</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_TYPE_CLOSURE		(g_closure_get_type ())</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12204"
+></A
+><H3
+><A
+NAME="GCCLOSURE"
+></A
+>struct GCClosure</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GCClosure
+{
+  GClosure	closure;
+  gpointer	callback;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12209"
+></A
+><H3
+><A
+NAME="GCLOSUREMARSHAL"
+></A
+>GClosureMarshal ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GClosureMarshal)              (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_param_values,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *param_values,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> invocation_hint,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> marshal_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12220"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_param_values</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>param_values</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>invocation_hint</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12249"
+></A
+><H3
+><A
+NAME="GCLOSURENOTIFY"
+></A
+>GClosureNotify ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GClosureNotify)               (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12256"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12269"
+></A
+><H3
+><A
+NAME="GCLOSURENOTIFYDATA"
+></A
+>struct GClosureNotifyData</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GClosureNotifyData
+{
+  gpointer       data;
+  GClosureNotify notify;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12274"
+></A
+><H3
+><A
+NAME="G-CCLOSURE-NEW"
+></A
+>g_cclosure_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_cclosure_new                  (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> user_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> destroy_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12283"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>callback_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>destroy_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12304"
+></A
+><H3
+><A
+NAME="G-CCLOSURE-NEW-SWAP"
+></A
+>g_cclosure_new_swap ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_cclosure_new_swap             (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> user_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> destroy_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12313"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>callback_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>destroy_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12334"
+></A
+><H3
+><A
+NAME="G-CCLOSURE-NEW-OBJECT"
+></A
+>g_cclosure_new_object ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_cclosure_new_object           (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12342"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>callback_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12359"
+></A
+><H3
+><A
+NAME="G-CCLOSURE-NEW-OBJECT-SWAP"
+></A
+>g_cclosure_new_object_swap ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_cclosure_new_object_swap      (<A
+HREF="gobject-closures.html#GCALLBACK"
+>GCallback</A
+> callback_func,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12367"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>callback_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12384"
+></A
+><H3
+><A
+NAME="G-CLOSURE-NEW-OBJECT"
+></A
+>g_closure_new_object ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_closure_new_object            (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> sizeof_closure,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12392"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>sizeof_closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12409"
+></A
+><H3
+><A
+NAME="G-CLOSURE-REF"
+></A
+>g_closure_ref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_closure_ref                   (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Increment the reference count on a closure to force it staying
+alive while the caller holds a pointer to it.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12416"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> to increment the reference count on</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+> passed in, for convenience
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12431"
+></A
+><H3
+><A
+NAME="G-CLOSURE-SINK"
+></A
+>g_closure_sink ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_sink                  (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Take over the initial ownership of a closure.
+When closures are newly created, they get an initial reference count
+of 1, eventhough no caller has yet invoked <A
+HREF="gobject-closures.html#G-CLOSURE-REF"
+>g_closure_ref</A
+>() on the <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>.
+Code entities that store closures for notification purposes are supposed
+to call this function, for example like this:
+<TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>static GClosure *notify_closure = NULL;
+void
+foo_notify_set_closure (GClosure *closure)
+{
+  if (notify_closure)
+    g_closure_unref (notify_closure);
+  notify_closure = closure;
+  if (notify_closure)
+    {
+      g_closure_ref (notify_closure);
+      g_closure_sink (notify_closure);
+    }
+}</PRE
+></TD
+></TR
+></TABLE
+>
+Because <A
+HREF="gobject-closures.html#G-CLOSURE-SINK"
+>g_closure_sink</A
+>() may decrement the reference count of a closure
+(if it hasn't been called on <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+> yet) just like <A
+HREF="gobject-closures.html#G-CLOSURE-UNREF"
+>g_closure_unref</A
+>(),
+<A
+HREF="gobject-closures.html#G-CLOSURE-REF"
+>g_closure_ref</A
+>() should be called prior to this function.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12445"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> to decrement the initial reference count on, if it's
+          still being held
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12455"
+></A
+><H3
+><A
+NAME="G-CLOSURE-UNREF"
+></A
+>g_closure_unref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_unref                 (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Decrement the reference count of a closure after it was
+previously incremented by the same caller. The closure
+will most likely be destroyed and freed after this function
+returns.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12461"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> to decrement the reference count on
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12471"
+></A
+><H3
+><A
+NAME="G-CLOSURE-INVOKE"
+></A
+>g_closure_invoke ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_invoke                (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *return_value,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_param_values,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *param_values,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> invocation_hint);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12481"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>return_value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_param_values</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>param_values</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>invocation_hint</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12506"
+></A
+><H3
+><A
+NAME="G-CLOSURE-INVALIDATE"
+></A
+>g_closure_invalidate ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_invalidate            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function sets a flag on the closure to indicate that it's
+calling environment has become invalid, and thus causes any future
+invocations of <A
+HREF="gobject-closures.html#G-CLOSURE-INVOKE"
+>g_closure_invoke</A
+>() on this <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+> to be ignored.
+Also, invalidation notifiers installed on the closure will be called
+at this point, and since invalidation notifiers may unreference
+the closure, <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+> should be considered an invalidated pointer
+atfer this function, unles <A
+HREF="gobject-closures.html#G-CLOSURE-REF"
+>g_closure_ref</A
+>() was called beforehand.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12516"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>GClosure to invalidate
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12525"
+></A
+><H3
+><A
+NAME="G-CLOSURE-ADD-FINALIZE-NOTIFIER"
+></A
+>g_closure_add_finalize_notifier ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_add_finalize_notifier (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12533"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12550"
+></A
+><H3
+><A
+NAME="G-CLOSURE-ADD-INVALIDATE-NOTIFIER"
+></A
+>g_closure_add_invalidate_notifier ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_add_invalidate_notifier
+                                            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12558"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12575"
+></A
+><H3
+><A
+NAME="G-CLOSURE-REMOVE-FINALIZE-NOTIFIER"
+></A
+>g_closure_remove_finalize_notifier ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_remove_finalize_notifier
+                                            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12583"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12600"
+></A
+><H3
+><A
+NAME="G-CLOSURE-REMOVE-INVALIDATE-NOTIFIER"
+></A
+>g_closure_remove_invalidate_notifier ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_remove_invalidate_notifier
+                                            (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> notify_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> notify_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12608"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify_func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12625"
+></A
+><H3
+><A
+NAME="G-CLOSURE-NEW-SIMPLE"
+></A
+>g_closure_new_simple ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>*   g_closure_new_simple            (<A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> sizeof_closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12633"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>sizeof_closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12650"
+></A
+><H3
+><A
+NAME="G-CLOSURE-SET-MARSHAL"
+></A
+>g_closure_set_marshal ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_set_marshal           (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF="gobject-closures.html#GCLOSUREMARSHAL"
+>GClosureMarshal</A
+> marshal);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12657"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12670"
+></A
+><H3
+><A
+NAME="G-CLOSURE-ADD-MARSHAL-GUARDS"
+></A
+>g_closure_add_marshal_guards ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_add_marshal_guards    (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> pre_marshal_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> pre_marshal_notify,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> post_marshal_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSURENOTIFY"
+>GClosureNotify</A
+> post_marshal_notify);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12680"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pre_marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pre_marshal_notify</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>post_marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>post_marshal_notify</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12705"
+></A
+><H3
+><A
+NAME="G-CLOSURE-SET-META-MARSHAL"
+></A
+>g_closure_set_meta_marshal ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_closure_set_meta_marshal      (<A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> marshal_data,
+                                             <A
+HREF="gobject-closures.html#GCLOSUREMARSHAL"
+>GClosureMarshal</A
+> meta_marshal);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12713"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>meta_marshal</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12730"
+></A
+><H3
+><A
+NAME="G-SOURCE-SET-CLOSURE"
+></A
+>g_source_set_closure ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_source_set_closure            (<A
+HREF=../glib/glib-the-main-event-loop.html#GSOURCE
+>GSource</A> *source,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Set the callback for a source as a <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+>.</P
+><P
+>If the source is not one of the standard GLib types, the <TT
+CLASS="PARAMETER"
+><I
+>closure_callback</I
+></TT
+>
+and <TT
+CLASS="PARAMETER"
+><I
+>closure_marshal</I
+></TT
+> fields of the GSourceFuncs structure must have been
+filled in with pointers to appropriate functions.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN12742"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>source</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the source</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12756"
+></A
+><H3
+><A
+NAME="G-TYPE-IO-CHANNEL-CAPS"
+></A
+>G_TYPE_IO_CHANNEL</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_TYPE_IO_CHANNEL (g_io_channel_get_type ())</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN12761"
+></A
+><H3
+><A
+NAME="G-TYPE-IO-CONDITION-CAPS"
+></A
+>G_TYPE_IO_CONDITION</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_TYPE_IO_CONDITION (g_io_condition_get_type ())</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-signals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-value-arrays.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Signals</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Value arrays</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

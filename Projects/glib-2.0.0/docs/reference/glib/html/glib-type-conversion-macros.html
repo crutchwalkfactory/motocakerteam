@@ -1,0 +1,873 @@
+<HTML
+><HEAD
+><TITLE
+>Type Conversion Macros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Fundamentals"
+HREF="glib-fundamentals.html"><LINK
+REL="PREVIOUS"
+TITLE="Standard Macros"
+HREF="glib-standard-macros.html"><LINK
+REL="NEXT"
+TITLE="Byte Order Macros"
+HREF="glib-byte-order-macros.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-standard-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-fundamentals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-byte-order-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-TYPE-CONVERSION-MACROS"
+>Type Conversion Macros</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN1028"
+></A
+><H2
+>Name</H2
+>Type Conversion Macros&nbsp;--&nbsp;portably storing integers in pointer variables.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN1031"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+#define     <A
+HREF="glib-type-conversion-macros.html#GINT-TO-POINTER-CAPS"
+>GINT_TO_POINTER</A
+>                 (i)
+#define     <A
+HREF="glib-type-conversion-macros.html#GPOINTER-TO-INT-CAPS"
+>GPOINTER_TO_INT</A
+>                 (p)
+
+#define     <A
+HREF="glib-type-conversion-macros.html#GUINT-TO-POINTER-CAPS"
+>GUINT_TO_POINTER</A
+>                (u)
+#define     <A
+HREF="glib-type-conversion-macros.html#GPOINTER-TO-UINT-CAPS"
+>GPOINTER_TO_UINT</A
+>                (p)
+#define     <A
+HREF="glib-type-conversion-macros.html#GSIZE-TO-POINTER-CAPS"
+>GSIZE_TO_POINTER</A
+>                (s)
+#define     <A
+HREF="glib-type-conversion-macros.html#GPOINTER-TO-SIZE-CAPS"
+>GPOINTER_TO_SIZE</A
+>                (p)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN1040"
+></A
+><H2
+>Description</H2
+><P
+>Many times GLib, GTK+, and other libraries allow you to pass "user
+data" to a callback, in the form of a void pointer. From time to time
+you want to pass an integer instead of a pointer. You could allocate
+an integer, with something like:
+<DIV
+CLASS="INFORMALEXAMPLE"
+><A
+NAME="AEN1043"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#D8F8D8"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+> int *ip = g_new (int, 1);
+ *ip = 42;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+But this is inconvenient, and it's annoying to have to free the 
+memory at some later time.</P
+><P
+>Pointers are always at least 32 bits in size (on all platforms GLib
+intends to support). Thus you can store at least 32-bit integer values
+in a pointer value. Naively, you might try this, but it's incorrect:
+<DIV
+CLASS="INFORMALEXAMPLE"
+><A
+NAME="AEN1046"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#D8F8D8"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+> gpointer p;
+ int i;
+ p = (void*) 42;
+ i = (int) p;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+Again, that example was <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+> correct, don't copy it. 
+The problem is that on some systems you need to do this:
+<DIV
+CLASS="INFORMALEXAMPLE"
+><A
+NAME="AEN1049"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#D8F8D8"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+> gpointer p;
+ int i;
+ p = (void*) (long) 42;
+ i = (int) (long) p;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+So <A
+HREF="glib-type-conversion-macros.html#GPOINTER-TO-INT-CAPS"
+>GPOINTER_TO_INT</A
+>(), <A
+HREF="glib-type-conversion-macros.html#GINT-TO-POINTER-CAPS"
+>GINT_TO_POINTER</A
+>(), etc. do the right thing
+on the current platform.</P
+><P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Warning</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS NOT PORTABLE IN ANY
+WAY SHAPE OR FORM. These macros <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>ONLY</I
+></SPAN
+> allow
+storing integers in pointers, and only preserve 32 bits of the
+integer; values outside the range of a 32-bit integer will be mangled.</P
+></TD
+></TR
+></TABLE
+></DIV
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN1057"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1059"
+></A
+><H3
+><A
+NAME="GINT-TO-POINTER-CAPS"
+></A
+>GINT_TO_POINTER()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define GINT_TO_POINTER(i)	((gpointer)  (i))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Stuffs an integer into a pointer type.</P
+><P
+>Remember, YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS NOT PORTABLE
+IN ANY WAY SHAPE OR FORM. These macros <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>ONLY</I
+></SPAN
+> allow
+storing integers in pointers, and only preserve 32 bits of the
+integer; values outside the range of a 32-bit integer will be mangled.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN1066"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>i</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>integer to stuff into a pointer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1075"
+></A
+><H3
+><A
+NAME="GPOINTER-TO-INT-CAPS"
+></A
+>GPOINTER_TO_INT()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define GPOINTER_TO_INT(p)	((gint)   (p))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Extracts an integer from a pointer. The integer must have
+been stored in the pointer with <A
+HREF="glib-type-conversion-macros.html#GINT-TO-POINTER-CAPS"
+>GINT_TO_POINTER</A
+>().</P
+><P
+>Remember, YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS NOT PORTABLE
+IN ANY WAY SHAPE OR FORM. These macros <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>ONLY</I
+></SPAN
+> allow
+storing integers in pointers, and only preserve 32 bits of the
+integer; values outside the range of a 32-bit integer will be mangled.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN1083"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>pointer containing an integer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1092"
+></A
+><H3
+><A
+NAME="GUINT-TO-POINTER-CAPS"
+></A
+>GUINT_TO_POINTER()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define GUINT_TO_POINTER(u)	((gpointer)  (u))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Stuffs an unsigned integer into a pointer type.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN1097"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>u</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>unsigned integer to stuff into the pointer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1106"
+></A
+><H3
+><A
+NAME="GPOINTER-TO-UINT-CAPS"
+></A
+>GPOINTER_TO_UINT()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define GPOINTER_TO_UINT(p)	((guint)  (p))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Extracts an unsigned integer from a pointer. The integer must have
+been stored in the pointer with <A
+HREF="glib-type-conversion-macros.html#GUINT-TO-POINTER-CAPS"
+>GUINT_TO_POINTER</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN1112"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>pointer to extract an unsigned integer from.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1121"
+></A
+><H3
+><A
+NAME="GSIZE-TO-POINTER-CAPS"
+></A
+>GSIZE_TO_POINTER()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define GSIZE_TO_POINTER(s)	((gpointer) (gsize) (s))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Stuffs a <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> into a pointer type.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN1127"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>s</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> to stuff into the pointer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1137"
+></A
+><H3
+><A
+NAME="GPOINTER-TO-SIZE-CAPS"
+></A
+>GPOINTER_TO_SIZE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define GPOINTER_TO_SIZE(p)	((gsize) (p))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Extracts a <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> from a pointer. The <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> must have
+been stored in the pointer with <A
+HREF="glib-type-conversion-macros.html#GSIZE-TO-POINTER-CAPS"
+>GSIZE_TO_POINTER</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN1145"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>pointer to extract a <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> from.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-standard-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-fundamentals.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-byte-order-macros.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Standard Macros</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Byte Order Macros</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

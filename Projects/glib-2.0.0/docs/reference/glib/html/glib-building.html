@@ -1,0 +1,560 @@
+<HTML
+><HEAD
+><TITLE
+>Compiling the GLib package</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Overview"
+HREF="glib.html"><LINK
+REL="PREVIOUS"
+TITLE="GLib Overview"
+HREF="glib.html"><LINK
+REL="NEXT"
+TITLE="Compiling GLib Applications"
+HREF="glib-compiling.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-compiling.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-BUILDING"
+>Compiling the GLib package</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN26"
+></A
+><H2
+>Name</H2
+>Compiling the GLib Package&nbsp;--&nbsp;How to compile GLib itself</DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="BUILDING"
+></A
+><H2
+>Building the Library on UNIX</H2
+><P
+>        On UNIX, GLib uses the standard GNU build system,
+        using <SPAN
+CLASS="APPLICATION"
+>autoconf</SPAN
+> for package
+        configuration and resolving portability issues,
+        <SPAN
+CLASS="APPLICATION"
+>automake</SPAN
+> for building makefiles
+        that comply with the GNU Coding Standards, and
+        <SPAN
+CLASS="APPLICATION"
+>libtool</SPAN
+> for building shared
+        libraries on multiple platforms.  The normal sequence for
+        compiling and installing the GLib library is thus:
+
+        <P
+CLASS="LITERALLAYOUT"
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<TT
+CLASS="USERINPUT"
+><B
+>./configure</B
+></TT
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<TT
+CLASS="USERINPUT"
+><B
+>make</B
+></TT
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<TT
+CLASS="USERINPUT"
+><B
+>make install</B
+></TT
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P
+>
+      </P
+><P
+>        The standard options provided by <SPAN
+CLASS="APPLICATION"
+>GNU
+        autoconf</SPAN
+> may be passed to the
+        <B
+CLASS="COMMAND"
+>configure</B
+> script.  Please see the
+        <SPAN
+CLASS="APPLICATION"
+>autoconf</SPAN
+> documentation or run
+        <B
+CLASS="COMMAND"
+>./configure --help</B
+> for information about
+        the standard options.
+      </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="EXTRA-CONFIGURATION-OPTIONS"
+></A
+><H2
+>Extra Configuration Options</H2
+><P
+>        In addition to the normal options, the
+        <B
+CLASS="COMMAND"
+>configure</B
+> script in the GTK+
+        library supports these additional arguments:
+
+        <P
+><B
+CLASS="COMMAND"
+>configure</B
+>  [--enable-debug=[no|minimum|yes]] [--disable-gc-friendly | --enable-gc-friendly] [--disable-mem-pools | --enable-mem-pools] [--disable-threads | --enable-threads] [--with-threads=[none|posix|dce|solaris|win32]] [--disable-gtk-doc | --enable-gtk-doc]</P
+>
+      </P
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="SYSTEMITEM"
+>--enable-debug</SPAN
+>. </B
+>         Turns on various amounts of debugging support. Setting this to 'no'
+         disables g_assert(), g_return_if_fail(), g_return_val_if_fail() and
+         all cast checks between different object types. Setting it to 'minimum'         disables only cast checks. Setting it to 'yes' enables
+         runtime debugging.
+         The default is 'minimum'.
+         Note that 'no' is fast, but dangerous as it tends to destabilize
+         even mostly bug-free software by changing the effect of many bugs
+         from simple warnings into fatal crashes. Thus
+         <TT
+CLASS="OPTION"
+>--enable-debug=no</TT
+> should <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+>
+         be used for stable releases of gtk+.
+        </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="SYSTEMITEM"
+>--disable-gc-friendly</SPAN
+> and
+          <SPAN
+CLASS="SYSTEMITEM"
+>--enable-gc-friendly</SPAN
+>. </B
+>          When enabled all memory freed by the application,
+          but retained by GLib for performance reasons
+          is set to zero, thus making deployed garbage
+          collection or memory profiling tools detect
+          unlinked memory correctly. This will make GLib
+          slightly slower and is thus disabled by default.
+        </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="SYSTEMITEM"
+>--disable-mem-pools</SPAN
+> and
+          <SPAN
+CLASS="SYSTEMITEM"
+>--enable-mem-pools</SPAN
+>. </B
+>        Many small chunks of memory are often allocated via collective pools
+        in GLib and are cached after release to speed up reallocations.
+        For sparse memory systems this behaviour is often inferior, so
+        memory pools can be disabled to avoid excessive caching and force
+        atomic maintenance of chunks through the <TT
+CLASS="FUNCTION"
+>g_malloc()</TT
+>
+        and <TT
+CLASS="FUNCTION"
+>g_free()</TT
+> functions. Code currently affected by 
+        this:
+        <P
+></P
+><UL
+><LI
+><P
+>         <SPAN
+CLASS="STRUCTNAME"
+>GList</SPAN
+>, <SPAN
+CLASS="STRUCTNAME"
+>GSList</SPAN
+>,
+         <SPAN
+CLASS="STRUCTNAME"
+>GNode</SPAN
+> allocations
+        </P
+></LI
+><LI
+><P
+>        <SPAN
+CLASS="STRUCTNAME"
+>GMemChunk</SPAN
+>s become basically non-effective
+        </P
+></LI
+><LI
+><P
+>         <SPAN
+CLASS="STRUCTNAME"
+>GSignal</SPAN
+> disables all caching (potentially 
+         very slow)
+        </P
+></LI
+><LI
+><P
+>         <SPAN
+CLASS="STRUCTNAME"
+>GType</SPAN
+> doesn't honour the 
+         <SPAN
+CLASS="STRUCTNAME"
+>GTypeInfo</SPAN
+> 
+         <TT
+CLASS="STRUCTFIELD"
+><I
+>n_preallocs</I
+></TT
+> field anymore
+        </P
+></LI
+><LI
+><P
+>         the <SPAN
+CLASS="STRUCTNAME"
+>GBSearchArray</SPAN
+> flag 
+         <TT
+CLASS="LITERAL"
+>G_BSEARCH_ALIGN_POWER2</TT
+> becomes non-functional
+        </P
+></LI
+></UL
+>
+      </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="SYSTEMITEM"
+>--disable-threads</SPAN
+> and
+          <SPAN
+CLASS="SYSTEMITEM"
+>--enable-threads</SPAN
+>. </B
+>           Do not compile GLib to be multi thread safe. GLib
+           will be slightly faster then. This is however not
+           recommended, as many programs rely on GLib being
+           multi thread safe.
+        </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="SYSTEMITEM"
+>--with-threads</SPAN
+>. </B
+>          Specify a thread implementation to use.
+          <P
+></P
+><UL
+><LI
+><P
+>                'posix' and 'dce' can be used interchangeable
+                to mean the different versions of posix
+                threads. configure tries to find out, which
+                one is installed.
+              </P
+></LI
+><LI
+><P
+>                'solaris' uses the native Solaris thread implementation.
+              </P
+></LI
+><LI
+><P
+>                'none' means that GLib will be thread safe,
+                but does not have a default thread
+                implementation. This has to be supplied to
+                g_thread_init() by the programmer.
+              </P
+></LI
+></UL
+>
+
+        </P
+></DIV
+><DIV
+CLASS="FORMALPARA"
+><P
+><B
+><SPAN
+CLASS="SYSTEMITEM"
+>--disable-gtk-doc</SPAN
+> and
+          <SPAN
+CLASS="SYSTEMITEM"
+>--enable-gtk-doc</SPAN
+>. </B
+>          By default the <B
+CLASS="COMMAND"
+>configure</B
+> script will try
+          to auto-detect whether the
+          <SPAN
+CLASS="APPLICATION"
+>gtk-doc</SPAN
+> package is installed.  If
+          it is, then it will use it to extract and build the
+          documentation for the GLib library.  These options
+          can be used to explicitly control whether
+          <SPAN
+CLASS="APPLICATION"
+>gtk-doc</SPAN
+> should be
+          used or not.  If it is not used, the distributed,
+          pre-generated HTML files will be installed instead of
+          building them on your machine.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-compiling.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>GLib Overview</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Compiling GLib Applications</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

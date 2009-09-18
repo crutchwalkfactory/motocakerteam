@@ -1,0 +1,1979 @@
+<HTML
+><HEAD
+><TITLE
+>Random Numbers</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Date and Time Functions"
+HREF="glib-date-and-time-functions.html"><LINK
+REL="NEXT"
+TITLE="Hook Functions"
+HREF="glib-hook-functions.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-date-and-time-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-hook-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-RANDOM-NUMBERS"
+>Random Numbers</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN17659"
+></A
+><H2
+>Name</H2
+>Random Numbers&nbsp;--&nbsp;pseudo random number generator.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN17662"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>;
+<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>*      <A
+HREF="glib-random-numbers.html#G-RAND-NEW-WITH-SEED"
+>g_rand_new_with_seed</A
+>            (<A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> seed);
+<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>*      <A
+HREF="glib-random-numbers.html#G-RAND-NEW"
+>g_rand_new</A
+>                      (void);
+void        <A
+HREF="glib-random-numbers.html#G-RAND-FREE"
+>g_rand_free</A
+>                     (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand);
+void        <A
+HREF="glib-random-numbers.html#G-RAND-SET-SEED"
+>g_rand_set_seed</A
+>                 (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand,
+                                             <A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> seed);
+#define     <A
+HREF="glib-random-numbers.html#G-RAND-BOOLEAN"
+>g_rand_boolean</A
+>                  (rand)
+<A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+>     <A
+HREF="glib-random-numbers.html#G-RAND-INT"
+>g_rand_int</A
+>                      (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand);
+<A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+>      <A
+HREF="glib-random-numbers.html#G-RAND-INT-RANGE"
+>g_rand_int_range</A
+>                (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand,
+                                             <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> end);
+<A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     <A
+HREF="glib-random-numbers.html#G-RAND-DOUBLE"
+>g_rand_double</A
+>                   (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand);
+<A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     <A
+HREF="glib-random-numbers.html#G-RAND-DOUBLE-RANGE"
+>g_rand_double_range</A
+>             (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand,
+                                             <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> end);
+void        <A
+HREF="glib-random-numbers.html#G-RANDOM-SET-SEED"
+>g_random_set_seed</A
+>               (<A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> seed);
+#define     <A
+HREF="glib-random-numbers.html#G-RANDOM-BOOLEAN"
+>g_random_boolean</A
+>                ()
+<A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+>     <A
+HREF="glib-random-numbers.html#G-RANDOM-INT"
+>g_random_int</A
+>                    (void);
+<A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+>      <A
+HREF="glib-random-numbers.html#G-RANDOM-INT-RANGE"
+>g_random_int_range</A
+>              (<A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> end);
+<A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     <A
+HREF="glib-random-numbers.html#G-RANDOM-DOUBLE"
+>g_random_double</A
+>                 (void);
+<A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     <A
+HREF="glib-random-numbers.html#G-RANDOM-DOUBLE-RANGE"
+>g_random_double_range</A
+>           (<A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> end);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN17708"
+></A
+><H2
+>Description</H2
+><P
+>The following functions allow you to use a portable, fast and good
+pseudo random number generator (PRNG). It uses the Mersenne Twister
+PRNG, which was originally developed by Makoto Matsumoto and Takuji
+Nishimura. Further information can be found at <A
+HREF="http://www.math.keio.ac.jp/~matumoto/emt.html"
+TARGET="_top"
+>www.math.keio.ac.jp/~matumoto/emt.html</A
+>.</P
+><P
+>If you just need a random number, you simply call the 
+<TT
+CLASS="FUNCTION"
+>g_random_*</TT
+> functions, which will create a globally 
+used <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> and use the according <TT
+CLASS="FUNCTION"
+>g_rand_*</TT
+> functions 
+internally. Whenever you need a stream of reproducible random numbers, you 
+better create a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> yourself and use the <TT
+CLASS="FUNCTION"
+>g_rand_*</TT
+> 
+functions directly, which will also be slightly faster. Initializing a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> 
+with a certain seed will produce exactly the same series of random numbers 
+on all platforms. This can thus be used as a seed for e.g. games.</P
+><P
+>The <TT
+CLASS="FUNCTION"
+>g_rand*_range</TT
+> functions will return high quality
+equally distributed random numbers, whereas for example the
+<TT
+CLASS="LITERAL"
+>(<A
+HREF="glib-random-numbers.html#G-RANDOM-INT"
+>g_random_int</A
+>()%<TT
+CLASS="LITERAL"
+>max</TT
+>)</TT
+> approach often doesn't
+yield equally distributed numbers.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN17724"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17726"
+></A
+><H3
+><A
+NAME="GRAND"
+></A
+>struct GRand</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GRand;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> struct is an opaque data structure. It should only be
+accessed through the <TT
+CLASS="FUNCTION"
+>g_rand_*</TT
+> functions.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17733"
+></A
+><H3
+><A
+NAME="G-RAND-NEW-WITH-SEED"
+></A
+>g_rand_new_with_seed ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>*      g_rand_new_with_seed            (<A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> seed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new random number generator initialized with <TT
+CLASS="PARAMETER"
+><I
+>seed</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17741"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>seed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a value to initialize the random number generator.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the new <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17755"
+></A
+><H3
+><A
+NAME="G-RAND-NEW"
+></A
+>g_rand_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>*      g_rand_new                      (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new random number generator initialized with a seed taken
+either from <TT
+CLASS="FILENAME"
+>/dev/urandom</TT
+> (if existing) or from 
+the current time (as a fallback).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17762"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the new <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17772"
+></A
+><H3
+><A
+NAME="G-RAND-FREE"
+></A
+>g_rand_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_rand_free                     (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Frees the memory allocated for the <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17779"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17789"
+></A
+><H3
+><A
+NAME="G-RAND-SET-SEED"
+></A
+>g_rand_set_seed ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_rand_set_seed                 (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand,
+                                             <A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> seed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Sets the seed for the random number generator <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> to <TT
+CLASS="PARAMETER"
+><I
+>seed</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17798"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>seed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a value to reinitialize the random number generator.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17812"
+></A
+><H3
+><A
+NAME="G-RAND-BOOLEAN"
+></A
+>g_rand_boolean()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_rand_boolean(rand)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns a random <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> from <TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>. This corresponds to a unbiased
+coin toss.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17819"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a random <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17834"
+></A
+><H3
+><A
+NAME="G-RAND-INT"
+></A
+>g_rand_int ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+>     g_rand_int                      (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the next random <A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> from <TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+> equally distributed over
+the range [0..2^32-1].</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17843"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17857"
+></A
+><H3
+><A
+NAME="G-RAND-INT-RANGE"
+></A
+>g_rand_int_range ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+>      g_rand_int_range                (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand,
+                                             <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> end);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the next random <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> from <TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+> equally distributed over
+the range [<TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>..<TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>-1].</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17870"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> lower closed bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> upper open bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17892"
+></A
+><H3
+><A
+NAME="G-RAND-DOUBLE"
+></A
+>g_rand_double ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     g_rand_double                   (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the next random <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> from <TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+> equally distributed over
+the range [0..1).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17901"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17915"
+></A
+><H3
+><A
+NAME="G-RAND-DOUBLE-RANGE"
+></A
+>g_rand_double_range ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     g_rand_double_range             (<A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+> *rand,
+                                             <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> end);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the next random <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> from <TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+> equally distributed over
+the range [<TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>..<TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17928"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>rand</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-random-numbers.html#GRAND"
+>GRand</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> lower closed bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> upper open bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17950"
+></A
+><H3
+><A
+NAME="G-RANDOM-SET-SEED"
+></A
+>g_random_set_seed ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_random_set_seed               (<A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> seed);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Sets the seed for the global random number generator, which is used
+by the <TT
+CLASS="FUNCTION"
+>g_random_*</TT
+> functions, to <TT
+CLASS="PARAMETER"
+><I
+>seed</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17958"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>seed</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a value to reinitialize the global random number generator.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17967"
+></A
+><H3
+><A
+NAME="G-RANDOM-BOOLEAN"
+></A
+>g_random_boolean()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_random_boolean()</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns a random <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>. This corresponds to a unbiased coin toss.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17973"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a random <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17983"
+></A
+><H3
+><A
+NAME="G-RANDOM-INT"
+></A
+>g_random_int ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+>     g_random_int                    (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Return a random <A
+HREF="glib-basic-types.html#GUINT32"
+>guint32</A
+> equally distributed over the range
+[0..2^32-1].</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN17990"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN17999"
+></A
+><H3
+><A
+NAME="G-RANDOM-INT-RANGE"
+></A
+>g_random_int_range ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+>      g_random_int_range              (<A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> end);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns a random <A
+HREF="glib-basic-types.html#GINT32"
+>gint32</A
+> equally distributed over the range
+[<TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>..<TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>-1].</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18010"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> lower closed bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> upper open bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18027"
+></A
+><H3
+><A
+NAME="G-RANDOM-DOUBLE"
+></A
+>g_random_double ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     g_random_double                 (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns a random <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> equally distributed over the range [0..1).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18034"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18043"
+></A
+><H3
+><A
+NAME="G-RANDOM-DOUBLE-RANGE"
+></A
+>g_random_double_range ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+>     g_random_double_range           (<A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> begin,
+                                             <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> end);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns a random <A
+HREF="glib-basic-types.html#GDOUBLE"
+>gdouble</A
+> equally distributed over the range [<TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>..<TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>).</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18054"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>begin</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> lower closed bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> upper open bound of the interval.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A random number.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-date-and-time-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-hook-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Date and Time Functions</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Hook Functions</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

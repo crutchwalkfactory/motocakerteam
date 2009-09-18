@@ -1,0 +1,5796 @@
+<HTML
+><HEAD
+><TITLE
+>GObject</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GObject Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="API Reference"
+HREF="r28.html"><LINK
+REL="PREVIOUS"
+TITLE="GTypeModule"
+HREF="gobject-gtypemodule.html"><LINK
+REL="NEXT"
+TITLE="Enums and Flags"
+HREF="gobject-enumeration-and-flag-types.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GObject Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-gtypemodule.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-enumeration-and-flag-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GOBJECT-THE-BASE-OBJECT-TYPE"
+>GObject</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN2671"
+></A
+><H2
+>Name</H2
+>GObject&nbsp;--&nbsp;The base object type.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN2674"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;gobject.h&gt;
+
+
+struct      <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+>;
+struct      <A
+HREF="gobject-the-base-object-type.html#GOBJECTCLASS"
+>GObjectClass</A
+>;
+void        (<A
+HREF="gobject-the-base-object-type.html#GOBJECTGETPROPERTYFUNC"
+>*GObjectGetPropertyFunc</A
+>)       (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> property_id,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+void        (<A
+HREF="gobject-the-base-object-type.html#GOBJECTSETPROPERTYFUNC"
+>*GObjectSetPropertyFunc</A
+>)       (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> property_id,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+void        (<A
+HREF="gobject-the-base-object-type.html#GOBJECTFINALIZEFUNC"
+>*GObjectFinalizeFunc</A
+>)          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);
+#define     <A
+HREF="gobject-the-base-object-type.html#G-TYPE-IS-OBJECT-CAPS"
+>G_TYPE_IS_OBJECT</A
+>                (type)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CAPS"
+>G_OBJECT</A
+>                        (object)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-IS-OBJECT-CAPS"
+>G_IS_OBJECT</A
+>                     (object)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CLASS-CAPS"
+>G_OBJECT_CLASS</A
+>                  (class)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-IS-OBJECT-CLASS-CAPS"
+>G_IS_OBJECT_CLASS</A
+>               (class)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-CLASS-CAPS"
+>G_OBJECT_GET_CLASS</A
+>              (object)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-TYPE-CAPS"
+>G_OBJECT_TYPE</A
+>                   (object)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-TYPE-NAME-CAPS"
+>G_OBJECT_TYPE_NAME</A
+>              (object)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CLASS-TYPE-CAPS"
+>G_OBJECT_CLASS_TYPE</A
+>             (class)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CLASS-NAME-CAPS"
+>G_OBJECT_CLASS_NAME</A
+>             (class)
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CLASS-INSTALL-PROPERTY"
+>g_object_class_install_property</A
+> (<A
+HREF="gobject-the-base-object-type.html#GOBJECTCLASS"
+>GObjectClass</A
+> *oclass,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> property_id,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);
+<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>* <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CLASS-FIND-PROPERTY"
+>g_object_class_find_property</A
+>    (<A
+HREF="gobject-the-base-object-type.html#GOBJECTCLASS"
+>GObjectClass</A
+> *oclass,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name);
+<A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>** <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CLASS-LIST-PROPERTIES"
+>g_object_class_list_properties</A
+> (<A
+HREF="gobject-the-base-object-type.html#GOBJECTCLASS"
+>GObjectClass</A
+> *oclass,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *n_properties);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-NEW"
+>g_object_new</A
+>                    (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> object_type,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             ...);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-NEWV"
+>g_object_newv</A
+>                   (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> object_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_parameters,
+                                             <A
+HREF="gobject-the-base-object-type.html#GPARAMETER"
+>GParameter</A
+> *parameters);
+struct      <A
+HREF="gobject-the-base-object-type.html#GPARAMETER"
+>GParameter</A
+>;
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-REF"
+>g_object_ref</A
+>                    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-UNREF"
+>g_object_unref</A
+>                  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object);
+void        (<A
+HREF="gobject-the-base-object-type.html#GWEAKNOTIFY"
+>*GWeakNotify</A
+>)                  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *where_the_object_was);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-WEAK-REF"
+>g_object_weak_ref</A
+>               (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF="gobject-the-base-object-type.html#GWEAKNOTIFY"
+>GWeakNotify</A
+> notify,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-WEAK-UNREF"
+>g_object_weak_unref</A
+>             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF="gobject-the-base-object-type.html#GWEAKNOTIFY"
+>GWeakNotify</A
+> notify,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-ADD-WEAK-POINTER"
+>g_object_add_weak_pointer</A
+>       (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> *weak_pointer_location);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-REMOVE-WEAK-POINTER"
+>g_object_remove_weak_pointer</A
+>    (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> *weak_pointer_location);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-CONNECT"
+>g_object_connect</A
+>                (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_spec,
+                                             ...);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-DISCONNECT"
+>g_object_disconnect</A
+>             (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_spec,
+                                             ...);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET"
+>g_object_set</A
+>                    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             ...);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET"
+>g_object_get</A
+>                    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             ...);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-NOTIFY"
+>g_object_notify</A
+>                 (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-FREEZE-NOTIFY"
+>g_object_freeze_notify</A
+>          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-THAW-NOTIFY"
+>g_object_thaw_notify</A
+>            (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-DATA"
+>g_object_get_data</A
+>               (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-DATA"
+>g_object_set_data</A
+>               (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-DATA-FULL"
+>g_object_set_data_full</A
+>          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> destroy);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-STEAL-DATA"
+>g_object_steal_data</A
+>             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-QDATA"
+>g_object_get_qdata</A
+>              (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-QDATA"
+>g_object_set_qdata</A
+>              (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-QDATA-FULL"
+>g_object_set_qdata_full</A
+>         (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> destroy);
+<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-STEAL-QDATA"
+>g_object_steal_qdata</A
+>            (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-PROPERTY"
+>g_object_set_property</A
+>           (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-PROPERTY"
+>g_object_get_property</A
+>           (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);
+<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+>*    <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-NEW-VALIST"
+>g_object_new_valist</A
+>             (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> object_type,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             va_list var_args);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-VALIST"
+>g_object_set_valist</A
+>             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             va_list var_args);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-VALIST"
+>g_object_get_valist</A
+>             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             va_list var_args);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-WATCH-CLOSURE"
+>g_object_watch_closure</A
+>          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);
+void        <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-RUN-DISPOSE"
+>g_object_run_dispose</A
+>            (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-WARN-INVALID-PSPEC-CAPS"
+>G_OBJECT_WARN_INVALID_PSPEC</A
+>     (object, pname, property_id, pspec)
+#define     <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-WARN-INVALID-PROPERTY-ID-CAPS"
+>G_OBJECT_WARN_INVALID_PROPERTY_ID</A
+>(object, property_id, pspec)&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2824"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN2827"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2829"
+></A
+><H3
+><A
+NAME="GOBJECT"
+></A
+>struct GObject</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GObject
+{
+  GTypeInstance g_type_instance;
+  
+  /*&lt; private &gt;*/
+  guint         ref_count;
+  GData        *qdata;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>All the fields in the GObject structure are private to the <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> implementation
+and should never be accessed directly.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2835"
+></A
+><H3
+><A
+NAME="GOBJECTCLASS"
+></A
+>struct GObjectClass</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GObjectClass;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2840"
+></A
+><H3
+><A
+NAME="GOBJECTGETPROPERTYFUNC"
+></A
+>GObjectGetPropertyFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GObjectGetPropertyFunc)       (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> property_id,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2849"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2870"
+></A
+><H3
+><A
+NAME="GOBJECTSETPROPERTYFUNC"
+></A
+>GObjectSetPropertyFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GObjectSetPropertyFunc)       (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> property_id,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2879"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2900"
+></A
+><H3
+><A
+NAME="GOBJECTFINALIZEFUNC"
+></A
+>GObjectFinalizeFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GObjectFinalizeFunc)          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2906"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2915"
+></A
+><H3
+><A
+NAME="G-TYPE-IS-OBJECT-CAPS"
+></A
+>G_TYPE_IS_OBJECT()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_TYPE_IS_OBJECT(type)      (G_TYPE_FUNDAMENTAL (type) == G_TYPE_OBJECT)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Return a boolean value of <TT
+CLASS="LITERAL"
+>FALSE</TT
+> or <TT
+CLASS="LITERAL"
+>TRUE</TT
+> indicating whether
+the passed in type id is a <TT
+CLASS="LITERAL"
+>G_TYPE_OBJECT</TT
+> or derived from it.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2923"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Type id to check for is a <TT
+CLASS="LITERAL"
+>G_TYPE_OBJECT</TT
+> relationship.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>FALSE</TT
+> or <TT
+CLASS="LITERAL"
+>TRUE</TT
+>, indicating whether <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+> is a <TT
+CLASS="LITERAL"
+>G_TYPE_OBJECT</TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2941"
+></A
+><H3
+><A
+NAME="G-OBJECT-CAPS"
+></A
+>G_OBJECT()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_OBJECT(object)            (G_TYPE_CHECK_INSTANCE_CAST ((object), G_TYPE_OBJECT, GObject))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Cast a <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> or derived pointer into a (GObject*) pointer.
+Depending on the current debugging level, this function may invoke
+certain runtime checks to identify invalid casts.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2947"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Object which is subject to casting.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2956"
+></A
+><H3
+><A
+NAME="G-IS-OBJECT-CAPS"
+></A
+>G_IS_OBJECT()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_IS_OBJECT(object)         (G_TYPE_CHECK_INSTANCE_TYPE ((object), G_TYPE_OBJECT))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Check whether a valid <A
+HREF="gobject-gtype.html#GTYPEINSTANCE"
+>GTypeInstance</A
+> pointer is of type <TT
+CLASS="LITERAL"
+>G_TYPE_OBJECT</TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2963"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Instance to check for being a <TT
+CLASS="LITERAL"
+>G_TYPE_OBJECT</TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2973"
+></A
+><H3
+><A
+NAME="G-OBJECT-CLASS-CAPS"
+></A
+>G_OBJECT_CLASS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_OBJECT_CLASS(class)       (G_TYPE_CHECK_CLASS_CAST ((class), G_TYPE_OBJECT, GObjectClass))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2978"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN2987"
+></A
+><H3
+><A
+NAME="G-IS-OBJECT-CLASS-CAPS"
+></A
+>G_IS_OBJECT_CLASS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_IS_OBJECT_CLASS(class)    (G_TYPE_CHECK_CLASS_TYPE ((class), G_TYPE_OBJECT))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN2992"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3001"
+></A
+><H3
+><A
+NAME="G-OBJECT-GET-CLASS-CAPS"
+></A
+>G_OBJECT_GET_CLASS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_OBJECT_GET_CLASS(object)  (G_TYPE_INSTANCE_GET_CLASS ((object), G_TYPE_OBJECT, GObjectClass))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3006"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3015"
+></A
+><H3
+><A
+NAME="G-OBJECT-TYPE-CAPS"
+></A
+>G_OBJECT_TYPE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_OBJECT_TYPE(object)       (G_TYPE_FROM_INSTANCE (object))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Return the type id of an object.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3020"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Object to return the type id for.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Type id of <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3034"
+></A
+><H3
+><A
+NAME="G-OBJECT-TYPE-NAME-CAPS"
+></A
+>G_OBJECT_TYPE_NAME()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_OBJECT_TYPE_NAME(object)  (g_type_name (G_OBJECT_TYPE (object)))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3039"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3048"
+></A
+><H3
+><A
+NAME="G-OBJECT-CLASS-TYPE-CAPS"
+></A
+>G_OBJECT_CLASS_TYPE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_OBJECT_CLASS_TYPE(class)  (G_TYPE_FROM_CLASS (class))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3053"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3062"
+></A
+><H3
+><A
+NAME="G-OBJECT-CLASS-NAME-CAPS"
+></A
+>G_OBJECT_CLASS_NAME()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_OBJECT_CLASS_NAME(class)  (g_type_name (G_OBJECT_CLASS_TYPE (class)))</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3067"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>class</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3076"
+></A
+><H3
+><A
+NAME="G-OBJECT-CLASS-INSTALL-PROPERTY"
+></A
+>g_object_class_install_property ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_class_install_property (<A
+HREF="gobject-the-base-object-type.html#GOBJECTCLASS"
+>GObjectClass</A
+> *oclass,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> property_id,
+                                             <A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+> *pspec);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3084"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>oclass</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3101"
+></A
+><H3
+><A
+NAME="G-OBJECT-CLASS-FIND-PROPERTY"
+></A
+>g_object_class_find_property ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>* g_object_class_find_property    (<A
+HREF="gobject-the-base-object-type.html#GOBJECTCLASS"
+>GObjectClass</A
+> *oclass,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3109"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>oclass</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3126"
+></A
+><H3
+><A
+NAME="G-OBJECT-CLASS-LIST-PROPERTIES"
+></A
+>g_object_class_list_properties ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-gparamspec.html#GPARAMSPEC"
+>GParamSpec</A
+>** g_object_class_list_properties (<A
+HREF="gobject-the-base-object-type.html#GOBJECTCLASS"
+>GObjectClass</A
+> *oclass,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> *n_properties);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3134"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>oclass</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_properties</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3151"
+></A
+><H3
+><A
+NAME="G-OBJECT-NEW"
+></A
+>g_object_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_new                    (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> object_type,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3159"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>first_property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3180"
+></A
+><H3
+><A
+NAME="G-OBJECT-NEWV"
+></A
+>g_object_newv ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_newv                   (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> object_type,
+                                             <A
+HREF=../glib/glib-basic-types.html#GUINT
+>guint</A> n_parameters,
+                                             <A
+HREF="gobject-the-base-object-type.html#GPARAMETER"
+>GParameter</A
+> *parameters);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3189"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n_parameters</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>parameters</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3210"
+></A
+><H3
+><A
+NAME="GPARAMETER"
+></A
+>struct GParameter</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GParameter /* auxillary structure for _setv() variants */
+{
+  const gchar *name;
+  GValue       value;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3215"
+></A
+><H3
+><A
+NAME="G-OBJECT-REF"
+></A
+>g_object_ref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_ref                    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3222"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3235"
+></A
+><H3
+><A
+NAME="G-OBJECT-UNREF"
+></A
+>g_object_unref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_unref                  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3241"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3250"
+></A
+><H3
+><A
+NAME="GWEAKNOTIFY"
+></A
+>GWeakNotify ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GWeakNotify)                  (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *where_the_object_was);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3257"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>where_the_object_was</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3270"
+></A
+><H3
+><A
+NAME="G-OBJECT-WEAK-REF"
+></A
+>g_object_weak_ref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_weak_ref               (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF="gobject-the-base-object-type.html#GWEAKNOTIFY"
+>GWeakNotify</A
+> notify,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3278"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3295"
+></A
+><H3
+><A
+NAME="G-OBJECT-WEAK-UNREF"
+></A
+>g_object_weak_unref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_weak_unref             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF="gobject-the-base-object-type.html#GWEAKNOTIFY"
+>GWeakNotify</A
+> notify,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3303"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>notify</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3320"
+></A
+><H3
+><A
+NAME="G-OBJECT-ADD-WEAK-POINTER"
+></A
+>g_object_add_weak_pointer ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_add_weak_pointer       (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> *weak_pointer_location);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Adds a weak reference from weak_pointer to <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+> to indicate that
+the pointer located at <TT
+CLASS="PARAMETER"
+><I
+>weak_pointer_location</I
+></TT
+> is only valid during the 
+lifetime of <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>. When the <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+> is finalized, <TT
+CLASS="PARAMETER"
+><I
+>weak_pointer</I
+></TT
+> will 
+be set to <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3333"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The object that should be weak referenced.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>weak_pointer_location</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The memory address of a pointer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3346"
+></A
+><H3
+><A
+NAME="G-OBJECT-REMOVE-WEAK-POINTER"
+></A
+>g_object_remove_weak_pointer ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_remove_weak_pointer    (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> *weak_pointer_location);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes a weak reference from <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+> that was previously added
+using <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-ADD-WEAK-POINTER"
+>g_object_add_weak_pointer</A
+>(). The <TT
+CLASS="PARAMETER"
+><I
+>weak_pointer_location</I
+></TT
+> has
+to match the one used with <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-ADD-WEAK-POINTER"
+>g_object_add_weak_pointer</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3357"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The object that is weak referenced.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>weak_pointer_location</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The memory address of a pointer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3370"
+></A
+><H3
+><A
+NAME="G-OBJECT-CONNECT"
+></A
+>g_object_connect ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_connect                (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_spec,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3378"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_spec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3399"
+></A
+><H3
+><A
+NAME="G-OBJECT-DISCONNECT"
+></A
+>g_object_disconnect ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_disconnect             (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *signal_spec,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3406"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>signal_spec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3423"
+></A
+><H3
+><A
+NAME="G-OBJECT-SET"
+></A
+>g_object_set ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_set                    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3430"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>first_property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3447"
+></A
+><H3
+><A
+NAME="G-OBJECT-GET"
+></A
+>g_object_get ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_get                    (<A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             ...);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3454"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>first_property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>...</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3471"
+></A
+><H3
+><A
+NAME="G-OBJECT-NOTIFY"
+></A
+>g_object_notify ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_notify                 (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3478"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3491"
+></A
+><H3
+><A
+NAME="G-OBJECT-FREEZE-NOTIFY"
+></A
+>g_object_freeze_notify ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_freeze_notify          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3497"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3506"
+></A
+><H3
+><A
+NAME="G-OBJECT-THAW-NOTIFY"
+></A
+>g_object_thaw_notify ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_thaw_notify            (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3512"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3521"
+></A
+><H3
+><A
+NAME="G-OBJECT-GET-DATA"
+></A
+>g_object_get_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_get_data               (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3529"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3546"
+></A
+><H3
+><A
+NAME="G-OBJECT-SET-DATA"
+></A
+>g_object_set_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_set_data               (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3554"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3571"
+></A
+><H3
+><A
+NAME="G-OBJECT-SET-DATA-FULL"
+></A
+>g_object_set_data_full ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_set_data_full          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> destroy);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3580"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>destroy</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3601"
+></A
+><H3
+><A
+NAME="G-OBJECT-STEAL-DATA"
+></A
+>g_object_steal_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_steal_data             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *key);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3609"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3626"
+></A
+><H3
+><A
+NAME="G-OBJECT-GET-QDATA"
+></A
+>g_object_get_qdata ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_get_qdata              (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function gets back user data pointers stored via
+<A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-QDATA"
+>g_object_set_qdata</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3635"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The GObject to get a stored user data pointer from</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  A <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A>, naming the user data pointer</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The user data pointer set, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3654"
+></A
+><H3
+><A
+NAME="G-OBJECT-SET-QDATA"
+></A
+>g_object_set_qdata ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_set_qdata              (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This sets an opaque, named pointer on an object.
+The name is specified through a <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> (retrived e.g. via
+<A
+HREF=../glib/glib-quarks.html#G-QUARK-FROM-STATIC-STRING
+>g_quark_from_static_string</A>()), and the pointer
+can be gotten back from the <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+> with <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-QDATA"
+>g_object_get_qdata</A
+>()
+until the <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+> is finalized.
+Setting a previously set user data pointer, overrides (frees)
+the old pointer set, using <A
+HREF=../glib/glib-standard-macros.html#NULL-CAPS
+>NULL</A> as pointer essentially
+removes the data stored.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3668"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The GObject to set store a user data pointer</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A>, naming the user data pointer</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  An opaque user data pointer
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3686"
+></A
+><H3
+><A
+NAME="G-OBJECT-SET-QDATA-FULL"
+></A
+>g_object_set_qdata_full ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_set_qdata_full         (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark,
+                                             <A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A> data,
+                                             <A
+HREF=../glib/glib-datasets.html#GDESTROYNOTIFY
+>GDestroyNotify</A> destroy);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function works like <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-QDATA"
+>g_object_set_qdata</A
+>(), but in addition,
+a void (*destroy) (gpointer) function may be specified which is
+called with <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> as argument when the <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+> is finalized, or
+the data is being overwritten by a call to <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-QDATA"
+>g_object_set_qdata</A
+>()
+with the same <TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3700"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The GObject to set store a user data pointer</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  A <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A>, naming the user data pointer</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   An opaque user data pointer</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>destroy</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Function to invoke with <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> as argument, when <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> needs to be freed
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3724"
+></A
+><H3
+><A
+NAME="G-OBJECT-STEAL-QDATA"
+></A
+>g_object_steal_qdata ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF=../glib/glib-basic-types.html#GPOINTER
+>gpointer</A>    g_object_steal_qdata            (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A> quark);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function gets back user data pointers stored via
+<A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-QDATA"
+>g_object_set_qdata</A
+>() and removes the <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> from object
+without invoking it's destroy() function (if any was
+set).
+Usually, calling this function is only required to update
+user data pointers with a destroy notifier, for example:
+<TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void
+object_add_to_user_list (GObject     *object,
+                         const gchar *new_string)
+{
+  /* the quark, naming the object data */
+  GQuark quark_string_list = g_quark_from_static_string ("my-string-list");
+  /* retrive the old string list */
+  GList *list = g_object_steal_qdata (object, quark_string_list);
+  
+  /* prepend new string */
+  list = g_list_prepend (list, g_strdup (new_string));
+  /* this changed 'list', so we need to set it again */
+  g_object_set_qdata_full (object, quark_string_list, list, free_string_list);
+}
+static void
+free_string_list (gpointer data)
+{
+  GList *node, *list = data;
+  
+  for (node = list; node; node = node-&#62;next)
+    g_free (node-&#62;data);
+  g_list_free (list);
+}</PRE
+></TD
+></TR
+></TABLE
+>
+Using <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-GET-QDATA"
+>g_object_get_qdata</A
+>() in the above example, instead of <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-STEAL-QDATA"
+>g_object_steal_qdata</A
+>()
+would have left the destroy function set, and thus the partial string list would
+have been freed upon <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-SET-QDATA-FULL"
+>g_object_set_qdata_full</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3740"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The GObject to get a stored user data pointer from</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>quark</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  A <A
+HREF=../glib/glib-quarks.html#GQUARK
+>GQuark</A>, naming the user data pointer</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>The user data pointer set, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3759"
+></A
+><H3
+><A
+NAME="G-OBJECT-SET-PROPERTY"
+></A
+>g_object_set_property ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_set_property           (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name,
+                                             const <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3767"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3784"
+></A
+><H3
+><A
+NAME="G-OBJECT-GET-PROPERTY"
+></A
+>g_object_get_property ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_get_property           (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *property_name,
+                                             <A
+HREF="gobject-generic-values.html#GVALUE"
+>GValue</A
+> *value);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3792"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>value</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3809"
+></A
+><H3
+><A
+NAME="G-OBJECT-NEW-VALIST"
+></A
+>g_object_new_valist ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+>*    g_object_new_valist             (<A
+HREF="gobject-gtype.html#GTYPE"
+>GType</A
+> object_type,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             va_list var_args);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3817"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object_type</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>first_property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>var_args</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3838"
+></A
+><H3
+><A
+NAME="G-OBJECT-SET-VALIST"
+></A
+>g_object_set_valist ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_set_valist             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             va_list var_args);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3845"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>first_property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>var_args</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3862"
+></A
+><H3
+><A
+NAME="G-OBJECT-GET-VALIST"
+></A
+>g_object_get_valist ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_get_valist             (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             const <A
+HREF=../glib/glib-basic-types.html#GCHAR
+>gchar</A> *first_property_name,
+                                             va_list var_args);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3869"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>first_property_name</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>var_args</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3886"
+></A
+><H3
+><A
+NAME="G-OBJECT-WATCH-CLOSURE"
+></A
+>g_object_watch_closure ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_watch_closure          (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object,
+                                             <A
+HREF="gobject-closures.html#GCLOSURE"
+>GClosure</A
+> *closure);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function essentially limits the life time of the <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>
+to the life time of the object. That is, when the object is finalized,
+the <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+> is invalidated by calling <A
+HREF="gobject-closures.html#G-CLOSURE-INVALIDATE"
+>g_closure_invalidate</A
+>() on it,
+in order to prevent invocations of the closure with a finalized (non
+existing) object. Also, <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-REF"
+>g_object_ref</A
+>() and <A
+HREF="gobject-the-base-object-type.html#G-OBJECT-UNREF"
+>g_object_unref</A
+>() are added
+as marshal guards to the <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>, to ensure that an extra reference
+count is held on <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+> during invocation of the <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>.
+Usually, this function will be called on closures that use this <TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>
+as closure data.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3902"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> GObject restricting lifetime of <TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>closure</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>GClosure to watch
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3916"
+></A
+><H3
+><A
+NAME="G-OBJECT-RUN-DISPOSE"
+></A
+>g_object_run_dispose ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_object_run_dispose            (<A
+HREF="gobject-the-base-object-type.html#GOBJECT"
+>GObject</A
+> *object);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3922"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3931"
+></A
+><H3
+><A
+NAME="G-OBJECT-WARN-INVALID-PSPEC-CAPS"
+></A
+>G_OBJECT_WARN_INVALID_PSPEC()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_OBJECT_WARN_INVALID_PSPEC(object, pname, property_id, pspec)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3936"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pname</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN3957"
+></A
+><H3
+><A
+NAME="G-OBJECT-WARN-INVALID-PROPERTY-ID-CAPS"
+></A
+>G_OBJECT_WARN_INVALID_PROPERTY_ID()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN3962"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>object</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>property_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pspec</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="gobject-gtypemodule.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="r28.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="gobject-enumeration-and-flag-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>GTypeModule</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Enums and Flags</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

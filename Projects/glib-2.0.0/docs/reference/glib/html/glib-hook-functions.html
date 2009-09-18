@@ -1,0 +1,5699 @@
+<HTML
+><HEAD
+><TITLE
+>Hook Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Random Numbers"
+HREF="glib-random-numbers.html"><LINK
+REL="NEXT"
+TITLE="Miscellaneous Utility Functions"
+HREF="glib-miscellaneous-utility-functions.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-random-numbers.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-miscellaneous-utility-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-HOOK-FUNCTIONS"
+>Hook Functions</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN18076"
+></A
+><H2
+>Name</H2
+>Hook Functions&nbsp;--&nbsp;support for manipulating lists of hook functions.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN18079"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>;
+void        (<A
+HREF="glib-hook-functions.html#GHOOKFINALIZEFUNC"
+>*GHookFinalizeFunc</A
+>)            (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);
+struct      <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>;
+void        (<A
+HREF="glib-hook-functions.html#GHOOKFUNC"
+>*GHookFunc</A
+>)                    (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (<A
+HREF="glib-hook-functions.html#GHOOKCHECKFUNC"
+>*GHookCheckFunc</A
+>)               (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-INIT"
+>g_hook_list_init</A
+>                (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> hook_size);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-INVOKE"
+>g_hook_list_invoke</A
+>              (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-INVOKE-CHECK"
+>g_hook_list_invoke_check</A
+>        (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-MARSHAL"
+>g_hook_list_marshal</A
+>             (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKMARSHALLER"
+>GHookMarshaller</A
+> marshaller,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);
+void        (<A
+HREF="glib-hook-functions.html#GHOOKMARSHALLER"
+>*GHookMarshaller</A
+>)              (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-MARSHAL-CHECK"
+>g_hook_list_marshal_check</A
+>       (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKCHECKMARSHALLER"
+>GHookCheckMarshaller</A
+> marshaller,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (<A
+HREF="glib-hook-functions.html#GHOOKCHECKMARSHALLER"
+>*GHookCheckMarshaller</A
+>)         (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-CLEAR"
+>g_hook_list_clear</A
+>               (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list);
+
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-ALLOC"
+>g_hook_alloc</A
+>                    (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list);
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-APPEND"
+>g_hook_append</A
+>                   ( hook_list, hook )
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-PREPEND"
+>g_hook_prepend</A
+>                  (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-INSERT-BEFORE"
+>g_hook_insert_before</A
+>            (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *sibling,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-INSERT-SORTED"
+>g_hook_insert_sorted</A
+>            (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKCOMPAREFUNC"
+>GHookCompareFunc</A
+> func);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        (<A
+HREF="glib-hook-functions.html#GHOOKCOMPAREFUNC"
+>*GHookCompareFunc</A
+>)             (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *new_hook,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *sibling);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-hook-functions.html#G-HOOK-COMPARE-IDS"
+>g_hook_compare_ids</A
+>              (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *new_hook,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *sibling);
+
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-GET"
+>g_hook_get</A
+>                      (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> hook_id);
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-FIND"
+>g_hook_find</A
+>                     (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKFINDFUNC"
+>GHookFindFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (<A
+HREF="glib-hook-functions.html#GHOOKFINDFUNC"
+>*GHookFindFunc</A
+>)                (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-FIND-DATA"
+>g_hook_find_data</A
+>                (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-FIND-FUNC"
+>g_hook_find_func</A
+>                (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> func);
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-FIND-FUNC-DATA"
+>g_hook_find_func_data</A
+>           (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-FIRST-VALID"
+>g_hook_first_valid</A
+>              (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_be_in_call);
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      <A
+HREF="glib-hook-functions.html#G-HOOK-NEXT-VALID"
+>g_hook_next_valid</A
+>               (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_be_in_call);
+enum        <A
+HREF="glib-hook-functions.html#GHOOKFLAGMASK"
+>GHookFlagMask</A
+>;
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-FLAGS-CAPS"
+>G_HOOK_FLAGS</A
+>                    (hook)
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-FLAG-USER-SHIFT-CAPS"
+>G_HOOK_FLAG_USER_SHIFT</A
+>
+
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-CAPS"
+>G_HOOK</A
+>                          (hook)
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-IS-VALID-CAPS"
+>G_HOOK_IS_VALID</A
+>                 (hook)
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-ACTIVE-CAPS"
+>G_HOOK_ACTIVE</A
+>                   (hook)
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-IN-CALL-CAPS"
+>G_HOOK_IN_CALL</A
+>                  (hook)
+#define     <A
+HREF="glib-hook-functions.html#G-HOOK-IS-UNLINKED-CAPS"
+>G_HOOK_IS_UNLINKED</A
+>              (hook)
+
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-REF"
+>g_hook_ref</A
+>                      (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-UNREF"
+>g_hook_unref</A
+>                    (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-FREE"
+>g_hook_free</A
+>                     (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-hook-functions.html#G-HOOK-DESTROY"
+>g_hook_destroy</A
+>                  (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> hook_id);
+void        <A
+HREF="glib-hook-functions.html#G-HOOK-DESTROY-LINK"
+>g_hook_destroy_link</A
+>             (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN18206"
+></A
+><H2
+>Description</H2
+><P
+>The <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>, <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> and their related functions provide support for
+lists of hook functions. Functions can be added and removed from the lists,
+and the list of hook functions can be invoked.&#13;</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN18211"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18213"
+></A
+><H3
+><A
+NAME="GHOOKLIST"
+></A
+>struct GHookList</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GHookList
+{
+  gulong	    seq_id;
+  guint		    hook_size : 16;
+  guint		    is_setup : 1;
+  GHook		   *hooks;
+  GMemChunk	   *hook_memchunk;
+  GHookFinalizeFunc finalize_hook;
+  gpointer	    dummy[2];
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <SPAN
+CLASS="STRUCTNAME"
+>GHookList</SPAN
+> struct represents a 
+list of hook functions.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18219"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>seq_id</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the next free <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>hook_size</I
+></TT
+> : 16</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the size of the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> elements, in bytes.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>is_setup</I
+></TT
+> : 1</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>1 if the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> has been initialized.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>hooks</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the first <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> element in the list.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-memory-chunks.html#GMEMCHUNK"
+>GMemChunk</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>hook_memchunk</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-memory-chunks.html#GMEMCHUNK"
+>GMemChunk</A
+> used for allocating the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-hook-functions.html#GHOOKFINALIZEFUNC"
+>GHookFinalizeFunc</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>finalize_hook</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to call to finalize a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> element. The
+default behaviour is to call the hooks <TT
+CLASS="FUNCTION"
+>destroy</TT
+> function.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>dummy</I
+></TT
+>[2]</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18267"
+></A
+><H3
+><A
+NAME="GHOOKFINALIZEFUNC"
+></A
+>GHookFinalizeFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GHookFinalizeFunc)            (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines the type of function to be called when a hook in a 
+list of hooks gets finalized.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18274"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the hook in <TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+> that gets finalized.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18289"
+></A
+><H3
+><A
+NAME="GHOOK"
+></A
+>struct GHook</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GHook
+{
+  gpointer	 data;
+  GHook		*next;
+  GHook		*prev;
+  guint		 ref_count;
+  gulong	 hook_id;
+  guint		 flags;
+  gpointer	 func;
+  GDestroyNotify destroy;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <SPAN
+CLASS="STRUCTNAME"
+>GHook</SPAN
+> struct represents a single hook 
+function in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18296"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>data</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>data which is passed to func when this hook is invoked.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>next</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>pointer to the next hook in the list.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>prev</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>pointer to the previous hook in the list.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>ref_count</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the reference count of this hook.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>hook_id</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the id of this hook, which is unique within its list.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>flags</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>flags which are set for this hook. See <A
+HREF="glib-hook-functions.html#GHOOKFLAGMASK"
+>GHookFlagMask</A
+> for
+predefined flags.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>func</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to call when this hook is invoked. The possible 
+signatures for this function are <A
+HREF="glib-hook-functions.html#GHOOKFUNC"
+>GHookFunc</A
+> and <A
+HREF="glib-hook-functions.html#GHOOKCHECKFUNC"
+>GHookCheckFunc</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-datasets.html#GDESTROYNOTIFY"
+>GDestroyNotify</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>destroy</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the default <TT
+CLASS="FUNCTION"
+>finalize_hook</TT
+> function of a 
+<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> calls this member of the hook that is being finalized.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18346"
+></A
+><H3
+><A
+NAME="GHOOKFUNC"
+></A
+>GHookFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GHookFunc)                    (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines the type of a hook function that can be invoked
+by <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-INVOKE"
+>g_hook_list_invoke</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18353"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the data field of the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is passed to the hook function here.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18363"
+></A
+><H3
+><A
+NAME="GHOOKCHECKFUNC"
+></A
+>GHookCheckFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (*GHookCheckFunc)               (<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines the type of a hook function that can be invoked
+by <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-INVOKE-CHECK"
+>g_hook_list_invoke_check</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18371"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the data field of the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is passed to the hook function here.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>FALSE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> should be destroyed.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18387"
+></A
+><H3
+><A
+NAME="G-HOOK-LIST-INIT"
+></A
+>g_hook_list_init ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_list_init                (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> hook_size);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Initializes a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.
+This must be called before the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> is used.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18396"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_size</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the size of each element in the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>, typically
+<TT
+CLASS="LITERAL"
+>sizeof (GHook)</TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18412"
+></A
+><H3
+><A
+NAME="G-HOOK-LIST-INVOKE"
+></A
+>g_hook_list_invoke ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_list_invoke              (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Calls all of the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> functions in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18421"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>may_recurse</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if functions which are already running (e.g. in another
+thread) can be called. If set to <TT
+CLASS="LITERAL"
+>FALSE</TT
+>, these are skipped.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18437"
+></A
+><H3
+><A
+NAME="G-HOOK-LIST-INVOKE-CHECK"
+></A
+>g_hook_list_invoke_check ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_list_invoke_check        (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Calls all of the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> functions in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.
+Any function which returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> is removed from the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18448"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>may_recurse</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if functions which are already running (e.g. in another
+thread) can be called. If set to <TT
+CLASS="LITERAL"
+>FALSE</TT
+>, these are skipped.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18464"
+></A
+><H3
+><A
+NAME="G-HOOK-LIST-MARSHAL"
+></A
+>g_hook_list_marshal ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_list_marshal             (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKMARSHALLER"
+>GHookMarshaller</A
+> marshaller,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Calls a function on each valid <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>. </P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18474"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>may_recurse</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if hooks which are currently running (e.g. in another
+thread) are considered valid. If set to <TT
+CLASS="LITERAL"
+>FALSE</TT
+>, these are skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshaller</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to call for each <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>data to pass to <TT
+CLASS="PARAMETER"
+><I
+>marshaller</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18500"
+></A
+><H3
+><A
+NAME="GHOOKMARSHALLER"
+></A
+>GHookMarshaller ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*GHookMarshaller)              (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines the type of function used by <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-MARSHAL"
+>g_hook_list_marshal</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18508"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>user data.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18522"
+></A
+><H3
+><A
+NAME="G-HOOK-LIST-MARSHAL-CHECK"
+></A
+>g_hook_list_marshal_check ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_list_marshal_check       (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_recurse,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKCHECKMARSHALLER"
+>GHookCheckMarshaller</A
+> marshaller,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Calls a function on each valid <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> and destroys it if the 
+function returns <TT
+CLASS="LITERAL"
+>FALSE</TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18533"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>may_recurse</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if hooks which are currently running (e.g. in another
+thread) are considered valid. If set to <TT
+CLASS="LITERAL"
+>FALSE</TT
+>, these are skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshaller</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to call for each <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>data to pass to <TT
+CLASS="PARAMETER"
+><I
+>marshaller</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18559"
+></A
+><H3
+><A
+NAME="GHOOKCHECKMARSHALLER"
+></A
+>GHookCheckMarshaller ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (*GHookCheckMarshaller)         (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> marshal_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines the type of function used by <A
+HREF="glib-hook-functions.html#G-HOOK-LIST-MARSHAL-CHECK"
+>g_hook_list_marshal_check</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18568"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>marshal_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>user data.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>FALSE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+> should be destroyed.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18588"
+></A
+><H3
+><A
+NAME="G-HOOK-LIST-CLEAR"
+></A
+>g_hook_list_clear ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_list_clear               (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes all the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements from a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18596"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18606"
+></A
+><H3
+><A
+NAME="G-HOOK-ALLOC"
+></A
+>g_hook_alloc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_alloc                    (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Allocates space for a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> and initializes it.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18614"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a new <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18629"
+></A
+><H3
+><A
+NAME="G-HOOK-APPEND"
+></A
+>g_hook_append()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_hook_append( hook_list, hook )</PRE
+></TD
+></TR
+></TABLE
+><P
+>Appends a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> onto the end of a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18636"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to add to the end of <TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18652"
+></A
+><H3
+><A
+NAME="G-HOOK-PREPEND"
+></A
+>g_hook_prepend ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_prepend                  (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Prepends a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> on the start of a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18661"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to add to the start of <TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18677"
+></A
+><H3
+><A
+NAME="G-HOOK-INSERT-BEFORE"
+></A
+>g_hook_insert_before ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_insert_before            (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *sibling,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Inserts a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> into a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>, before a given <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18688"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>sibling</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to insert the new <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> before.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to insert.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18709"
+></A
+><H3
+><A
+NAME="G-HOOK-INSERT-SORTED"
+></A
+>g_hook_insert_sorted ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_insert_sorted            (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKCOMPAREFUNC"
+>GHookCompareFunc</A
+> func);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Inserts a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> into a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>, sorted by the given function.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18719"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to insert.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the comparison function used to sort the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18739"
+></A
+><H3
+><A
+NAME="GHOOKCOMPAREFUNC"
+></A
+>GHookCompareFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        (*GHookCompareFunc)             (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *new_hook,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *sibling);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines the type of function used to compare <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements in
+<A
+HREF="glib-hook-functions.html#G-HOOK-INSERT-SORTED"
+>g_hook_insert_sorted</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18749"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>new_hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> being inserted.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>sibling</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to compare with <TT
+CLASS="PARAMETER"
+><I
+>new_hook</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a value &#60;= 0 if <TT
+CLASS="PARAMETER"
+><I
+>new_hook</I
+></TT
+> should be before <TT
+CLASS="PARAMETER"
+><I
+>sibling</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18771"
+></A
+><H3
+><A
+NAME="G-HOOK-COMPARE-IDS"
+></A
+>g_hook_compare_ids ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_hook_compare_ids              (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *new_hook,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *sibling);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Compares the ids of two <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements, returning a negative value
+if the second id is greater than the first.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18780"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>new_hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>sibling</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to compare with <TT
+CLASS="PARAMETER"
+><I
+>new_hook</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a value &#60;= 0 if the id of <TT
+CLASS="PARAMETER"
+><I
+>sibling</I
+></TT
+> is &#62;= the id of <TT
+CLASS="PARAMETER"
+><I
+>new_hook</I
+></TT
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18802"
+></A
+><H3
+><A
+NAME="G-HOOK-GET"
+></A
+>g_hook_get ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_get                      (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> hook_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> with the given id, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if it is not found.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18812"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a hook id.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> with the given id, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if it is not found.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18832"
+></A
+><H3
+><A
+NAME="G-HOOK-FIND"
+></A
+>g_hook_find ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_find                     (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-hook-functions.html#GHOOKFINDFUNC"
+>GHookFindFunc</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Finds a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> using the given function to test for a match.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18844"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>need_valids</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements which have been destroyed should be
+skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to call for each <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>, which should return <TT
+CLASS="LITERAL"
+>TRUE</TT
+> when
+the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> has been found.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the data to pass to <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the found <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if no matching <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is found.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18879"
+></A
+><H3
+><A
+NAME="GHOOKFINDFUNC"
+></A
+>GHookFindFunc ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    (*GHookFindFunc)                (<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines the type of the function passed to <A
+HREF="glib-hook-functions.html#G-HOOK-FIND"
+>g_hook_find</A
+>().</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18888"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>user data passed to <A
+HREF="glib-hook-functions.html#G-HOOK-FIND-FUNC"
+>g_hook_find_func</A
+>().</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the required <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> has been found.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18909"
+></A
+><H3
+><A
+NAME="G-HOOK-FIND-DATA"
+></A
+>g_hook_find_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_find_data                (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Finds a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> with the given data.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18920"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>need_valids</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements which have been destroyed should be
+skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the data to find.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> with the given <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if no matching
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is found.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18948"
+></A
+><H3
+><A
+NAME="G-HOOK-FIND-FUNC"
+></A
+>g_hook_find_func ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_find_func                (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> func);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Finds a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> with the given function.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18959"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>need_valids</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements which have been destroyed should be
+skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to find.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> with the given <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if no matching
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is found.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18987"
+></A
+><H3
+><A
+NAME="G-HOOK-FIND-FUNC-DATA"
+></A
+>g_hook_find_func_data ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_find_func_data           (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> need_valids,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> func,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Finds a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> with the given function and data.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN18999"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>need_valids</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> elements which have been destroyed should be
+skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the function to find.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the data to find.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> with the given <TT
+CLASS="PARAMETER"
+><I
+>func</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+> or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if no matching
+<A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is found.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19032"
+></A
+><H3
+><A
+NAME="G-HOOK-FIRST-VALID"
+></A
+>g_hook_first_valid ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_first_valid              (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_be_in_call);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the first <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> which has not been destroyed.
+The reference count for the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is incremented, so you must call
+<A
+HREF="glib-hook-functions.html#G-HOOK-UNREF"
+>g_hook_unref</A
+>() to restore it when no longer needed. (Or call
+<A
+HREF="glib-hook-functions.html#G-HOOK-NEXT-VALID"
+>g_hook_next_valid</A
+>() if you are stepping through the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.)</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19046"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>may_be_in_call</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if hooks which are currently running (e.g. in another
+thread) are considered valid. If set to <TT
+CLASS="LITERAL"
+>FALSE</TT
+>, these are skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the first valid <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if none are valid.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19068"
+></A
+><H3
+><A
+NAME="G-HOOK-NEXT-VALID"
+></A
+>g_hook_next_valid ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>*      g_hook_next_valid               (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook,
+                                             <A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+> may_be_in_call);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the next <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> which has not been destroyed.
+The reference count for the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is incremented, so you must call
+<A
+HREF="glib-hook-functions.html#G-HOOK-UNREF"
+>g_hook_unref</A
+>() to restore it when no longer needed. (Or continue to call
+<A
+HREF="glib-hook-functions.html#G-HOOK-NEXT-VALID"
+>g_hook_next_valid</A
+>() until <TT
+CLASS="LITERAL"
+>NULL</TT
+> is returned.)&#13;</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19083"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the current <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>may_be_in_call</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if hooks which are currently running (e.g. in another
+thread) are considered valid. If set to <TT
+CLASS="LITERAL"
+>FALSE</TT
+>, these are skipped.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the next valid <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if none are valid.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19110"
+></A
+><H3
+><A
+NAME="GHOOKFLAGMASK"
+></A
+>enum GHookFlagMask</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_HOOK_FLAG_ACTIVE	    = 1 &lt;&lt; 0,
+  G_HOOK_FLAG_IN_CALL	    = 1 &lt;&lt; 1,
+  G_HOOK_FLAG_MASK	    = 0x0f
+} GHookFlagMask;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Flags used internally in the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> implementation.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19116"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_HOOK_FLAG_ACTIVE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>set if the hook has not been destroyed.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_HOOK_FLAG_IN_CALL</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>set if the hook is currently being run.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_HOOK_FLAG_MASK</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19133"
+></A
+><H3
+><A
+NAME="G-HOOK-FLAGS-CAPS"
+></A
+>G_HOOK_FLAGS()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_HOOK_FLAGS(hook)		(G_HOOK (hook)-&gt;flags)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the flags of a hook.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19138"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19148"
+></A
+><H3
+><A
+NAME="G-HOOK-FLAG-USER-SHIFT-CAPS"
+></A
+>G_HOOK_FLAG_USER_SHIFT</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_HOOK_FLAG_USER_SHIFT	(4)</PRE
+></TD
+></TR
+></TABLE
+><P
+>The position of the first bit which is not reserved for internal
+use be the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> implementation, i.e. 
+<TT
+CLASS="LITERAL"
+>1 &#60;&#60; G_HOOK_FLAG_USER_SHIFT</TT
+> is the first bit
+which can be used for application-defined flags.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19155"
+></A
+><H3
+><A
+NAME="G-HOOK-CAPS"
+></A
+>G_HOOK()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define	G_HOOK(hook)			((GHook*) (hook))</PRE
+></TD
+></TR
+></TABLE
+><P
+>Casts a pointer to a <TT
+CLASS="LITERAL"
+>GHook*</TT
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19161"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a pointer.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19170"
+></A
+><H3
+><A
+NAME="G-HOOK-IS-VALID-CAPS"
+></A
+>G_HOOK_IS_VALID()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_HOOK_IS_VALID(hook)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is valid, i.e. it is in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>, it is active
+and it has not been destroyed.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19178"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is valid.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19194"
+></A
+><H3
+><A
+NAME="G-HOOK-ACTIVE-CAPS"
+></A
+>G_HOOK_ACTIVE()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_HOOK_ACTIVE(hook)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is active, which is normally <TT
+CLASS="LITERAL"
+>TRUE</TT
+> until the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>
+is destroyed.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19203"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is active.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19219"
+></A
+><H3
+><A
+NAME="G-HOOK-IN-CALL-CAPS"
+></A
+>G_HOOK_IN_CALL()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_HOOK_IN_CALL(hook)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> function is currently executing.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19226"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> function is currently executing.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19242"
+></A
+><H3
+><A
+NAME="G-HOOK-IS-UNLINKED-CAPS"
+></A
+>G_HOOK_IS_UNLINKED()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     G_HOOK_IS_UNLINKED(hook)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is not in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.&#13;</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19250"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is not in a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19267"
+></A
+><H3
+><A
+NAME="G-HOOK-REF"
+></A
+>g_hook_ref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_ref                      (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Increments the reference count for a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19275"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to increment the reference count of.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19290"
+></A
+><H3
+><A
+NAME="G-HOOK-UNREF"
+></A
+>g_hook_unref ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_unref                    (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Decrements the reference count of a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.
+If the reference count falls to 0, the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> is removed from the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>
+and <A
+HREF="glib-hook-functions.html#G-HOOK-FREE"
+>g_hook_free</A
+>() is called to free it.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19301"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to unref.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19316"
+></A
+><H3
+><A
+NAME="G-HOOK-FREE"
+></A
+>g_hook_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_free                     (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Calls the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> <TT
+CLASS="PARAMETER"
+><I
+>hook_free</I
+></TT
+> function if it exists, and frees the memory
+allocated for the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19326"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to free.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19341"
+></A
+><H3
+><A
+NAME="G-HOOK-DESTROY"
+></A
+>g_hook_destroy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_hook_destroy                  (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-basic-types.html#GULONG"
+>gulong</A
+> hook_id);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Destroys a <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+>, given its ID.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19350"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_id</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a hook ID.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> was found in the <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> and destroyed.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19371"
+></A
+><H3
+><A
+NAME="G-HOOK-DESTROY-LINK"
+></A
+>g_hook_destroy_link ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_hook_destroy_link             (<A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+> *hook_list,
+                                             <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> *hook);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes one <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> from a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>, marking it inactive and calling
+<A
+HREF="glib-hook-functions.html#G-HOOK-UNREF"
+>g_hook_unref</A
+>() on it. </P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN19381"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook_list</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a <A
+HREF="glib-hook-functions.html#GHOOKLIST"
+>GHookList</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hook</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the <A
+HREF="glib-hook-functions.html#GHOOK"
+>GHook</A
+> to remove.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-random-numbers.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-miscellaneous-utility-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Random Numbers</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Miscellaneous Utility Functions</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

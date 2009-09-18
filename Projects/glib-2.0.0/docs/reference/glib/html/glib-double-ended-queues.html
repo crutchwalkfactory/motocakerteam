@@ -1,0 +1,1791 @@
+<HTML
+><HEAD
+><TITLE
+>Double-ended Queues</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Data Types"
+HREF="glib-data-types.html"><LINK
+REL="PREVIOUS"
+TITLE="Singly-Linked Lists"
+HREF="glib-singly-linked-lists.html"><LINK
+REL="NEXT"
+TITLE="Trash Stacks"
+HREF="glib-trash-stacks.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-singly-linked-lists.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-data-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-trash-stacks.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-DOUBLE-ENDED-QUEUES"
+>Double-ended Queues</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN26277"
+></A
+><H2
+>Name</H2
+>Double-ended Queues&nbsp;--&nbsp;double-ended queue data structure.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN26280"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+struct      <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>;
+<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>*     <A
+HREF="glib-double-ended-queues.html#G-QUEUE-NEW"
+>g_queue_new</A
+>                     (void);
+void        <A
+HREF="glib-double-ended-queues.html#G-QUEUE-FREE"
+>g_queue_free</A
+>                    (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);
+void        <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-HEAD"
+>g_queue_push_head</A
+>               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+void        <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-TAIL"
+>g_queue_push_tail</A
+>               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-double-ended-queues.html#G-QUEUE-POP-HEAD"
+>g_queue_pop_head</A
+>                (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-double-ended-queues.html#G-QUEUE-POP-TAIL"
+>g_queue_pop_tail</A
+>                (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-double-ended-queues.html#G-QUEUE-IS-EMPTY"
+>g_queue_is_empty</A
+>                (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PEEK-HEAD"
+>g_queue_peek_head</A
+>               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);
+<A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PEEK-TAIL"
+>g_queue_peek_tail</A
+>               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);
+void        <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-HEAD-LINK"
+>g_queue_push_head_link</A
+>          (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> *link);
+void        <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-TAIL-LINK"
+>g_queue_push_tail_link</A
+>          (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> *link);
+<A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+>*      <A
+HREF="glib-double-ended-queues.html#G-QUEUE-POP-HEAD-LINK"
+>g_queue_pop_head_link</A
+>           (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);
+<A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+>*      <A
+HREF="glib-double-ended-queues.html#G-QUEUE-POP-TAIL-LINK"
+>g_queue_pop_tail_link</A
+>           (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN26321"
+></A
+><H2
+>Description</H2
+><P
+>The <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> structure and its associated functions provide a standard
+queue data structure. Internally, <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> uses the same data structure as 
+<A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> to store elements.  </P
+><P
+>The data contained in each element can be either integer values, by using one
+of the
+<A
+HREF="glib-type-conversion-macros.html"
+>Type Conversion Macros</A
+>,
+or simply pointers to any type of data.</P
+><P
+>To create a new <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>, use <A
+HREF="glib-double-ended-queues.html#G-QUEUE-NEW"
+>g_queue_new</A
+>().</P
+><P
+>To add elements, use <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-HEAD"
+>g_queue_push_head</A
+>(), <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-HEAD-LINK"
+>g_queue_push_head_link</A
+>(), 
+<A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-TAIL"
+>g_queue_push_tail</A
+>() and <A
+HREF="glib-double-ended-queues.html#G-QUEUE-PUSH-TAIL-LINK"
+>g_queue_push_tail_link</A
+>().</P
+><P
+>To remove elements, use <A
+HREF="glib-double-ended-queues.html#G-QUEUE-POP-HEAD"
+>g_queue_pop_head</A
+>() and <A
+HREF="glib-double-ended-queues.html#G-QUEUE-POP-TAIL"
+>g_queue_pop_tail</A
+>().</P
+><P
+>To free the entire queue, use <A
+HREF="glib-double-ended-queues.html#G-QUEUE-FREE"
+>g_queue_free</A
+>().</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN26342"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26344"
+></A
+><H3
+><A
+NAME="GQUEUE"
+></A
+>struct GQueue</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GQueue
+{
+  GList *head;
+  GList *tail;
+  guint  length;
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>Contains the public fields of a Queue.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26350"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>head</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a pointer to the first element of the queue.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> *<TT
+CLASS="STRUCTFIELD"
+><I
+>tail</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>a pointer to the last element of the queue.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><A
+HREF="glib-basic-types.html#GUINT"
+>guint</A
+> <TT
+CLASS="STRUCTFIELD"
+><I
+>length</I
+></TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>the number of elements in the queue.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26370"
+></A
+><H3
+><A
+NAME="G-QUEUE-NEW"
+></A
+>g_queue_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>*     g_queue_new                     (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26378"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a new <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26388"
+></A
+><H3
+><A
+NAME="G-QUEUE-FREE"
+></A
+>g_queue_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_queue_free                    (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Frees the memory allocated for the <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26396"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26406"
+></A
+><H3
+><A
+NAME="G-QUEUE-PUSH-HEAD"
+></A
+>g_queue_push_head ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_queue_push_head               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Adds a new element at the head of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26414"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the data for the new element.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26428"
+></A
+><H3
+><A
+NAME="G-QUEUE-PUSH-TAIL"
+></A
+>g_queue_push_tail ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_queue_push_tail               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Adds a new element at the tail of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26436"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the data for the new element.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26450"
+></A
+><H3
+><A
+NAME="G-QUEUE-POP-HEAD"
+></A
+>g_queue_pop_head ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_queue_pop_head                (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes the first element of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26458"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the data of the first element in the queue, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the queue
+  is empty.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26473"
+></A
+><H3
+><A
+NAME="G-QUEUE-POP-TAIL"
+></A
+>g_queue_pop_tail ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_queue_pop_tail                (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes the last element of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26481"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the data of the last element in the queue, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the queue
+  is empty.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26496"
+></A
+><H3
+><A
+NAME="G-QUEUE-IS-EMPTY"
+></A
+>g_queue_is_empty ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_queue_is_empty                (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the queue is empty.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26505"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the queue is empty.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26520"
+></A
+><H3
+><A
+NAME="G-QUEUE-PEEK-HEAD"
+></A
+>g_queue_peek_head ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_queue_peek_head               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the first element of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26528"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the data of the first element in the queue, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the queue
+  is empty.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26543"
+></A
+><H3
+><A
+NAME="G-QUEUE-PEEK-TAIL"
+></A
+>g_queue_peek_tail ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+>    g_queue_peek_tail               (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the last element of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26551"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the data of the last element in the queue, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the queue
+  is empty.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26566"
+></A
+><H3
+><A
+NAME="G-QUEUE-PUSH-HEAD-LINK"
+></A
+>g_queue_push_head_link ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_queue_push_head_link          (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> *link);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Adds a new element at the head of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26574"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>link</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a single <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> element, <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+> a list with
+  more than one element.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26590"
+></A
+><H3
+><A
+NAME="G-QUEUE-PUSH-TAIL-LINK"
+></A
+>g_queue_push_tail_link ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_queue_push_tail_link          (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue,
+                                             <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> *link);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Adds a new element at the tail of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26598"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>link</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a single <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> element, <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>not</I
+></SPAN
+> a list with
+  more than one element.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26614"
+></A
+><H3
+><A
+NAME="G-QUEUE-POP-HEAD-LINK"
+></A
+>g_queue_pop_head_link ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+>*      g_queue_pop_head_link           (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes the first element of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26622"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> element at the head of the queue, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the queue
+  is empty.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN26638"
+></A
+><H3
+><A
+NAME="G-QUEUE-POP-TAIL-LINK"
+></A
+>g_queue_pop_tail_link ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+>*      g_queue_pop_tail_link           (<A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+> *queue);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Removes the last element of the queue.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN26646"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>queue</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-double-ended-queues.html#GQUEUE"
+>GQueue</A
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the <A
+HREF="glib-doubly-linked-lists.html#GLIST"
+>GList</A
+> element at the tail of the queue, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the queue
+  is empty.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-singly-linked-lists.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-data-types.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-trash-stacks.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Singly-Linked Lists</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Trash Stacks</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

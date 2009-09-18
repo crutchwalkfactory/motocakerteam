@@ -1,0 +1,151 @@
+<refentry id="glib-Trash-Stacks">
+<refmeta>
+<refentrytitle>Trash Stacks</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GLIB Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Trash Stacks</refname><refpurpose>maintain a stack of unused allocated memory chunks.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+<synopsis>
+
+#include &lt;glib.h&gt;
+
+
+struct      <link linkend="GTrashStack">GTrashStack</link>;
+void        <link linkend="g-trash-stack-push">g_trash_stack_push</link>              (<link linkend="GTrashStack">GTrashStack</link> **stack_p,
+                                             <link linkend="gpointer">gpointer</link> data_p);
+<link linkend="gpointer">gpointer</link>    <link linkend="g-trash-stack-pop">g_trash_stack_pop</link>               (<link linkend="GTrashStack">GTrashStack</link> **stack_p);
+<link linkend="gpointer">gpointer</link>    <link linkend="g-trash-stack-peek">g_trash_stack_peek</link>              (<link linkend="GTrashStack">GTrashStack</link> **stack_p);
+<link linkend="guint">guint</link>       <link linkend="g-trash-stack-height">g_trash_stack_height</link>            (<link linkend="GTrashStack">GTrashStack</link> **stack_p);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A <link linkend="GTrashStack">GTrashStack</link> is an efficient way to keep a stack of unused allocated
+memory chunks. Each memory chunk is required to be large enough to hold
+a <link linkend="gpointer">gpointer</link>. This allows the stack to be maintained without any space
+overhead, since the stack pointers can be stored inside the memory chunks.
+</para>
+<para>
+There is no function to create a <link linkend="GTrashStack">GTrashStack</link>. A <literal>NULL</literal> <link linkend="GTrashStack">GTrashStack</link>* 
+is a perfectly valid empty stack.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GTrashStack">struct GTrashStack</title>
+<programlisting>struct GTrashStack
+{
+  GTrashStack *next;
+};
+</programlisting>
+<para>
+Each piece of memory that is pushed onto the stack
+is cast to a <structname>GTrashStack*</structname>.
+</para><informaltable pgwide="1" frame="none" role="struct">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row>
+<entry><link linkend="GTrashStack">GTrashStack</link> *<structfield>next</structfield></entry>
+<entry>pointer to the previous element of the stack,
+gets stored in the first <literal>sizeof (gpointer)</literal>
+bytes of the element.
+
+</entry>
+</row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-trash-stack-push">g_trash_stack_push ()</title>
+<programlisting>void        g_trash_stack_push              (<link linkend="GTrashStack">GTrashStack</link> **stack_p,
+                                             <link linkend="gpointer">gpointer</link> data_p);</programlisting>
+<para>
+Pushes a piece of memory onto a <link linkend="GTrashStack">GTrashStack</link>.
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>stack_p</parameter>&nbsp;:</entry>
+<entry>a pointer to a <link linkend="GTrashStack">GTrashStack</link>.
+</entry></row>
+<row><entry align="right"><parameter>data_p</parameter>&nbsp;:</entry>
+<entry>the piece of memory to push on the stack.
+
+
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-trash-stack-pop">g_trash_stack_pop ()</title>
+<programlisting><link linkend="gpointer">gpointer</link>    g_trash_stack_pop               (<link linkend="GTrashStack">GTrashStack</link> **stack_p);</programlisting>
+<para>
+Pops a piece of memory off a <link linkend="GTrashStack">GTrashStack</link>.
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>stack_p</parameter>&nbsp;:</entry>
+<entry>a pointer to a <link linkend="GTrashStack">GTrashStack</link>.
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry>the element at the top of the stack.
+
+
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-trash-stack-peek">g_trash_stack_peek ()</title>
+<programlisting><link linkend="gpointer">gpointer</link>    g_trash_stack_peek              (<link linkend="GTrashStack">GTrashStack</link> **stack_p);</programlisting>
+<para>
+Returns the element at the top of a <link linkend="GTrashStack">GTrashStack</link>.
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>stack_p</parameter>&nbsp;:</entry>
+<entry>a pointer to a <link linkend="GTrashStack">GTrashStack</link>.
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry>the element at the top of the stack.
+
+
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+<refsect2>
+<title><anchor id="g-trash-stack-height">g_trash_stack_height ()</title>
+<programlisting><link linkend="guint">guint</link>       g_trash_stack_height            (<link linkend="GTrashStack">GTrashStack</link> **stack_p);</programlisting>
+<para>
+Returns the height of a <link linkend="GTrashStack">GTrashStack</link>.
+</para><informaltable pgwide="1" frame="none" role="params">
+<tgroup cols="2">
+<colspec colwidth="2*">
+<colspec colwidth="8*">
+<tbody>
+<row><entry align="right"><parameter>stack_p</parameter>&nbsp;:</entry>
+<entry>a pointer to a <link linkend="GTrashStack">GTrashStack</link>.
+</entry></row>
+<row><entry align="right"><emphasis>Returns</emphasis> :</entry><entry>the height of the stack.
+
+
+</entry></row>
+</tbody></tgroup></informaltable></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

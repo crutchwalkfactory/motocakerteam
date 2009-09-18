@@ -1,0 +1,8098 @@
+<HTML
+><HEAD
+><TITLE
+>Unicode Manipulation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Character Set Conversion"
+HREF="glib-character-set-conversion.html"><LINK
+REL="NEXT"
+TITLE="Date and Time Functions"
+HREF="glib-date-and-time-functions.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-character-set-conversion.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-date-and-time-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-UNICODE-MANIPULATION"
+>Unicode Manipulation</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN14272"
+></A
+><H2
+>Name</H2
+>Unicode Manipulation&nbsp;--&nbsp;functions operating on Unicode characters and UTF-8 strings.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN14275"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+typedef     <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>;
+typedef     <A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+>;
+
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-VALIDATE"
+>g_unichar_validate</A
+>              (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> ch);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISALNUM"
+>g_unichar_isalnum</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISALPHA"
+>g_unichar_isalpha</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISCNTRL"
+>g_unichar_iscntrl</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISDIGIT"
+>g_unichar_isdigit</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISGRAPH"
+>g_unichar_isgraph</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISLOWER"
+>g_unichar_islower</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISPRINT"
+>g_unichar_isprint</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISPUNCT"
+>g_unichar_ispunct</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISSPACE"
+>g_unichar_isspace</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISUPPER"
+>g_unichar_isupper</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISXDIGIT"
+>g_unichar_isxdigit</A
+>              (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISTITLE"
+>g_unichar_istitle</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISDEFINED"
+>g_unichar_isdefined</A
+>             (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISWIDE"
+>g_unichar_iswide</A
+>                (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-TOUPPER"
+>g_unichar_toupper</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-TOLOWER"
+>g_unichar_tolower</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-TOTITLE"
+>g_unichar_totitle</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-DIGIT-VALUE"
+>g_unichar_digit_value</A
+>           (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-XDIGIT-VALUE"
+>g_unichar_xdigit_value</A
+>          (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+enum        <A
+HREF="glib-unicode-manipulation.html#GUNICODETYPE"
+>GUnicodeType</A
+>;
+<A
+HREF="glib-unicode-manipulation.html#GUNICODETYPE"
+>GUnicodeType</A
+> <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-TYPE"
+>g_unichar_type</A
+>                 (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+enum        <A
+HREF="glib-unicode-manipulation.html#GUNICODEBREAKTYPE"
+>GUnicodeBreakType</A
+>;
+<A
+HREF="glib-unicode-manipulation.html#GUNICODEBREAKTYPE"
+>GUnicodeBreakType</A
+> <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-BREAK-TYPE"
+>g_unichar_break_type</A
+>      (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+void        <A
+HREF="glib-unicode-manipulation.html#G-UNICODE-CANONICAL-ORDERING"
+>g_unicode_canonical_ordering</A
+>    (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> *string,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> len);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   <A
+HREF="glib-unicode-manipulation.html#G-UNICODE-CANONICAL-DECOMPOSITION"
+>g_unicode_canonical_decomposition</A
+>
+                                            (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> ch,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *result_len);
+
+#define     <A
+HREF="glib-unicode-manipulation.html#G-UTF8-NEXT-CHAR"
+>g_utf8_next_char</A
+>                (p)
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR-VALIDATED"
+>g_utf8_get_char_validated</A
+>       (const  <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> max_len);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-OFFSET-TO-POINTER"
+>g_utf8_offset_to_pointer</A
+>        (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> offset);
+<A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+>       <A
+HREF="glib-unicode-manipulation.html#G-UTF8-POINTER-TO-OFFSET"
+>g_utf8_pointer_to_offset</A
+>        (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *pos);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-PREV-CHAR"
+>g_utf8_prev_char</A
+>                (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-FIND-NEXT-CHAR"
+>g_utf8_find_next_char</A
+>           (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *end);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-FIND-PREV-CHAR"
+>g_utf8_find_prev_char</A
+>           (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p);
+<A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+>       <A
+HREF="glib-unicode-manipulation.html#G-UTF8-STRLEN"
+>g_utf8_strlen</A
+>                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> max);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-STRNCPY"
+>g_utf8_strncpy</A
+>                  (<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *dest,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *src,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> n);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-STRCHR"
+>g_utf8_strchr</A
+>                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-STRRCHR"
+>g_utf8_strrchr</A
+>                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-unicode-manipulation.html#G-UTF8-VALIDATE"
+>g_utf8_validate</A
+>                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> max_len,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **end);
+
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-STRUP"
+>g_utf8_strup</A
+>                    (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-STRDOWN"
+>g_utf8_strdown</A
+>                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-CASEFOLD"
+>g_utf8_casefold</A
+>                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-NORMALIZE"
+>g_utf8_normalize</A
+>                (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-unicode-manipulation.html#GNORMALIZEMODE"
+>GNormalizeMode</A
+> mode);
+enum        <A
+HREF="glib-unicode-manipulation.html#GNORMALIZEMODE"
+>GNormalizeMode</A
+>;
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-unicode-manipulation.html#G-UTF8-COLLATE"
+>g_utf8_collate</A
+>                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str1,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str2);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF8-COLLATE-KEY"
+>g_utf8_collate_key</A
+>              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);
+
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+>*  <A
+HREF="glib-unicode-manipulation.html#G-UTF8-TO-UTF16"
+>g_utf8_to_utf16</A
+>                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   <A
+HREF="glib-unicode-manipulation.html#G-UTF8-TO-UCS4"
+>g_utf8_to_ucs4</A
+>                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   <A
+HREF="glib-unicode-manipulation.html#G-UTF8-TO-UCS4-FAST"
+>g_utf8_to_ucs4_fast</A
+>             (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   <A
+HREF="glib-unicode-manipulation.html#G-UTF16-TO-UCS4"
+>g_utf16_to_ucs4</A
+>                 (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UTF16-TO-UTF8"
+>g_utf16_to_utf8</A
+>                 (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+>*  <A
+HREF="glib-unicode-manipulation.html#G-UCS4-TO-UTF16"
+>g_ucs4_to_utf16</A
+>                 (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-unicode-manipulation.html#G-UCS4-TO-UTF8"
+>g_ucs4_to_utf8</A
+>                  (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-TO-UTF8"
+>g_unichar_to_utf8</A
+>               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *outbuf);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN14483"
+></A
+><H2
+>Description</H2
+><P
+>This section describes a number of functions for dealing with
+Unicode characters and strings.  There are analogues of the
+traditional <TT
+CLASS="FILENAME"
+>ctype.h</TT
+> character classification
+and case conversion functions, UTF-8 analogues of some string utility 
+functions, functions to perform normalization, case conversion and
+collation on UTF-8 strings and finally functions to convert between
+the UTF-8, UTF-16 and UCS-4 encodings of Unicode.</P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN14487"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14489"
+></A
+><H3
+><A
+NAME="GUNICHAR"
+></A
+>gunichar</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef guint32 gunichar;</PRE
+></TD
+></TR
+></TABLE
+><P
+>A type which can hold any UCS-4 character code. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14494"
+></A
+><H3
+><A
+NAME="GUNICHAR2"
+></A
+>gunichar2</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef guint16 gunichar2;</PRE
+></TD
+></TR
+></TABLE
+><P
+>A type which can hold any UTF-16 character code. </P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14499"
+></A
+><H3
+><A
+NAME="G-UNICHAR-VALIDATE"
+></A
+>g_unichar_validate ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_validate              (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> ch);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Checks whether <TT
+CLASS="PARAMETER"
+><I
+>ch</I
+></TT
+> is a valid Unicode character. Some possible
+integer values of <TT
+CLASS="PARAMETER"
+><I
+>ch</I
+></TT
+> will not be valid. 0 is considered a valid
+character, though it's normally a string terminator.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14509"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>ch</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>ch</I
+></TT
+> is a valid Unicode character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14524"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISALNUM"
+></A
+>g_unichar_isalnum ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isalnum               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is alphanumeric.
+Given some UTF-8 text, obtain a character value
+with <A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14533"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is an alphanumeric character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14548"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISALPHA"
+></A
+>g_unichar_isalpha ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isalpha               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is alphabetic (i.e. a letter).
+Given some UTF-8 text, obtain a character value with
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14557"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is an alphabetic character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14572"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISCNTRL"
+></A
+>g_unichar_iscntrl ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_iscntrl               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is a control character.
+Given some UTF-8 text, obtain a character value with
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14581"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is a control character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14596"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISDIGIT"
+></A
+>g_unichar_isdigit ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isdigit               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is numeric (i.e. a digit).  This
+covers ASCII 0-9 and also digits in other languages/scripts.  Given
+some UTF-8 text, obtain a character value with <A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14605"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is a digit</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14620"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISGRAPH"
+></A
+>g_unichar_isgraph ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isgraph               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is printable and not a space
+(returns <TT
+CLASS="LITERAL"
+>FALSE</TT
+> for control characters, format characters, and
+spaces). <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISPRINT"
+>g_unichar_isprint</A
+>() is similar, but returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> for
+spaces. Given some UTF-8 text, obtain a character value with
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14632"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is printable unless it's a space</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14647"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISLOWER"
+></A
+>g_unichar_islower ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_islower               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is a lowercase letter.
+Given some UTF-8 text, obtain a character value with
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14656"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is a lowercase letter</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14671"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISPRINT"
+></A
+>g_unichar_isprint ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isprint               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is printable.
+Unlike <A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISGRAPH"
+>g_unichar_isgraph</A
+>(), returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> for spaces.
+Given some UTF-8 text, obtain a character value with
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14682"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is printable</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14697"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISPUNCT"
+></A
+>g_unichar_ispunct ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_ispunct               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is punctuation or a symbol.
+Given some UTF-8 text, obtain a character value with
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14706"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is a punctuation or symbol character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14721"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISSPACE"
+></A
+>g_unichar_isspace ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isspace               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines whether a character is a space, tab, or line separator
+(newline, carriage return, etc.).  Given some UTF-8 text, obtain a
+character value with <A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>().</P
+><P
+>(Note: don't use this to do word breaking; you have to use
+Pango or equivalent to get word breaking right, the algorithm
+is fairly complex.)</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14731"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is a punctuation character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14746"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISUPPER"
+></A
+>g_unichar_isupper ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isupper               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines if a character is uppercase.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14754"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is an uppercase character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14769"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISXDIGIT"
+></A
+>g_unichar_isxdigit ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isxdigit              (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines if a character is a hexidecimal digit.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14777"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the character is a hexadecimal digit</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14791"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISTITLE"
+></A
+>g_unichar_istitle ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_istitle               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines if a character is titlecase. Some characters in
+Unicode which are composites, such as the DZ digraph
+have three case variants instead of just two. The titlecase
+form is used at the beginning of a word where only the
+first letter is capitalized. The titlecase form of the DZ
+digraph is U+01F2 LATIN CAPITAL LETTTER D WITH SMALL LETTER Z.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14799"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the character is titlecase</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14813"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISDEFINED"
+></A
+>g_unichar_isdefined ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_isdefined             (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines if a given character is assigned in the Unicode
+standard.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14821"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the character has an assigned value</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14835"
+></A
+><H3
+><A
+NAME="G-UNICHAR-ISWIDE"
+></A
+>g_unichar_iswide ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_unichar_iswide                (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines if a character is typically rendered in a double-width
+cell.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14843"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the character is wide</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14857"
+></A
+><H3
+><A
+NAME="G-UNICHAR-TOUPPER"
+></A
+>g_unichar_toupper ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    g_unichar_toupper               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a character to uppercase.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14865"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the result of converting <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> to uppercase.
+              If <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is not an lowercase or titlecase character,
+              or has no upper case equivalent <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is returned unchanged.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14881"
+></A
+><H3
+><A
+NAME="G-UNICHAR-TOLOWER"
+></A
+>g_unichar_tolower ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    g_unichar_tolower               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a character to lower case.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14889"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the result of converting <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> to lower case.
+              If <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is not an upperlower or titlecase character,
+              or has no lowercase equivalent <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is returned unchanged.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14905"
+></A
+><H3
+><A
+NAME="G-UNICHAR-TOTITLE"
+></A
+>g_unichar_totitle ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    g_unichar_totitle               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a character to the titlecase.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14913"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the result of converting <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> to titlecase.
+              If <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is not an uppercase or lowercase character,
+              <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is returned unchanged.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14929"
+></A
+><H3
+><A
+NAME="G-UNICHAR-DIGIT-VALUE"
+></A
+>g_unichar_digit_value ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_unichar_digit_value           (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines the numeric value of a character as a decimal
+digit.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14937"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> If <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is a decimal digit (according to
+<A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISDIGIT"
+>g_unichar_isdigit</A
+>()), its numeric value. Otherwise, -1.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14952"
+></A
+><H3
+><A
+NAME="G-UNICHAR-XDIGIT-VALUE"
+></A
+>g_unichar_xdigit_value ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_unichar_xdigit_value          (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines the numeric value of a character as a hexidecimal
+digit.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14960"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> If <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> is a hex digit (according to
+<A
+HREF="glib-unicode-manipulation.html#G-UNICHAR-ISXDIGIT"
+>g_unichar_isxdigit</A
+>()), its numeric value. Otherwise, -1.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14975"
+></A
+><H3
+><A
+NAME="GUNICODETYPE"
+></A
+>enum GUnicodeType</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_UNICODE_CONTROL,
+  G_UNICODE_FORMAT,
+  G_UNICODE_UNASSIGNED,
+  G_UNICODE_PRIVATE_USE,
+  G_UNICODE_SURROGATE,
+  G_UNICODE_LOWERCASE_LETTER,
+  G_UNICODE_MODIFIER_LETTER,
+  G_UNICODE_OTHER_LETTER,
+  G_UNICODE_TITLECASE_LETTER,
+  G_UNICODE_UPPERCASE_LETTER,
+  G_UNICODE_COMBINING_MARK,
+  G_UNICODE_ENCLOSING_MARK,
+  G_UNICODE_NON_SPACING_MARK,
+  G_UNICODE_DECIMAL_NUMBER,
+  G_UNICODE_LETTER_NUMBER,
+  G_UNICODE_OTHER_NUMBER,
+  G_UNICODE_CONNECT_PUNCTUATION,
+  G_UNICODE_DASH_PUNCTUATION,
+  G_UNICODE_CLOSE_PUNCTUATION,
+  G_UNICODE_FINAL_PUNCTUATION,
+  G_UNICODE_INITIAL_PUNCTUATION,
+  G_UNICODE_OTHER_PUNCTUATION,
+  G_UNICODE_OPEN_PUNCTUATION,
+  G_UNICODE_CURRENCY_SYMBOL,
+  G_UNICODE_MODIFIER_SYMBOL,
+  G_UNICODE_MATH_SYMBOL,
+  G_UNICODE_OTHER_SYMBOL,
+  G_UNICODE_LINE_SEPARATOR,
+  G_UNICODE_PARAGRAPH_SEPARATOR,
+  G_UNICODE_SPACE_SEPARATOR
+} GUnicodeType;</PRE
+></TD
+></TR
+></TABLE
+><P
+>These are the possible character classifications.
+See <A
+HREF="http://www.unicode.org/Public/UNIDATA/UnicodeData.html"
+TARGET="_top"
+>http://www.unicode.org/Public/UNIDATA/UnicodeData.html</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14981"
+></A
+><H3
+><A
+NAME="G-UNICHAR-TYPE"
+></A
+>g_unichar_type ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICODETYPE"
+>GUnicodeType</A
+> g_unichar_type                 (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Classifies a Unicode character by type.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14989"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the type of the character.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15002"
+></A
+><H3
+><A
+NAME="GUNICODEBREAKTYPE"
+></A
+>enum GUnicodeBreakType</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_UNICODE_BREAK_MANDATORY,
+  G_UNICODE_BREAK_CARRIAGE_RETURN,
+  G_UNICODE_BREAK_LINE_FEED,
+  G_UNICODE_BREAK_COMBINING_MARK,
+  G_UNICODE_BREAK_SURROGATE,
+  G_UNICODE_BREAK_ZERO_WIDTH_SPACE,
+  G_UNICODE_BREAK_INSEPARABLE,
+  G_UNICODE_BREAK_NON_BREAKING_GLUE,
+  G_UNICODE_BREAK_CONTINGENT,
+  G_UNICODE_BREAK_SPACE,
+  G_UNICODE_BREAK_AFTER,
+  G_UNICODE_BREAK_BEFORE,
+  G_UNICODE_BREAK_BEFORE_AND_AFTER,
+  G_UNICODE_BREAK_HYPHEN,
+  G_UNICODE_BREAK_NON_STARTER,
+  G_UNICODE_BREAK_OPEN_PUNCTUATION,
+  G_UNICODE_BREAK_CLOSE_PUNCTUATION,
+  G_UNICODE_BREAK_QUOTATION,
+  G_UNICODE_BREAK_EXCLAMATION,
+  G_UNICODE_BREAK_IDEOGRAPHIC,
+  G_UNICODE_BREAK_NUMERIC,
+  G_UNICODE_BREAK_INFIX_SEPARATOR,
+  G_UNICODE_BREAK_SYMBOL,
+  G_UNICODE_BREAK_ALPHABETIC,
+  G_UNICODE_BREAK_PREFIX,
+  G_UNICODE_BREAK_POSTFIX,
+  G_UNICODE_BREAK_COMPLEX_CONTEXT,
+  G_UNICODE_BREAK_AMBIGUOUS,
+  G_UNICODE_BREAK_UNKNOWN
+} GUnicodeBreakType;</PRE
+></TD
+></TR
+></TABLE
+><P
+>These are the possible line break classifications.
+See <A
+HREF="http://www.unicode.org/unicode/reports/tr14/"
+TARGET="_top"
+>http://www.unicode.org/unicode/reports/tr14/</A
+>.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15008"
+></A
+><H3
+><A
+NAME="G-UNICHAR-BREAK-TYPE"
+></A
+>g_unichar_break_type ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICODEBREAKTYPE"
+>GUnicodeBreakType</A
+> g_unichar_break_type      (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Determines the break type of <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>. <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> should be a Unicode character
+(to derive a character from UTF-8 encoded text, use
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR"
+>g_utf8_get_char</A
+>()). The break type is used to find word and line
+breaks ("text boundaries"), Pango implements the Unicode boundary
+resolution algorithms and normally you would use a function such
+as <A
+HREF=../pango/pango-text-processing.html#PANGO-BREAK
+>pango_break</A>() instead of caring about break types yourself.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15020"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the break type of <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15034"
+></A
+><H3
+><A
+NAME="G-UNICODE-CANONICAL-ORDERING"
+></A
+>g_unicode_canonical_ordering ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_unicode_canonical_ordering    (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> *string,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Computes the canonical ordering of a string in-place.  
+This rearranges decomposed characters in the string 
+according to their combining classes.  See the Unicode 
+manual for more information.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15042"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UCS-4 encoded string.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>string</I
+></TT
+> to use.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15056"
+></A
+><H3
+><A
+NAME="G-UNICODE-CANONICAL-DECOMPOSITION"
+></A
+>g_unicode_canonical_decomposition ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   g_unicode_canonical_decomposition
+                                            (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> ch,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *result_len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Computes the canonical decomposition of a Unicode character.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15065"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>ch</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a Unicode character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>result_len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the length of the return value.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly allocated string of Unicode characters.
+  <TT
+CLASS="PARAMETER"
+><I
+>result_len</I
+></TT
+> is set to the resulting length of the string.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15083"
+></A
+><H3
+><A
+NAME="G-UTF8-NEXT-CHAR"
+></A
+>g_utf8_next_char()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     g_utf8_next_char(p)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Skips to the next character in a UTF-8 string. The string must be
+valid; this macro is as fast as possible, and has no error-checking.
+You would use this macro to iterate over a string character by
+character. The macro returns the start of the next UTF-8 character.
+Before using this macro, use <A
+HREF="glib-unicode-manipulation.html#G-UTF8-VALIDATE"
+>g_utf8_validate</A
+>() to validate strings
+that may contain invalid UTF-8.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15089"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Pointer to the start of a valid UTF-8 character.
+&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15098"
+></A
+><H3
+><A
+NAME="G-UTF8-GET-CHAR"
+></A
+>g_utf8_get_char ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    g_utf8_get_char                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
+If <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> does not point to a valid UTF-8 encoded character, results are
+undefined. If you are not sure that the bytes are complete
+valid Unicode characters, you should use <A
+HREF="glib-unicode-manipulation.html#G-UTF8-GET-CHAR-VALIDATED"
+>g_utf8_get_char_validated</A
+>()
+instead.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15108"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to Unicode character encoded as UTF-8</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the resulting character</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15121"
+></A
+><H3
+><A
+NAME="G-UTF8-GET-CHAR-VALIDATED"
+></A
+>g_utf8_get_char_validated ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>    g_utf8_get_char_validated       (const  <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> max_len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a sequence of bytes encoded as UTF-8 to a Unicode character.
+This function checks for incomplete characters, for invalid characters
+such as characters that are out of the range of Unicode, and for
+overlong encodings of valid characters.</P
+><P
+>Return value: the resulting character. If <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> points to a partial
+   sequence at the end of a string that could begin a valid character,</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15132"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to Unicode character encoded as UTF-8</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>max_len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum number of bytes to read, or -1, for no maximum.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>(gunichar)-2; otherwise, if <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> does not point to a valid
+   UTF-8 encoded Unicode character, returns (gunichar)-1.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15150"
+></A
+><H3
+><A
+NAME="G-UTF8-OFFSET-TO-POINTER"
+></A
+>g_utf8_offset_to_pointer ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_offset_to_pointer        (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> offset);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts from an integer character offset to a pointer to a position
+within the string.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15159"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>offset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a character offset within <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the resulting pointer</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15177"
+></A
+><H3
+><A
+NAME="G-UTF8-POINTER-TO-OFFSET"
+></A
+>g_utf8_pointer_to_offset ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+>       g_utf8_pointer_to_offset        (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *pos);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts from a pointer to position within a string to a integer
+character offset.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15186"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>pos</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a position within <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the resulting character offset</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15204"
+></A
+><H3
+><A
+NAME="G-UTF8-PREV-CHAR"
+></A
+>g_utf8_prev_char ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_prev_char                (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Finds the previous UTF-8 character in the string before <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> does not have to be at the beginning of a UTF-8 character. No check
+is made to see if the character found is actually valid other than
+it starts with an appropriate byte. If <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> might be the first
+character of the string, you must use <A
+HREF="glib-unicode-manipulation.html#G-UTF8-FIND-PREV-CHAR"
+>g_utf8_find_prev_char</A
+>() instead.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15217"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a position within a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to the found character.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15230"
+></A
+><H3
+><A
+NAME="G-UTF8-FIND-NEXT-CHAR"
+></A
+>g_utf8_find_next_char ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_find_next_char           (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *end);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Finds the start of the next UTF-8 character in the string after <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> does not have to be at the beginning of a UTF-8 character. No check
+is made to see if the character found is actually valid other than
+it starts with an appropriate byte.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15242"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a position within a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to the end of the string, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to indicate
+       that the string is nul-terminated, in which case
+       the returned value will be </TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to the found character or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15261"
+></A
+><H3
+><A
+NAME="G-UTF8-FIND-PREV-CHAR"
+></A
+>g_utf8_find_prev_char ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_find_prev_char           (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Given a position <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> with a UTF-8 encoded string <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>, find the start
+of the previous UTF-8 character starting before <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>. Returns <TT
+CLASS="LITERAL"
+>NULL</TT
+> if no
+UTF-8 characters are present in <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> before <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>.</P
+><P
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> does not have to be at the beginning of a UTF-8 character. No check
+is made to see if the character found is actually valid other than
+it starts with an appropriate byte.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15278"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> pointer to the beginning of a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> pointer to some position within <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to the found character or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15297"
+></A
+><H3
+><A
+NAME="G-UTF8-STRLEN"
+></A
+>g_utf8_strlen ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+>       g_utf8_strlen                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> max);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Returns the length of the string in characters.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15306"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> pointer to the start of a UTF-8 encoded string.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>max</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum number of bytes to examine. If <TT
+CLASS="PARAMETER"
+><I
+>max</I
+></TT
+>
+      is less than 0, then the string is assumed to be
+      nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the length of the string in characters</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15324"
+></A
+><H3
+><A
+NAME="G-UTF8-STRNCPY"
+></A
+>g_utf8_strncpy ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_strncpy                  (<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *dest,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *src,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> n);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Like the standard C <TT
+CLASS="FUNCTION"
+>strncpy()</TT
+> function, but 
+copies a given number of characters instead of a given number of 
+bytes. The <TT
+CLASS="PARAMETER"
+><I
+>src</I
+></TT
+> string must be valid UTF-8 encoded text. 
+(Use <A
+HREF="glib-unicode-manipulation.html#G-UTF8-VALIDATE"
+>g_utf8_validate</A
+>() on all text before trying to use UTF-8 
+utility functions with it.)</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15338"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>dest</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> buffer to fill with characters from <TT
+CLASS="PARAMETER"
+><I
+>src</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>src</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>n</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> character count</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="PARAMETER"
+><I
+>dest</I
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15361"
+></A
+><H3
+><A
+NAME="G-UTF8-STRCHR"
+></A
+>g_utf8_strchr ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_strchr                   (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Finds the leftmost occurrence of the given ISO10646 character
+in a UTF-8 encoded string, while limiting the search to <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> bytes.
+If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> is -1, allow unbounded search.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15373"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a nul-terminated UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a ISO10646 character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the string does not contain the character, 
+  otherwise, a pointer to the start of the leftmost occurrence of 
+  the character in the string.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15396"
+></A
+><H3
+><A
+NAME="G-UTF8-STRRCHR"
+></A
+>g_utf8_strrchr ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_strrchr                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *p,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Find the rightmost occurrence of the given ISO10646 character
+in a UTF-8 encoded string, while limiting the search to <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> bytes.
+If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> is -1, allow unbounded search.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15408"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a nul-terminated UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a ISO10646 character</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>NULL</TT
+> if the string does not contain the character, 
+  otherwise, a pointer to the start of the rightmost occurrence of the 
+  character in the string.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15431"
+></A
+><H3
+><A
+NAME="G-UTF8-VALIDATE"
+></A
+>g_utf8_validate ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_utf8_validate                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> max_len,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **end);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Validates UTF-8 encoded text. <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> is the text to validate;
+if <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> is nul-terminated, then <TT
+CLASS="PARAMETER"
+><I
+>max_len</I
+></TT
+> can be -1, otherwise
+<TT
+CLASS="PARAMETER"
+><I
+>max_len</I
+></TT
+> should be the number of bytes to validate.
+If <TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+> is non-<TT
+CLASS="LITERAL"
+>NULL</TT
+>, then the end of the valid range
+will be stored there (i.e. the address of the first invalid byte
+if some bytes were invalid, or the end of the text being validated
+otherwise).</P
+><P
+>Returns <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if all of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> was valid. Many GLib and GTK+
+routines <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>require</I
+></SPAN
+> valid UTF-8 as input;
+so data read from a file or the network should be checked
+with <A
+HREF="glib-unicode-manipulation.html#G-UTF8-VALIDATE"
+>g_utf8_validate</A
+>() before doing anything else with it.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15452"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to character data</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>max_len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> max bytes to validate, or -1 to go until nul</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>end</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for end of valid data</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the text was valid UTF-8</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15474"
+></A
+><H3
+><A
+NAME="G-UTF8-STRUP"
+></A
+>g_utf8_strup ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_strup                    (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts all Unicode characters in the string that have a case
+to uppercase. The exact manner that this is done depends
+on the current locale, and may result in the number of
+characters in the string increasing. (For instance, the
+German ess-zet will be changed to SS.)</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15483"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>, in bytes, or -1 if <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly allocated string, with all characters
+   converted to uppercase.  </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15502"
+></A
+><H3
+><A
+NAME="G-UTF8-STRDOWN"
+></A
+>g_utf8_strdown ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_strdown                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts all Unicode characters in the string that have a case
+to lowercase. The exact manner that this is done depends
+on the current locale, and may result in the number of
+characters in the string changing.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15511"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>, in bytes, or -1 if <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly allocated string, with all characters
+   converted to lowercase.  </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15530"
+></A
+><H3
+><A
+NAME="G-UTF8-CASEFOLD"
+></A
+>g_utf8_casefold ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_casefold                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string into a form that is independent of case. The
+result will not correspond to any particular case, but can be
+compared for equality or ordered with the results of calling
+<A
+HREF="glib-unicode-manipulation.html#G-UTF8-CASEFOLD"
+>g_utf8_casefold</A
+>() on other strings.</P
+><P
+>Note that calling <A
+HREF="glib-unicode-manipulation.html#G-UTF8-CASEFOLD"
+>g_utf8_casefold</A
+>() followed by <A
+HREF="glib-unicode-manipulation.html#G-UTF8-COLLATE"
+>g_utf8_collate</A
+>() is
+only an approximation to the correct linguistic case insensitive
+ordering, though it is a fairly good one. Getting this exactly
+right would require a more sophisticated collation function that
+takes case sensitivity into account. GLib does not currently
+provide such a function.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15543"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>, in bytes, or -1 if <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly allocated string, that is a
+  case independent form of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15563"
+></A
+><H3
+><A
+NAME="G-UTF8-NORMALIZE"
+></A
+>g_utf8_normalize ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_normalize                (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-unicode-manipulation.html#GNORMALIZEMODE"
+>GNormalizeMode</A
+> mode);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string into canonical form, standardizing
+such issues as whether a character with an accent
+is represented as a base character and combining
+accent or as a single precomposed character. You
+should generally call <A
+HREF="glib-unicode-manipulation.html#G-UTF8-NORMALIZE"
+>g_utf8_normalize</A
+>() before
+comparing two Unicode strings.</P
+><P
+>The normalization mode <TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT</TT
+> only
+standardizes differences that do not affect the
+text content, such as the above-mentioned accent
+representation. <TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL</TT
+> also standardizes
+the "compatibility" characters in Unicode, such
+as SUPERSCRIPT THREE to the standard forms
+(in this case DIGIT THREE). Formatting information
+may be lost but for most text operations such
+characters should be considered the same.
+For example, <A
+HREF="glib-unicode-manipulation.html#G-UTF8-COLLATE"
+>g_utf8_collate</A
+>() normalizes
+with <TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL</TT
+> as its first step.</P
+><P
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT_COMPOSE</TT
+> and <TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL_COMPOSE</TT
+>
+are like <TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT</TT
+> and <TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL</TT
+>,
+but returned a result with composed forms rather
+than a maximally decomposed form. This is often
+useful if you intend to convert the string to
+a legacy encoding or pass it to a system with
+less capable Unicode handling.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15584"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>, in bytes, or -1 if <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>mode</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the type of normalization to perform.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly allocated string, that is the 
+  normalized form of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15608"
+></A
+><H3
+><A
+NAME="GNORMALIZEMODE"
+></A
+>enum GNormalizeMode</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum {
+  G_NORMALIZE_DEFAULT,
+  G_NORMALIZE_NFD = G_NORMALIZE_DEFAULT,
+  G_NORMALIZE_DEFAULT_COMPOSE,
+  G_NORMALIZE_NFC = G_NORMALIZE_DEFAULT_COMPOSE,
+  G_NORMALIZE_ALL,
+  G_NORMALIZE_NFKD = G_NORMALIZE_ALL,
+  G_NORMALIZE_ALL_COMPOSE,
+  G_NORMALIZE_NFKC = G_NORMALIZE_ALL_COMPOSE
+} GNormalizeMode;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Defines how a Unicode string is transformed in a canonical 
+form, standardizing such issues as whether a character with an accent is 
+represented as a base character and combining accent or as a single precomposed
+character. Unicode strings should generally be normalized before comparing them.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15613"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>standardize differences that do not affect the
+  text content, such as the above-mentioned accent representation.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_NFD</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>another name for <TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT_COMPOSE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>like <TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT</TT
+>, but with composed
+  forms rather than a maximally decomposed form.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_NFC</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>another name for <TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT_COMPOSE</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>beyond <TT
+CLASS="LITERAL"
+>G_NORMALIZE_DEFAULT</TT
+> also standardize the 
+  "compatibility" characters in Unicode, such as SUPERSCRIPT THREE to the 
+  standard forms (in this case DIGIT THREE). Formatting information may be 
+  lost but for most text operations such characters should be considered the 
+  same.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_NFKD</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>another name for <TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL_COMPOSE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>like <TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL</TT
+>, but with composed
+  forms rather than a maximally decomposed form.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_NORMALIZE_NFKC</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>another name for <TT
+CLASS="LITERAL"
+>G_NORMALIZE_ALL_COMPOSE</TT
+>.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15657"
+></A
+><H3
+><A
+NAME="G-UTF8-COLLATE"
+></A
+>g_utf8_collate ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_utf8_collate                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str1,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str2);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Compares two strings for ordering using the linguistically
+correct rules for the current locale. When sorting a large
+number of strings, it will be significantly faster to
+obtain collation keys with <A
+HREF="glib-unicode-manipulation.html#G-UTF8-COLLATE-KEY"
+>g_utf8_collate_key</A
+>() and 
+compare the keys with <TT
+CLASS="FUNCTION"
+>strcmp()</TT
+> when 
+sorting instead of sorting the original strings.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15669"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str1</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str2</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> -1 if <TT
+CLASS="PARAMETER"
+><I
+>str1</I
+></TT
+> compares before <TT
+CLASS="PARAMETER"
+><I
+>str2</I
+></TT
+>, 0 if they
+  compare equal, 1 if <TT
+CLASS="PARAMETER"
+><I
+>str1</I
+></TT
+> compares after <TT
+CLASS="PARAMETER"
+><I
+>str2</I
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15690"
+></A
+><H3
+><A
+NAME="G-UTF8-COLLATE-KEY"
+></A
+>g_utf8_collate_key ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf8_collate_key              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string into a collation key that can be compared
+with other collation keys using <TT
+CLASS="FUNCTION"
+>strcmp()</TT
+>. 
+The results of comparing the collation keys of two strings 
+with <TT
+CLASS="FUNCTION"
+>strcmp()</TT
+> will always be the same as 
+comparing the two original keys with <A
+HREF="glib-unicode-manipulation.html#G-UTF8-COLLATE"
+>g_utf8_collate</A
+>().</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15704"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>, in bytes, or -1 if <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly allocated string. This string should
+  be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>() when you are done with it.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15724"
+></A
+><H3
+><A
+NAME="G-UTF8-TO-UTF16"
+></A
+>g_utf8_to_utf16 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+>*  g_utf8_to_utf16                 (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a string from UTF-8 to UTF-16. A 0 word will be
+added to the result after the converted text.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15736"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> to use. If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> &#60; 0, then
+      the string is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of bytes read, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+             If <TT
+CLASS="LITERAL"
+>NULL</TT
+>, then <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_PARTIAL_INPUT</TT
+> will be
+             returned in case <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> contains a trailing partial
+             character. If an error occurs then the index of the
+             invalid input is stored here.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of words written, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                The value stored here does not include the trailing
+                0 word.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> other than
+        <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NO_CONVERSION</TT
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a newly allocated UTF-16 string.
+              This value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). If an
+              error occurs, <TT
+CLASS="LITERAL"
+>NULL</TT
+> will be returned and
+              <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15778"
+></A
+><H3
+><A
+NAME="G-UTF8-TO-UCS4"
+></A
+>g_utf8_to_ucs4 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   g_utf8_to_ucs4                  (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a string from UTF-8 to a 32-bit fixed width
+representation as UCS-4. A trailing 0 will be added to the
+string after the converted text.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15790"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> to use. If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> &#60; 0, then
+      the string is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of bytes read, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+             If <TT
+CLASS="LITERAL"
+>NULL</TT
+>, then <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_PARTIAL_INPUT</TT
+> will be
+             returned in case <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> contains a trailing partial
+             character. If an error occurs then the index of the
+             invalid input is stored here.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of characters written or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                The value here stored does not include the trailing 0
+                character. </TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> other than
+        <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NO_CONVERSION</TT
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a newly allocated UCS-4 string.
+              This value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). If an
+              error occurs, <TT
+CLASS="LITERAL"
+>NULL</TT
+> will be returned and
+              <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15832"
+></A
+><H3
+><A
+NAME="G-UTF8-TO-UCS4-FAST"
+></A
+>g_utf8_to_ucs4_fast ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   g_utf8_to_ucs4_fast             (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a string from UTF-8 to a 32-bit fixed width
+representation as UCS-4, assuming valid UTF-8 input.
+This function is roughly twice as fast as <A
+HREF="glib-unicode-manipulation.html#G-UTF8-TO-UCS4"
+>g_utf8_to_ucs4</A
+>()
+but does no error checking on the input.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15843"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-8 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> to use. If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> &#60; 0, then
+      the string is nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the number of characters in the
+                result, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a newly allocated UCS-4 string.
+              This value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>().</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15868"
+></A
+><H3
+><A
+NAME="G-UTF16-TO-UCS4"
+></A
+>g_utf16_to_ucs4 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+>*   g_utf16_to_ucs4                 (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a string from UTF-16 to UCS-4. The result will be
+terminated with a 0 character.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15880"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-16 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> to use. If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> &#60; 0, then
+      the string is terminated with a 0 character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of words read, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+             If <TT
+CLASS="LITERAL"
+>NULL</TT
+>, then <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_PARTIAL_INPUT</TT
+> will be
+             returned in case <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> contains a trailing partial
+             character. If an error occurs then the index of the
+             invalid input is stored here.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of characters written, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                The value stored here does not include the trailing
+                0 character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> other than
+        <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NO_CONVERSION</TT
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a newly allocated UCS-4 string.
+              This value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). If an
+              error occurs, <TT
+CLASS="LITERAL"
+>NULL</TT
+> will be returned and
+              <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15922"
+></A
+><H3
+><A
+NAME="G-UTF16-TO-UTF8"
+></A
+>g_utf16_to_utf8 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_utf16_to_utf8                 (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a string from UTF-16 to UTF-8. The result will be
+terminated with a 0 byte.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15934"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UTF-16 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> to use. If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> &#60; 0, then
+      the string is terminated with a 0 character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of words read, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+             If <TT
+CLASS="LITERAL"
+>NULL</TT
+>, then <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_PARTIAL_INPUT</TT
+> will be
+             returned in case <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> contains a trailing partial
+             character. If an error occurs then the index of the
+             invalid input is stored here.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of bytes written, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                The value stored here does not include the trailing
+                0 byte.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> other than
+        <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NO_CONVERSION</TT
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a newly allocated UTF-8 string.
+              This value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). If an
+              error occurs, <TT
+CLASS="LITERAL"
+>NULL</TT
+> will be returned and
+              <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN15976"
+></A
+><H3
+><A
+NAME="G-UCS4-TO-UTF16"
+></A
+>g_ucs4_to_utf16 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-unicode-manipulation.html#GUNICHAR2"
+>gunichar2</A
+>*  g_ucs4_to_utf16                 (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a string from UCS-4 to UTF-16. A 0 word will be
+added to the result after the converted text.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN15988"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UCS-4 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> to use. If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> &#60; 0, then
+      the string is terminated with a 0 character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of bytes read, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+             If an error occurs then the index of the invalid input
+             is stored here.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of words written, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                The value stored here does not include the trailing
+                0 word.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> other than
+        <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NO_CONVERSION</TT
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a newly allocated UTF-16 string.
+              This value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). If an
+              error occurs, <TT
+CLASS="LITERAL"
+>NULL</TT
+> will be returned and
+              <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN16027"
+></A
+><H3
+><A
+NAME="G-UCS4-TO-UTF8"
+></A
+>g_ucs4_to_utf8 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_ucs4_to_utf8                  (const <A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_read,
+                                             <A
+HREF="glib-basic-types.html#GLONG"
+>glong</A
+> *items_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Convert a string from a 32-bit fixed width representation as UCS-4.
+to UTF-8. The result will be terminated with a 0 byte.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN16039"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a UCS-4 encoded string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the maximum length of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+> to use. If <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> &#60; 0, then
+      the string is terminated with a 0 character.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of characters read read, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>items_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store number of bytes written or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                The value here stored does not include the trailing 0
+                byte. </TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> other than
+        <TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NO_CONVERSION</TT
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a pointer to a newly allocated UTF-8 string.
+              This value must be freed with <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). If an
+              error occurs, <TT
+CLASS="LITERAL"
+>NULL</TT
+> will be returned and
+              <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN16078"
+></A
+><H3
+><A
+NAME="G-UNICHAR-TO-UTF8"
+></A
+>g_unichar_to_utf8 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_unichar_to_utf8               (<A
+HREF="glib-unicode-manipulation.html#GUNICHAR"
+>gunichar</A
+> c,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *outbuf);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a single character to UTF-8.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN16087"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a ISO10646 character code</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>outbuf</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> output buffer, must have at least 6 bytes of space.
+      If <TT
+CLASS="LITERAL"
+>NULL</TT
+>, the length will be computed and returned
+      and nothing will be written to <TT
+CLASS="PARAMETER"
+><I
+>outbuf</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> number of bytes written</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN16106"
+></A
+><H2
+>See Also</H2
+><P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+HREF="glib-character-set-conversion.html#G-LOCALE-TO-UTF8"
+>g_locale_to_utf8</A
+>(), <A
+HREF="glib-character-set-conversion.html#G-LOCALE-FROM-UTF8"
+>g_locale_from_utf8</A
+>()</DT
+><DD
+><P
+>Convenience functions for converting between UTF-8 and the locale encoding. </P
+></DD
+></DL
+></DIV
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-character-set-conversion.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-date-and-time-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Character Set Conversion</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Date and Time Functions</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

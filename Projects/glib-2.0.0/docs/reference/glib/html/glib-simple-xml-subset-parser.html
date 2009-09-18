@@ -1,0 +1,1775 @@
+<HTML
+><HEAD
+><TITLE
+>Simple XML Subset Parser</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="Glob-style pattern matching"
+HREF="glib-glob-style-pattern-matching.html"><LINK
+REL="NEXT"
+TITLE="Windows Compatibility Functions"
+HREF="glib-windows-compatability-functions.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-glob-style-pattern-matching.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-windows-compatability-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-SIMPLE-XML-SUBSET-PARSER"
+>Simple XML Subset Parser</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN23190"
+></A
+><H2
+>Name</H2
+>Simple XML Subset Parser&nbsp;--&nbsp;parses a subset of XML.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN23193"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+enum        <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPERROR"
+>GMarkupError</A
+>;
+#define     <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-ERROR-CAPS"
+>G_MARKUP_ERROR</A
+>
+enum        <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSEFLAGS"
+>GMarkupParseFlags</A
+>;
+struct      <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+>;
+struct      <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+>;
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-ESCAPE-TEXT"
+>g_markup_escape_text</A
+>            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *text,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> length);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-END-PARSE"
+>g_markup_parse_context_end_parse</A
+>
+                                            (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+void        <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-FREE"
+>g_markup_parse_context_free</A
+>     (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context);
+void        <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-GET-POSITION"
+>g_markup_parse_context_get_position</A
+>
+                                            (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *line_number,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *char_number);
+<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+>* <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-NEW"
+>g_markup_parse_context_new</A
+>
+                                            (const <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> *parser,
+                                             <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSEFLAGS"
+>GMarkupParseFlags</A
+> flags,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-datasets.html#GDESTROYNOTIFY"
+>GDestroyNotify</A
+> user_data_dnotify);
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-PARSE"
+>g_markup_parse_context_parse</A
+>    (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *text,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> text_len,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN23227"
+></A
+><H2
+>Description</H2
+><P
+>The "GMarkup" parser is intended to parse a simple markup format
+that's a subset of XML. This is a small, efficient, easy-to-use
+parser. It should not be used if you expect to interoperate with other 
+applications generating full-scale XML. However, it's very useful for
+application data files, config files, etc. where you know your
+application will be the only one writing the file. Full-scale XML
+parsers should be able to parse the subset used by GMarkup, so you can
+easily migrate to full-scale XML at a later time if the need arises.</P
+><P
+>GMarkup is not guaranteed to signal an error on all invalid XML; the
+parser may accept documents that an XML parser would not, e.g. the
+sequence <TT
+CLASS="LITERAL"
+>&lt;[[</TT
+> has special meaning in XML and not
+in GMarkup. However, invalid XML documents are not considered valid
+GMarkup documents. </P
+><P
+>Simplifications to XML include:
+<P
+></P
+><UL
+><LI
+><P
+>Only UTF-8 encoding is allowed.</P
+></LI
+><LI
+><P
+>No CDATA, no user-defined entities.</P
+></LI
+><LI
+><P
+>Processing instructions and comments are "passed through" but are not 
+interpreted in any way.</P
+></LI
+><LI
+><P
+>No DTD or validation.</P
+></LI
+></UL
+></P
+><P
+>The markup format does support:
+<P
+></P
+><UL
+><LI
+><P
+>Elements</P
+></LI
+><LI
+><P
+>Attributes</P
+></LI
+><LI
+><P
+>5 standard entities: <TT
+CLASS="LITERAL"
+>&amp;amp; &amp;lt; &amp;gt; &amp;quot; &amp;apos;</TT
+></P
+></LI
+><LI
+><P
+>Character references</P
+></LI
+></UL
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN23253"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23255"
+></A
+><H3
+><A
+NAME="GMARKUPERROR"
+></A
+>enum GMarkupError</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  G_MARKUP_ERROR_BAD_UTF8,
+  G_MARKUP_ERROR_EMPTY,
+  G_MARKUP_ERROR_PARSE,
+  /* These three are primarily intended for specific GMarkupParser
+   * implementations to set.
+   */
+  G_MARKUP_ERROR_UNKNOWN_ELEMENT,
+  G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE,
+  G_MARKUP_ERROR_INVALID_CONTENT
+} GMarkupError;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error codes returned by markup parsing.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23260"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_BAD_UTF8</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>text being parsed was not valid UTF-8</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_EMPTY</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>document contained nothing, or only whitespace</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_PARSE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>document was ill-formed</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_UNKNOWN_ELEMENT</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>error should be set by <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> functions; element wasn't known</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>error should be set by <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> functions; attribute wasn't known</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_INVALID_CONTENT</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>error should be set by <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> functions; something was wrong with contents of the document, e.g. invalid attribute value&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23292"
+></A
+><H3
+><A
+NAME="G-MARKUP-ERROR-CAPS"
+></A
+>G_MARKUP_ERROR</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_MARKUP_ERROR g_markup_error_quark ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error domain for markup parsing. Errors in this domain will
+be from the <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPERROR"
+>GMarkupError</A
+> enumeration. See <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> for information on 
+error domains.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23299"
+></A
+><H3
+><A
+NAME="GMARKUPPARSEFLAGS"
+></A
+>enum GMarkupParseFlags</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum
+{
+  /* Hmm, can't think of any at the moment */
+  G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG = 1 &lt;&lt; 0
+  
+} GMarkupParseFlags;</PRE
+></TD
+></TR
+></TABLE
+><P
+>There are no flags right now. Pass "0" for the flags argument to all 
+functions.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23304"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>flag you should not use.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23313"
+></A
+><H3
+><A
+NAME="GMARKUPPARSECONTEXT"
+></A
+>struct GMarkupParseContext</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GMarkupParseContext;</PRE
+></TD
+></TR
+></TABLE
+><P
+>A parse context is used to parse a stream of bytes that you expect to
+contain marked-up text. See <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-NEW"
+>g_markup_parse_context_new</A
+>(),
+<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+>, and so on for more details.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23320"
+></A
+><H3
+><A
+NAME="GMARKUPPARSER"
+></A
+>struct GMarkupParser</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>struct GMarkupParser
+{
+  /* Called for open tags &lt;foo bar="baz"&gt; */
+  void (*start_element)  (GMarkupParseContext *context,
+                          const gchar         *element_name,
+                          const gchar        **attribute_names,
+                          const gchar        **attribute_values,
+                          gpointer             user_data,
+                          GError             **error);
+
+  /* Called for close tags &lt;/foo&gt; */
+  void (*end_element)    (GMarkupParseContext *context,
+                          const gchar         *element_name,
+                          gpointer             user_data,
+                          GError             **error);
+
+  /* Called for character data */
+  /* text is not nul-terminated */
+  void (*text)           (GMarkupParseContext *context,
+                          const gchar         *text,
+                          gsize                text_len,  
+                          gpointer             user_data,
+                          GError             **error);
+
+  /* Called for strings that should be re-saved verbatim in this same
+   * position, but are not otherwise interpretable.  At the moment
+   * this includes comments and processing instructions.
+   */
+  /* text is not nul-terminated. */
+  void (*passthrough)    (GMarkupParseContext *context,
+                          const gchar         *passthrough_text,
+                          gsize                text_len,  
+                          gpointer             user_data,
+                          GError             **error);
+
+  /* Called on error, including one set by other
+   * methods in the vtable. The GError should not be freed.
+   */
+  void (*error)          (GMarkupParseContext *context,
+                          GError              *error,
+                          gpointer             user_data);
+};</PRE
+></TD
+></TR
+></TABLE
+><P
+>Any of the fields in <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> can be <TT
+CLASS="LITERAL"
+>NULL</TT
+>, in which case they
+will be ignored. Except for the <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> function, any of these
+callbacks can set an error; in particular the
+<TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_UNKNOWN_ELEMENT</TT
+>, <TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE</TT
+>,
+and <TT
+CLASS="LITERAL"
+>G_MARKUP_ERROR_INVALID_CONTENT</TT
+> errors are intended to be set 
+from these callbacks. If you set an error from a callback,
+<A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-PARSE"
+>g_markup_parse_context_parse</A
+>() will report that error back to its caller.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23332"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>void (*<TT
+CLASS="STRUCTFIELD"
+><I
+>start_element</I
+></TT
+>) (GMarkupParseContext *context,
+                          const gchar         *element_name,
+                          const gchar        **attribute_names,
+                          const gchar        **attribute_values,
+                          gpointer             user_data,
+                          GError             **error)</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Callback to invoke when the opening tag of an element
+is seen.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>void (*<TT
+CLASS="STRUCTFIELD"
+><I
+>end_element</I
+></TT
+>) (GMarkupParseContext *context,
+                          const gchar         *element_name,
+                          gpointer             user_data,
+                          GError             **error)</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Callback to invoke when the closing tag of an element is seen</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>void (*<TT
+CLASS="STRUCTFIELD"
+><I
+>text</I
+></TT
+>) (GMarkupParseContext *context,
+                          const gchar         *text,
+                          gsize                text_len,  
+                          gpointer             user_data,
+                          GError             **error)</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Callback to invoke when some text is seen (text is always
+inside an element)</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>void (*<TT
+CLASS="STRUCTFIELD"
+><I
+>passthrough</I
+></TT
+>) (GMarkupParseContext *context,
+                          const gchar         *passthrough_text,
+                          gsize                text_len,  
+                          gpointer             user_data,
+                          GError             **error)</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Callback to invoke for comments and processing
+instructions; if you're re-writing the parsed document, write the
+passthrough text back out in the same position</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>void (*<TT
+CLASS="STRUCTFIELD"
+><I
+>error</I
+></TT
+>) (GMarkupParseContext *context,
+                          GError              *error,
+                          gpointer             user_data)</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Callback to invoke when an error occurs&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23357"
+></A
+><H3
+><A
+NAME="G-MARKUP-ESCAPE-TEXT"
+></A
+>g_markup_escape_text ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_markup_escape_text            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *text,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> length);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Escapes text so that the markup parser will parse it verbatim.
+Less than, greater than, ampersand, etc. are replaced with the
+corresponding entities. This function would typically be used
+when writing out a file to be parsed with the markup parser.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23366"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>text</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> some valid UTF-8 text</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>length</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> length of <TT
+CLASS="PARAMETER"
+><I
+>text</I
+></TT
+> in bytes</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> escaped text</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23384"
+></A
+><H3
+><A
+NAME="G-MARKUP-PARSE-CONTEXT-END-PARSE"
+></A
+>g_markup_parse_context_end_parse ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_markup_parse_context_end_parse
+                                            (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Signals to the <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> that all data has been
+fed into the parse context with <A
+HREF="glib-simple-xml-subset-parser.html#G-MARKUP-PARSE-CONTEXT-PARSE"
+>g_markup_parse_context_parse</A
+>().
+This function reports an error if the document isn't complete,
+for example if elements are still open.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23395"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>context</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for a <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success, <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if an error was set</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23416"
+></A
+><H3
+><A
+NAME="G-MARKUP-PARSE-CONTEXT-FREE"
+></A
+>g_markup_parse_context_free ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_markup_parse_context_free     (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Frees a <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+>. Can't be called from inside
+one of the <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> functions.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23425"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>context</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23435"
+></A
+><H3
+><A
+NAME="G-MARKUP-PARSE-CONTEXT-GET-POSITION"
+></A
+>g_markup_parse_context_get_position ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        g_markup_parse_context_get_position
+                                            (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *line_number,
+                                             <A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+> *char_number);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Retrieves the current line number and the number of the character on
+that line. Intended for use in error messages; there are no strict
+semantics for what constitutes the "current" line number other than
+"the best number we could come up with for error messages."</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23444"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>context</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>line_number</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for a line number, or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>char_number</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for a char-on-line number, or <TT
+CLASS="LITERAL"
+>NULL</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23464"
+></A
+><H3
+><A
+NAME="G-MARKUP-PARSE-CONTEXT-NEW"
+></A
+>g_markup_parse_context_new ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+>* g_markup_parse_context_new
+                                            (const <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> *parser,
+                                             <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSEFLAGS"
+>GMarkupParseFlags</A
+> flags,
+                                             <A
+HREF="glib-basic-types.html#GPOINTER"
+>gpointer</A
+> user_data,
+                                             <A
+HREF="glib-datasets.html#GDESTROYNOTIFY"
+>GDestroyNotify</A
+> user_data_dnotify);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Creates a new parse context. A parse context is used to parse
+marked-up documents. You can feed any number of documents into
+a context, as long as no errors occur; once an error occurs,
+the parse context can't continue to parse text (you have to free it
+and create a new parse context).</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23475"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>parser</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> one or more <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSEFLAGS"
+>GMarkupParseFlags</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data to pass to <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSER"
+>GMarkupParser</A
+> functions</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>user_data_dnotify</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> user data destroy notifier called when the parse context is freed</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a new <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN23504"
+></A
+><H3
+><A
+NAME="G-MARKUP-PARSE-CONTEXT-PARSE"
+></A
+>g_markup_parse_context_parse ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_markup_parse_context_parse    (<A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+> *context,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *text,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> text_len,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Feed some data to the <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+>. The data need not
+be valid UTF-8; an error will be signaled if it's invalid.
+The data need not be an entire document; you can feed a document
+into the parser incrementally, via multiple calls to this function.
+Typically, as you receive data from a network connection or file,
+you feed each received chunk of data into this function, aborting
+the process if an error occurs. Once an error is reported, no further
+data may be fed to the <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+>; all errors are fatal.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN23517"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>context</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a <A
+HREF="glib-simple-xml-subset-parser.html#GMARKUPPARSECONTEXT"
+>GMarkupParseContext</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>text</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> chunk of text to parse</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>text_len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> length of <TT
+CLASS="PARAMETER"
+><I
+>text</I
+></TT
+> in bytes</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for a <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>FALSE</TT
+> if an error occurred, <TT
+CLASS="LITERAL"
+>TRUE</TT
+> on success</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-glob-style-pattern-matching.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-windows-compatability-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Glob-style pattern matching</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Windows Compatibility Functions</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

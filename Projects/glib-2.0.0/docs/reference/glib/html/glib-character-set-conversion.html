@@ -1,0 +1,3172 @@
+<HTML
+><HEAD
+><TITLE
+>Character Set Conversion</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.74b"><LINK
+REL="HOME"
+TITLE="GLib Reference Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="GLib Utilities"
+HREF="glib-utilities.html"><LINK
+REL="PREVIOUS"
+TITLE="String Utility Functions"
+HREF="glib-string-utility-functions.html"><LINK
+REL="NEXT"
+TITLE="Unicode Manipulation"
+HREF="glib-unicode-manipulation.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="5"
+>GLib Reference Manual</FONT
+></TH
+></TR
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-string-utility-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-unicode-manipulation.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+></TABLE
+></DIV
+><H1
+><A
+NAME="GLIB-CHARACTER-SET-CONVERSION"
+>Character Set Conversion</A
+></H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN13555"
+></A
+><H2
+>Name</H2
+>Character Set Conversion&nbsp;--&nbsp;convert strings between different character sets using <TT
+CLASS="FUNCTION"
+>iconv()</TT
+>.</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN13560"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;#include &lt;glib.h&gt;
+
+
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-CONVERT"
+>g_convert</A
+>                       (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *to_codeset,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *from_codeset,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-CONVERT-WITH-FALLBACK"
+>g_convert_with_fallback</A
+>         (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *to_codeset,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *from_codeset,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *fallback,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-CONVERT-WITH-ICONV"
+>g_convert_with_iconv</A
+>            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             GIConv converter,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+#define     <A
+HREF="glib-character-set-conversion.html#G-CONVERT-ERROR-CAPS"
+>G_CONVERT_ERROR</A
+>
+GIConv      <A
+HREF="glib-character-set-conversion.html#G-ICONV-OPEN"
+>g_iconv_open</A
+>                    (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *to_codeset,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *from_codeset);
+size_t      <A
+HREF="glib-character-set-conversion.html#G-ICONV"
+>g_iconv</A
+>                         (GIConv converter,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **inbuf,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *inbytes_left,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **outbuf,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *outbytes_left);
+<A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        <A
+HREF="glib-character-set-conversion.html#G-ICONV-CLOSE"
+>g_iconv_close</A
+>                   (GIConv converter);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-LOCALE-TO-UTF8"
+>g_locale_to_utf8</A
+>                (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *opsysstring,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-FILENAME-TO-UTF8"
+>g_filename_to_utf8</A
+>              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *opsysstring,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-FILENAME-FROM-UTF8"
+>g_filename_from_utf8</A
+>            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *utf8string,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-FILENAME-FROM-URI"
+>g_filename_from_uri</A
+>             (const char *uri,
+                                             char **hostname,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-FILENAME-TO-URI"
+>g_filename_to_uri</A
+>               (const char *filename,
+                                             const char *hostname,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+<A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      <A
+HREF="glib-character-set-conversion.html#G-LOCALE-FROM-UTF8"
+>g_locale_from_utf8</A
+>              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *utf8string,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);
+enum        <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+>;
+
+<A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    <A
+HREF="glib-character-set-conversion.html#G-GET-CHARSET"
+>g_get_charset</A
+>                   (G_CONST_RETURN char **charset);&#13;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN13642"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN13645"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13647"
+></A
+><H3
+><A
+NAME="G-CONVERT"
+></A
+>g_convert ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_convert                       (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *to_codeset,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *from_codeset,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string from one character set to another.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13661"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the string to convert</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the length of the string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>to_codeset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    name of character set into which to convert <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>from_codeset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>  character set of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    location to store the number of bytes in the
+                input string that were successfully converted, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                Even if the conversion was successful, this may be 
+                less than <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> if there were partial characters
+                at the end of the input. If the error
+                G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will the byte offset after the last valid
+                input sequence.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of bytes stored in the output buffer (not 
+                including the terminating nul).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>         location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+                errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> If the conversion was successful, a newly allocated
+              nul-terminated string, which must be freed with
+              <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). Otherwise <TT
+CLASS="LITERAL"
+>NULL</TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> will be set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13708"
+></A
+><H3
+><A
+NAME="G-CONVERT-WITH-FALLBACK"
+></A
+>g_convert_with_fallback ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_convert_with_fallback         (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *to_codeset,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *from_codeset,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *fallback,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string from one character set to another, possibly
+including fallback sequences for characters not representable
+in the output. Note that it is not guaranteed that the specification
+for the fallback sequences in <TT
+CLASS="PARAMETER"
+><I
+>fallback</I
+></TT
+> will be honored. Some
+systems may do a approximate conversion from <TT
+CLASS="PARAMETER"
+><I
+>from_codeset</I
+></TT
+>
+to <TT
+CLASS="PARAMETER"
+><I
+>to_codeset</I
+></TT
+> in their <TT
+CLASS="FUNCTION"
+>iconv()</TT
+> functions, 
+in which case GLib will simply return that approximate conversion.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13728"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>          the string to convert</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>          the length of the string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>to_codeset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   name of character set into which to convert <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>from_codeset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> character set of <TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>fallback</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     UTF-8 string to use in place of character not
+               present in the target encoding. (This must be
+               in the target encoding), if <TT
+CLASS="LITERAL"
+>NULL</TT
+>, characters
+               not in the target encoding will be represented
+               as Unicode escapes \x{XXXX} or \x{XXXXXX}.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   location to store the number of bytes in the
+               input string that were successfully converted, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+               Even if the conversion was successful, this may be 
+               less than <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> if there were partial characters
+               at the end of the input.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of bytes stored in the output buffer (not 
+               including the terminating nul).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>        location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+               errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> If the conversion was successful, a newly allocated
+              nul-terminated string, which must be freed with
+              <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). Otherwise <TT
+CLASS="LITERAL"
+>NULL</TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> will be set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13779"
+></A
+><H3
+><A
+NAME="G-CONVERT-WITH-ICONV"
+></A
+>g_convert_with_iconv ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_convert_with_iconv            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *str,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             GIConv converter,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string from one character set to another.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13792"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>str</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the string to convert</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the length of the string</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>converter</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>     conversion descriptor from <A
+HREF="glib-character-set-conversion.html#G-ICONV-OPEN"
+>g_iconv_open</A
+>()</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    location to store the number of bytes in the
+                input string that were successfully converted, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                Even if the conversion was successful, this may be 
+                less than <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> if there were partial characters
+                at the end of the input. If the error
+                G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will the byte offset after the last valid
+                input sequence.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of bytes stored in the output buffer (not 
+                including the terminating nul).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>         location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+                errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> If the conversion was successful, a newly allocated
+              nul-terminated string, which must be freed with
+              <A
+HREF="glib-memory-allocation.html#G-FREE"
+>g_free</A
+>(). Otherwise <TT
+CLASS="LITERAL"
+>NULL</TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+> will be set.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13834"
+></A
+><H3
+><A
+NAME="G-CONVERT-ERROR-CAPS"
+></A
+>G_CONVERT_ERROR</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define G_CONVERT_ERROR g_convert_error_quark()</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error domain for character set conversions. Errors in this domain will
+be from the <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> enumeration. See <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> for information on 
+error domains.</P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13841"
+></A
+><H3
+><A
+NAME="G-ICONV-OPEN"
+></A
+>g_iconv_open ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>GIConv      g_iconv_open                    (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *to_codeset,
+                                             const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *from_codeset);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Same as the standard UNIX routine <TT
+CLASS="FUNCTION"
+>iconv_open()</TT
+>, but
+may be implemented via libiconv on UNIX flavors that lack
+a native implementation.</P
+><P
+>GLib provides <A
+HREF="glib-character-set-conversion.html#G-CONVERT"
+>g_convert</A
+>() and <A
+HREF="glib-character-set-conversion.html#G-LOCALE-TO-UTF8"
+>g_locale_to_utf8</A
+>() which are likely
+more convenient than the raw iconv wrappers.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13855"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>to_codeset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> destination codeset</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>from_codeset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> source codeset</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a "conversion descriptor"</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13872"
+></A
+><H3
+><A
+NAME="G-ICONV"
+></A
+>g_iconv ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>size_t      g_iconv                         (GIConv converter,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **inbuf,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *inbytes_left,
+                                             <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> **outbuf,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *outbytes_left);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Same as the standard UNIX routine <TT
+CLASS="FUNCTION"
+>iconv()</TT
+>, but
+may be implemented via libiconv on UNIX flavors that lack
+a native implementation.</P
+><P
+>GLib provides <A
+HREF="glib-character-set-conversion.html#G-CONVERT"
+>g_convert</A
+>() and <A
+HREF="glib-character-set-conversion.html#G-LOCALE-TO-UTF8"
+>g_locale_to_utf8</A
+>() which are likely
+more convenient than the raw iconv wrappers.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13889"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>converter</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> conversion descriptor from <A
+HREF="glib-character-set-conversion.html#G-ICONV-OPEN"
+>g_iconv_open</A
+>()</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>inbuf</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> bytes to convert</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>inbytes_left</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> inout parameter, bytes remaining to convert in <TT
+CLASS="PARAMETER"
+><I
+>inbuf</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>outbuf</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> converted output bytes</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>outbytes_left</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> inout parameter, bytes available to fill in <TT
+CLASS="PARAMETER"
+><I
+>outbuf</I
+></TT
+></TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> count of non-reversible conversions, or -1 on error</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13921"
+></A
+><H3
+><A
+NAME="G-ICONV-CLOSE"
+></A
+>g_iconv_close ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GINT"
+>gint</A
+>        g_iconv_close                   (GIConv converter);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Same as the standard UNIX routine <TT
+CLASS="FUNCTION"
+>iconv_close()</TT
+>, but
+may be implemented via libiconv on UNIX flavors that lack
+a native implementation. Should be called to clean up
+the conversion descriptor from <A
+HREF="glib-character-set-conversion.html#G-ICONV-OPEN"
+>g_iconv_open</A
+>() when
+you are done converting things.</P
+><P
+>GLib provides <A
+HREF="glib-character-set-conversion.html#G-CONVERT"
+>g_convert</A
+>() and <A
+HREF="glib-character-set-conversion.html#G-LOCALE-TO-UTF8"
+>g_locale_to_utf8</A
+>() which are likely
+more convenient than the raw iconv wrappers.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13935"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>converter</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a conversion descriptor from <A
+HREF="glib-character-set-conversion.html#G-ICONV-OPEN"
+>g_iconv_open</A
+>()</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> -1 on error, 0 on success</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13949"
+></A
+><H3
+><A
+NAME="G-LOCALE-TO-UTF8"
+></A
+>g_locale_to_utf8 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_locale_to_utf8                (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *opsysstring,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string which is in the encoding used for strings by
+the C runtime (usually the same as that used by the operating
+system) in the current locale into a UTF-8 string.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN13961"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>opsysstring</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   a string in the encoding of the current locale</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the length of the string, or -1 if the string is
+                nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    location to store the number of bytes in the
+                input string that were successfully converted, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                Even if the conversion was successful, this may be 
+                less than <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> if there were partial characters
+                at the end of the input. If the error
+                G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will the byte offset after the last valid
+                input sequence.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of bytes stored in the output buffer (not 
+                including the terminating nul).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>         location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+                errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The converted string, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> on an error.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN13996"
+></A
+><H3
+><A
+NAME="G-FILENAME-TO-UTF8"
+></A
+>g_filename_to_utf8 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_filename_to_utf8              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *opsysstring,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string which is in the encoding used for filenames
+into a UTF-8 string.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14008"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>opsysstring</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>   a string in the encoding for filenames</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the length of the string, or -1 if the string is
+                nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    location to store the number of bytes in the
+                input string that were successfully converted, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                Even if the conversion was successful, this may be 
+                less than <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> if there were partial characters
+                at the end of the input. If the error
+                G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will the byte offset after the last valid
+                input sequence.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of bytes stored in the output buffer (not 
+                including the terminating nul).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>         location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+                errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The converted string, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> on an error.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14043"
+></A
+><H3
+><A
+NAME="G-FILENAME-FROM-UTF8"
+></A
+>g_filename_from_utf8 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_filename_from_utf8            (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *utf8string,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string from UTF-8 to the encoding used for filenames.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14055"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>utf8string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    a UTF-8 encoded string.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the length of the string, or -1 if the string is
+                nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    location to store the number of bytes in the
+                input string that were successfully converted, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                Even if the conversion was successful, this may be 
+                less than <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> if there were partial characters
+                at the end of the input. If the error
+                G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will the byte offset after the last valid
+                input sequence.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of bytes stored in the output buffer (not 
+                including the terminating nul).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>         location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+                errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The converted string, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> on an error.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14090"
+></A
+><H3
+><A
+NAME="G-FILENAME-FROM-URI"
+></A
+>g_filename_from_uri ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_filename_from_uri             (const char *uri,
+                                             char **hostname,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts an escaped UTF-8 encoded URI to a local filename in the
+encoding used for filenames.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14098"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>uri</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a uri describing a filename (escaped, encoded in UTF-8).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hostname</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> Location to store hostname for the URI, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+           If there is no hostname in the URI, <TT
+CLASS="LITERAL"
+>NULL</TT
+> will be
+           stored in this location.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly-allocated string holding the resulting
+              filename, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> on an error.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14124"
+></A
+><H3
+><A
+NAME="G-FILENAME-TO-URI"
+></A
+>g_filename_to_uri ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_filename_to_uri               (const char *filename,
+                                             const char *hostname,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts an absolute filename to an escaped UTF-8 encoded URI.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14132"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>filename</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> an absolute filename specified in the encoding
+           used for filenames by the operating system.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>hostname</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> A UTF-8 encoded hostname, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> for none.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+        errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> a newly-allocated string holding the resulting
+              URI, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> on an error.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14157"
+></A
+><H3
+><A
+NAME="G-LOCALE-FROM-UTF8"
+></A
+>g_locale_from_utf8 ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+>*      g_locale_from_utf8              (const <A
+HREF="glib-basic-types.html#GCHAR"
+>gchar</A
+> *utf8string,
+                                             <A
+HREF="glib-basic-types.html#GSSIZE"
+>gssize</A
+> len,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_read,
+                                             <A
+HREF="glib-basic-types.html#GSIZE"
+>gsize</A
+> *bytes_written,
+                                             <A
+HREF="glib-error-reporting.html#GERROR"
+>GError</A
+> **error);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Converts a string from UTF-8 to the encoding used for strings by
+the C runtime (usually the same as that used by the operating
+system) in the current locale.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14169"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>utf8string</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    a UTF-8 encoded string </TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>           the length of the string, or -1 if the string is
+                nul-terminated.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_read</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>    location to store the number of bytes in the
+                input string that were successfully converted, or <TT
+CLASS="LITERAL"
+>NULL</TT
+>.
+                Even if the conversion was successful, this may be 
+                less than <TT
+CLASS="PARAMETER"
+><I
+>len</I
+></TT
+> if there were partial characters
+                at the end of the input. If the error
+                G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will the byte offset after the last valid
+                input sequence.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>bytes_written</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> the number of bytes stored in the output buffer (not 
+                including the terminating nul).</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>error</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>         location to store the error occuring, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> to ignore
+                errors. Any of the errors in <A
+HREF="glib-character-set-conversion.html#GCONVERTERROR"
+>GConvertError</A
+> may occur.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> The converted string, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> on an error.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14204"
+></A
+><H3
+><A
+NAME="GCONVERTERROR"
+></A
+>enum GConvertError</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>typedef enum 
+{
+  G_CONVERT_ERROR_NO_CONVERSION,
+  G_CONVERT_ERROR_ILLEGAL_SEQUENCE,
+  G_CONVERT_ERROR_FAILED,
+  G_CONVERT_ERROR_PARTIAL_INPUT,
+  G_CONVERT_ERROR_BAD_URI,
+  G_CONVERT_ERROR_NOT_ABSOLUTE_PATH
+} GConvertError;</PRE
+></TD
+></TR
+></TABLE
+><P
+>Error codes returned by character set conversion routines.</P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14209"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NO_CONVERSION</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Conversion between the requested character sets
+is not supported.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_ILLEGAL_SEQUENCE</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Invalid byte sequence in conversion input.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_FAILED</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Conversion failed for some reason.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_PARTIAL_INPUT</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Partial character sequence at end of input.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_BAD_URI</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>URI is invalid.</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="LEFT"
+VALIGN="TOP"
+><TT
+CLASS="LITERAL"
+>G_CONVERT_ERROR_NOT_ABSOLUTE_PATH</TT
+></TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Pathname is not an absolute path.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN14238"
+></A
+><H3
+><A
+NAME="G-GET-CHARSET"
+></A
+>g_get_charset ()</H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E8E8FF"
+WIDTH="100%"
+CELLPADDING="6"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><A
+HREF="glib-basic-types.html#GBOOLEAN"
+>gboolean</A
+>    g_get_charset                   (G_CONST_RETURN char **charset);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Obtains the character set for the current locale; you might use
+this character set as an argument to <A
+HREF="glib-character-set-conversion.html#G-CONVERT"
+>g_convert</A
+>(), to convert from
+the current locale's encoding to some other encoding. (Frequently
+<A
+HREF="glib-character-set-conversion.html#G-LOCALE-TO-UTF8"
+>g_locale_to_utf8</A
+>() and <A
+HREF="glib-character-set-conversion.html#G-LOCALE-FROM-UTF8"
+>g_locale_from_utf8</A
+>() are nice shortcuts,
+though.)</P
+><P
+>The return value is <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the locale's encoding is UTF-8, in that
+case you can perhaps avoid calling <A
+HREF="glib-character-set-conversion.html#G-CONVERT"
+>g_convert</A
+>().</P
+><P
+>The string returned in <TT
+CLASS="PARAMETER"
+><I
+>charset</I
+></TT
+> is not allocated, and should not be
+freed.</P
+><P
+></P
+><DIV
+CLASS="INFORMALTABLE"
+><A
+NAME="AEN14253"
+></A
+><P
+></P
+><TABLE
+BORDER="0"
+WIDTH="100%"
+BGCOLOR="#F0F0D0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><TT
+CLASS="PARAMETER"
+><I
+>charset</I
+></TT
+>&nbsp;:</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> return location for character set name</TD
+></TR
+><TR
+><TD
+WIDTH="20%"
+ALIGN="RIGHT"
+VALIGN="TOP"
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>Returns</I
+></SPAN
+> :</TD
+><TD
+WIDTH="80%"
+ALIGN="LEFT"
+VALIGN="TOP"
+> <TT
+CLASS="LITERAL"
+>TRUE</TT
+> if the returned charset is UTF-8</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><BR
+CLEAR="all"><BR><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#000000"
+CELLPADDING="1"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="left"
+><A
+HREF="glib-string-utility-functions.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>&#60;&#60;&#60; Previous Page</B
+></FONT
+></A
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="index.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Home</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="center"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+><A
+HREF="glib-utilities.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Up</B
+></FONT
+></A
+></B
+></FONT
+></TD
+><TD
+WIDTH="25%"
+BGCOLOR="#C00000"
+ALIGN="right"
+><A
+HREF="glib-unicode-manipulation.html"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Next Page &#62;&#62;&#62;</B
+></FONT
+></A
+></TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="left"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>String Utility Functions</B
+></FONT
+></TD
+><TD
+COLSPAN="2"
+ALIGN="right"
+><FONT
+COLOR="#FFFFFF"
+SIZE="3"
+><B
+>Unicode Manipulation</B
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
