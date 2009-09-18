@@ -1,0 +1,38 @@
+int10_modes.o int10_modes.o: int10_modes.cpp \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/string.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/xlocale.h \
+  ../../include/dosbox.h ../../config.h ../../include/logging.h \
+  ../../include/mem.h ../../include/inout.h int10.h ../../include/vga.h \
+  ../../include/mouse.h
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/string.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/xlocale.h:
+
+../../include/dosbox.h:
+
+../../config.h:
+
+../../include/logging.h:
+
+../../include/mem.h:
+
+../../include/inout.h:
+
+int10.h:
+
+../../include/vga.h:
+
+../../include/mouse.h:

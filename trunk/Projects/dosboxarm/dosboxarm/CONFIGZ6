@@ -1,0 +1,3 @@
+Backup your sdl-config host and Copy sdl-config to /usr/bin
+1- PATH=/arm-eabi/arm-linux-gnueabi/bin:$PATH
+2 -./configure --host=arm-linux --disable-dynamic-core --disable-dynamic-x86 --disable-fpu --disable-fpu-x86 --disable-unaligned-memory --disable-sdltest --enable-core-inline --help

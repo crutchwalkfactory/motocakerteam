@@ -1,0 +1,12 @@
+ncftpput -u root -p  "" 192.168.16.2 /mmc/mmca1/bosch src/dosbox
+
+
+
+
+
+
+
+
+
+
+

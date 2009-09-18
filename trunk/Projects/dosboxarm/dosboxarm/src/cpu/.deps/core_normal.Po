@@ -1,0 +1,103 @@
+core_normal.o core_normal.o: core_normal.cpp \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdio.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/types.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wordsize.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/typesizes.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/libio.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/_G_config.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/wchar.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wchar.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gconv.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stdarg.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio_lim.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sys_errlist.h \
+  ../../include/dosbox.h ../../config.h ../../include/logging.h \
+  ../../include/mem.h ../../include/cpu.h ../../include/regs.h \
+  lazyflags.h ../../include/regs.h ../../include/inout.h \
+  ../../include/callback.h ../../include/pic.h ../../include/fpu.h \
+  ../../include/paging.h instructions.h core_normal/support.h \
+  core_normal/helpers.h core_normal/table_ea.h core_normal/../modrm.h \
+  core_normal/string.h core_normal/prefix_none.h core_normal/prefix_0f.h \
+  core_normal/prefix_66.h core_normal/prefix_66_0f.h
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdio.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/types.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wordsize.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/typesizes.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/libio.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/_G_config.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/wchar.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wchar.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gconv.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stdarg.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio_lim.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sys_errlist.h:
+
+../../include/dosbox.h:
+
+../../config.h:
+
+../../include/logging.h:
+
+../../include/mem.h:
+
+../../include/cpu.h:
+
+../../include/regs.h:
+
+lazyflags.h:
+
+../../include/regs.h:
+
+../../include/inout.h:
+
+../../include/callback.h:
+
+../../include/pic.h:
+
+../../include/fpu.h:
+
+../../include/paging.h:
+
+instructions.h:
+
+core_normal/support.h:
+
+core_normal/helpers.h:
+
+core_normal/table_ea.h:
+
+core_normal/../modrm.h:
+
+core_normal/string.h:
+
+core_normal/prefix_none.h:
+
+core_normal/prefix_0f.h:
+
+core_normal/prefix_66.h:
+
+core_normal/prefix_66_0f.h:
