@@ -1,0 +1,33 @@
+vga.o vga.o: vga.cpp ../../include/dosbox.h ../../config.h \
+  ../../include/logging.h ../../include/video.h ../../include/pic.h \
+  ../../include/vga.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/string.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/xlocale.h
+
+../../include/dosbox.h:
+
+../../config.h:
+
+../../include/logging.h:
+
+../../include/video.h:
+
+../../include/pic.h:
+
+../../include/vga.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/string.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/xlocale.h:
