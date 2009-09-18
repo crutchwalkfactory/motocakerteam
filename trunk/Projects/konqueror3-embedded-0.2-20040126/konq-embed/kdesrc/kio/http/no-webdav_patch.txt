@@ -1,0 +1,281 @@
+--- http.cc.orig	2003-08-28 17:19:44.000000000 +0200
++++ http.cc	2003-08-28 17:19:48.000000000 +0200
+@@ -349,9 +349,11 @@ void HTTPProtocol::setHost( const QStrin
+ {
+   kdDebug(7113) << "(" << m_pid << ") Hostname is now: " << host << endl;
+ 
++#if !defined(QT_NO_DOM) 
+   // Reset the webdav-capable flags for this host
+   if ( m_request.hostname != host )
+     m_davHostOk = m_davHostUnsupported = false;
++#endif
+ 
+   m_request.hostname = host;
+   m_request.port = (port == 0) ? m_iDefaultPort : port;
+@@ -540,9 +542,12 @@ void HTTPProtocol::stat(const KURL& url)
+     return;
+   }
+ 
++#if !defined(QT_NO_DOM)
+   davStatList( url );
++#endif
+ }
+ 
++#if !defined(QT_NO_DOM)
+ void HTTPProtocol::listDir( const KURL& url )
+ {
+   kdDebug(7113) << "(" << m_pid << ") HTTPProtocol::listDir " << url.url()
+@@ -711,6 +716,7 @@ void HTTPProtocol::davGeneric( const KUR
+ 
+   retrieveContent( false );
+ }
++#endif
+ 
+ int HTTPProtocol::codeFromResponse( const QString& response )
+ {
+@@ -719,6 +725,7 @@ int HTTPProtocol::codeFromResponse( cons
+   return response.mid( firstSpace + 1, secondSpace - firstSpace - 1 ).toInt();
+ }
+ 
++#if !defined(QT_NO_DOM)
+ void HTTPProtocol::davParsePropstats( const QDomNodeList& propstats, UDSEntry& entry )
+ {
+   UDSAtom atom;
+@@ -953,6 +960,7 @@ void HTTPProtocol::davParseActiveLocks( 
+     }
+   }
+ }
++#endif
+ 
+ long HTTPProtocol::parseDateTime( const QString& input, const QString& type )
+ {
+@@ -973,6 +981,7 @@ long HTTPProtocol::parseDateTime( const 
+   return KRFCDate::parseDateISO8601( input );
+ }
+ 
++#if !defined(QT_NO_DOM)
+ QString HTTPProtocol::davProcessLocks()
+ {
+   if ( hasMetaData( "davLockCount" ) )
+@@ -1107,6 +1116,7 @@ void HTTPProtocol::mkdir( const KURL& ur
+   else
+     davError();
+ }
++#endif
+ 
+ void HTTPProtocol::get( const KURL& url )
+ {
+@@ -1150,6 +1160,7 @@ void HTTPProtocol::put( const KURL &url,
+   retrieveHeader( true );
+ }
+ 
++#if !defined(QT_NO_DOM)
+ void HTTPProtocol::copy( const KURL& src, const KURL& dest, int, bool overwrite )
+ {
+   kdDebug(7113) << "(" << m_pid << ") HTTPProtocol::copy " << src.prettyURL()
+@@ -1230,6 +1241,7 @@ void HTTPProtocol::del( const KURL& url,
+   else
+     davError();
+ }
++#endif
+ 
+ void HTTPProtocol::post( const KURL& url )
+ {
+@@ -1248,6 +1260,7 @@ void HTTPProtocol::post( const KURL& url
+   retrieveContent();
+ }
+ 
++#if !defined(QT_NO_DOM)
+ void HTTPProtocol::davLock( const KURL& url, const QString& scope,
+                             const QString& type, const QString& owner )
+ {
+@@ -1536,6 +1549,7 @@ QString HTTPProtocol::davError( int code
+ 
+   return errorString;
+ }
++#endif
+ 
+ void HTTPProtocol::multiGet(const QByteArray &data)
+ {
+@@ -2005,6 +2019,7 @@ bool HTTPProtocol::httpOpen()
+         header = "OPTIONS ";
+         m_request.bCachedWrite = false; // Do not put any result in the cache
+         break;
++#if !defined(QT_NO_DOM)
+     case DAV_PROPFIND:
+         header = "PROPFIND ";
+         davData = true;
+@@ -2070,6 +2085,7 @@ bool HTTPProtocol::httpOpen()
+         davData = true;
+         m_request.bCachedWrite = false;
+         break;
++#endif
+     default:
+         error (ERR_UNSUPPORTED_ACTION, QString::null);
+         return false;
+@@ -2279,7 +2295,7 @@ bool HTTPProtocol::httpOpen()
+     // Do we need to authorize to the proxy server ?
+     if ( m_state.doProxy && !m_bIsTunneled )
+       header += proxyAuthenticationHeader();
+-
++#if !defined(QT_NO_DOM)
+     if ( m_protocol == "webdav" || m_protocol == "webdavs" )
+     {
+       header += davProcessLocks();
+@@ -2297,6 +2313,7 @@ bool HTTPProtocol::httpOpen()
+       if ( !davHeader.isNull() )
+         header += davHeader;
+     }
++#endif
+   }
+ 
+   kdDebug(7103) << "(" << m_pid << ") ============ Sending Header:" << endl;
+@@ -3055,6 +3072,7 @@ bool HTTPProtocol::readHeader()
+         m_sContentMD5 = QString::fromLatin1(trimLead(buf + 12));
+       }
+ 
++#if !defined(QT_NO_DOM)
+       // *** Responses to the HTTP OPTIONS method follow
+       // WebDAV capabilities
+       else if (strncasecmp(buf, "DAV:", 4) == 0) {
+@@ -3066,6 +3084,7 @@ bool HTTPProtocol::readHeader()
+           m_davVersions += QString::fromLatin1(trimLead(buf + 4));
+         }
+       }
++#endif
+       // *** Responses to the HTTP OPTIONS method finished
+     }
+     else if (buf[0] == '<')
+@@ -3671,6 +3690,7 @@ void HTTPProtocol::special( const QByteA
+       cacheUpdate( url, no_cache, expireDate );
+       break;
+     }
++#if !defined(QT_NO_DOM)
+     case 5: // WebDAV lock
+     {
+       KURL url;
+@@ -3694,6 +3714,7 @@ void HTTPProtocol::special( const QByteA
+       davGeneric( url, (KIO::HTTP_METHOD) method );
+       break;
+     }
++#endif
+     case 99: // Close Connection
+     {
+       httpCloseConnection();
+@@ -3831,10 +3852,12 @@ void HTTPProtocol::slotData(const QByteA
+    }
+    else
+    {
++#if !defined(QT_NO_DOM)
+       uint old_size = m_bufWebDavData.size();
+       m_bufWebDavData.resize (old_size + m_bufReceive.size());
+       memcpy (m_bufWebDavData.data() + old_size, m_bufReceive.data(),
+               m_bufReceive.size());
++#endif
+    }
+ }
+ 
+@@ -3861,8 +3884,10 @@ bool HTTPProtocol::readBody( bool dataIn
+   // This is used for returning data to WebDAV.
+   m_dataInternal = dataInternal;
+ 
++#if !defined(QT_NO_DOM)
+   if ( dataInternal )
+     m_bufWebDavData.resize (0);
++#endif
+ 
+   // Check if we need to decode the data.
+   // If we are in copy mode, then use only transfer decoding.
+--- http.h.orig	2003-08-28 19:03:09.000000000 +0200
++++ http.h	2003-08-28 19:04:44.000000000 +0200
+@@ -82,6 +82,7 @@ public:
+     bool  doProxy;
+   };
+ 
++#if !defined(QT_NO_DOM)
+   /** DAV-specific request elements for the current connection **/
+   struct DAVRequest
+   {
+@@ -95,6 +96,7 @@ public:
+     bool overwrite;
+     int depth;
+   };
++#endif
+ 
+   /** The request for the current connection **/
+   struct HTTPRequest
+@@ -139,7 +141,9 @@ public:
+     bool disablePassDlg;
+     QString userAgent;
+     QString id;
++#if !defined(QT_NO_DOM)
+     DAVRequest davData;
++#endif
+ 
+     bool bNoAuth; // Do not authenticate 
+     
+@@ -191,6 +195,7 @@ public:
+   virtual void put( const KURL& url, int _mode, bool _overwrite,
+                     bool _resume );
+ 
++#if !defined(QT_NO_DOM)
+ //----------------- Re-implemented methods for WebDAV -----------
+   virtual void listDir( const KURL& url );
+   virtual void mkdir( const KURL& url, int _permissions );
+@@ -215,6 +220,7 @@ public:
+ 
+   // Handle error conditions
+   QString davError( int code = -1, QString url = QString::null );
++#endif
+ //---------------------------- End WebDAV -----------------------
+ 
+   /**
+@@ -295,6 +301,7 @@ protected:
+   // to an internal function.
+   bool readBody( bool dataInternal = false );
+ 
++#if !defined(QT_NO_DOM)
+   /**
+    * Performs a WebDAV stat or list
+    */
+@@ -304,6 +311,7 @@ protected:
+   void davParseActiveLocks( const QDomNodeList& activeLocks,
+                             uint& lockCount );
+ 
++#endif
+   /**
+    * Parses a date & time string
+    */
+@@ -314,12 +322,14 @@ protected:
+    */
+   int codeFromResponse( const QString& response );
+ 
++#if !defined(QT_NO_DOM)
+   /**
+    * Extracts locks from metadata
+    * Returns the appropriate If: header
+    */
+   QString davProcessLocks();
+-
++#endif
++  
+   /**
+    * Send a cookie to the cookiejar
+    */
+@@ -475,7 +485,7 @@ protected:
+   QString m_sContentMD5;
+   QString m_strMimeType;
+   
+-
++#if !defined(QT_NO_DOM)
+ //--- WebDAV
+   // Data structure to hold data which will be passed to an internal func.
+   QByteArray m_bufWebDavData;
+@@ -484,6 +494,7 @@ protected:
+   bool m_davHostOk;
+   bool m_davHostUnsupported;
+ //----------
++#endif
+ 
+   // Holds the POST data so it won't get lost on if we
+   // happend to get a 401/407 response when submitting,

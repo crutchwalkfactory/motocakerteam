@@ -1,0 +1,8 @@
+*.cpp
+*.c
+*.h
+*.la
+*.la.closure
+Makefile.in
+Makefile
+charsets

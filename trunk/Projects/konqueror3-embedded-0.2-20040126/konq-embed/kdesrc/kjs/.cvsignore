@@ -1,0 +1,8 @@
+*.cpp
+*.h
+README
+THANKS
+configure.in.in
+
+Makefile.in
+Makefile

@@ -1,0 +1,7 @@
+kcookiejar.cpp
+kcookieserver.cpp
+kcookiewin.cpp
+*.h
+Makefile.in
+Makefile
+moc_*

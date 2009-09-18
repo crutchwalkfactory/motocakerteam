@@ -1,0 +1,48 @@
+--- khtml_part.cpp.orig	2003-03-21 15:05:01.000000000 +0100
++++ khtml_part.cpp	2003-03-19 17:34:03.000000000 +0100
+@@ -2080,6 +2080,7 @@
+ 
+ void KHTMLPart::findText()
+ {
++#if 0 // Find dialog is not implemented
+   // First do some init to make sure we can search in this frame
+   if ( !d->m_doc )
+     return;
+@@ -2127,11 +2128,13 @@
+   if ( (options & KFindDialog::FromCursor) == 0 )
+       (void) initFindNode( options & KFindDialog::SelectedText, options & KFindDialog::FindBackwards );
+   findTextNext();
++#endif
+ }
+ 
+ // New method
+ void KHTMLPart::findTextNext()
+ {
++#if 0 // Find dialog is not implemented
+   if (!d->m_find) // shouldn't be called before find is activated
+ 	return;
+ 
+@@ -2235,6 +2238,7 @@
+     }
+   }
+   d->m_paFindNext->setEnabled( d->m_find != 0L  ); // true, except when completely done
++#endif 
+ }
+ 
+ void KHTMLPart::slotHighlight( const QString &, int index, int length )
+@@ -2722,6 +2726,7 @@
+ 
+ void KHTMLPart::slotViewPageInfo()
+ {
++#if 0 // No informations for konq-embed, sorry
+   KHTMLInfoDlg *dlg = new KHTMLInfoDlg(NULL, "KHTML Page Info Dialog", false, WDestructiveClose);
+ 
+   if (d->m_doc)
+@@ -2752,6 +2757,7 @@
+ 
+   dlg->show();
+   /* put no code here */
++#endif
+ }
+ 
+ 

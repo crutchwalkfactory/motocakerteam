@@ -1,0 +1,5 @@
+*.h
+Makefile.in
+Makefile
+*.cpp
+*.cc

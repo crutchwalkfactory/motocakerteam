@@ -1,0 +1,18 @@
+--- khtmlview.cpp.orig	2003-01-20 10:11:46.000000000 +0100
++++ khtmlview.cpp	2003-03-19 17:34:03.000000000 +0100
+@@ -1134,6 +1134,7 @@
+ 
+ void KHTMLView::print()
+ {
++#ifdef ENABLE_PRINTING // This code is not needed for kdenox for now
+     if(!m_part->xmlDocImpl()) return;
+     khtml::RenderRoot *root = static_cast<khtml::RenderRoot *>(m_part->xmlDocImpl()->renderer());
+     if(!root) return;
+@@ -1297,6 +1298,7 @@
+         viewport()->unsetCursor();
+     }
+     delete printer;
++#endif
+ }
+ 
+ void KHTMLView::slotPaletteChanged()

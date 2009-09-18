@@ -1,0 +1,2 @@
+init: konqe_register_libkflashpart
+libs: libkflash_e.la

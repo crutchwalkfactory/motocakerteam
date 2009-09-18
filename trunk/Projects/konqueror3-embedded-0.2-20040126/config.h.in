@@ -1,0 +1,647 @@
+/* config.h.in.  Generated from configure.in by autoheader.  */
+
+/* Defined if JavaScript should be dynamically opened at run-time */
+#undef DLOPEN_JAVASCRIPT
+
+/* Defined if bookmark support is enabled */
+#undef ENABLE_BOOKMARKS
+
+/* If we support protocols trough local CGI */
+#undef ENABLE_CGI
+
+/* Defined if font substitution is enabled */
+#undef ENABLE_FONTSUBS
+
+/* If we want support for the FTP protocol */
+#undef ENABLE_FTP
+
+/* Defined if JavaScript support is enabled */
+#undef ENABLE_JAVASCRIPT
+
+/* Defined if JavaScript can be extended */
+#undef ENABLE_JS_HOSTEXTEND
+
+/* Defined if we want printing support */
+#undef ENABLE_PRINTING
+
+/* Defined if we support KParts::ReadWritePart */
+#undef ENABLE_READWRITE
+
+/* Defined if local sidebar support is enabled */
+#undef ENABLE_SIDEBAR
+
+/* Defined if user interface comes from a XML file */
+#undef ENABLE_XMLUI
+
+/* Define if getaddrinfo returns AF_UNIX sockets */
+#undef GETADDRINFO_RETURNS_UNIX
+
+/* Define to the type of elements in the array set by `getgroups'. Usually
+   this is either `int' or `gid_t'. */
+#undef GETGROUPS_T
+
+/* You _must_ have bool */
+#undef HAVE_BOOL
+
+/* Define if getaddrinfo is broken and should be replaced */
+#undef HAVE_BROKEN_GETADDRINFO
+
+/* Define if you have the CoreAudio API */
+#undef HAVE_COREAUDIO
+
+/* Define to 1 if you have the <crt_externs.h> header file. */
+#undef HAVE_CRT_EXTERNS_H
+
+/* Defines if your system has the crypt function */
+#undef HAVE_CRYPT
+
+/* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_DIRENT_H
+
+/* Define if you have dlfcn */
+#undef HAVE_DLFCN
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <dl.h> header file. */
+#undef HAVE_DL_H
+
+/* Define to 1 if you have the <float.h> header file. */
+#undef HAVE_FLOAT_H
+
+/* Define to 1 if you have the `freeaddrinfo' function. */
+#undef HAVE_FREEADDRINFO
+
+/* Define if you have finite */
+#undef HAVE_FUNC_FINITE
+
+/* Define if you have isinf */
+#undef HAVE_FUNC_ISINF
+
+/* Define if you have isnan */
+#undef HAVE_FUNC_ISNAN
+
+/* Define if you have _finite */
+#undef HAVE_FUNC__FINITE
+
+/* Define to 1 if you have the `gai_strerror' function. */
+#undef HAVE_GAI_STRERROR
+
+/* Define if getaddrinfo is present */
+#undef HAVE_GETADDRINFO
+
+/* Define if you have getdomainname */
+#undef HAVE_GETDOMAINNAME
+
+/* Define if you have the getdomainname prototype */
+#undef HAVE_GETDOMAINNAME_PROTO
+
+/* Define to 1 if you have the `gethostbyname2' function. */
+#undef HAVE_GETHOSTBYNAME2
+
+/* Define to 1 if you have the `gethostbyname2_r' function. */
+#undef HAVE_GETHOSTBYNAME2_R
+
+/* Define to 1 if you have the `gethostbyname_r' function. */
+#undef HAVE_GETHOSTBYNAME_R
+
+/* Define if you have gethostname */
+#undef HAVE_GETHOSTNAME
+
+/* Define if you have the gethostname prototype */
+#undef HAVE_GETHOSTNAME_PROTO
+
+/* Define to 1 if you have the `getnameinfo' function. */
+#undef HAVE_GETNAMEINFO
+
+/* Define to 1 if you have the `getpeername' function. */
+#undef HAVE_GETPEERNAME
+
+/* Define to 1 if you have the `getsockname' function. */
+#undef HAVE_GETSOCKNAME
+
+/* Define to 1 if you have the `getsockopt' function. */
+#undef HAVE_GETSOCKOPT
+
+/* Define to 1 if you have the <ieeefp.h> header file. */
+#undef HAVE_IEEEFP_H
+
+/* Define to 1 if you have the `inet_ntop' function. */
+#undef HAVE_INET_NTOP
+
+/* Define to 1 if you have the `inet_pton' function. */
+#undef HAVE_INET_PTON
+
+/* Define if you have initgroups */
+#undef HAVE_INITGROUPS
+
+/* Define if you have the initgroups prototype */
+#undef HAVE_INITGROUPS_PROTO
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define if you have libjpeg */
+#undef HAVE_LIBJPEG
+
+/* Define if you have libpng */
+#undef HAVE_LIBPNG
+
+/* Define if you have a working libpthread (will enable threaded code) */
+#undef HAVE_LIBPTHREAD
+
+/* Define if you have libz */
+#undef HAVE_LIBZ
+
+/* Define to 1 if long double works and has more range or precision than
+   double. */
+#undef HAVE_LONG_DOUBLE
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define if you have mkstemps */
+#undef HAVE_MKSTEMPS
+
+/* Define if you have the mkstemps prototype */
+#undef HAVE_MKSTEMPS_PROTO
+
+/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
+#undef HAVE_NDIR_H
+
+/* Define to 1 if you have the <netinet/in.h> header file. */
+#undef HAVE_NETINET_IN_H
+
+/* Define if your system needs _NSGetEnviron to set up the environment */
+#undef HAVE_NSGETENVIRON
+
+/* Define if you have OpenSSL < 0.9.6 */
+#undef HAVE_OLD_SSL_API
+
+/* Define to 1 if you have the <paths.h> header file. */
+#undef HAVE_PATHS_H
+
+/* Define if you have pcreposix libraries and header files. */
+#undef HAVE_PCREPOSIX
+
+/* Define if you have random */
+#undef HAVE_RANDOM
+
+/* Define if you have the random prototype */
+#undef HAVE_RANDOM_PROTO
+
+/* Define if you have the res_init function */
+#undef HAVE_RES_INIT
+
+/* Define if you have setenv */
+#undef HAVE_SETENV
+
+/* Define if you have the setenv prototype */
+#undef HAVE_SETENV_PROTO
+
+/* Define if you have a STL implementation by SGI */
+#undef HAVE_SGI_STL
+
+/* Define if you have shload */
+#undef HAVE_SHLOAD
+
+/* Define to 1 if you have the `snprintf' function. */
+#undef HAVE_SNPRINTF
+
+/* Define if we have struct sockaddr_in6 in netinet/in.h */
+#undef HAVE_SOCKADDR_IN6
+
+/* Define if this system already has sin6_scope_id in sockaddr_in6 */
+#undef HAVE_SOCKADDR_IN6_SCOPE_ID
+
+/* Define if struct sockaddr has member sa_len */
+#undef HAVE_SOCKADDR_SA_LEN
+
+/* Define to 1 if you have the `socket' function. */
+#undef HAVE_SOCKET
+
+/* Define if you have srandom */
+#undef HAVE_SRANDOM
+
+/* Define if you have the srandom prototype */
+#undef HAVE_SRANDOM_PROTO
+
+/* If we are going to use OpenSSL */
+#undef HAVE_SSL
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define if you have strlcat */
+#undef HAVE_STRLCAT
+
+/* Define if you have the strlcat prototype */
+#undef HAVE_STRLCAT_PROTO
+
+/* Define if you have strlcpy */
+#undef HAVE_STRLCPY
+
+/* Define if you have the strlcpy prototype */
+#undef HAVE_STRLCPY_PROTO
+
+/* Define to 1 if you have the <stropts.h> header file. */
+#undef HAVE_STROPTS_H
+
+/* Define if netdb.h defines struct addrinfo */
+#undef HAVE_STRUCT_ADDRINFO
+
+/* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_SYS_DIR_H
+
+/* Define to 1 if you have the <sys/ioctl.h> header file. */
+#undef HAVE_SYS_IOCTL_H
+
+/* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_SYS_NDIR_H
+
+/* Define to 1 if you have the <sys/param.h> header file. */
+#undef HAVE_SYS_PARAM_H
+
+/* Define to 1 if you have the <sys/select.h> header file. */
+#undef HAVE_SYS_SELECT_H
+
+/* Define to 1 if you have the <sys/sockio.h> header file. */
+#undef HAVE_SYS_SOCKIO_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/stropts.h> header file. */
+#undef HAVE_SYS_STROPTS_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define if sys/stat.h declares S_ISSOCK. */
+#undef HAVE_S_ISSOCK
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define if you have unsetenv */
+#undef HAVE_UNSETENV
+
+/* Define if you have the unsetenv prototype */
+#undef HAVE_UNSETENV_PROTO
+
+/* Define if you have usleep */
+#undef HAVE_USLEEP
+
+/* Define if you have the usleep prototype */
+#undef HAVE_USLEEP_PROTO
+
+/* Define to 1 if you have the `vsnprintf' function. */
+#undef HAVE_VSNPRINTF
+
+/* The prefix to use as fallback */
+#undef KDEDIR
+
+/* Suffix for lib directories */
+#undef KDELIBSUFF
+
+/* Define a safe value for MAXPATHLEN */
+#undef KDEMAXPATHLEN
+
+/* The compiled in system configuration prefix */
+#undef KDESYSCONFDIR
+
+/* Lookup mode for IPv6 addresses: 0 for always, 1 for check and 2 for
+   disabled */
+#undef KDE_IPV6_LOOKUP_MODE
+
+/* Use own malloc implementation */
+#undef KDE_MALLOC
+
+/* Enable debugging in fast malloc */
+#undef KDE_MALLOC_DEBUG
+
+/* Make alloc as fast as possible */
+#undef KDE_MALLOC_FULL
+
+/* The libc used is glibc */
+#undef KDE_MALLOC_GLIBC
+
+/* The platform is x86 */
+#undef KDE_MALLOC_X86
+
+/* Defined if scrollbars in KHTML are disabled */
+#undef KHTML_NO_SCROLLBARS
+
+/* Defined if selections in KHTML are disabled */
+#undef KHTML_NO_SELECTION
+
+/* Defined if we debug the KJS memory (de)allocations */
+#undef KJS_DEBUG_MEM
+
+/* dlopen the SSL libraries at run-time */
+#undef KONQ_DYNAMIC_SSL
+
+/* Defined because we are building the embedded version */
+#undef KONQ_EMBEDDED
+
+/* use kiosk gui */
+#undef KONQ_GUI_KIOSK
+
+/* use qpe gui */
+#undef KONQ_GUI_QPE
+
+/* use tv gui */
+#undef KONQ_GUI_TV
+
+/* use x11 gui */
+#undef KONQ_GUI_X11
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Defined if command line options are parsed */
+#undef PARSE_CMDLINE
+
+/* The size of a `char', as computed by sizeof. */
+#undef SIZEOF_CHAR
+
+/* The size of a `char *', as computed by sizeof. */
+#undef SIZEOF_CHAR_P
+
+/* The size of a `int', as computed by sizeof. */
+#undef SIZEOF_INT
+
+/* The size of a `long', as computed by sizeof. */
+#undef SIZEOF_LONG
+
+/* The size of a `short', as computed by sizeof. */
+#undef SIZEOF_SHORT
+
+/* The size of a `size_t', as computed by sizeof. */
+#undef SIZEOF_SIZE_T
+
+/* The size of a `unsigned long', as computed by sizeof. */
+#undef SIZEOF_UNSIGNED_LONG
+
+/* If we support sorting directory listings */
+#undef SORT_DIRLIST
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
+#undef TIME_WITH_SYS_TIME
+
+/* Defined if large icons are used in toolbar */
+#undef USE_LARGE_ICONS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to 1 if your processor stores words with the most significant byte
+   first (like Motorola and SPARC, unlike Intel and VAX). */
+#undef WORDS_BIGENDIAN
+
+/*
+ * jpeg.h needs HAVE_BOOLEAN, when the system uses boolean in system
+ * headers and I'm too lazy to write a configure test as long as only
+ * unixware is related
+ */
+#ifdef _UNIXWARE
+#define HAVE_BOOLEAN
+#endif
+
+
+
+/*
+ * AIX defines FD_SET in terms of bzero, but fails to include <strings.h>
+ * that defines bzero.
+ */
+
+#if defined(_AIX)
+#include <strings.h>
+#endif
+
+
+
+#if defined(HAVE_NSGETENVIRON) && defined(HAVE_CRT_EXTERNS_H)
+# include <sys/time.h>
+# include <crt_externs.h>
+# define environ (*_NSGetEnviron())
+#endif
+
+
+
+#if !defined(HAVE_GETDOMAINNAME_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <sys/types.h>
+		int getdomainname (char *, size_t);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_GETHOSTNAME_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+int gethostname (char *, unsigned int);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_INITGROUPS_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+int initgroups(const char *, gid_t);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_MKSTEMPS_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+int mkstemps(char *, int);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_RANDOM_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+long int random(void);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_SETENV_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+int setenv (const char *, const char *, int);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_SRANDOM_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+void srandom(unsigned int);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_STRLCAT_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+unsigned long strlcat(char*, const char*, unsigned long);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_STRLCPY_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+unsigned long strlcpy(char*, const char*, unsigned long);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_UNSETENV_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+void unsetenv (const char *);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_USLEEP_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+int usleep (unsigned int);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#ifndef HAVE_S_ISSOCK
+#define HAVE_S_ISSOCK
+#define S_ISSOCK(mode) (1==0)
+#endif
+
+
+
+/*
+ * On HP-UX, the declaration of vsnprintf() is needed every time !
+ */
+
+#if !defined(HAVE_VSNPRINTF) || defined(hpux)
+#if __STDC__
+#include <stdarg.h>
+#include <stdlib.h>
+#else
+#include <varargs.h>
+#endif
+#ifdef __cplusplus
+extern "C"
+#endif
+int vsnprintf(char *str, size_t n, char const *fmt, va_list ap);
+#ifdef __cplusplus
+extern "C"
+#endif
+int snprintf(char *str, size_t n, char const *fmt, ...);
+#endif
+
+
+/* KDE bindir */
+#undef __KDE_BINDIR
+
+
+#if defined(__SVR4) && !defined(__svr4__)
+#define __svr4__ 1
+#endif
+
+
+/* Define to `int' if <sys/types.h> doesn't define. */
+#undef gid_t
+
+/* Compatibility define */
+#undef ksize_t
+
+/* Define the real type of socklen_t */
+#undef socklen_t
+
+/* Define to `int' if <sys/types.h> doesn't define. */
+#undef uid_t
