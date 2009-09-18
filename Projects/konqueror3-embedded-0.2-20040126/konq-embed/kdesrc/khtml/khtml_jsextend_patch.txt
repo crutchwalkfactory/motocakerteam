@@ -1,0 +1,46 @@
+--- khtml_part.cpp.orig	2003-05-13 17:19:46.000000000 +0200
++++ khtml_part.cpp	2003-05-15 12:35:46.000000000 +0200
+@@ -45,6 +45,13 @@
+ #include "xml/xml_tokenizer.h"
+ #include "css/cssstyleselector.h"
+ #include "css/csshelper.h"
++
++#if defined(KONQ_EMBEDDED) && defined(ENABLE_JS_HOSTEXTEND)
++#include <jsextconnect.h>
++#include <ecma/kjs_dom.h>
++#include <ecma/kjs_window.h>
++#endif
++
+ using namespace DOM;
+ 
+ #include "khtmlview.h"
+@@ -1374,6 +1381,15 @@
+   emit d->m_extension->enableAction( "print", true );
+ 
+   d->m_doc->setParsing(true);
++#if defined(ENABLE_JS_HOSTEXTEND)
++  if ( jScriptEnabled() )
++  {
++    // Credits for this great idea go to Jaksa Vuckovic <jaksa@libero.it>
++	
++    KJS::probeJsExtension(jScript()->interpreter()->globalExec(), 
++	    this, url, args.serviceType, KJS::Window::retrieveWindow(this));
++  }
++#endif
+ }
+ 
+ void KHTMLPart::write( const char *str, int len )
+@@ -3184,6 +3200,13 @@
+       child->m_extension->setBrowserInterface( d->m_extension->browserInterface() );
+     }
+     child->m_liveconnect = KParts::LiveConnectExtension::childObject( part );
++#if defined(KONQ_EMBEDDED) && defined(ENABLE_JS_HOSTEXTEND)
++    // Plug in any Javascript extension now, before any possible onLoad event
++    if (jScriptEnabled()) {
++	KJS::probeJsExtension(jScript()->interpreter()->globalExec(), 
++		part, url, mimetype, KJS::Window::retrieveWindow(this) );
++    }
++#endif
+   }
+ 
+   checkEmitLoadEvent();

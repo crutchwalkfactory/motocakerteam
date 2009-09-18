@@ -1,0 +1,18 @@
+--- ecma/kjs_window.cpp.orig	Thu Jan 23 09:55:36 2003
++++ ecma/kjs_window.cpp	Tue Feb 11 11:00:33 2003
+@@ -1285,6 +1285,7 @@
+     if(args.size() == 2 && widget)
+       widget->setContentsPos(args[0].toInt32(exec), args[1].toInt32(exec));
+     return Undefined();
++#ifndef KONQ_EMBEDDED // No window manipulations in the embedded browser
+   case Window::MoveBy: {
+     if(args.size() == 2 && widget)
+     {
+@@ -1329,6 +1330,7 @@
+     }
+     return Undefined();
+   }
++#endif // KONQ_EMBEDDED
+   case Window::SetTimeout:
+     if (args.size() == 2 && v.isA(StringType)) {
+       int i = args[1].toInt32(exec);

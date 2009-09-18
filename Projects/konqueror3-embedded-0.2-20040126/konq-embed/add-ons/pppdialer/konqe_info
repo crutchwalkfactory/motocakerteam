@@ -1,0 +1,2 @@
+init: konqe_register_pppdialer
+libs: libpppdialer_e.la

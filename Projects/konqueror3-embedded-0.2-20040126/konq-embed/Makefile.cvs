@@ -1,0 +1,9 @@
+
+all: 
+	if test -z "$$KDESRC"; then \
+		bash ./prepare_kde_src ../../kdelibs ./kdesrc ;\
+	else \
+		bash ./prepare_kde_src "$$KDESRC/kdelibs" ./kdesrc ;\
+	fi
+
+.SILENT:

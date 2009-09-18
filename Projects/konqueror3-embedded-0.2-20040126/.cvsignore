@@ -1,0 +1,16 @@
+acinclude.m4
+aclocal.m4
+Makefile
+Makefile.in
+libtool
+config.h
+config.h.in
+configure
+stamp-h*
+inst-apps
+configure.in
+configure.files
+subdirs  
+conftest
+conftest.c
+autom4te.cache

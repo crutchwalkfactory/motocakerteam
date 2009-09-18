@@ -1,0 +1,296 @@
+#! /bin/sh
+# simon@kde.org
+
+src=$1
+dst=$2
+
+path="`echo "$PATH" | sed -e "s/\:/ /g"`"
+find=""
+for i in $path; do
+  if test -x "$i/gfind"; then
+    find="$i/gfind"
+    break
+  fi  
+  if test -x "$i/find"; then
+    find="$i/find"
+    break 
+  fi
+done
+ 
+if test -z "$find"; then
+  echo "I need GNU find!"
+  exit 1
+fi    
+
+cp_pr="cp -pr"
+
+echo "*** preparing kde sources (from $src into $dst) ..."
+
+if test ! -x $src; then
+	echo "Cannot find kde (kdelibs) sources. Make sure they can be found"
+	echo "at the same level as this module (like ../kdelibs) or set the"
+	echo "KDESRC environment variable to the directory which contains the"
+	echo "kdelibs directory."
+	exit 255
+fi
+
+# starting with kdecore stuff
+
+# extract KDE versioning string, for user agent
+grep KDE_VERSION_STRING $src/kdecore/kapp.h | head -1 > $dst/kdecore/kdeversion.h
+
+cp -p $src/kdecore/kurl.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/krfcdate.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/ksock.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/ksockaddr.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/netsupp.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/kextsock.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/kextsocklookup.h $dst/kdecore/
+
+cp -p $src/kdecore/kasyncio.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/kbufferedio.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/kcharsets.{cpp,h} $dst/kdecore/
+
+cp -p $src/kdecore/kentities.c $dst/kdecore
+
+cp -p $src/kdecore/ksharedptr.h $dst/kdecore
+
+cp -p $src/kdecore/kstandarddirs.{cpp,h} $dst/kdecore
+
+cp -p $src/kdecore/ktempfile.{cpp,h} $dst/kdecore
+
+cp -p $src/kdecore/ksavefile.{cpp,h} $dst/kdecore
+
+cp -p $src/kdecore/kmdcodec.{cpp,h} $dst/kdecore
+
+cp -p $src/kdecore/kmultipledrag.{cpp,h} $dst/kdecore
+
+# for kdelibs v3.1
+cp -p $src/kdecore/kdebugclasses.h $dst/kdecore
+
+# for kdelibs v3.2 - disable for now
+#cp -p $src/kdecore/kdemacros.h $dst/kdecore
+#cp -p $src/kdecore/kidna.h $dst/kdecore
+#cp -p $src/kdecore/kshell.h $dst/kdecore
+
+# fast malloc support
+mkdir $dst/kdecore/malloc
+cp -p $src/kdecore/malloc/*.{c,h} $dst/kdecore/malloc
+cp -p $src/kdecore/malloc/Makefile.am $dst/kdecore/malloc
+cp -p $src/kdecore/malloc/configure.in.in $dst/kdecore/malloc
+
+# let's move over Waldo's KCookieJar
+
+cp -p $src/kioslave/http/kcookiejar/kcookie*.{cpp,h} $dst/kio/http/kcookiejar/
+
+# now the http ioslave
+
+cp -p $src/kioslave/http/*.{cpp,cc,h} $dst/kio/http/
+
+#This is needed for kdelibs v3.1 - ML
+cp -p $src/kioslave/http/httpfilter.{cpp,cc,h} $dst/kio/http/
+
+cp -p $src/kioslave/http/http_cache_cleaner.cpp $dst/kio/http/
+
+perl -pi -e "s,main\(,http_cache_cleaner_main\(," $dst/kio/http/http_cache_cleaner.cpp
+
+perl -pi -e "s,kdemain\(,http_kdemain\(,g" $dst/kio/http/http.cc
+
+# some more kio stuff
+
+cp -p $src/kio/kio/slaveconfig.h $dst/kio
+
+cp -p $src/kio/kio/global.h $dst/kio
+
+cp -p $src/kio/kio/slaveinterface.{cpp,h} $dst/kio
+
+cp -p $src/kio/kio/connection.{cpp,h} $dst/kio
+
+cp -p $src/kio/kio/authinfo.{cpp,h} $dst/kio
+
+cp -p $src/kio/kio/http_slave_defaults.h $dst/kio
+
+cp -p $src/kio/kio/ioslave_defaults.h $dst/kio
+
+cp -p $src/kio/kio/tcpslavebase.{cpp,h} $dst/kio
+
+cp -p $src/kioslave/ftp/ftp.{cc,h} $dst/kio
+
+perl -pi -e "s,kdemain\(,ftp_kdemain\(,g" $dst/kio/ftp.cc
+
+# Harri's javascript
+
+cp -p $src/kjs/*.{cpp,h} $dst/kjs
+
+cp -p $src/kjs/README $dst/kjs
+
+cp -p $src/kjs/THANKS $dst/kjs
+
+cp -p $src/kjs/configure.in.in $dst/kjs
+
+# for kdelibs v3.2 - should be harmless for 3.1
+cp -p $src/kjs/keywords.table $dst/kjs
+cp -p $src/kjs/create_hash_table $dst/kjs
+
+# we need the partmanager and some other stuff from kparts
+
+cp -p $src/kparts/partmanager.{cpp,h} $dst/kparts
+
+cp -p $src/kparts/event.{cpp,h} $dst/kparts
+
+cp -p $src/kparts/browserextension.{cpp,h} $dst/kparts
+
+# for kdelibs 3.2 
+cp -p $src/kparts/statusbarextension.{cpp,h} $dst/kparts
+
+cp -p $src/kparts/factory.{cpp,h} $dst/kparts
+
+# now let's get the big baby :-)
+
+cp -p $src/khtml/*.{cpp,h,cc} $dst/khtml/
+
+rm $dst/khtml/khtml_ext.*
+rm $dst/khtml/khtml_find.*
+rm $dst/khtml/khtml_run.*
+rm $dst/khtml/htmlpageinfo.*
+
+mkdir -p $dst/khtml/rendering
+mkdir -p $dst/khtml/html
+mkdir -p $dst/khtml/dom
+mkdir -p $dst/khtml/xml
+mkdir -p $dst/khtml/css
+mkdir -p $dst/khtml/ecma
+mkdir -p $dst/khtml/misc
+
+cp -p $src/khtml/rendering/*.{cpp,h} $dst/khtml/rendering/
+
+cp -p $src/khtml/html/*.{cpp,h} $dst/khtml/html/
+
+cp -p $src/khtml/dom/*.{cpp,h} $dst/khtml/dom/
+
+cp -p $src/khtml/xml/*.{cpp,h} $dst/khtml/xml/
+
+cp -p $src/khtml/css/*.{cpp,h} $dst/khtml/css/
+cp -p $src/khtml/css/*.c $dst/khtml/css/
+
+cp -p $src/khtml/css/html4.css $dst/khtml/css
+
+cp -p $src/khtml/ecma/*.{cpp,h} $dst/khtml/ecma/
+
+cp -p $src/khtml/misc/*.{cpp,h} $dst/khtml/misc/
+cp -p $src/khtml/misc/*.c $dst/khtml/misc/
+cp -p $src/khtml/misc/htmltags.gperf $dst/khtml/misc/
+
+cp -p $src/khtml/rendering/Makefile.am $dst/khtml/rendering/
+cp -p $src/khtml/html/Makefile.am $dst/khtml/html/
+cp -p $src/khtml/dom/Makefile.am $dst/khtml/dom/
+cp -p $src/khtml/xml/Makefile.am $dst/khtml/xml/
+cp -p $src/khtml/css/Makefile.am $dst/khtml/css/
+cp -p $src/khtml/ecma/Makefile.am $dst/khtml/ecma/
+cp -p $src/khtml/misc/Makefile.am $dst/khtml/misc/
+
+# don't forget KSSL :)
+cp -p $src/kio/kssl/kssl.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslcertificatehome.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslsettings.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslcertificate.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslconnectioninfo.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslcertificatefactory.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslcertificatecache.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslpeerinfo.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslcertdlg.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslutils.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslcertchain.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslx509map.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslpkcs12.{cc,h} $dst/kssl
+#cp -p $src/kio/kssl/configure.in.in $dst/kssl
+cp -p $src/kio/kssl/ksslconfig.h.in $dst/kssl
+cp -p $src/kio/kssl/kopenssl.{cc,h} $dst/kssl
+cp -p $src/kio/kssl/ksslcallback.c $dst/kssl
+cp -p $src/kio/kssl/kssldefs.h $dst/kssl
+cp -p $src/kio/kssl/ksslsigners.h $dst/kssl
+cp -p $src/kio/kssl/ksslall.h $dst/kssl
+cp -p $src/kio/kssl/ksslx509v3.h $dst/kssl
+cp -p $src/kio/kssl/ksslx509v3.cc $dst/kssl
+cp -p $src/kio/kssl/ksslpkcs7.h $dst/kssl
+cp -p $src/kio/misc/kssld/kssld.{cpp,h} $dst/kssl
+# for kdelibs v3.2
+cp -p $src/kio/kssl/ksslsession.{cc,h} $dst/kssl
+#cp -p $src/kio/kssl/ksslinfodlg.{cc,h} $dst/kssl
+
+$cp_pr $src/kio/kssl/kssl $dst/kssl
+
+# Temporary hack, needed for kdelibs 3.1
+perl -pi -e "s/^data/kssldata/" $dst/kssl/kssl/caroot/Makefile.am
+
+# Copy the needed interface
+mkdir -p $dst/interfaces/kio
+cp -p $src/interfaces/kio/Makefile.am $dst/interfaces/kio
+cp -p $src/interfaces/kio/http.h $dst/interfaces/kio
+
+# Copy the kfind class definition. khtml v3.1 requires it.
+mkdir -p $dst/kutils
+cp -p $src/kutils/kfind.h $dst/kutils/kfind.h
+cp -p $src/kutils/kfinddialog.h $dst/kutils/kfinddialog.h
+
+for i in ./kdesrc/khtml/rendering/Makefile.am \
+	 ./kdesrc/khtml/html/Makefile.am \
+	 ./kdesrc/khtml/dom/Makefile.am \
+ 	 ./kdesrc/khtml/xml/Makefile.am \
+	 ./kdesrc/khtml/misc/Makefile.am \
+	 ./kdesrc/khtml/ecma/Makefile.am \
+	 ./kdesrc/khtml/css/Makefile.am ; do
+    perl -pi -e "s,\\$\(all_includes\),-I\\$\(srcdir\)/../../../dropin -I\\$\(srcdir\)/../../kdecore -I\\$\(srcdir\)/../.. -I\\$\(srcdir\)/.. -I\\$\(srcdir\)/../misc -I\\$\(srcdir\)/../misc -I\\$\(srcdir\)/../css -I\\$\(srcdir\)/../dom -I\\$\(srcdir\)/../xml -I\\$\(srcdir\)/../html -I\\$\(srcdir\)/../../../dropin/kio -I\\$\(srcdir\)/../../kjs -I\\$\(srcdir\)/../../../dropin/kssl -I\\$\(srcdir\)/../../../dropin/khtml -I\\$\(srcdir\)/../../../dropin/khtml/java \\\$\(QT_INCLUDES\) \\$\(X_INCLUDES\) \\$\(all_includes\)," $i
+    perl -pi -e "s,-DQT_NO_CAST_ASCII,,g" $i
+    echo "KDE_OPTIONS = qtonly" >> $i
+done;
+
+perl -pi -e "s,kde_module_LTLIBRARIES,noinst_LTLIBRARIES," ./kdesrc/khtml/ecma/Makefile.am
+perl -pi -e "s,(lib|)kjs_html\.la,libkjs_html_i.la,g" ./kdesrc/khtml/ecma/Makefile.am
+perl -pi -e "s,(lib|)kjs_html_la,libkjs_html_i_la,g" ./kdesrc/khtml/ecma/Makefile.am
+perl -pi -e "s,libkjs_html_i_la_LIBADD.*,," ./kdesrc/khtml/ecma/Makefile.am
+perl -pi -e "s,libkjs_html_i_la_LDFLAGS.*,," ./kdesrc/khtml/ecma/Makefile.am
+cat >> ./kdesrc/khtml/ecma/Makefile.am << EOT
+if DLOPEN_JAVASCRIPT
+lib_LTLIBRARIES = kjs_html.la
+kjs_html_la_LIBADD = libkjs_html_i.la ../libkhtml.la ../../kjs/libkjs.la \$(LIBPCRE)
+kjs_html_la_LDFLAGS = -module -avoid-version -no-undefined \$(all_libraries)
+kjs_html_la_SOURCES = dummy.cc
+
+endif
+dummy.cc:
+	echo > dummy.cc
+EOT
+
+perl -pi -e "s,\\$\(top_builddir\)/kjs/libkjs.la,../../kjs/libkjs.la," ./kdesrc/khtml/ecma/Makefile.am
+perl -pi -e "s,myinclude_HEADERS,noinst_HEADERS," ./kdesrc/khtml/dom/Makefile.am
+
+#echo "*** applying khtml add-on patch ..."
+#( cd ./kdesrc/khtml && patch -p0 < ./khtml_scaling_patch.txt )
+
+echo "*** applying ecma no-window-changes add-on patch ..."
+( cd ./kdesrc/khtml && patch -p0 < ./ecma_nowindowchanges.txt )
+
+echo "*** applying disable-printing patch ..."
+( cd ./kdesrc/khtml && patch -p0 < ./disable_printing_patch.txt )
+
+echo "*** applying no-find patch ..."
+( cd ./kdesrc/khtml && patch -p0 < ./khtml_part_no_find_no_info_patch.txt )
+
+echo "*** applying khtml javascript connect add-on patch ..."
+( cd ./kdesrc/khtml && patch -p0 < ./khtml_jsextend_patch.txt )
+
+echo "*** applying no-webdav patch ..."
+( cd ./kdesrc/kio/http && patch -p0 < ./no-webdav_patch.txt )
+
+#echo "*** applying kcharset unicode patch ..."
+#
+#( cd ./kdesrc/kdecore && patch -p0 < ./charset_unicode_patch.txt )
