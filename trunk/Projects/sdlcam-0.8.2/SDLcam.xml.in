@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<SDLcam>
+	<KeyBindings>
+		<Key id="SDLK_ESCAPE"	>exit</Key>
+		<Key id="SDLK_ENTER" 	>capture</Key>
+		<Key id="SDLK_F1"	>average</Key>
+		<Key id="SDLK_F2"	>noise</Key>
+		<Key id="SDLK_RETURN"	>capt</Key>
+		<Key id="SDLK_d"	>debug</Key>
+		<Key id="SDLK_SPACE"	>background</Key>
+		<Key id="SDLK_ESCAPE"	>exit</Key>
+		<Key id="SDLK_m"	>full</Key>
+		<Key id="SDLK_r"	>rotate90</Key>
+		<Key id="SDLK_x"	>flip-x</Key>
+		<Key id="SDLK_y"	>flip-y</Key>
+		<Key id="SDLK_g"	>gray</Key>
+		<Key id="SDLK_s"	>mini</Key>
+		<Key id="SDLK_h"	>half</Key>
+		<Key id="SDLK_l"	>doublesize</Key>
+		<Key id="SDLK_u"	>user</Key>
+
+		<Res id="SDLK_1"	>128x96</Res>
+		<Res id="SDLK_2"	>160x120</Res>
+		<Res id="SDLK_3" 	>176x144</Res>
+		<Res id="SDLK_4" 	>320x240</Res>
+		<Res id="SDLK_5" 	>352x288</Res>
+		<Res id="SDLK_6"	>640x480</Res>
+
+		<Key id="SDLK_F1"	>average</Key>
+		<Key id="SDLK_F2"	>range</Key>
+		<Key id="SDLK_F3"	>pixelize4</Key>
+		<Key id="SDLK_F4"	>bluebox</Key>
+		<Key id="SDLK_F5"	>lowpass</Key>
+		<Key id="SDLK_F6"	>highpass</Key>
+		<Key id="SDLK_F7"	>dark</Key>
+		<Key id="SDLK_F8"       >dark</Key>
+	</KeyBindings>
+	<GUILayout>
+		<GUIBlocks>
+			<SideBar   x="0" y="0"    w="100" h="350" />
+			<BottomBar x="100"    y="-120" w="325" h="120" />
+			<Image     x="100"    y="0" 		     />
+		</GUIBlocks>
+		<Background img="" />
+		<font id="f0" file="LucidaTypewriterRegular.ttf" size="12"/>
+		<font id="f1" file="LucidaSansRegular.ttf" 	 size="12"/>
+		<font if="f2" file="LucidaSansRegular.ttf" 	 size="20"/>
+		<Elements>
+			<Element tab="-1" font="3" left="4"   	top="4"	 fg="yellow"				>Option</Element>
+			<Element tab="-1" font="2" left="4" 	top="40"					>Brightness</Element>
+			<Element tab="-1" font="2" left="4"	top="58"  action="brightness-"			>-</Element>
+			<Value	 tab="-1" font="2" left="15"	top="58"   value="brightness"			/>
+			<Element tab="-1" font="2" left="90"  	top="58"  action="brightness+"	fg="green"	>+</Element>
+			<Element tab="-1" font="2" left="4"   	top="76"					>Contrast</Element>
+			<Element tab="-1" font="2" left="4"   	top="94"  action="contrast-"			>-</Element>
+			<Value	 tab="-1" font="2" left="15"	top="94"   value="contrast"			/>
+			<Element tab="-1" font="2" left="90"  	top="94"  action="contrast+"	fg="green"	>+</Element>
+			<Element tab="-1" font="2" left="4"   	top="112"					>Gamma</Element>
+			<Element tab="-1" font="2" left="4"   	top="130"  action="gamma-"			>-</Element>
+			<Value	 tab="-1" font="2" left="15"	top="130"   value="gamma"			/>
+			<Element tab="-1" font="2" left="90"  	top="130"  action="gamma+"	fg="green"	>+</Element>
+			<Element tab="-1" font="2" left="4"   	top="148"					>Fps</Element>
+			<Element tab="-1" font="2" left="4"   	top="166"  action="fps-"			>-</Element>
+			<Value	 tab="-1" font="2" left="15"	top="166"   value="fps"  			/>
+			<Element tab="-1" font="2" left="90"  	top="166"  action="fps+"	fg="green"	>+</Element>
+			<Element tab="-1" font="2" left="4"   	top="184"  action="agc/"			>Agc</Element>
+			<Element tab="-1" font="2" left="4"   	top="202"  action="agc-"			>-</Element>
+			<Value	 tab="-1" font="2" left="15"	top="202"   value="agc"  			/>
+			<Element tab="-1" font="2" left="90"  	top="202"  action="agc+"	fg="green"	>+</Element>
+			<Element tab="-1" font="2" left="4"   	top="220"  action="freeze"	fg="white"	>Freeze</Element>
+			<Element tab="-1" font="2" left="4"   	top="238"  action="capture"	fg="white"	>Capture</Element>
+			<Element tab="-1" font="2" left="4"   	top="256"  action="full"			>Full-Screen</Element>
+			<Element tab="-1" font="2" left="4"   	top="274"  action="mini"			>Mini-Mode</Element>
+			<Element tab="-1" font="2" left="4"   	top="292" 					>FPS</Element>
+			<Value	 tab="-1" font="2" left="25"	top="292" value="cur-fps"  	fg="yellow"	/>
+
+			<Tab 	 tab="0" font="2" left="0"	top="30"  action="1"		fg="yellow"	>Filters</Tab>
+			<Tab 	 tab="0" font="2" left="43"	top="30"  action="2"		fg="yellow"	>Resolution</Tab>
+			<Tab 	 tab="0" font="2" left="110"  	top="30"  action="3"		fg="yellow"	>Cam-Set</Tab>
+			<Tab 	 tab="0" font="2" left="168"  	top="30"  action="4"		fg="yellow"	>Special</Tab>
+			<Tab 	 tab="0" font="2" left="215"  	top="30"  action="5"		fg="yellow"	>Source</Tab>
+			<Element tab="0" font="2" left="260"	top="30"  action="exit"		fg="white"	>Quit</Element>
+			<Element tab="0" font="3" left="50"     top="4"				fg="yellow"	>Commands</Element>
+
+			<Filter  tab="1"  font="2" left="0"	top="50"  name="range" 	  	fg="green"/>
+			<Filter  tab="1"  font="2" left="45"	top="50"  name="pixelize"	fg="green"/>
+			<Filter  tab="1"  font="2" left="110"	top="50"  name="lowpass"  	fg="green"/>
+			<Filter  tab="1"  font="2" left="170"	top="50"  name="highpass"	fg="green"/>
+			<Filter  tab="1"  font="2" left="225"	top="50"  name="dark"		fg="green"/>
+			<Filter  tab="1"  font="2" left="260"	top="50"  name="rotate90"	fg="green"/>
+
+			<Filter  tab="1"  font="2" left="0"	top="70"  name="flip-x"		fg="green"/>
+			<Filter  tab="1"  font="2" left="45"	top="70"  name="flip-y"		fg="green"/>
+			<Filter  tab="1"  font="2" left="95"	top="70"  name="rgbbgr"		fg="green"/>
+			<Filter  tab="1"  font="2" left="155"	top="70"  name="noise"		fg="green"/>
+			<Filter  tab="1"  font="2" left="200"	top="70"  name="average"	fg="green"/>
+			<Filter  tab="1"  font="2" left="260"	top="70"  name="dither"		fg="green"/>
+
+			<Filter  tab="1"  font="2" left="0"	top="90"  name="invert"		fg="green"/>
+			<Filter  tab="1"  font="2" left="45"	top="90"  name="bluebox"	fg="green"/>
+			<Filter  tab="1"  font="2" left="105"	top="90"  name="adaptrange"	fg="green"/>
+			
+			<Filter  tab="1"  font="2" left="170"	top="90"  name="mpeg"		fg="green"/>
+			<Filter  tab="1"  font="2" left="100"	top="90"  name="time-random"	fg="green"/>
+			<Filter  tab="1"  font="2" left="260"	top="90"  name="gray"		fg="green"/>
+
+			<Resolution tab="2" font="2" left="4"   top="50"  size="128x96"		fg="green">SQCIF</Resolution>
+			<Resolution tab="2" font="2" left="60"  top="50"  size="160x120"	fg="green">QSIF</Resolution>
+			<Resolution tab="2" font="2" left="105"  top="50"  size="176x144"	fg="green">QCIF</Resolution>
+			<Resolution tab="2" font="2" left="150" top="50"  size="320x240"	fg="green">SIF</Resolution>
+			<Resolution tab="2" font="2" left="180" top="50"  size="352x288"	fg="green">CIF</Resolution>
+			<Resolution tab="2" font="2" left="210" top="50"  size="640x480"	fg="green">VGA</Resolution>
+			<Filter   tab="2"  font="2" left="4"	top="70"  name="halfsize"	fg="green"/>
+			<Filter   tab="2"  font="2" left="60"	top="70"  name="doublesize"	fg="green"/>
+			<Filter   tab="2"  font="2" left="135"	top="70"  name="deep"		fg="green"/>
+			<Filter   tab="2"  font="2" left="4"    top="90"  name="colorness"      fg="green"/>
+			<Filter   tab="2"  font="2" left="75"   top="90"  name="scanlines"      fg="green"/>
+
+			<Spezial  tab="3"  font="2" left="4"	top="50"  name="white"		fg="green"/>
+			<Spezial  tab="3"  font="2" left="100"	top="50"  name="shutter"	fg="green"/>
+			<Spezial  tab="3"  font="2" left="200"	top="50"  name="dump"		fg="green"/>
+
+			<Filter   tab="4"  font="2" left="4"	top="50"  name="infolevels"	fg="green"/>
+			<Filter   tab="4"  font="2" left="4"	top="70"  name="barcode"	fg="green"/>
+			<Spezial  tab="4"  font="2" left="100"	top="50"  name="reorder"	fg="green"/>
+
+			<Source  tab="5"  font="2" left="84"	top="50"  device="/dev/video0" fg="green" type="Webcam" width="320" height="240">Philips</Source>
+			<Source	 tab="5"  font="2" left="0"	top="50"  device="@PKGDATADIR@/smpte.jpeg" fg="green" type="jpeg" >Jpeg</Source>
+		</Elements>
+	</GUILayout>
+</SDLcam>

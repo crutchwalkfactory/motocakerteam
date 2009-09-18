@@ -1,0 +1,275 @@
+-- October 8 2007 RaphaÎl AssÈnat <raph@raphnet.net>
+- SDLcam is now built completely with autotools (autoconf, automake). 
+  Big thanks to Mike Frysinger <vapier@gentoo.org>
+- Improved --debug support
+
+-- October 6 2007 Raphael AssÈnat <raph@raphnet.net>
+- Applied a few patches used in Gentoo that were sent to me by 
+    Mike Frysinger <vapier@gentoo.org>:
+
+    * Fix TSC issues on Pentium M's (patch by Tobias Klausmann),
+		http://bugs.gentoo.org/109161
+    * Always include jpeglib.h in dump_thomas.c
+    * Fix function prototype mismatches
+	* Improve makefile (remove many warnings)
+    * Add a few missing includes
+
+-- May 31 2007 Raphael Assenat <raph@raphnet.net>  Release 0.8.0
+- Added EAN-13 barcode support (contribution from Marcus Wolschon)
+- Improved barcode recognition code (dynamic thresholding)
+- Fixed inline assembler for GCC4
+- Fixed misc warnings and small bugs
+
+-- Sun Apr 17 2005 Raphael Assenat <raph@raphnet.net>
+- Added configure script. The script detects missing
+  dependencies. Much better than failing to compile!
+
+-- Sat Aug 24 21:56:46 EDT 2002 Raphael Assenat <raph@raphnet.net>
+- Corrected segfault when no webcam present
+- Included GPL license in package (LICENSE)
+- Updated startup messages
+- Message output when debug mode is toggled
+- Possible to start in debug mode from comand line arg.
+- Dot progress bar when loading plugins
+
+-- Sat Jun 16
+- CVS ro test 7
+-- Fri Jun 15 23:55:00 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- fixed problem in halfsize on odd width
+- fixed problem on rotate + jpeg
+- fixed problem highpass
+- fixed problem source jpeg
+- fixed division by zero on dark filter (levels)
+- remove height,width from SDLcam.cfg and move it to SDLcam.xml (per Source definition)
+  same for configuration its an also device since all three values can ocour more than once.
+
+-- sat May 18 15:22:00 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- updated libfame not longer use deprecated functions
+- line drawing in the level analyse
+- average drawing in the level info
+- more abstraction of the input layer
+- added jpeg as input source (goot for compare filter speed and get same results)
+- reactivated input box for Values (Brightness Gamma ...)
+- make input as modules possible
+- removed some shadow variable warnings (only to make sure there do not came error from)
+
+-- Sat Mar 30 18:00:00 GMT+1 2002
+- GUI Configurable via XMl config file (libxml2) needed
+- Filter as modules
+- mpeg enconder libfame needed (only for module) (http://fame.sourceforge.net/)
+- RGB -> YUV     module added
+- YUV -> YUV420P mdoule added
+- Update in SDL_v4l input subport mmap with fallback to read independend of source
+- added 8.6 support for webcam.c
+- Event handling complete changed
+
+-- Sun Mar 17 15:46:11 EST 2002
+- Continued implementation of UPC barcode decoding. 
+  Checksum and error detection added. Cleaned-up most of the code.  
+  TODO: 
+     Use more than one scanline, and not only horizontal ones: 
+     Diagonal and vertical. Next, add support for other codes, such as 13 digit and of course Code39 :)
+
+-- Sat Mar 16 23:09:25 EST 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Began to implement a UPC barcode decoding filter
+
+- -Wed Mar 13 19:58:49 EST 2002 <raphael.assenat@vl.videotron.ca>
+- Added command line args to start in fullscreeen/mini-mode
+
+- -Mon Mar 11 21:35:52 EST 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Added Minimode support
+
+-- Sat Mar  9 17:13:25 EST 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Fixed the random dithering filter which was been broken because of a missing typecast
+- Fixed mispelled words in gui ;)
+- Fixed a debug flag error(debugging output even if configuration.debug==0)
+- Temporarly disabled MMX Dark filter for release since it was not working properly
+
+-- 8. Mar 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- resolution memory fixed
+- more filter with dst
+- start mmx dst(safe)
+
+-- 7. Mar 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- noise filter added
+- emms error on half-size mmx fixed (checked all other for mmx to)
+- range changed more if's speedup and division by zero
+- free allocated memory at end (usefull for ccmalloc)
+
+-- Wed Mar  6 22:21:04 EST 2002 Raphael Assenat
+- Tested the programs for bugs/crashs
+- Hopefully fixed a floating point exception properly ...
+
+-- WedTue Mar  6  9:23:01 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- add bit deep gui/config/code
+- add new tab for info
+- capture now default single shot
+- hopefull fixed noise
+- little gui change to become more space for tab's
+- glass lense effekt
+
+-- Tue Mar  5 20:23:01 EST 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Fixed my dithering filters
+- Removed some warnings in Makefile.
+
+-- Tue Mar  4 18:55:00 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- it now compile with nearly all warning activated (fabs warning in default header)
+- change much int len to unsigned int len since len is here never negative
+- avoid char/short in parameter list (some compiler warning complain about them)
+- add ditter/dark/level to GUI and config file
+- move more function to static if possible
+- double size filter :-)
+- up-scale have no constant limit any more
+- more filters with Size safty :-) (mean that DST have the right min size)
+- level info now display in 256x256 pixel :-) (crash bevore if window was to small
+
+-- Fri Mar  1 20:47:55 EST 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Implemented rotation as a filter and integrated in the gui like other filters.
+- Added a simple average dithering filter
+- Added a color statistics graphical analyser
+- Added a dithering filter using random(experiment)
+
+-- Tue Feb 26 22:18:00 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- mmx setwith Bild x 32Bit = Bild
+- filesize info in gui
+- fps display in GUI, should be pretty exact :-)
+
+-- Mon Feb 25 19:46:00 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- mmx_halfsize (yuv artefakt reduction)
+- add shuter control to gui and config
+- add compresion level to gui and config
+
+-- Sun Feb 24 11:03:32 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- The interface resizes in ui and optimized
+- gui now "tabed" to become more avaible space
+- White Balance switch from Auto->Manual preset the value from auto
+
+-- Sat Feb 23 21:03:32 EST 2002
+- The interface resizes according to the image size AFTER the filter. See main.c
+- Filters will now be able to resize(enlarge and reduce) the image size.
+
+-- Sat Feb 23 09:26:02 EST 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Documented and tested the Logo feature in the config file.
+
+-- Fri Feb 21 23:50:00 GMT+ 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- User definable filter via parser
+- Freeze as filter (eliminate goto)
+- Gui updates (user filter, freeze now colored
+- added more vim folder tags/hints
+
+-- Thu Feb 21 23:50:00 GMT+ 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- added lot of genric MMX filter
+- change naming convtion of mxx filter
+- add destination picture to many mmx filter
+
+-- Thu Feb 21 20:00:24 EST 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Added functionality to blit a logo(powered by) at each corner of the window and 
+in the center. Can be used from command line. ./SDLcam --help for more info.
+- Fixed a bug. Some initialisation function was not called....
+
+-- Wed Feb 20 22:27:30 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- Added Documentation/*
+- Added documentation to filter, add vim60 switches :-)
+- Optimize the left c source filter
+- added grayscale to gui and config file
+
+-- Tue Feb 19 02:12:12 UTC 2002 Raphael Assenat <raphael.assenat@vl.videotron.ca>
+- Fixed a compilation warning in SDL_v4l_filters_thomas.c to test cvs :)
+
+-- Sun Feb 18 01:50 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- blur and edge filter added (Unoptimized C Version)
+
+-- Sun Feb 17 09:50 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- Fixed logic mistae in bit reduction (XOR used insted of AND)
+- Add some more dokumentation
+- Optimize Pixelize filter
+- make INVERS and BGR-RGB dependen from YUV source filter
+- debug can now be switched by hotkey 'd' (including timming)
+
+-- Sat Feb 16 11:33 GMT+1 2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- Config file (jpeg_quality)
+- ftp-upload.c/h added for ftp_upload
+- -Wstrict-prototypes added to Makefile
+- make function declaring explizit (void) instead of ()
+- ftp_* added to the configuration
+- if ftp_* set then capture do an ftp_upload (capture.c, main.c ftp_close)
+- if ftp_temp is set then first upload to temp and then rename to file
+
+-- Sat Feb 16 00:52:48 UTC 2002 Raphael Assenat (raphael.assenat@vl.videotron.ca)
+- Fixed a bug in *find_file(). the malloc was one byte too small. Forgot termination or /
+- Fixed install script. times.ttf removed, and added a message.
+- Changed the sample configuration file to 320x240 @ 15Fps
+
+-- 13/02/2002 Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>
+- split the new yuv420p_two_rgb32 into 2 parts _rgb32 and _bgr32
+- add invesion the the yuv conservion (now bgr and invert cost no extra cpu)
+- bugfix in mmap before static sinze 3320x200 in one routine
+- filter now selectable in the config file
+- bugfix BLUEBOX now one pixel ist set or now not single components
+- SIDE_BAR_HIGH changed that no gui element is cliped on small pictues
+- more output is now debug dependend (size change,mmap)
+
+-- 13/02/2002 Thomas Lussnig (thomas@bewegungsmelder.de)
+- dynmaic buffer for file handling (config/capture)
+- dynamic buffer for title
+- dynmaic buffer for filter (change if image size change)
+- coded noise filter with new buffer (23% from old cost)
+- coded noise filter to mmx (8% from old cost)
+
+Version 0.4 Changelog
+
+-- 02/12/02 Raphael Assenat
+- Also removed sfont, the old interface stuff, and bitmap font files.
+- Removed ccvt completely.
+- Written an install script. Make install now works, and it is no longer necessary to have
+the ressources files in the working directory.
+- Ressources files are now located at start, and their location is stored in the
+configure structure. had to do small changes to interface.c in the init section to do this.
+- Added more command line args to change dump path and dump mode
+- Coded a workaround in webcam.c. The webcam driver did not return the correct value
+when asked the white balance mode, so the value is now kept locally. This problems may
+be specific to kernel 2.4.16, pwcx, and ToUcam-740.
+- Added new color convertion code by Thomas Lussing. 75% faster than ccvt!!
+
+The video device used by the program is displayed at startup.
+Fixed all compilation warnings :)
+Fixed a few mistakes, which prevented the code to compile if MMX was not defined.
+Removed #define MMX from SDL_v4l_Filter_thomas.h, so it can be set from the
+Makefile using the -DMMX option. 
+
+Integrated Thomas Lussnig MMX filters in the source tree.
+Integrated Thomas Lussnig Jpeg and Png file support. Made Jpeg default.
+interface_capture is now in capture.c (not in interface.c). capture.c is 
+responsible for saving images in different format, by calling the appropriate
+functions in dump_thomas or SDL_SaveBMP, and doing the appropriate RGB<>BGR swapping.
+
+--
+
+Added functions to set and get manual white balance values.
+Fixed a bug in webcam.c. When an ioctl failed, the program exited right away.
+Added Optimised MMX code by Thomas Lussnig in SDL_v4l_filters.c
+Added Command line parser in configuration.c (try SDLcam --help)
+
+A structure declared in configuration.h is now globally usable for default
+and configuration values. in configuration.c, a function to create a default
+setting and another to parse command line args is available. The default
+values are now in configuration.c.  The config file parser and finder 
+will be in a separate file, for easier parallel devel. config_file.c.
+
+Added a new Makefile (Makefile.bitmap), to build the program with the old interface.
+
+changed unsigned chars with ints in Average...
+
+SDL_v4l_Filter_range optimised
+SDL_v4l_Filter_*bit optimised
+SDL_v4l_Filter_Average optimised
+SDL_v4l_Filter_Invert optimised
+SDL_v4l_Filter_BlueBox added
+
+The status of the filters are now holded in a
+global structure rather than a bunch of global variables
+and a macro TOGGLE_FILTER(FILTER_MEMBER) is now privided
+to toggle filters instead of 3 functions to set, get and
+toggle. The structure is declared extern in SDL_v4l_Filters.h,
+so it can be accessed by any parts of the program which include this file.
+

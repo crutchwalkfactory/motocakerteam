@@ -1,0 +1,141 @@
+Barcode.lo .libs/Barcode.o: Barcode.c \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdio.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/types.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wordsize.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/typesizes.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/libio.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/_G_config.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/wchar.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wchar.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gconv.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stdarg.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio_lim.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sys_errlist.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/string.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/string.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/string2.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdlib.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/math.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/huge_val.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/mathdef.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/mathcalls.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/mathinline.h \
+  ../SDL_v4l_image.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/unistd.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/posix_opt.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/confname.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/getopt.h \
+  ../dyn_misc.h ../SDL_v4l_image.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/types.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdint.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/time.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/endian.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/endian.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/select.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/select.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sigset.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/time.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/sysmacros.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/pthreadtypes.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sched.h \
+  /arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/alloca.h \
+  ../SDL_v4l_filters.h
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdio.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/features.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/cdefs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gnu/stubs.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stddef.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/types.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wordsize.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/typesizes.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/libio.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/_G_config.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/wchar.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/wchar.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/gconv.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/include/stdarg.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio_lim.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sys_errlist.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/stdio.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/string.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/string.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/string2.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdlib.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/math.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/huge_val.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/mathdef.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/mathcalls.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/mathinline.h:
+
+../SDL_v4l_image.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/unistd.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/posix_opt.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/confname.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/getopt.h:
+
+../dyn_misc.h:
+
+../SDL_v4l_image.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/types.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/stdint.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/time.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/endian.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/endian.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/select.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/select.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sigset.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/time.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/sys/sysmacros.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/pthreadtypes.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/bits/sched.h:
+
+/arm-eabi/lib/gcc/arm-linux-gnueabi/3.4.3/../../../../arm-linux-gnueabi/include/alloca.h:
+
+../SDL_v4l_filters.h:

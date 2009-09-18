@@ -1,0 +1,70 @@
+Display:
+The Display Values change the color from red too green,
+so without reed you can recognize the value.
+If there are no + and - control the value is automaticly set.
+If this is changeable you can klick on the Label to go to manual mode.
+
+Description of GUI Hotkey's:
+Hotkeys where from now on defined in the SDLcam.xml (at the momentonly GUI config file),
+in the KeyBindings section. The shema ist like in the example. "exit" is the Function name to call.
+This name is also used in for the GUI_Elements.
+
+<?xml version="1.0"?>
+<SDLcam>
+        <KeyBindings>
+		<Key id="SDLK_ESCAPE"   >exit</Key>
+	</KeyBindings>
+</SDLcam>
+
+Default: 
+<Key id="SDLK_ESCAPE"   >exit</Key>
+<Key id="SDLK_ENTER"    >capture</Key>
+<Key id="SDLK_F1"       >average</Key>
+<Key id="SDLK_F2"       >noise</Key>
+<Key id="SDLK_RETURN"   >capt</Key>
+<Key id="SDLK_d"        >debug</Key>
+<Key id="SDLK_SPACE"    >background</Key>
+<Key id="SDLK_ESCAPE"   >exit</Key>
+<Key id="SDLK_m"        >full</Key>
+<Key id="SDLK_r"        >rotate90</Key>
+<Key id="SDLK_x"        >flip-x</Key>
+<Key id="SDLK_y"        >flip-y</Key>
+<Key id="SDLK_g"        >gray</Key>
+<Key id="SDLK_s"        >mini</Key>
+<Key id="SDLK_h"        >half</Key>
+<Key id="SDLK_l"        >doublesize</Key>
+<Key id="SDLK_u"        >user</Key>
+<Res id="SDLK_1"        >128x96</Res>
+<Res id="SDLK_2"        >160x120</Res>
+<Res id="SDLK_3"        >176x144</Res>
+<Res id="SDLK_4"        >320x240</Res>
+<Res id="SDLK_5"        >352x288</Res>
+<Res id="SDLK_6"        >640x480</Res>
+<Key id="SDLK_F1"       >average</Key>
+<Key id="SDLK_F2"       >range</Key>
+<Key id="SDLK_F3"       >pixelize4</Key>
+<Key id="SDLK_F4"       >bluebox</Key>
+<Key id="SDLK_F5"       >lowpass</Key>
+<Key id="SDLK_F6"       >highpass</Key>
+<Key id="SDLK_F7"       >dark</Key>
+<Key id="SDLK_F8"       >dark</Key>
+
+Also now the GUI layout is definable in the SDLcam.xml config file.
+
+<?xml version="1.0"?>
+<SDLcam>
+	<GUILayout>
+		<Element tab="-1" font="2" left="4"     top="58"  action="brightness-">Beschriftung</Element>	  ::= here is cation and TEXT optional
+		<Value   tab="-1" font="2" left="15"    top="58"   value="brightness" />
+		<Tab     tab="0" font="2" left="0"      top="30"  action="1" fg="yellow">Filters</Tab>
+		<Filter  tab="1"  font="2" left="260"   top="90"  name="gray"           fg="green"/>
+		<Resolution tab="2" font="2" left="4"   top="50"  size="128x96"         fg="green">SQCIF</Resolution>
+		<Spezial  tab="3"  font="2" left="200"  top="50"  name="dump"           fg="green"/>
+	</GUILayout>
+</SDLcam>
+
+action and TEXt is optional so that where is the posibility to define an background image later where you can set hotspots without an Label
+or add an Text without an action. For an full list of supported actions, filter, spezial look in the code bzw what modules are available.
+resolution ist dependend of the source if not suported ignored or used the next best fit, depending on the source driver.
+
+File-Author: Thomas Luﬂnig <thomas.lussnig@bewegungsmelder.de>

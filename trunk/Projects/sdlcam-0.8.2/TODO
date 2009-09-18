@@ -1,0 +1,5 @@
+- maybe avi/real or other movi format suport
+- if we have an ADD_mmx_bw we could preset the summe and avoid the dark start
+- all filter have to use DST
+- check pow problem in range
+
