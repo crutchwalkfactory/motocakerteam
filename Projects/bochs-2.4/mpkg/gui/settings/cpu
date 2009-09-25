@@ -1,0 +1,54 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+
+showRadio "CPU" "Selecciona:" "Default" "IPS=2000000" "IPS=50000000"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	VARIABLE="#cpu: count=1"
+	NUEVO="cpu: count=1"
+	changer_do
+	VARIABLE="cpu: count=1"
+	NUEVO="#cpu: count=1"
+	changer_do
+	setconfig $DIR/database n3 "Default" DISPLIB
+	setconfig $DIR/settings.cfg Option3b "-> Default" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 2 ]
+ then
+ 	VARIABLE="#cpu: count=1"
+	NUEVO="cpu: count=1"
+	changer_do
+	VARIABLE="cpu: count=1, ips=50000000"
+	NUEVO="#cpu: count=1, ips=50000000"
+	changer_do
+	setconfig $DIR/database n3 "IPS2000000" CPU
+	setconfig $DIR/settings.cfg Option3b "-> IPS=2000000" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 3 ]
+ then
+	VARIABLE="#cpu: count=1"
+	NUEVO="cpu: count=1"
+	changer_do
+	VARIABLE="cpu: count=1, ips=2000000"
+	NUEVO="#cpu: count=1, ips=2000000"
+	changer_do
+	setconfig $DIR/database n3 "IPS50000000" CPU
+	setconfig $DIR/settings.cfg Option3b "-> IPS=50000000" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+fi

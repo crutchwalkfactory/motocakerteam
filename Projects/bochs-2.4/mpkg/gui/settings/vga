@@ -1,0 +1,43 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+
+showRadio "VGA" "Selecciona:" "SVGA" "VBE"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	VARIABLE="#vga: extension"
+	NUEVO="vga: extension"
+	changer_do
+	VARIABLE="vga: extension=vbe"
+	NUEVO="#vga: extension=vbe"
+	changer_do
+	setconfig $DIR/database n2 "SVGA" VGA
+	setconfig $DIR/settings.cfg Option2b "-> SVGA" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 2 ]
+ then
+ 	VARIABLE="#vga: extension"
+	NUEVO="vga: extension"
+	changer_do
+	VARIABLE="vga: extension=cirrus"
+	NUEVO="#vga: extension=cirrus"
+	changer_do
+	setconfig $DIR/database n2 "VBE" VGA
+	setconfig $DIR/settings.cfg Option2b "-> VBE" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+fi

@@ -1,0 +1,15 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+
+if [ ! -d /mmc/mmca1/bochsimg ]
+then
+  mkdir /mmc/mmca1/bochsimg
+fi
+
+filebrowse=`showFilePickerExt "Bochs" "/mmc/mmca1/bochsimg"`
+if [ "$filebrowse" = "0" ]
+then
+	exit
+else
+	exit
+fi

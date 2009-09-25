@@ -1,0 +1,144 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+showRadio "VGA Update Interval" "Selecciona:" "50000" "299000" "500000" "700000"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	Current=`readconfig $DIR/database "VGAUI" "n11"`
+	if [ $Current = "50000" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "299000" ]
+	 then
+		VARIABLE="interval: 299000"
+		NUEVO="interval: 50000"
+		changer_do
+		setconfig $DIR/database n11 "50000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 50000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "500000" ]
+	 then
+		VARIABLE="interval: 500000"
+		NUEVO="interval: 50000"
+		changer_do
+		setconfig $DIR/database n11 "50000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 50000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "700000" ]
+	 then
+		VARIABLE="interval: 700000"
+		NUEVO="interval: 50000"
+		changer_do
+		setconfig $DIR/database n11 "50000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 50000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 2 ]
+ then
+	Current=`readconfig $DIR/database "VGAUI" "n11"`
+	if [ $Current = "299000" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "50000" ]
+	 then
+		VARIABLE="interval: 50000"
+		NUEVO="interval: 299000"
+		changer_do
+		setconfig $DIR/database n11 "299000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 299000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "500000" ]
+	 then
+		VARIABLE="interval: 500000"
+		NUEVO="interval: 299000"
+		changer_do
+		setconfig $DIR/database n11 "299000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 299000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "700000" ]
+	 then
+		VARIABLE="interval: 700000"
+		NUEVO="interval: 299000"
+		changer_do
+		setconfig $DIR/database n11 "299000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 299000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 3 ]
+ then
+	Current=`readconfig $DIR/database "VGAUI" "n11"`
+	if [ $Current = "500000" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "50000" ]
+	 then
+		VARIABLE="interval: 50000"
+		NUEVO="interval: 500000"
+		changer_do
+		setconfig $DIR/database n11 "500000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 500000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "299000" ]
+	 then
+		VARIABLE="interval: 299000"
+		NUEVO="interval: 500000"
+		changer_do
+		setconfig $DIR/database n11 "500000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 500000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "700000" ]
+	 then
+		VARIABLE="interval: 700000"
+		NUEVO="interval: 500000"
+		changer_do
+		setconfig $DIR/database n11 "500000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 500000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 4 ]
+ then
+	Current=`readconfig $DIR/database "VGAUI" "n11"`
+	if [ $Current = "700000" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "50000" ]
+	 then
+		VARIABLE="interval: 50000"
+		NUEVO="interval: 700000"
+		changer_do
+		setconfig $DIR/database n11 "700000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 700000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "299000" ]
+	 then
+		VARIABLE="interval: 299000"
+		NUEVO="interval: 700000"
+		changer_do
+		setconfig $DIR/database n11 "700000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 700000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "500000" ]
+	 then
+		VARIABLE="interval: 500000"
+		NUEVO="interval: 700000"
+		changer_do
+		setconfig $DIR/database n11 "700000" VGAUI
+		setconfig $DIR/settings.cfg Option3b "-> 700000" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+fi

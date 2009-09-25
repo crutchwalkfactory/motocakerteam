@@ -1,0 +1,216 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+
+showRadio "Megs" "Selecciona:" "8" "16" "32" "128" "256"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	CURRENT=`readconfig $DIR/database "MEGS" "n4"`
+	if [ "$CURRENT" = "8" ]
+	 then
+	 showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "16" ]
+	 then
+		VARIABLE=`echo megs: 16`
+		NUEVO=`echo megs: 8`
+		changer_do
+		setconfig $DIR/database n4 "8" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 8" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "32" ]
+	 then
+		VARIABLE=`echo megs: 32`
+		NUEVO=`echo megs: 8`
+		changer_do
+		setconfig $DIR/database n4 "8" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 8" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "128" ]
+	 then
+		VARIABLE=`echo megs: 128`
+		NUEVO=`echo megs: 8`
+		changer_do
+		setconfig $DIR/database n4 "8" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 8" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "256" ]
+	 then
+		VARIABLE=`echo megs: 256`
+		NUEVO=`echo megs: 8`
+		changer_do
+		setconfig $DIR/database n4 "8" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 8" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 2 ]
+ then
+ 	CURRENT=`readconfig $DIR/database "MEGS" "n4"`
+	if [ "$CURRENT" = "8" ]
+	 then
+		VARIABLE=`echo megs: 8`
+		NUEVO=`echo megs: 16`
+		changer_do
+		setconfig $DIR/database n4 "16" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 16" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "16" ]
+	 then
+	 showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "32" ]
+	 then
+		VARIABLE=`echo megs: 32`
+		NUEVO=`echo megs: 16`
+		changer_do
+		setconfig $DIR/database n4 "16" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 16" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "128" ]
+	 then
+		VARIABLE=`echo megs: 128`
+		NUEVO=`echo megs: 16`
+		changer_do
+		setconfig $DIR/database n4 "16" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 16" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "256" ]
+	 then
+		VARIABLE=`echo megs: 256`
+		NUEVO=`echo megs: 16`
+		changer_do
+		setconfig $DIR/database n4 "16" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 16" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 3 ]
+ then
+ 	CURRENT=`readconfig $DIR/database "MEGS" "n4"`
+	if [ "$CURRENT" = "8" ]
+	 then
+		VARIABLE=`echo megs: 8`
+		NUEVO=`echo megs: 32`
+		changer_do
+		setconfig $DIR/database n4 "32" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 32" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "16" ]
+	 then
+		VARIABLE=`echo megs: 16`
+		NUEVO=`echo megs: 32`
+		changer_do
+		setconfig $DIR/database n4 "32" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 32" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "32" ]
+	 then
+	 showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "128" ]
+	 then
+		VARIABLE=`echo megs: 128`
+		NUEVO=`echo megs: 32`
+		changer_do
+		setconfig $DIR/database n4 "32" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 32" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "256" ]
+	 then
+		VARIABLE=`echo megs: 256`
+		NUEVO=`echo megs: 32`
+		changer_do
+		setconfig $DIR/database n4 "32" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 32" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 4 ]
+ then
+ 	CURRENT=`readconfig $DIR/database "MEGS" "n4"`
+	if [ "$CURRENT" = "8" ]
+	 then
+		VARIABLE=`echo megs: 8`
+		NUEVO=`echo megs: 128`
+		changer_do
+		setconfig $DIR/database n4 "128" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 128" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "16" ]
+	 then
+		VARIABLE=`echo megs: 16`
+		NUEVO=`echo megs: 128`
+		changer_do
+		setconfig $DIR/database n4 "128" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 128" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "32" ]
+	 then
+	 	VARIABLE=`echo megs: 32`
+		NUEVO=`echo megs: 128`
+		changer_do
+		setconfig $DIR/database n4 "128" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 128" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "128" ]
+	 then
+	 showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "256" ]
+	 then
+		VARIABLE=`echo megs: 256`
+		NUEVO=`echo megs: 128`
+		changer_do
+		setconfig $DIR/database n4 "128" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 128" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 5 ]
+ then
+ 	CURRENT=`readconfig $DIR/database "MEGS" "n4"`
+	if [ "$CURRENT" = "8" ]
+	 then
+		VARIABLE=`echo megs: 8`
+		NUEVO=`echo megs: 256`
+		changer_do
+		setconfig $DIR/database n4 "256" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 256" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "16" ]
+	 then
+		VARIABLE=`echo megs: 16`
+		NUEVO=`echo megs: 256`
+		changer_do
+		setconfig $DIR/database n4 "256" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 256" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "32" ]
+	 then
+	 	VARIABLE=`echo megs: 32`
+		NUEVO=`echo megs: 256`
+		changer_do
+		setconfig $DIR/database n4 "256" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 256" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "128" ]
+	 then
+	 	VARIABLE=`echo megs: 128`
+		NUEVO=`echo megs: 256`
+		changer_do
+		setconfig $DIR/database n4 "256" MEGS
+		setconfig $DIR/settings.cfg Option4b "-> 256" LIST2
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ "$CURRENT" = "256" ]
+	 then
+	 showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+fi

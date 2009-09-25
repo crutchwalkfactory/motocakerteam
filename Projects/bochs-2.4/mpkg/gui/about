@@ -1,0 +1,10 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+
+showMsg "Bochs" "Maquina virtual nativa.
+
+Port by Javierox
+Menu by El-Jose01
+
+(C) 2009. The MotoCaker Team
+www.modmymoto.com" 2

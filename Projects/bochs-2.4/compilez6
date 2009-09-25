@@ -1,0 +1,4 @@
+./configure --disable-libtool-lock --with-x11=no --with-x=no --host=arm-linux --target=arm-linux --enable-static=yes --with-sdl --enable-acpi=no -enable-all-optimizations --enable-ignore-bad-ms --enable-fast-function-calls --enable-repeat-speedups --enable-sb16=dummy --enable-ne2000 --enable-pnic --enable-pci --with-rfb
+make
+/arm-eabi/arm-linux-gnueabi/bin/strip .libs/bochs
+ncftpput -u root -p "" 192.168.16.2 /mmc/mmca1/bosch .libs/bochs

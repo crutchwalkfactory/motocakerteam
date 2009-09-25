@@ -1,0 +1,102 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+if [ ! -d /mmc/mmca1/bochsimg ]
+then
+  mkdir /mmc/mmca1/bochsimg
+fi
+
+Cylinders=`readconfig $DIR/database "ATAMASTER" "n7b"`
+Heads=`readconfig $DIR/database "ATAMASTER" "n7c"`
+Spt=`readconfig $DIR/database "ATAMASTER" "n7d"`
+showRadio "ATA 0 Slave/ HD" "Selecciona:" "Elegir Imagen" "Cylinders=$Cylinders" "Heads=$Heads" "Spt=$Spt"
+RADIOS=$? 
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	Current=`readconfig $DIR/database "ATAMASTER" "n7"`
+	File=`showFilePickerExt "Imagen de HD" "/mmc/mmca1/bochsimg"`
+	if [ "$File" = "0" ]
+	 then
+	 exit
+	else
+	 ISO=`basename $File`
+	 if [ $Current = $ISO  ]
+	  then
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 else
+		VARIABLE=""\"$Current"\", mode"
+		NUEVO=""\"$ISO"\", mode"
+		changer_do
+		setconfig $DIR/database n7 "$ISO" ATAMASTER
+		setconfig $DIR/settings.cfg Option2b "-> $ISO" LIST3
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 fi
+	fi
+elif [ $RADIOS -eq 2 ]
+ then
+ 	num=`showNumPicker 1 1000`
+	if [ "$num" = "Cancel!" ]
+	then
+	 exit
+	else
+	 if [ $Cylinders = $num  ]
+	  then
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 else
+		VARIABLE="cylinders=$Cylinders"
+		NUEVO="cylinders=$num"
+		changer_do
+		setconfig $DIR/database n7b "$num" ATAMASTER
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 fi
+	fi
+elif [ $RADIOS -eq 3 ]
+ then
+ 	num=`showNumPicker 1 1000`
+	if [ "$num" = "Cancel!" ]
+	then
+	 exit
+	else
+	 if [ $Heads = $num  ]
+	  then
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 else
+		VARIABLE="heads=$Heads"
+		NUEVO="heads=$num"
+		changer_do
+		setconfig $DIR/database n7c "$num" ATAMASTER
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 fi
+	fi
+elif [ $RADIOS -eq 4 ]
+ then
+ 	num=`showNumPicker 1 1000`
+	if [ "$num" = "Cancel!" ]
+	then
+	 exit
+	else
+	 if [ $Spt = $num  ]
+	  then
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 else
+		VARIABLE="spt=$Spt"
+		NUEVO="spt=$num"
+		changer_do
+		setconfig $DIR/database n7d "$num" ATAMASTER
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 fi
+	fi
+fi

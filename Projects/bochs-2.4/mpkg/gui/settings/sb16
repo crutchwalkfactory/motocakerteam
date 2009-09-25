@@ -1,0 +1,163 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+
+showRadio "SB16 Audio" "Selecciona:" "Win32" "Linux with ALSA" "Midi=/dev/midi-dsp" "Deshabilitar"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	Current=`readconfig $DIR/database "SB16" "n10"`
+	if [ $Current = "Win32" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "ALSA" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#2sb162: midimode=1"
+		changer_do
+		VARIABLE="#1sb161: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Win32" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Win32" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Dev" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#3sb163: midimode=1"
+		changer_do
+		VARIABLE="#1sb161: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Win32" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Win32" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Deshabilitado" ]
+	 then
+		VARIABLE="#1sb161: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Win32" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Win32" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 2 ]
+ then
+	Current=`readconfig $DIR/database "SB16" "n10"`
+	if [ $Current = "ALSA" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Win32" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#1sb161: midimode=1"
+		changer_do
+		VARIABLE="#2sb162: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "ALSA" SB16
+		setconfig $DIR/settings.cfg Option1b "-> ALSA" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Dev" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#3sb163: midimode=1"
+		changer_do
+		VARIABLE="#2sb162: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "ALSA" SB16
+		setconfig $DIR/settings.cfg Option1b "-> ALSA" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Deshabilitado" ]
+	 then
+		VARIABLE="#2sb162: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "ALSA" SB16
+		setconfig $DIR/settings.cfg Option1b "-> ALSA" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 3 ]
+ then
+	Current=`readconfig $DIR/database "SB16" "n10"`
+	if [ $Current = "Dev" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Win32" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#1sb161: midimode=1"
+		changer_do
+		VARIABLE="#3sb163: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Dev" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Midi=/dev/midi-dsp" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "ALSA" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#2sb162: midimode=1"
+		changer_do
+		VARIABLE="#3sb163: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Dev" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Midi=/dev/midi-dsp" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Deshabilitado" ]
+	 then
+		VARIABLE="#3sb163: midimode=1"
+		NUEVO="sb16: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Dev" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Midi=/dev/midi-dsp" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 4 ]
+ then
+	Current=`readconfig $DIR/database "SB16" "n10"`
+	if [ $Current = "Deshabilitado" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Win32" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#1sb161: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Deshabilitado" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Deshabilitado" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "ALSA" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#2sb162: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Deshabilitado" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Deshabilitado" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "Dev" ]
+	 then
+		VARIABLE="sb16: midimode=1"
+		NUEVO="#3sb163: midimode=1"
+		changer_do
+		setconfig $DIR/database n10 "Deshabilitado" SB16
+		setconfig $DIR/settings.cfg Option1b "-> Deshabilitado" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+fi

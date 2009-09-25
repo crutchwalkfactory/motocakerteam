@@ -1,0 +1,222 @@
+#config_interface: textconfig
+#config_interface: win32config
+#config_interface: wx
+#=======================================================================
+# DISPLAY_LIBRARY
+#display_library: x, options="hideIPS"
+#display_library: rfb, options="timeout=660" # time to wait for client
+display_library: sdl, options="fullscreen" # startup in fullscreen mode
+#display_library: term
+#=======================================================================
+# ROMIMAGE:
+romimage: file=/mmc/mmca1/.system/QTDownLoad/Bochs/BIOS-bochs-latest
+#romimage: file=$BXSHARE/BIOS-bochs-latest 
+#romimage: file=mybios.bin, address=0xfff80000 # 512k at memory top
+#=======================================================================
+# CPU:
+#cpu: count=1, ips=50000000, reset_on_triple_fault=1, cpuid_limit_winnt=0, msrs="msrs.def"
+#cpu: count=1, ips=2000000, reset_on_triple_fault=1, cpuid_limit_winnt=0, msrs="msrs.def"
+#=======================================================================
+# MEGS
+megs: 8
+#=======================================================================
+# OPTROMIMAGE[1-4]:
+#optromimage1: file=optionalrom.bin, address=0xd0000
+#optromimage2: file=optionalrom.bin, address=0xd1000
+#optromimage3: file=optionalrom.bin, address=0xd2000
+#optromimage4: file=optionalrom.bin, address=0xd3000
+#optramimage1: file=/path/file1.img, address=0x0010000
+#optramimage2: file=/path/file2.img, address=0x0020000
+#optramimage3: file=/path/file3.img, address=0x0030000
+#optramimage4: file=/path/file4.img, address=0x0040000
+#=======================================================================
+# VGAROMIMAGE
+#vgaromimage: file=/mmc/mmca1/.system/QTDownLoad/Bochs/VGABIOS-elpin-2.40
+vgaromimage: file=/mmc/mmca1/.system/QTDownLoad/Bochs/VGABIOS-lgpl-latest
+#vgaromimage: file=VGABIOS-lgpl-latest-cirrus
+#=======================================================================
+# VGA:
+#vga: extension=cirrus
+vga: extension=vbe
+#=======================================================================
+# FLOPPY A:
+#floppya: 1_44=/dev/fd0, status=inserted
+floppya: image=win3.img, status=inserted
+#floppya: 1_44=/dev/fd0H1440, status=inserted
+#floppya: 1_2=../1_2, status=inserted
+#floppya: 1_44=a:, status=inserted
+#floppya: 1_44=a.img, status=inserted
+#floppya: 1_44=/dev/rfd0a, status=inserted
+#=======================================================================
+# FLOPPY B:
+#floppyb: 1_44=xxx.img, status=inserted
+#floppyb: 1_44=xxx.img, status=inserted
+#=======================================================================
+# ATA0, ATA1, ATA2, ATA3
+ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
+ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15
+ata2: enabled=0, ioaddr1=0x1e8, ioaddr2=0x3e0, irq=11
+ata3: enabled=0, ioaddr1=0x168, ioaddr2=0x360, irq=9
+#=======================================================================
+# ATA[0-3]-MASTER, ATA[0-3]-SLAVE
+ata0-master: type=disk, path="HD.img", mode=growing, cylinders=81, heads=16, spt=63
+ata0-slave: type=cdrom, path="cd.iso", status=inserted
+#ata0-master: type=disk, mode=flat, path="30M.sample", cylinders=615, heads=6, spt=17
+#ata0-master: type=disk, mode=flat, path="c.img", cylinders=0 # autodetect
+#ata0-slave: type=cdrom, path=D:, status=inserted
+#ata0-slave: type=cdrom, path=/dev/cdrom, status=inserted
+#ata0-slave: type=cdrom, path="drive", status=inserted
+#ata0-slave: type=cdrom, path=/dev/rcd0d, status=inserted 
+#=======================================================================
+# BOOT:
+#boot: disk
+#boot: floppy
+boot: cdrom
+#boot: cdrom, disk
+#boot: network, disk
+#boot: cdrom, floppy, disk
+#=======================================================================
+# CLOCK:
+# Example:
+#   clock: sync=none,     time0=local       # Now (localtime)
+#   clock: sync=slowdown, time0=315529200   # Tue Jan  1 00:00:00 1980
+#   clock: sync=none,     time0=631148400   # Mon Jan  1 00:00:00 1990
+#   clock: sync=realtime, time0=938581955   # Wed Sep 29 07:12:35 1999
+#   clock: sync=realtime, time0=946681200   # Sat Jan  1 00:00:00 2000
+#   clock: sync=none,     time0=1           # Now (localtime)
+#   clock: sync=none,     time0=utc         # Now (utc/gmt)
+# Default value are sync=none, time0=local
+clock: sync=none, time0=local
+#=======================================================================
+# FLOPPY_BOOTSIG_CHECK: disabled=[0|1]
+floppy_bootsig_check: disabled=0
+#=======================================================================
+# LOG:
+log: /dev/null
+#log: bochsout.txt
+#=======================================================================
+# LOGPREFIX:
+#logprefix: %t%e%d
+#=======================================================================
+# LOG CONTROLS
+#panic: action=report
+#error: action=report
+#info: action=report
+#debug: action=report
+#pass: action=report
+#=======================================================================
+# DEBUGGER_LOG:
+#debugger_log: /dev/null
+#debugger_log: /mmc/mmca/bosch/debugger.out
+#debugger_log: -
+#=======================================================================
+# COM1, COM2, COM3, COM4:
+#com1: enabled=1, mode=term, dev=/dev/ttyp9
+#=======================================================================
+# PARPORT1, PARPORT2:
+#   parport1: enabled=1, file="parport.out"
+#   parport2: enabled=1, file="/dev/lp0"
+#   parport1: enabled=0
+#parport1: enabled=1, file="parport.out"
+#=======================================================================
+# SB16:
+# Examples for output devices:
+#1sb161: midimode=1, midi="", wavemode=alsa, wave=""           # win32
+sb16: midimode=1, midi=alsa:128:0, wavemode=alsa, wave=alsa # Linux with ALSA
+#3sb163: midimode=1, midi=/dev/midi00, wavemode=alsa, wave=/dev/dsp, loglevel=2, log=sb16.log, dmatimer=600000
+#=======================================================================
+# VGA_UPDATE_INTERVAL:
+vga_update_interval: 500000
+#=======================================================================
+# KEYBOARD_SERIAL_DELAY:
+keyboard_serial_delay: 250
+#=======================================================================
+# KEYBOARD_PASTE_DELAY:
+keyboard_paste_delay: 100000
+#=======================================================================
+# MOUSE:
+#   mouse: enabled=1
+# mouse: enabled=1, type=imps2
+#   mouse: enabled=1, type=serial
+#   mouse: enabled=0
+mouse: enabled=0
+#=======================================================================
+private_colormap: enabled=0
+#=======================================================================
+# ne2k: NE2000 compatible ethernet adapter
+# Examples:
+# ne2k: ioaddr=IOADDR, irq=IRQ, mac=MACADDR, ethmod=MODULE, ethdev=DEVICE, script=SCRIPT
+# ne2k: ioaddr=0x300, irq=9, mac=fe:fd:00:00:00:01, ethmod=fbsd, ethdev=en0 #macosx
+# ne2k: ioaddr=0x300, irq=9, mac=b0:c4:20:00:00:00, ethmod=fbsd, ethdev=xl0
+#ne2k: ioaddr=0x300, irq=3, mac=b0:c4:20:00:00:00, ethmod=linux, ethdev=usbl0
+# ne2k: ioaddr=0x300, irq=9, mac=b0:c4:20:00:00:01, ethmod=win32, ethdev=MYCARD
+# ne2k: ioaddr=0x300, irq=9, mac=fe:fd:00:00:00:01, ethmod=tap, ethdev=tap0
+# ne2k: ioaddr=0x300, irq=9, mac=fe:fd:00:00:00:01, ethmod=tuntap, ethdev=/dev/net/tun0, script=./tunconfig
+# ne2k: ioaddr=0x300, irq=9, mac=b0:c4:20:00:00:01, ethmod=null, ethdev=eth0
+#ne2k: ioaddr=0x300, irq=9, mac=b0:c4:20:00:00:01, ethmod=vde, ethdev="/tmp/vde.ctl"
+#ne2k: ioaddr=0x300, irq=3, mac=b0:c4:20:00:00:01, ethmod=vnet, ethdev="/mmc/mmca1"
+#=======================================================================
+# pnic: Bochs/Etherboot pseudo-NIC
+# pnic: enabled=1, mac=MACADDR, ethmod=MODULE, ethdev=DEVICE, script=SCRIPT
+#pnic: enabled=1, mac=b0:c4:20:00:00:00, ethmod=vnet
+#=======================================================================
+# KEYBOARD_MAPPING:
+keyboard_mapping: enabled=0, map=
+#=======================================================================
+# KEYBOARD_TYPE:
+#keyboard_type: mf
+#=======================================================================
+# USER_SHORTCUT:
+# Valid key names:
+# "alt", "bksl", "bksp", "ctrl", "del", "down", "end", "enter", "esc",
+# "f1", ... "f12", "home", "ins", "left", "menu", "minus", "pgdwn", "pgup",
+# "plus", "right", "shift", "space", "tab", "up", "win", "print" and "power".
+#user_shortcut: keys=ctrl-alt-del
+#=======================================================================
+# I440FXSUPPORT:
+#   i440fxsupport: enabled=1, slot1=pcivga, slot2=ne2k
+i440fxsupport: enabled=1
+#=======================================================================
+# USB_UHCI:
+#usb_uhci: enabled=1
+#usb_uhci: enabled=1, port1=mouse, port2=disk:usbdisk.img
+#usb_uhci: enabled=1, port1=hub:7, port2=cdrom:image.iso
+#=======================================================================
+# USB_OHCI:
+#usb_ohci: enabled=1
+#=======================================================================
+# CMOSIMAGE:
+#cmosimage: file=cmos.img, rtc_init=time0
+#=======================================================================
+# MAGIC_BREAK:
+#magic_break: enabled=1
+#=======================================================================
+# PORT_E9_HACK:
+#port_e9_hack: enabled=1
+#=======================================================================
+# DEBUG_SYMBOLS:
+#   debug_symbols: file="kernel.sym"
+#   debug_symbols: file="kernel.sym", offset=0x80000000
+#debug_symbols: file="kernel.sym"
+#=======================================================================
+# other stuff
+#load32bitOSImage: os=nullkernel, path=../kernel.img, iolog=../vga_io.log
+#load32bitOSImage: os=linux, path=../linux.img, iolog=../vga_io.log, initrd=../initrd.img
+#text_snapshot_check: enabled=1
+#print_timestamps: enabled=1
+#-------------------------
+# PCI host device mapping
+#-------------------------
+#pcidev: vendor=0x1234, device=0x5678
+#=======================================================================
+# GDBSTUB:
+# Enable GDB stub. See user documentation for details.
+# Default value is enabled=0.
+#gdbstub: enabled=0, port=1234, text_base=0, data_base=0, bss_base=0
+#=======================================================================
+# PLUGIN_CTRL:
+#plugin_ctrl: biosdev=0, speaker=0
+#=======================================================================
+# USER_PLUGIN:
+#user_plugin: name=testdev
+

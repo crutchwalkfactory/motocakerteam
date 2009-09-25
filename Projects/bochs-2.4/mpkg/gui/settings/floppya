@@ -1,0 +1,89 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+if [ ! -d /mmc/mmca1/bochsimg ]
+then
+  mkdir /mmc/mmca1/bochsimg
+fi
+
+
+showRadio "Floppy a" "Selecciona:" "Elegir Imagen" "Botear/No Botear"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	Boot=`readconfig $DIR/database "FLOPPYA" "n6b"`
+	if [ $Boot = "boot" ]
+	 then
+	 	Current=`readconfig $DIR/database "FLOPPYA" "n6"`
+		File=`showFilePickerExt ".IMG" "/mmc/mmca1/bochsimg"`
+		if [ "$File" = "0" ]
+		 then
+		 exit
+		else
+		 IMG=`basename $File`
+		 if [ $Current = $File  ]
+		  then
+			 showNotify "Info:" "Valor cambiado" 1 1 &
+		 else
+			 VARIABLE="image=$Current"
+			 NUEVO="image=$IMG"
+			 changer_do
+			 setconfig $DIR/database n6 "$IMG" FLOPPYA
+			 setconfig $DIR/settings.cfg Option1b "-> $IMG" LIST3
+			 showNotify "Info:" "Valor cambiado" 1 1 &
+		 fi
+		fi
+	else
+		showNotify "Info:" "Cambie a Botear" 1 1 &	
+	fi
+elif [ $RADIOS -eq 2 ]
+ then
+ 	showRadio "Floppy a" "Selecciona:" "Botear" "No Botear"
+	RADIOS=$?
+	if [ $RADIOS -eq 0 ]
+	 then 
+	 exit
+	elif [ $RADIOS -eq 1 ]
+	 then
+		Boot=`readconfig $DIR/database "FLOPPYA" "n6b"`
+		if [ $Boot = "boot" ]
+		 then
+			showNotify "Info:" "Valor cambiado" 1 1 &
+		else
+			Current=`readconfig $DIR/database "FLOPPYA" "n6"`	
+			VARIABLE="#floppya: image"
+			NUEVO="floppya: image"
+			changer_do
+			setconfig $DIR/database n6b "boot" FLOPPYA
+			setconfig $DIR/settings.cfg Option1b "-> $Current" LIST3
+			showNotify "Info:" "Valor cambiado" 1 1 &
+		fi
+	elif [ $RADIOS -eq 2 ]
+	 then
+		Boot=`readconfig $DIR/database "FLOPPYA" "n6b"`
+		if [ $Boot = "noboot" ]
+		 then
+		 	showNotify "Info:" "Valor cambiado" 1 1 &
+		else
+			VARIABLE="floppya: image"
+			NUEVO="#floppya: image"
+			changer_do
+			setconfig $DIR/database n6b "noboot" FLOPPYA
+			setconfig $DIR/settings.cfg Option1b "-> No Botear" LIST3
+			showNotify "Info:" "Valor cambiado" 1 1 &
+		fi
+	fi
+fi

@@ -1,0 +1,89 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+showRadio "Wavemode" "Selecciona:" "ALSA" "SDL" "None"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	Current=`readconfig $DIR/database "WAVEMODE" "n9"`
+	if [ $Current = "ALSA" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "SDL" ]
+	 then
+		VARIABLE="wavemode=sdl"
+		NUEVO="wavemode=alsa"
+		changer_do
+		setconfig $DIR/database n9 "ALSA" WAVEMODE
+		setconfig $DIR/settings.cfg Option2b "-> ALSA" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "None" ]
+	 then
+		VARIABLE="wavemode=none"
+		NUEVO="wavemode=alsa"
+		changer_do
+		setconfig $DIR/database n9 "ALSA" WAVEMODE
+		setconfig $DIR/settings.cfg Option2b "-> ALSA" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 2 ]
+ then
+	Current=`readconfig $DIR/database "WAVEMODE" "n9"`
+	if [ $Current = "SDL" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "ALSA" ]
+	 then
+		VARIABLE="wavemode=alsa"
+		NUEVO="wavemode=sdl"
+		changer_do
+		setconfig $DIR/database n9 "SDL" WAVEMODE
+		setconfig $DIR/settings.cfg Option2b "-> SDL" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "None" ]
+	 then
+		VARIABLE="wavemode=none"
+		NUEVO="wavemode=sdl"
+		changer_do
+		setconfig $DIR/database n9 "SDL" WAVEMODE
+		setconfig $DIR/settings.cfg Option2b "-> SDL" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+elif [ $RADIOS -eq 3 ]
+ then
+	Current=`readconfig $DIR/database "WAVEMODE" "n9"`
+	if [ $Current = "None" ]
+	 then 
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "ALSA" ]
+	 then
+		VARIABLE="wavemode=alsa"
+		NUEVO="wavemode=none"
+		changer_do
+		setconfig $DIR/database n9 "None" WAVEMODE
+		setconfig $DIR/settings.cfg Option2b "-> None" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	elif [ $Current = "SDL" ]
+	 then
+		VARIABLE="wavemode=sdl"
+		NUEVO="wavemode=none"
+		changer_do
+		setconfig $DIR/database n9 "None" WAVEMODE
+		setconfig $DIR/settings.cfg Option2b "-> None" LIST4
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	fi
+fi
