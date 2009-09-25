@@ -1,0 +1,2 @@
+./configure --cross-prefix=/arm-eabi/arm-linux-gnueabi/bin/ --cc=arm-linux-gcc --disable-kqemu --kerneldir=/arm-eabi/44/hardhat/linux-2.6.x/include  --disable-darwin-user --target-list=i386-softmmu,arm-softmmu,ppc-softmmu  --audio-drv-list=sdl --audio-card-list=sb16 --disable-bluez --disable-curses --disable-bsd-user --disable-aio --disable-blobs
+make
