@@ -1,0 +1,49 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+if [ ! -d /mmc/mmca1/bochsimg ]
+then
+  mkdir /mmc/mmca1/bochsimg
+fi
+
+
+showRadio "ATA 0 Slave/ CD" "Selecciona:" "Elegir Imagen" "Cancelar"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	Current=`readconfig $DIR/database "ATASLAVE" "n8"`
+	File=`showFilePickerExt "Imagen de CD" "/mmc/mmca1/bochsimg"`
+	if [ "$File" = "0" ]
+	 then
+	 exit
+	else
+	 ISO=`basename $File`
+	 if [ $Current = $ISO  ]
+	  then
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 else
+		VARIABLE="path=\"$Current"\"
+		NUEVO="path=\"$ISO"\"
+		changer_do
+		setconfig $DIR/database n8 "$ISO" ATASLAVE
+		setconfig $DIR/settings.cfg Option3b "-> $ISO" LIST3
+		showNotify "Info:" "Valor cambiado" 1 1 &
+	 fi
+	fi
+elif [ $RADIOS -eq 2 ]
+ then
+ exit
+fi

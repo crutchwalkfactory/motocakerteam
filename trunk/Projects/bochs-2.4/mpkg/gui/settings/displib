@@ -1,0 +1,89 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+
+showRadio "Display Library" "Selecciona:" "X" "RFB" "SDL" "Term"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	VARIABLE="#display_library"
+	NUEVO="display_library"
+	changer_do
+	VARIABLE="display_library: rfb"
+	NUEVO="#display_library: rfb"
+	changer_do
+	VARIABLE="display_library: sdl"
+	NUEVO="#display_library: sdl"
+	changer_do
+	VARIABLE="display_library: term"
+	NUEVO="#display_library: term"
+	changer_do
+	setconfig $DIR/database n1 "X" DISPLIB
+	setconfig $DIR/settings.cfg Option1b "-> X" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 2 ]
+ then
+ 	VARIABLE="#display_library"
+	NUEVO="display_library"
+	changer_do
+	VARIABLE="display_library: x"
+	NUEVO="#display_library: x"
+	changer_do
+	VARIABLE="display_library: sdl"
+	NUEVO="#display_library: sdl"
+	changer_do
+	VARIABLE="display_library: term"
+	NUEVO="#display_library: term"
+	changer_do
+	setconfig $DIR/database n1 "RFB" DISPLIB
+	setconfig $DIR/settings.cfg Option1b "-> RFB" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 3 ]
+ then
+ 	VARIABLE="#display_library"
+	NUEVO="display_library"
+	changer_do
+	VARIABLE="display_library: rfb"
+	NUEVO="#display_library: rfb"
+	changer_do
+	VARIABLE="display_library: x"
+	NUEVO="#display_library: x"
+	changer_do
+	VARIABLE="display_library: term"
+	NUEVO="#display_library: term"
+	changer_do
+	setconfig $DIR/database n1 "SDL" DISPLIB
+	setconfig $DIR/settings.cfg Option1b "-> SDL" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 4 ]
+ then
+ 	VARIABLE="#display_library"
+	NUEVO="display_library"
+	changer_do
+	VARIABLE="display_library: rfb"
+	NUEVO="#display_library: rfb"
+	changer_do
+	VARIABLE="display_library: x"
+	NUEVO="#display_library: x"
+	changer_do
+	VARIABLE="display_library: sdl"
+	NUEVO="#display_library: sdl"
+	changer_do
+	setconfig $DIR/database n1 "Term" DISPLIB
+	setconfig $DIR/settings.cfg Option1b "-> Term" LIST2
+	showNotify "Info:" "Valor cambiado" 1 1 &
+fi

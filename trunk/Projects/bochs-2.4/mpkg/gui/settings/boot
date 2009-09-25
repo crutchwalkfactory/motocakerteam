@@ -1,0 +1,105 @@
+#!/bin/sh
+. /ezxlocal/LinXtend/etc/initenv
+DIR=/mmc/mmca1/.system/QTDownLoad/Bochs
+bochsrc=$DIR/.bochsrc
+
+changer_do()
+{	OPCION=`sed "s/$VARIABLE/$NUEVO/" $bochsrc`
+cp $DIR/blanco $DIR/temp
+echo "$OPCION" >> $DIR/temp
+rm -r $bochsrc
+mv $DIR/temp $DIR/.bochsrc
+}
+
+
+
+showRadio "Boot" "Selecciona:" "Disk" "Floppy" "CDrom" "CDrom, Disk" "Network, Disk" "CDrom, Floppy, Disk"
+RADIOS=$?
+if [ $RADIOS -eq 0 ]
+ then 
+ exit
+elif [ $RADIOS -eq 1 ]
+ then
+	VARIABLE="#boot:"
+	NUEVO="boot:"
+	changer_do
+	VARIABLE="boot:"
+	NUEVO="#boot:"
+	changer_do
+	VARIABLE="#boot: disk"
+	NUEVO="boot: disk"
+	changer_do
+	setconfig $DIR/database n5 "Disk" BOOT
+	setconfig $DIR/settings.cfg Option2b "-> Disk" LIST1
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 2 ]
+ then
+ 	VARIABLE="#boot:"
+	NUEVO="boot:"
+	changer_do
+	VARIABLE="boot:"
+	NUEVO="#boot:"
+	changer_do
+	VARIABLE="#boot: floppy"
+	NUEVO="boot: floppy"
+	changer_do
+	setconfig $DIR/database n5 "Floppy" BOOT
+	setconfig $DIR/settings.cfg Option2b "-> Floppy" LIST1
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 3 ]
+ then
+	VARIABLE="#boot:"
+	NUEVO="boot:"
+	changer_do
+	VARIABLE="boot:"
+	NUEVO="#boot:"
+	changer_do
+	VARIABLE="#boot: cdrom"
+	NUEVO="boot: cdrom"
+	changer_do
+	setconfig $DIR/database n5 "CDrom" BOOT
+	setconfig $DIR/settings.cfg Option2b "-> CDrom" LIST1
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 4 ]
+ then
+	VARIABLE="#boot:"
+	NUEVO="boot:"
+	changer_do
+	VARIABLE="boot:"
+	NUEVO="#boot:"
+	changer_do
+	VARIABLE="#boot: cdrom, disk"
+	NUEVO="boot: cdrom, disk"
+	changer_do
+	setconfig $DIR/database n5 "CDrom, Disk" BOOT
+	setconfig $DIR/settings.cfg Option2b "-> CDrom, Disk" LIST1
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 5 ]
+ then
+	VARIABLE="#boot:"
+	NUEVO="boot:"
+	changer_do
+	VARIABLE="boot:"
+	NUEVO="#boot:"
+	changer_do
+	VARIABLE="#boot: network, disk"
+	NUEVO="boot: network, disk"
+	changer_do
+	setconfig $DIR/database n5 "Network, Disk" BOOT
+	setconfig $DIR/settings.cfg Option2b "-> Network, Disk" LIST1
+	showNotify "Info:" "Valor cambiado" 1 1 &
+elif [ $RADIOS -eq 6 ]
+ then
+	VARIABLE="#boot:"
+	NUEVO="boot:"
+	changer_do
+	VARIABLE="boot:"
+	NUEVO="#boot:"
+	changer_do
+	VARIABLE="#boot: cdrom, floppy, disk"
+	NUEVO="boot: cdrom, floppy, disk"
+	changer_do
+	setconfig $DIR/database n5 "CDrom, Floppy, Disk" BOOT
+	setconfig $DIR/settings.cfg Option2b "-> CDrom, Floppy, Disk" LIST1
+	showNotify "Info:" "Valor cambiado" 1 1 &
+fi
