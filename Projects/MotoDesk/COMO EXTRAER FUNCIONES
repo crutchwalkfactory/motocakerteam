@@ -1,0 +1,1 @@
+/arm-eabi/bin/arm-linux-gnueabi-nm libezxam.so -agDC --format=systemv | grep 'FUNC' | cut --delimiter='|' -f 1 | sort > funciones_libezxam
